@@ -4,6 +4,9 @@ import { MessageSquare, X, Send, Sparkles } from 'lucide-react';
 import { ChatMessage } from '../types';
 import { useI18n } from '../services/i18n';
 
+const ASSISTANT_API_URL =
+  import.meta.env.VITE_ASSISTANT_API_URL || '/api/assistant';
+
 export const AIChat: React.FC = () => {
   const { t, language } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
@@ -80,7 +83,7 @@ export const AIChat: React.FC = () => {
     setIsTyping(true);
 
     try {
-      const response = await fetch('http://127.0.0.1:8001/api/assistant', {
+      const response = await fetch(ASSISTANT_API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
