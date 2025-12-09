@@ -19,7 +19,7 @@ export const PROJECTS: Project[] = [
       result: "The redesign significantly improved user confidence and reduced ambiguity in day‑to‑day financial actions. Support questions dropped due to clearer card delivery states, predictable financial states, and simplified onboarding. Users understood their next payments faster, navigated the app with less friction, and interacted with features more consistently across dark and light modes. The new structure strengthened trust — the most valuable currency in fintech."
     },
     tags: ["Fintech", "Application Design", "UX/UI"],
-    image: "public/images/projects/placet-app-cover.jpg", 
+    image: "/images/projects/placet-app-cover.jpg", 
     gallery: [
        "https://picsum.photos/800/600?random=1",
        "https://picsum.photos/800/600?random=2"
