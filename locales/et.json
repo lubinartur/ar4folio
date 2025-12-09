@@ -1,0 +1,230 @@
+{
+  "nav": {
+    "home": "Avaleht",
+    "experience": "Kogemus",
+    "services": "Teenused",
+    "projects": "Projektid",
+    "skills": "Oskused",
+    "contact": "Kontakt",
+    "cv": "CV",
+    "menu": "Menüü",
+    "available": "Saadaval",
+    "availableForWork": "Saadaval tööks"
+  },
+
+  "header": {
+    "availableLong": "Saadaval tööks",
+    "availableShort": "Saadaval",
+    "cv": "CV",
+    "menu": "Menüü",
+    "close": "Sulge"
+  },
+
+  "menu": {
+    "home": { "name": "Avaleht", "desc": "Alusta siit" },
+    "experience": { "name": "Kogemus", "desc": "Minu teekond" },
+    "services": { "name": "Teenused", "desc": "Mida ma teen" },
+    "portfolio": { "name": "Portfoolio", "desc": "Valitud tööd" },
+    "skills": { "name": "Oskused", "desc": "Kompetentsid" },
+    "contact": { "name": "Kontakt", "desc": "Võta ühendust" },
+    "downloadCv": "Laadi alla CV"
+  },
+
+  "hero": {
+    "name": "Artur Lubin",
+    "title": "Olen Product & UX disainer üle 9-aastase kogemusega, luues struktureeritud, intuitiivseid ja emotsionaalselt nutikaid digitaalseid süsteeme.",
+    "subtitle": "Fookus: finantsteenuste kasutajaliidesed – liitumisvood, juhtpaneelid, protsessid ja otsustamist toetavad tööriistad.",
+    "badgeExperience": "9+ aastat",
+    "tagline": "UX/UI & Product Designer",
+    "role": "Fintech Product Designer",
+    "location": "Tallinn, Eesti",
+    "expertiseTitle": "EKSPERTIIS",
+    "expertiseDescription": "Finantstoodete disain ja UX-arhitektuur",
+    "specializationTitle": "SPETSIALISEERUMINE",
+    "specializationDescription": "Keerulised kasutajavood, töölauad, laenukalkulaatorid, disainisüsteemid",
+    "locationLabel": "ASUKOHT",
+    "locationValue": "Tallinn, Eesti",
+    "primaryCta": "Võta ühendust",
+    "secondaryCta": "Vaata LinkedIni profiili",
+    "downloadCv": "Laadi alla klassikaline CV (PDF)"
+  },
+  "about": {
+    "heroStatement": "Olen Product & UX disainer üle 9-aastase kogemusega, luues struktureeritud, intuitiivseid ja emotsionaalselt nutikaid digitaalseid süsteeme.",
+    "shortSpecialization": "Spetsialiseerun finantsteenuste kasutajaliidestele: liitumisvood, juhtpaneelid, protsessid ja otsustamist toetavad tööriistad.",
+    "experienceTitle": "Kogemus",
+    "experienceDescription": "Professionaalse arengu ja tehnilise kasvu ajajoon.",
+    "servicesTitle": "Teenused",
+    "downloadCv": "Laadi alla klassikaline CV (PDF)",
+    "viewLinkedIn": "Vaata LinkedIni profiili"
+  },
+  "experience": {
+    "placet": {
+      "role": "Senior UX/UI ja tootedisainer, graafiline disainer",
+      "period": "2016 — tänaseni",
+      "item1": "UX-arhitektuur finantssüsteemidele",
+      "item2": "Täieliku disainisüsteemi loomine",
+      "item3": "Laenukalkulaatorid, juhtpaneelid, liitumisvood",
+      "item4": "Kasutajavoogude selguse parandamine",
+      "item5": "Mobiili- ja veebiliidesed",
+      "item6": "Visuaalne identiteet, turundusmaterjalid, brändi varad, digi- ja trükidisain"
+    },
+    "air4": {
+      "role": "Looja ja tootedisainer",
+      "period": "2023 — tänaseni",
+      "item1": "Kohaliku AI-assistendi kontseptsioon ja arhitektuur",
+      "item2": "UX struktureeritud pikaajalise mälu ja otsingu jaoks",
+      "item3": "Tume premium vestlus- ja juhtpaneeli liideste disain",
+      "item4": "Integratsioonid tööriistade, dokumentide ja töövoogudega"
+    },
+    "krauta": {
+      "role": "Digidisainer",
+      "description": "Loonud digikampaaniaid, bännereid ja turundusvisuaale Facebooki/Google Adsi jaoks. Valmistas materjale e-posti turunduseks."
+    },
+    "kaup24": {
+      "role": "Disainer",
+      "description": "Disainer ühes Eesti suurimas e-kaubanduse ettevõttes. Igapäevane töö kampaaniate, bännerite, visuaalide ja tootekategooriate haldamisega."
+    }
+  },
+  "summary": {
+    "experienceTitle": "Kogemus",
+    "experienceLead": "Professionaalse arengu ja tehnilise kasvu ajajoon.",
+    "experienceColumnTitle": "Üldine kogemus",
+    "experienceSummary": "Üle 9 aasta UX/UI, toote- ja graafilises disainis.",
+    "coreSkillsTitle": "Põhioskused",
+    "toolsTitle": "Tööriistad",
+    "languagesTitle": "Keeled",
+    "langRu": "Vene keel — emakeel / professionaalne tase.",
+    "langEn": "Inglise keel — professionaalne töökeel.",
+    "langEt": "Eesti keel — baas / suhtlustase."
+  },
+
+  "services": {
+    "sectionTitle": "Teenused",
+    "sectionSubtitle": "Mida ma teen",
+    "serviceProduct": "Toote- ja UX-disain",
+    "serviceProductDesc": "Kasutajateekonnad, wireframe’id, prototüübid ja UX-loogika keerukatele finantstoodetele.",
+    "serviceInterface": "Liidesed ja disainisüsteemid",
+    "serviceInterfaceDesc": "Komponendid, tokenid, mustrid ja ühtne visuaalne keel mitmele brändile.",
+    "serviceDashboards": "Juhtpaneelid ja analüütika",
+    "serviceDashboardsDesc": "Selged ja andmepõhised liidesed finantsotsuste tegemiseks.",
+    "serviceBrand": "Brändi- ja visuaalne tugi",
+    "serviceBrandDesc": "Landing-lehed, kampaaniad, bännerid ja trükimaterjalid kooskõlas tootega.",
+    "uxui": {
+      "title": "UX/UI-disain",
+      "description": "Liidesed, mis muudavad keerulised kasutajavood selgeks ja intuitiivseks."
+    },
+    "product": {
+      "title": "Tootedisain",
+      "description": "Tootelogika, prototüüpimine, testimine ja täiendamine."
+    },
+    "fintech": {
+      "title": "Fintech-süsteemid",
+      "description": "Juhtpaneelid, kalkulaatorid, krediidiloogika ja andmepõhised protsessid."
+    },
+    "branding": {
+      "title": "Bränding ja identiteet",
+      "description": "Logosüsteemid, tüpograafia ja visuaalsed kontseptsioonid."
+    },
+    "optimization": {
+      "title": "Liidese optimeerimine",
+      "description": "Selguse, kasutusmugavuse ja konversiooni parandamine."
+    }
+  },
+
+  "projects": {
+    "sectionKicker": "Valitud tööd",
+    "sectionTitle": "Valitud projektid",
+    "placetAppTitle": "Placet Group — rakenduse disain",
+    "placetAppTagline": "Krediidirakenduse UX/UI",
+    "placetAppSummary": "Fintech-ökosüsteemi rakenduse disain, keskendudes selgele liitumisele, konversioonile ja skaleeritavatele UX-mustritele.",
+    "paskolosTitle": "Paskolos.lt — laenuplatvorm",
+    "paskolosTagline": "Krediidilimiidi UX ja kalkulaatorid",
+    "paskolosSummary": "Veebi- ja mobiilikogemus 0% krediidilimiidi tooteks: kangialune plokk, kalkulaator, selgitused ja soovitatud toodete ruudustik.",
+    "selfServiceTitle": "Placet Group — ühine iseteenindus",
+    "selfServiceTagline": "Konto ja krediitide haldamise portaal",
+    "selfServiceSummary": "Ühine iseteeninduskeskkond mitmele brändile – konto, maksed, tehingud ja teavitused ühes liideses.",
+    "placet": {
+      "title": "Placet Group — Rakenduse disain",
+      "role": "Rakenduse UX/UI disain",
+      "description": "Finantstehnoloogia ökosüsteemi terviklik disain, keskendudes selgusele, konversioonile ja skaleeritavatele UX‑mustritele.",
+      "cta": "Vaata projekti"
+    },
+    "paskolos": {
+      "title": "Paskolos.lt — Laenuportaal",
+      "role": "Laenuportaali UX/UI ümberdisain",
+      "description": "Mobiilne ümberdisain Leedu turule: selgem laenude avastamine, võrdlemine ja kindlam taotluse alustamine.",
+      "cta": "Vaata projekti"
+    },
+    "placetSelfservice": {
+      "title": "Placet Group — Ühtne iseteenindusportaal",
+      "role": "Mitme brändi iseteeninduse UX/UI disain",
+      "description": "Kõigi Placet Groupi brändide ühine konto ühtse sisselogimise, toodete ja maksete haldusega.",
+      "cta": "Vaata projekti"
+    },
+    "clickHint": "VAATA CASE STUDY’T",
+    "viewCaseStudy": "Vaata projekti"
+  },
+
+  "experienceTimeline": {
+    "placetTitle": "Placet Group OÜ",
+    "placetRole": "Senior UX/UI & Product Designer, graafiline disainer",
+    "placetPeriod": "2016 — tänaseni",
+    "placetPoint1": "Finantssüsteemide UX-arhitektuur.",
+    "placetPoint2": "Laenukalkulaatorid, juhtpaneelid, liitumisvood.",
+    "placetPoint3": "Mobiili- ja veebi­liidesed.",
+    "placetPoint4": "Täieliku disainisüsteemi loomine.",
+    "placetPoint5": "Visuaalne identiteet, turundusmaterjalid, digi ja trükk.",
+    "air4Title": "AIR4 / AIRCH",
+    "air4Role": "Looja ja tootearendaja",
+    "air4Period": "2023 — tänaseni",
+    "air4Point1": "Lokaalse AI-assistendi kontseptsioon ja arhitektuur.",
+    "air4Point2": "Tume premium-vestluse ja juhtpaneeli liidesed.",
+    "air4Point3": "UX struktureeritud pikaajalise mälu ja otsingu jaoks.",
+    "air4Point4": "Integratsioonid tööriistade, dokumentide ja töövoogudega."
+  },
+
+  "skills": {
+    "sectionTitle": "Oskused",
+    "ux": "Fintech UX: liitumisvood, laenuvood, juhtpaneelid, krediiditooted.",
+    "product": "Tootedisain: struktureeritud kasutajavoog, süsteemne mõtlemine, andmepõhine lähenemine.",
+    "systems": "Disainisüsteemid: komponendid, tokenid, juhised, mitme brändi tugi.",
+    "tools": "Figma, Adobe Photoshop, Illustrator, InDesign, prototüüpimine.",
+    "devCollab": "Tihe koostöö arendajate ja osapooltega."
+  },
+
+  "contact": {
+    "heroTitle": "Teeme midagi tõeliselt mõtestatut.",
+    "subtitle": "Avatud koostööks UX/UI ja tootedisaini projektides. Eriti huvitavad ambitsioonikad finantstehnoloogia lahendused.",
+    "cta": "Võta ühendust",
+    "linkedin": "LinkedIn",
+    "email": "Email",
+    "footerInfo": "© 2025 Artur Lubin — Product & UX Designer"
+  },
+
+  "chat": {
+    "welcome": "Tere! Olen sinu portfoolio assistent. Võin rääkida finantstehnoloogia kogemusest, projektidest või disainiprotsessist. Kuidas saan aidata?",
+    "placeholder": "Esita küsimus...",
+    "openHint": "Küsi assistendilt",
+    "error": "Serveriga ühenduse loomine ebaõnnestus. Proovige hiljem uuesti.",
+    "q1": "Mis on sinu fintechi kogemus?",
+    "q2": "Räägi mulle Placet Groupist.",
+    "q3": "Mis on sinu disainitehnoloogiad?",
+    "q4": "Kuidas lähened laenu-UX disainile?"
+  },
+
+  "assistant": {
+    "title": "Assistant",
+    "powered": "AI-põhine abiline",
+    "placeholder": "Esita küsimus…",
+    "quick1": "Milline on sinu fintechi kogemus?",
+    "quick2": "Räägi Placet Groupi projektidest.",
+    "quick3": "Kuidas lähened laenu-UX-ile?",
+    "quick4": "Milliseid tööriistu kasutad?"
+  },
+
+  "languages": {
+  "en": "Inglise",
+  "ru": "Vene",
+  "et": "Eesti"
+}
+}

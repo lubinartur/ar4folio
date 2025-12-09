@@ -1,0 +1,215 @@
+{
+  "nav": {
+    "home": "Home",
+    "experience": "Experience",
+    "services": "Services",
+    "projects": "Portfolio",
+    "skills": "Skills",
+    "contact": "Contact",
+    "cv": "CV",
+    "menu": "Menu",
+    "available": "Available",
+    "availableForWork": "Available for work"
+  },
+
+  "header": {
+    "availableLong": "Available for work",
+    "availableShort": "Available",
+    "cv": "CV",
+    "menu": "Menu",
+    "close": "Close"
+  },
+
+  "menu": {
+    "home": { "name": "Home", "desc": "Start Here" },
+    "experience": { "name": "Experience", "desc": "My Journey" },
+    "services": { "name": "Services", "desc": "What I Do" },
+    "portfolio": { "name": "Portfolio", "desc": "Selected Work" },
+    "skills": { "name": "Skills", "desc": "Competencies" },
+    "contact": { "name": "Contact", "desc": "Get in Touch" },
+    "downloadCv": "Download CV"
+  },
+
+  "hero": {
+    "name": "Artur Lubin",
+    "title": "I’m a Product & UX Designer with 9+ years of experience building structured, intuitive, and emotionally intelligent digital systems.",
+    "subtitle": "Specializing in fintech interfaces: onboarding, dashboards, flows, and decision-making tools.",
+    "badgeExperience": "9+ years",
+    "tagline": "UX/UI & Product Designer",
+    "role": "Fintech Product Designer",
+    "location": "Tallinn, Estonia",
+    "expertiseTitle": "EXPERTISE",
+    "expertiseDescription": "Fintech Product Design & UX Architecture",
+    "specializationTitle": "SPECIALIZATION",
+    "specializationDescription": "Complex User Flows, Dashboards, Loan Calculators, Design Systems",
+    "locationLabel": "LOCATION",
+    "locationValue": "Tallinn, Estonia",
+    "primaryCta": "Contact me",
+    "secondaryCta": "View LinkedIn Profile",
+    "downloadCv": "Download Classic CV (PDF)"
+  },
+
+  "about": {
+    "heroStatement": "I’m a Product & UX Designer with 9+ years of experience creating structured, intuitive, and emotionally intelligent digital systems.",
+    "shortSpecialization": "Specializing in fintech interfaces: onboarding, dashboards, flows, and decision‑making tools.",
+    "experienceTitle": "Experience",
+    "experienceDescription": "A timeline of professional growth and technical evolution.",
+    "servicesTitle": "Services",
+    "downloadCv": "Download Classic CV (PDF)",
+    "viewLinkedIn": "View LinkedIn Profile"
+  },
+
+  "experience": {
+    "placet": {
+      "role": "Senior UX/UI & Product Designer, Graphic Designer",
+      "period": "2016 — Present",
+      "item1": "UX architecture for financial systems",
+      "item2": "Full design system creation",
+      "item3": "Loan calculators, dashboards, onboarding",
+      "item4": "Improving flow clarity",
+      "item5": "Mobile + web interfaces",
+      "item6": "Visual identity, marketing assets, brand materials, digital & print design"
+    },
+    "air4": {
+      "role": "Creator & Product Designer",
+      "period": "2023 — Present",
+      "item1": "Concept and architecture of a local AI assistant",
+      "item2": "UX for structured long-term memory and search",
+      "item3": "Design of dark premium chat and dashboard interfaces",
+      "item4": "Integrations with tools, documents, and workflows"
+    },
+    "krauta": {
+      "role": "Digital Designer",
+      "description": "Created digital campaigns, banners, and marketing visuals for Facebook/Google Ads. Prepared assets for email marketing."
+    },
+    "kaup24": {
+      "role": "Designer",
+      "description": "Designer for one of Estonia’s major e-commerce companies. Work included daily digital campaigns, banners, visual assets, and product categories management."
+    }
+  },
+
+  "summary": {
+    "experienceTitle": "Experience",
+    "experienceLead": "A timeline of professional growth and technical evolution.",
+    "experienceColumnTitle": "Experience",
+    "experienceSummary": "9+ years in UX/UI, product, and graphic design.",
+    "coreSkillsTitle": "Core skills",
+    "toolsTitle": "Tools",
+    "languagesTitle": "Languages",
+    "langRu": "Russian — Native / full professional.",
+    "langEn": "English — Professional working proficiency.",
+    "langEt": "Estonian — Basic / conversational."
+  },
+
+  "services": {
+    "sectionTitle": "Services",
+    "sectionSubtitle": "What I do",
+    "serviceProduct": "Product & UX Design",
+    "serviceProductDesc": "User journeys, wireframes, prototypes, and UX logic for complex fintech flows.",
+    "serviceInterface": "Interface & UI Systems",
+    "serviceInterfaceDesc": "Design systems, components, tokens, and scalable visual language.",
+    "serviceDashboards": "Dashboards & Analytics",
+    "serviceDashboardsDesc": "Clear, data-driven interfaces for financial decision-making.",
+    "serviceBrand": "Brand & Visual Support",
+    "serviceBrandDesc": "Landing pages, campaigns, banners, and print assets aligned with the product.",
+    "uxui": {
+      "title": "UX/UI Design",
+      "description": "Interfaces that turn complex flows into clarity and intuitive structure."
+    },
+    "product": {
+      "title": "Product Design",
+      "description": "Full product logic, prototyping, testing, refinement."
+    },
+    "fintech": {
+      "title": "Fintech Systems",
+      "description": "Dashboards, calculators, loan logic, data-driven flows."
+    },
+    "branding": {
+      "title": "Branding & Identity",
+      "description": "Logo systems, typography, visual concepts."
+    },
+    "optimization": {
+      "title": "Interface Optimization",
+      "description": "Improving clarity, usability, and conversion."
+    }
+  },
+
+  "projects": {
+    "sectionKicker": "Selected work",
+    "sectionTitle": "Featured projects",
+    "placetAppTitle": "Placet Group — Application Design",
+    "placetAppTagline": "Application UX/UI Design",
+    "placetAppSummary": "End-to-end application design for a fintech ecosystem, focusing on clarity, conversion, and scalable UX patterns.",
+    "paskolosTitle": "Paskolos.lt — Lending Platform",
+    "paskolosTagline": "Credit line product UX & calculators",
+    "paskolosSummary": "Web and mobile experience for a 0% credit line: hero, calculator, explanations, and recommended products.",
+    "selfServiceTitle": "Placet Group — Unified Self-Service",
+    "selfServiceTagline": "Account & credit management portal",
+    "selfServiceSummary": "Single self-service for multiple brands with accounts, repayments, transactions, and notifications.",
+    "placet": {
+      "title": "Placet Group — Application Design",
+      "role": "Application UX/UI Design",
+      "description": "End-to-end application design for a fintech ecosystem, focusing on clarity, conversion, and scalable UX patterns.",
+      "cta": "View case"
+    },
+    "paskolos": {
+      "title": "Paskolos.lt — Lending Portal",
+      "role": "Lending Portal UX/UI Redesign",
+      "description": "Mobile-first redesign for the Lithuanian lending market, improving loan discovery, comparison, and application confidence.",
+      "cta": "View case"
+    },
+    "placetSelfservice": {
+      "title": "Placet Group — Unified Self-Service Portal",
+      "role": "Multi-brand Self-Service UX/UI Design",
+      "description": "A single self-service account for all Placet Group brands with unified login, products, and payment flows.",
+      "cta": "View case"
+    },
+    "clickHint": "CLICK TO VIEW CASE STUDY",
+    "viewCaseStudy": "View case study"
+  },
+
+  "skills": {
+    "sectionTitle": "Skills",
+    "ux": "Fintech UX: onboarding, loan flows, dashboards, credit products.",
+    "product": "Product design: structured flows, system thinking, data-driven interfaces.",
+    "systems": "Design systems: components, tokens, guidelines, multi-brand usage.",
+    "tools": "Figma, Adobe Photoshop, Illustrator, InDesign, prototyping.",
+    "devCollab": "Close collaboration with developers and stakeholders."
+  },
+
+  "contact": {
+    "heroTitle": "Let’s work on something meaningful.",
+    "subtitle": "Available for UX/UI and product design collaborations. Open to discussing ambitious fintech projects.",
+    "cta": "Contact me",
+    "linkedin": "LinkedIn",
+    "email": "Email",
+    "footerInfo": "© 2025 Artur Lubin — Product & UX Designer"
+  },
+
+  "assistant": {
+    "title": "Assistant",
+    "powered": "AI powered",
+    "placeholder": "Ask a question...",
+    "quick1": "What is your fintech expertise?",
+    "quick2": "Tell me about Placet Group.",
+    "quick3": "How do you approach loan UX?",
+    "quick4": "What is your design stack?"
+  },
+
+  "chat": {
+    "welcome": "Hello! I'm your portfolio assistant. I can tell you about fintech expertise, case studies, or design processes. How can I help?",
+    "placeholder": "Ask a question...",
+    "openHint": "Ask Assistant",
+    "error": "I’m having trouble connecting to the server. Please try again later.",
+    "q1": "What is your fintech expertise?",
+    "q2": "Tell me about Placet Group.",
+    "q3": "What is your design stack?",
+    "q4": "How do you approach Loan UX?"
+  },
+
+  "languages": {
+  "en": "English",
+  "ru": "Russian",
+  "et": "Estonian"
+}
+}
