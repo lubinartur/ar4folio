@@ -11,13 +11,11 @@ export default async function handler(req: any, res: any) {
     return res.status(500).json({ error: 'Missing OPENAI_API_KEY on server' });
   }
 
-  try {
-    const { messages } = req.body as {
-      messages: { role: 'user' | 'model'; text: string }[];
-    };
+    try {
+    const { message } = req.body as { message?: string };
 
-    if (!messages || !Array.isArray(messages) || messages.length === 0) {
-      return res.status(400).json({ error: 'No messages provided' });
+    if (!message || typeof message !== 'string') {
+      return res.status(400).json({ error: 'No message provided' });
     }
 
     const openAiMessages = [
@@ -27,10 +25,10 @@ export default async function handler(req: any, res: any) {
           "You are a portfolio assistant for a product & UX designer. " +
           "Answer briefly and clearly, focusing on fintech expertise, case studies and design decisions.",
       },
-      ...messages.map((m) => ({
-        role: m.role === 'model' ? ('assistant' as const) : ('user' as const),
-        content: m.text,
-      })),
+      {
+        role: 'user' as const,
+        content: message,
+      },
     ];
 
     const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
