@@ -22,7 +22,7 @@ export const About: React.FC = () => {
       {/* Intro + Snapshot Section */}
       <section id="about" className="py-32 container mx-auto px-6">
         <div id="cv" className="h-0" />
-        <div className="max-w-6xl mx-auto space-y-12">
+        <div className="w-full space-y-12">
           {/* Hero Statement */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -62,16 +62,30 @@ export const About: React.FC = () => {
       </section>
 
       {/* Experience Timeline */}
-      <section className="pt-16 pb-24 md:py-32 container mx-auto px-6 border-t border-white/5">
-        <div className="grid lg:grid-cols-12 gap-16">
-          <div className="lg:col-span-4">
-            <h2 className="text-4xl font-display font-semibold mb-6">{t("about.experienceTitle")}</h2>
-            <p className="text-neutral-400">
-              {t("about.experienceDescription")}
-            </p>
-          </div>
+      <section className="py-24 md:py-32 border-t border-white/5">
+        <div className="container mx-auto px-6">
+          {/* Section header - aligned with Featured projects style */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-12 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 md:pb-10 border-b border-white/5"
+          >
+            <div className="space-y-3 max-w-3xl">
+              <span className="text-accent text-sm tracking-widest font-medium">
+                {t("about.selectedWorkLabel")}
+              </span>
+              <h2 className="text-4xl md:text-5xl font-display font-semibold text-white">
+                {t("about.experienceTitle")}
+              </h2>
+              <p className="text-neutral-400 text-base md:text-lg max-w-2xl">
+                {t("about.experienceDescription")}
+              </p>
+            </div>
+          </motion.div>
 
-          <div className="lg:col-span-8 space-y-16 relative">
+          {/* Timeline content */}
+          <div className="relative space-y-16 mt-10">
             {/* Timeline Vertical Line */}
             <div className="absolute left-[3px] top-4 bottom-4 w-[1px] bg-gradient-to-b from-accent to-transparent opacity-30 md:left-0" />
 
@@ -120,32 +134,88 @@ export const About: React.FC = () => {
       <section id="services" className="py-24 bg-[#0a0a0a]">
         <div className="container mx-auto px-6">
           <div className="mb-16 flex items-end justify-between">
-            {t("about.servicesTitle")}
+            <div className="flex flex-col space-y-2">
+              <span className="text-accent text-sm tracking-widest font-medium">
+                {t("about.selectedWorkLabel")}
+              </span>
+              <h2 className="text-4xl md:text-5xl font-display font-semibold text-white">
+                {t("about.servicesTitle")}
+              </h2>
+            </div>
             <div className="h-[1px] flex-1 bg-white/10 ml-8 mb-2 hidden md:block" />
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SERVICES.map((service, idx) => {
-              const Icon = iconMap[service.icon];
-              return (
-                <motion.div
-                  key={idx}
-                  whileHover={{ y: -5 }}
-                  className="p-8 bg-[#111] border border-white/5 hover:border-accent/30 transition-all group relative overflow-hidden"
-                >
-                  <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-                    <Icon className="w-24 h-24 text-accent" />
-                  </div>
+          {(() => {
+            const serviceCardVariants = {
+              hidden: { opacity: 0, y: 30 },
+              visible: (i: number) => ({
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 0.6,
+                  delay: i * 0.12,
+                  ease: "easeOut",
+                },
+              }),
+            };
+            return (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {SERVICES.map((service, idx) => {
+                  const Icon = iconMap[service.icon];
+                  return (
+                    <motion.div
+                      key={idx}
+                      variants={serviceCardVariants}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true, amount: 0.3 }}
+                      custom={idx}
+                      whileHover={{
+                        y: -10,
+                        scale: 1.03,
+                        boxShadow: "0 28px 80px rgba(0,0,0,0.75)",
+                        transition: { type: "spring", stiffness: 260, damping: 22 },
+                      }}
+                      className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-accent/35 via-white/5 to-transparent p-[1px]"
+                    >
+                      {/* Card body */}
+                      <div className="relative h-full rounded-2xl bg-[#101010] border border-white/5 px-7 py-8 flex flex-col justify-between overflow-hidden transition-all duration-500 group-hover:border-accent/40">
+                        {/* Soft glow on hover */}
+                        <div className="pointer-events-none absolute inset-[-40%] bg-[radial-gradient(circle_at_top_right,rgba(255,120,80,0.16),transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                  <div className="w-12 h-12 bg-white/5 rounded-sm flex items-center justify-center mb-8 group-hover:bg-accent group-hover:text-white transition-colors text-neutral-400">
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-4 font-display">{t(service.title)}</h3>
-                  <p className="text-neutral-400 leading-relaxed text-sm">{t(service.description)}</p>
-                </motion.div>
-              );
-            })}
-          </div>
+                        {/* Large background icon */}
+                        <div className="absolute -right-6 -top-6 opacity-5 group-hover:opacity-15 transition-opacity duration-500">
+                          <Icon className="w-28 h-28 text-accent" />
+                        </div>
+
+                        <div className="relative z-[1] flex flex-col gap-6">
+                          {/* Index pill + small icon */}
+                          <div className="flex items-center justify-between gap-4">
+                            <span className="inline-flex items-center rounded-full border border-white/10 px-3 py-1 text-[11px] font-mono tracking-[0.25em] uppercase text-accent/80">
+                              {String(idx + 1).padStart(2, "0")}
+                            </span>
+                            <div className="w-11 h-11 bg-white/5 rounded-md flex items-center justify-center text-neutral-400 group-hover:bg-accent group-hover:text-black transition-colors duration-300">
+                              <Icon className="w-5 h-5" />
+                            </div>
+                          </div>
+
+                          {/* Title + copy */}
+                          <div>
+                            <h3 className="text-lg md:text-xl font-display font-semibold mb-3 text-white">
+                              {t(service.title)}
+                            </h3>
+                            <p className="text-neutral-400 leading-relaxed text-sm md:text-[15px]">
+                              {t(service.description)}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            );
+          })()}
         </div>
       </section>
     </div>
