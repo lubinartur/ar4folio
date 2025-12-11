@@ -3,64 +3,8 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'fram
 import { useI18n } from "../services/i18n";
 import SplitText from "./SplitText";
 
-const TypingRole: React.FC<{ roles: string[]; suffix?: string }> = ({
-  roles,
-  suffix = "DESIGNER",
-}) => {
-  const [displayText, setDisplayText] = useState("");
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
+const ROLE_KEYS = ["hero.roles.fintech", "hero.roles.product", "hero.roles.uiux", "hero.roles.graphic"];
 
-  useEffect(() => {
-    if (!roles.length) return;
-
-    const current = roles[roleIndex % roles.length];
-    const full = current.toUpperCase();
-
-    const typingSpeed = 70;      // ms per char when typing
-    const deletingSpeed = 40;    // ms per char when deleting
-    const pauseAfterType = 1400; // pause at full word
-    const pauseAfterDelete = 350;
-
-    let timeout: number;
-
-    if (!isDeleting && displayText.length < full.length) {
-      timeout = window.setTimeout(() => {
-        setDisplayText(full.slice(0, displayText.length + 1));
-      }, typingSpeed);
-    } else if (!isDeleting && displayText.length === full.length) {
-      timeout = window.setTimeout(() => {
-        setIsDeleting(true);
-      }, pauseAfterType);
-    } else if (isDeleting && displayText.length > 0) {
-      timeout = window.setTimeout(() => {
-        setDisplayText(full.slice(0, displayText.length - 1));
-      }, deletingSpeed);
-    } else if (isDeleting && displayText.length === 0) {
-      timeout = window.setTimeout(() => {
-        setIsDeleting(false);
-        setRoleIndex((prev) => (prev + 1) % roles.length);
-      }, pauseAfterDelete);
-    }
-
-    return () => {
-      if (timeout) {
-        window.clearTimeout(timeout);
-      }
-    };
-  }, [displayText, isDeleting, roleIndex, roles]);
-
-  return (
-    <span className="inline-flex items-center justify-center gap-[0.25em] min-h-[1em]">
-      <span className="text-accent">
-        {displayText || "\u00A0"}
-      </span>
-      <span className="text-white/90">
-        {suffix}
-      </span>
-    </span>
-  );
-};
 
 export const Hero: React.FC = () => {
   const { language, t } = useI18n();
@@ -68,21 +12,17 @@ export const Hero: React.FC = () => {
   
   const name = t("hero.name");
 
-  const roles =
-    language === "ru"
-      ? ["FINTECH", "PRODUCT", "UI/UX", "GRAPHIC"]
-      : ["FINTECH", "PRODUCT", "UI/UX", "GRAPHIC"];
 
   // Split name into first and last for separate styling (e.g., "Artur Lubin")
   const nameParts = (name || "").split(" ");
-  const firstName = nameParts[0] || "";
-  const lastName = nameParts.slice(1).join(" ");
+  const firstName = (nameParts[0] || "").toUpperCase();
+  const lastName = nameParts.slice(1).join(" ").toUpperCase();
 
   // Adjust heading size per language (RU is slightly smaller to avoid overlap, with stronger spacing)
   const nameSizeClasses =
     language === "ru"
-      ? "text-[10.5vw] md:text-[12vw]"
-      : "text-[14.5vw] md:text-[15vw]";
+      ? "text-[7.5vw] md:text-[8.5vw]"
+      : "text-[9vw] md:text-[10vw]";
 
   const brands = [
     { name: "Decus",          src: "/brands/decus.svg" },
@@ -95,17 +35,57 @@ export const Hero: React.FC = () => {
     { name: "Whales Heaven",  src: "/brands/whales-heaven.svg" },
   ];
   
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [roleText, setRoleText] = useState("");
+  const [isRoleDeleting, setIsRoleDeleting] = useState(false);
+
+  useEffect(() => {
+    const translated = t(ROLE_KEYS[roleIndex]) || "";
+    const current = translated.toUpperCase();
+    let timeout: ReturnType<typeof setTimeout>;
+
+    if (!isRoleDeleting && roleText === current) {
+      // Pause a bit on fully typed word
+      timeout = setTimeout(() => {
+        setIsRoleDeleting(true);
+      }, 1400);
+    } else if (isRoleDeleting && roleText === "") {
+      // Move to next word after deleting
+      timeout = setTimeout(() => {
+        setIsRoleDeleting(false);
+        setRoleIndex((prev) => (prev + 1) % ROLE_KEYS.length);
+      }, 260);
+    } else {
+      const nextLength = roleText.length + (isRoleDeleting ? -1 : 1);
+      timeout = setTimeout(
+        () => {
+          setRoleText(current.slice(0, nextLength));
+        },
+        isRoleDeleting ? 70 : 110
+      );
+    }
+
+    return () => clearTimeout(timeout);
+  }, [roleIndex, roleText, isRoleDeleting, t]);
+  
   // Parallax effects
   // Image moves significantly slower than scroll to act as a background anchor
   const yParallax = useTransform(scrollY, [0, 500], [0, 200]); 
-  const opacityParallax = useTransform(scrollY, [0, 400], [1, 0]);
+  const opacityParallax = useTransform(scrollY, [0, 260, 700], [1, 1, 0]);
   
   // Text Parallax - Positive Y creates a "slower than scroll" effect (lag)
   // Differing values create separation between layers: Subhead (Front/Fastest) -> Title (Mid) -> Image (Back/Slowest)
   const subheadParallax = useTransform(scrollY, [0, 500], [0, 80]);
   const titleParallax = useTransform(scrollY, [0, 500], [0, 150]);
   // Fade text out more slowly so the name & role stay visible longer while scrolling
-  const textOpacity = useTransform(scrollY, [0, 380], [1, 0]);
+  const textOpacity = useTransform(scrollY, [0, 340, 900], [1, 1, 0]);
+  // Additional fade-out so the main name + role are fully gone
+  // by the time the glass info bar becomes the focus
+  const nameFadeOut = useTransform(scrollY, [260, 520], [1, 0]);
+  const headerOpacity = useTransform(
+    [textOpacity, nameFadeOut],
+    ([base, fade]) => Math.min(base, fade)
+  );
 
   // Cursor-reactive motion for the main name (subtle tilt/shift)
   const nameTiltX = useMotionValue(0);
@@ -128,6 +108,8 @@ export const Hero: React.FC = () => {
     [titleParallax, nameTiltYSpring],
     ([base, tilt]) => base + tilt
   );
+  // Highlight sweep for name - reacts to tilt X
+  const nameHighlightX = useTransform(nameTiltXSpring, [-30, 30], ["-14%", "14%"]);
 
   return (
     <>
@@ -137,7 +119,7 @@ export const Hero: React.FC = () => {
         <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden bg-black">
           {/* Base dark glow - static, just gives depth */}
           <div
-            className="absolute top-[-25%] left-[-25%] w-[150vw] h-[150vw] bg-[#050505] rounded-full blur-[160px]"
+            className="absolute top-[-25%] left-[-25%] w-[150vw] h-[150vw] bg-[#020202] rounded-full blur-[160px]"
           />
 
           {/* Slow moving shadow blob */}
@@ -147,14 +129,14 @@ export const Hero: React.FC = () => {
               y: ["-4%", "3%", "-4%"],
             }}
             transition={{ duration: 40, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-[-15%] right-[-15%] w-[90vw] h-[90vw] bg-[#070707] rounded-full blur-[170px] opacity-80"
+            className="absolute top-[-15%] right-[-15%] w-[90vw] h-[90vw] bg-[#070707] rounded-full blur-[170px] opacity-40"
           />
 
           {/* Warm accent glow - very subtle breathing */}
           <motion.div
             animate={{
               scale: [1, 1.12, 1],
-              opacity: [0.10, 0.22, 0.10],
+              opacity: [0.05, 0.12, 0.05],
             }}
             transition={{ duration: 32, repeat: Infinity, ease: "easeInOut" }}
             className="absolute bottom-[18%] left-[18%] w-[65vw] h-[65vw] bg-accent rounded-full blur-[230px]"
@@ -179,13 +161,13 @@ export const Hero: React.FC = () => {
             style={{ y: yParallax, opacity: opacityParallax }}
             className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none"
           >
-            {/* Image Container with Fade Mask */}
+            {/* Image Container with Fade Mask and light sweep */}
             <div className="relative w-full max-w-2xl h-[70vh] md:h-[85vh] mt-0 md:mt-[-5vh]">
-               <img 
-                 src="/images/hero-artur.png"
-                 alt="Artur Lubin"
-                 className="w-full h-full object-contain object-top opacity-80 md:opacity-90 [mask-image:linear-gradient(to_bottom,black_40%,transparent_100%)]"
-               />
+              <img 
+                src="/images/hero-artur.png"
+                alt="Artur Lubin"
+                className="w-full h-full object-contain object-top opacity-80 md:opacity-90 [mask-image:linear-gradient(to_bottom,black_40%,transparent_100%)]"
+              />
             </div>
           </motion.div>
 
@@ -193,46 +175,30 @@ export const Hero: React.FC = () => {
           <div className="relative z-20 w-full flex flex-col items-center mt-16 md:mt-24 mb-8 md:mb-10">
             
             {/* Massive Typography - First name (white) + last name (accent) */}
-            <motion.div 
-              style={{ y: titleParallaxWithTilt, x: nameTiltXSpring, opacity: textOpacity }}
-              className="flex items-baseline justify-center gap-[0.18em]"
-              onMouseMove={(event) => {
-                const rect = event.currentTarget.getBoundingClientRect();
-                const relX = (event.clientX - (rect.left + rect.width / 2)) / rect.width;
-                const relY = (event.clientY - (rect.top + rect.height / 2)) / rect.height;
+            <div className="relative">
+              <motion.div 
+                style={{ y: titleParallaxWithTilt, x: nameTiltXSpring, opacity: headerOpacity }}
+                className="flex items-baseline justify-center gap-[0.18em]"
+                onMouseMove={(event) => {
+                  const rect = event.currentTarget.getBoundingClientRect();
+                  const relX = (event.clientX - (rect.left + rect.width / 2)) / rect.width;
+                  const relY = (event.clientY - (rect.top + rect.height / 2)) / rect.height;
 
-                // Small, premium-feel offsets
-                nameTiltX.set(relX * 30); // horizontal sway
-                nameTiltY.set(relY * 18); // vertical sway
-              }}
-              onMouseLeave={() => {
-                nameTiltX.set(0);
-                nameTiltY.set(0);
-              }}
-            >
-              {/* First name: clean white */}
-              <SplitText
-                text={firstName}
-                tag="h1"
-                className={`${nameSizeClasses} leading-[0.85] font-display font-bold text-white tracking-[-0.01em] text-center whitespace-nowrap drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)]`}
-                delay={100}
-                duration={0.6}
-                ease="power3.out"
-                splitType="chars"
-                from={{ opacity: 0, y: 40 }}
-                to={{ opacity: 1, y: 0 }}
-                threshold={0.1}
-                rootMargin="-100px"
-                textAlign="center"
-              />
-
-              {/* Last name: accent color, same animation */}
-              {lastName && (
+                  // Small, premium-feel offsets
+                  nameTiltX.set(relX * 30); // horizontal sway
+                  nameTiltY.set(relY * 18); // vertical sway
+                }}
+                onMouseLeave={() => {
+                  nameTiltX.set(0);
+                  nameTiltY.set(0);
+                }}
+              >
+                {/* First name: clean white */}
                 <SplitText
-                  text={lastName}
+                  text={firstName}
                   tag="h1"
-                  className={`${nameSizeClasses} leading-[0.85] font-display font-bold text-accent tracking-[-0.01em] text-center whitespace-nowrap drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)]`}
-                  delay={120}
+                  className={`${nameSizeClasses} leading-[0.85] font-science font-extrabold text-white tracking-[-0.01em] text-center whitespace-nowrap drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)]`}
+                  delay={100}
                   duration={0.6}
                   ease="power3.out"
                   splitType="chars"
@@ -242,18 +208,43 @@ export const Hero: React.FC = () => {
                   rootMargin="-100px"
                   textAlign="center"
                 />
-              )}
-            </motion.div>
+
+                {/* Last name: accent color, same animation */}
+                {lastName && (
+                  <SplitText
+                    text={lastName}
+                    tag="h1"
+                    className={`${nameSizeClasses} leading-[0.85] font-science font-extrabold text-accent tracking-[-0.01em] text-center whitespace-nowrap drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)]`}
+                    delay={120}
+                    duration={0.6}
+                    ease="power3.out"
+                    splitType="chars"
+                    from={{ opacity: 0, y: 40 }}
+                    to={{ opacity: 1, y: 0 }}
+                    threshold={0.1}
+                    rootMargin="-100px"
+                    textAlign="center"
+                  />
+                )}
+              </motion.div>
+            </div>
             <motion.p
-              style={{ y: subheadParallax, opacity: textOpacity }}
+              style={{ y: subheadParallax, opacity: headerOpacity }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.9, duration: 0.45 }}
               className={`${
                 language === "ru" ? "mt-6 md:mt-8" : "mt-4 md:mt-5"
-              } text-[12px] md:text-sm font-display font-semibold text-white tracking-[0.28em] uppercase text-center drop-shadow-[0_8px_24px_rgba(0,0,0,0.75)]`}
+              } text-base md:text-xl font-display font-semibold text-white uppercase text-center tracking-[0.28em] drop-shadow-[0_8px_24px_rgba(0,0,0,0.75)]`}
             >
-              <TypingRole roles={roles} suffix="DESIGNER" />
+              <span className="inline-flex items-center justify-center min-h-[1em] gap-2">
+                <span className="inline-block text-accent tracking-[0.35em]">
+                  {roleText || "\u00A0"}
+                </span>
+                <span className="inline-block text-white/90 tracking-[0.28em]">
+                  DESIGNER
+                </span>
+              </span>
             </motion.p>
           </div>
 
@@ -366,7 +357,7 @@ export const Hero: React.FC = () => {
                   className="flex items-center gap-x-10 md:gap-x-14"
                   animate={{ x: ["0%", "-50%"] }}
                   transition={{
-                    duration: 40,
+                    duration: 10,
                     repeat: Infinity,
                     ease: "linear",
                   }}
@@ -409,6 +400,15 @@ export const Hero: React.FC = () => {
             </div>
           </div>
         </div>
+        {/* Global subtle noise texture over hero */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-30 opacity-[0.04] mix-blend-soft-light"
+          style={{
+            backgroundImage: "url('/textures/noise.png')",
+            backgroundSize: "auto",
+          }}
+        />
       </section>
 
     </>

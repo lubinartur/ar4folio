@@ -37,6 +37,12 @@
     "badgeExperience": "9+ years",
     "tagline": "UX/UI & Product Designer",
     "role": "Fintech Product Designer",
+    "roles": {
+      "fintech": "FINTECH",
+      "product": "PRODUCT",
+      "uiux": "UI/UX",
+      "graphic": "GRAPHIC"
+    },
     "location": "Tallinn, Estonia",
     "expertiseTitle": "EXPERTISE",
     "expertiseDescription": "Fintech Product Design & UX Architecture",
@@ -54,6 +60,7 @@
     "shortSpecialization": "Specializing in fintech interfaces: onboarding, dashboards, flows, and decision‑making tools.",
     "experienceTitle": "Experience",
     "experienceDescription": "A timeline of professional growth and technical evolution.",
+    "selectedWorkLabel": "Professional journey",
     "servicesTitle": "Services",
     "downloadCv": "Download Classic CV (PDF)",
     "viewLinkedIn": "View LinkedIn Profile"
@@ -137,7 +144,7 @@
   "projects": {
     "sectionKicker": "Selected work",
     "sectionTitle": "Featured projects",
-    "placetAppTitle": "Placet Group — Application Design",
+    "placetAppTitle": "Placet Group",
     "placetAppTagline": "Application UX/UI Design",
     "placetAppSummary": "End-to-end application design for a fintech ecosystem, focusing on clarity, conversion, and scalable UX patterns.",
     "paskolosTitle": "Paskolos.lt — Lending Platform",
@@ -147,20 +154,20 @@
     "selfServiceTagline": "Account & credit management portal",
     "selfServiceSummary": "Single self-service for multiple brands with accounts, repayments, transactions, and notifications.",
     "placet": {
-      "title": "Placet Group — Application Design",
-      "role": "Application UX/UI Design",
+      "title": "Application Design",
+      "role": "Client: Placet Group",
       "description": "End-to-end application design for a fintech ecosystem, focusing on clarity, conversion, and scalable UX patterns.",
       "cta": "View case"
     },
     "paskolos": {
-      "title": "Paskolos.lt — Lending Portal",
-      "role": "Lending Portal UX/UI Redesign",
+      "title": "Lending Platform",
+      "role": "Client: Paskolos.lt",
       "description": "Mobile-first redesign for the Lithuanian lending market, improving loan discovery, comparison, and application confidence.",
       "cta": "View case"
     },
     "placetSelfservice": {
-      "title": "Placet Group — Unified Self-Service Portal",
-      "role": "Multi-brand Self-Service UX/UI Design",
+      "title": "Unified Self-Service",
+      "role": "Client: Placet Group",
       "description": "A single self-service account for all Placet Group brands with unified login, products, and payment flows.",
       "cta": "View case"
     },

@@ -54,12 +54,12 @@ const ProjectCard: React.FC<{ project: Project; index: number; onClick: () => vo
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }} // Smooth ease-out-quart with subtle stagger
             viewport={{ once: true, margin: "-10%" }}
             onClick={onClick}
-            className="group relative grid lg:grid-cols-12 gap-8 lg:gap-16 items-center cursor-pointer mb-10 md:mb-14 lg:mb-32 last:mb-0"
+            className="group relative grid lg:grid-cols-12 gap-8 lg:gap-16 items-center cursor-pointer mb-16 md:mb-20 lg:mb-32 last:mb-0"
         >
             {/* Image Side */}
             <motion.div
                 style={{ perspective: 1000 }}
-                className={`relative lg:col-span-7 aspect-[16/10] overflow-hidden rounded-sm bg-[#111] border border-white/5 ${index % 2 === 1 ? 'lg:order-2' : ''}`}
+                className="relative lg:col-span-7 aspect-[16/10] overflow-hidden rounded-lg bg-[#111] border border-white/5"
                 whileHover={{ rotateX: 3, rotateY: -3, scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 140, damping: 18 }}
             >
@@ -73,10 +73,6 @@ const ProjectCard: React.FC<{ project: Project; index: number; onClick: () => vo
                     className="w-full h-[120%] -mt-[10%] object-cover opacity-80 group-hover:opacity-100 transition-all duration-700 filter grayscale group-hover:grayscale-0" 
                 />
                 
-                {/* Overlay Text */}
-                <div className="absolute top-4 right-4 z-20 bg-black/50 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
-                    <span className="text-xs font-mono text-white/70">{project.tags[0]}</span>
-                </div>
             </motion.div>
 
             {/* Content Side */}
@@ -86,7 +82,7 @@ const ProjectCard: React.FC<{ project: Project; index: number; onClick: () => vo
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-10%" }}
-                className={`lg:col-span-5 flex flex-col justify-center ${index % 2 === 1 ? 'lg:order-1 lg:text-right items-end' : 'items-start'}`}
+                className="lg:col-span-5 flex flex-col justify-center items-start"
             >
                 <motion.div
                     variants={itemVariants}
@@ -95,7 +91,7 @@ const ProjectCard: React.FC<{ project: Project; index: number; onClick: () => vo
                     {project.tags.map(tag => (
                         <span
                             key={tag}
-                            className="px-3 py-1 text-[11px] uppercase tracking-wider border border-white/10 text-neutral-400 font-medium group-hover:border-accent/30 transition-colors"
+                            className="px-4 py-1 text-[11px] uppercase tracking-wider border border-white/10 text-neutral-400 font-medium rounded-full group-hover:border-accent/30 transition-colors"
                         >
                             {tag}
                         </span>
@@ -108,6 +104,7 @@ const ProjectCard: React.FC<{ project: Project; index: number; onClick: () => vo
                 >
                     {t(project.title)}
                 </motion.h3>
+                
                 
                 <motion.h4
                     variants={itemVariants}

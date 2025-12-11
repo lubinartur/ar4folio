@@ -3,7 +3,9 @@ import { useI18n } from './services/i18n';
 import { Hero } from './components/Hero';
 import { Projects } from './components/Projects';
 import { ProjectDetail } from './components/ProjectDetail';
-import { About } from './components/About';
+import { AboutIntro } from './components/AboutIntro';
+import { Experience } from './components/Experience';
+import { Services } from './components/Services';
 import { Contact } from './components/Contact';
 import { AIChat } from './components/AIChat';
 import { Preloader } from './components/Preloader';
@@ -335,9 +337,13 @@ const App: React.FC = () => {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.8 }}
                 >
-                    <div id="home"><Hero /></div>
+                    <div id="home">
+                      <Hero />
+                    </div>
+                    <AboutIntro />
                     <Projects onProjectClick={setActiveProject} />
-                    <About />
+                    <Experience />
+                    <Services />
                     <Contact />
                 </motion.main>
                 )}

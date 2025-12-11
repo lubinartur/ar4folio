@@ -37,6 +37,13 @@
     "badgeExperience": "9+ aastat",
     "tagline": "UX/UI & Product Designer",
     "role": "Fintech Product Designer",
+    "roles": {
+      "fintech": "FINTECH",
+      "product": "TOODE",
+      "uiux": "UI/UX",
+      "graphic": "GRAAFIKA",
+      "designer": "DISAINER"
+    },
     "location": "Tallinn, Eesti",
     "expertiseTitle": "EKSPERTIIS",
     "expertiseDescription": "Finantstoodete disain ja UX-arhitektuur",
@@ -53,6 +60,7 @@
     "shortSpecialization": "Spetsialiseerun finantsteenuste kasutajaliidestele: liitumisvood, juhtpaneelid, protsessid ja otsustamist toetavad tööriistad.",
     "experienceTitle": "Kogemus",
     "experienceDescription": "Professionaalse arengu ja tehnilise kasvu ajajoon.",
+    "selectedWorkLabel": "Professionaalne teekond",
     "servicesTitle": "Teenused",
     "downloadCv": "Laadi alla klassikaline CV (PDF)",
     "viewLinkedIn": "Vaata LinkedIni profiili"
@@ -144,20 +152,20 @@
     "selfServiceTagline": "Konto ja krediitide haldamise portaal",
     "selfServiceSummary": "Ühine iseteeninduskeskkond mitmele brändile – konto, maksed, tehingud ja teavitused ühes liideses.",
     "placet": {
-      "title": "Placet Group — Rakenduse disain",
-      "role": "Rakenduse UX/UI disain",
+      "title": "Rakenduse disain",
+      "role": "Klient: Placet Group",
       "description": "Finantstehnoloogia ökosüsteemi terviklik disain, keskendudes selgusele, konversioonile ja skaleeritavatele UX‑mustritele.",
       "cta": "Vaata projekti"
     },
     "paskolos": {
-      "title": "Paskolos.lt — Laenuportaal",
-      "role": "Laenuportaali UX/UI ümberdisain",
+      "title": "Laenuplatvorm",
+      "role": "Klient: Paskolos.lt",
       "description": "Mobiilne ümberdisain Leedu turule: selgem laenude avastamine, võrdlemine ja kindlam taotluse alustamine.",
       "cta": "Vaata projekti"
     },
     "placetSelfservice": {
-      "title": "Placet Group — Ühtne iseteenindusportaal",
-      "role": "Mitme brändi iseteeninduse UX/UI disain",
+      "title": "Ühtne iseteenindus",
+      "role": "Klient: Placet Group",
       "description": "Kõigi Placet Groupi brändide ühine konto ühtse sisselogimise, toodete ja maksete haldusega.",
       "cta": "Vaata projekti"
     },
