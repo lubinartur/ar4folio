@@ -3,9 +3,14 @@ import { Project } from '../types';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { useI18n } from '../services/i18n';
+import { PROJECTS } from '../constants';
 
 export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
   const { t } = useI18n();
+  const roleLabel = project.role ? t(project.role) : '';
+  const clientName = roleLabel.replace(/^Client:\s*/i, '');
+  // Other projects (for footer navigation)
+  const otherProjects = PROJECTS.filter((p) => p.title !== project.title).slice(0, 2);
   
   // Scroll to top on mount
   useEffect(() => {
@@ -42,14 +47,14 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
              <div>
                 <h4 className="text-accent font-mono text-sm mb-4">{project.tags.join(' / ')}</h4>
                 <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-2">{t(project.title)}</h1>
-                <p className="text-2xl text-neutral-400">{t(project.role)}</p>
+                <p className="text-2xl text-neutral-400">{roleLabel}</p>
              </div>
              <div className="text-right">
                 <span className="text-4xl font-display font-bold text-white/10">{project.year}</span>
              </div>
           </div>
           {project.description && (
-            <p className="text-neutral-400 text-base md:text-lg max-w-3xl">
+            <p className="text-neutral-400 text-[16px] md:text-[16px] max-w-3xl">
               {t(project.description)}
             </p>
           )}
@@ -60,7 +65,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
           initial={{ y: 40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
-          className="w-full aspect-video bg-[#111] rounded-sm overflow-hidden mb-20"
+          className="w-full aspect-video bg-[#111] rounded-3xl overflow-hidden mb-20"
         >
            <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
         </motion.div>
@@ -71,7 +76,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
               
               <div>
                  <h3 className="text-2xl text-white font-display font-bold mb-4">The Challenge</h3>
-                 <div className="text-neutral-400 text-lg leading-relaxed space-y-3">
+                 <div className="text-neutral-400 text-[16px] leading-relaxed space-y-3">
                    <p>Users want clarity, predictability, and control — but most financial apps overload screens with complexity. Placet’s mobile experience suffered from:</p>
                    <ul className="space-y-1">
                      <li className="flex items-start gap-2">
@@ -92,7 +97,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
 
               <div>
                  <h3 className="text-2xl text-white font-display font-bold mb-4">The Solution</h3>
-                 <div className="text-neutral-400 text-lg leading-relaxed space-y-4">
+                 <div className="text-neutral-400 text-[16px] leading-relaxed space-y-4">
                    <p>I redesigned the Placet App end‑to‑end with focus on calm structure, transparency, and instant comprehension.</p>
                    <ul className="space-y-1">
                      <li className="flex items-start gap-2">
@@ -125,7 +130,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
 
               <div>
                  <h3 className="text-2xl text-white font-display font-bold mb-4">The Result</h3>
-                 <div className="text-neutral-400 text-lg leading-relaxed space-y-6">
+                 <div className="text-neutral-400 text-[16px] leading-relaxed space-y-6">
                    <p>The redesign strengthened user confidence and reduced ambiguity.</p>
                    <ul className="space-y-1">
                      <li className="flex items-start gap-2">
@@ -149,19 +154,23 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
               </div>
 
            </div>
-           <div className="md:col-span-4">
-              <h3 className="text-sm font-mono text-neutral-500 uppercase tracking-widest mb-6">Overview</h3>
-              <div className="space-y-4 text-sm text-neutral-400">
+          <div className="md:col-span-4 space-y-10">
+            {/* Overview */}
+            <div>
+              <h3 className="text-2xl text-white font-display font-bold mb-4">
+                Overview
+              </h3>
+              <div className="space-y-5 text-neutral-400 text-[16px] md:text-[16px] leading-relaxed">
                 <div>
-                  <div className="text-neutral-500 uppercase tracking-[0.25em] text-[10px] mb-1">
-                    Role
+                  <div className="text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 mb-1.5">
+                    Client
                   </div>
                   <div className="text-neutral-100">
-                    {t(project.role)}
+                    {clientName}
                   </div>
                 </div>
                 <div>
-                  <div className="text-neutral-500 uppercase tracking-[0.25em] text-[10px] mb-1">
+                  <div className="text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 mb-1.5">
                     Year
                   </div>
                   <div className="text-neutral-100">
@@ -169,14 +178,14 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
                   </div>
                 </div>
                 <div>
-                  <div className="text-neutral-500 uppercase tracking-[0.25em] text-[10px] mb-1">
+                  <div className="text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 mb-1.5">
                     Focus
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="px-2 py-0.5 rounded-full bg-white/5 border border-white/10 text-[11px] text-neutral-100"
+                        className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono uppercase tracking-[0.18em] text-neutral-100"
                       >
                         {tag}
                       </span>
@@ -184,38 +193,41 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
                   </div>
                 </div>
               </div>
-              <div className="mt-10 space-y-4">
-                <h3 className="text-xs font-mono text-neutral-500 uppercase tracking-[0.28em]">
-                  Impact
-                </h3>
-                <div className="space-y-6">
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-5">
-                    <div className="text-2xl font-display font-bold text-accent mb-1">
-                      +XX%
-                    </div>
-                    <p className="text-[10px] font-mono uppercase tracking-[0.22em] text-neutral-500">
-                      On-time repayments
-                    </p>
+            </div>
+
+            {/* Impact */}
+            <div>
+              <h3 className="text-2xl text-white font-display font-bold mb-4">
+                Impact
+              </h3>
+              <div className="space-y-5">
+                <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-5">
+                  <div className="text-2xl font-display font-bold text-accent mb-1">
+                    +XX%
                   </div>
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-5">
-                    <div className="text-2xl font-display font-bold text-accent mb-1">
-                      -YY%
-                    </div>
-                    <p className="text-[10px] font-mono uppercase tracking-[0.22em] text-neutral-500">
-                      Support questions
-                    </p>
+                  <p className="text-xs font-mono uppercase tracking-[0.25em] text-neutral-500">
+                    On-time repayments
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-5">
+                  <div className="text-2xl font-display font-bold text-accent mb-1">
+                    -YY%
                   </div>
-                  <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-5">
-                    <div className="text-2xl font-display font-bold text-accent mb-1">
-                      3x
-                    </div>
-                    <p className="text-[10px] font-mono uppercase tracking-[0.22em] text-neutral-500">
-                      Faster to insight
-                    </p>
+                  <p className="text-xs font-mono uppercase tracking-[0.25em] text-neutral-500">
+                    Support questions
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-5">
+                  <div className="text-2xl font-display font-bold text-accent mb-1">
+                    3x
                   </div>
+                  <p className="text-xs font-mono uppercase tracking-[0.25em] text-neutral-500">
+                    Faster to insight
+                  </p>
                 </div>
               </div>
-           </div>
+            </div>
+          </div>
         </div>
 
         {/* Screens / Gallery */}
@@ -231,12 +243,12 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
                     {screen.title}
                   </h3>
                   {screen.description && (
-                    <p className="text-neutral-400 text-base md:text-lg leading-relaxed">
+                    <p className="text-neutral-400 text-[16px] md:text-[16px] leading-relaxed">
                       {screen.description}
                     </p>
                   )}
                 </div>
-                <div className="w-full bg-[#111] rounded-xl overflow-hidden border border-white/10">
+                <div className="w-full bg-[#111] rounded-3xl overflow-hidden border border-white/10">
                   <img
                     src={screen.image}
                     alt={screen.title}
@@ -250,7 +262,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
           project.gallery && (
             <div className="grid md:grid-cols-2 gap-8 mb-24">
               {project.gallery.map((img, i) => (
-                <div key={i} className="aspect-[4/3] bg-[#111] rounded-sm overflow-hidden">
+                <div key={i} className="aspect-[4/3] bg-[#111] rounded-3xl overflow-hidden">
                   <img
                     src={img}
                     alt={`Gallery ${i}`}
@@ -262,6 +274,49 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
           )
         )}
 
+        {/* Browse More Projects */}
+        <div className="border-t border-white/10 pt-16 pb-12 mt-8">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+            <div className="space-y-4 w-full md:w-auto">
+              <p className="text-xs font-mono uppercase tracking-[0.25em] text-neutral-500">
+                More projects
+              </p>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                {otherProjects.map((p) => (
+                  <button
+                    key={p.title}
+                    type="button"
+                    onClick={onBack}
+                    className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-left cursor-pointer hover:border-accent/60 hover:bg-white/[0.06] transition-colors"
+                  >
+                    <div className="w-28 h-20 md:w-32 md:h-24 rounded-xl overflow-hidden border border-white/10 bg-[#111]">
+                      <img
+                        src={p.image}
+                        alt={t(p.title)}
+                        className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-[10px] font-mono uppercase tracking-[0.25em] text-neutral-500">
+                        {p.tags.join(' / ')}
+                      </p>
+                      <h3 className="text-sm md:text-base font-display font-semibold text-white">
+                        {t(p.title)}
+                      </h3>
+                      {p.role && (
+                        <p className="text-[11px] text-neutral-400">
+                          {t(p.role)}
+                        </p>
+                      )}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </div>
         {/* Next Project CTA */}
         <div className="border-t border-white/10 pt-20 text-center">
             <h3 className="text-neutral-500 mb-6 font-mono uppercase tracking-widest">Interested in this workflow?</h3>

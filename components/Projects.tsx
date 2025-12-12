@@ -59,7 +59,7 @@ const ProjectCard: React.FC<{ project: Project; index: number; onClick: () => vo
             {/* Image Side */}
             <motion.div
                 style={{ perspective: 1000 }}
-                className="relative lg:col-span-7 aspect-[16/10] overflow-hidden rounded-lg bg-[#111] border border-white/5"
+                className="relative lg:col-span-7 aspect-[16/10] overflow-hidden rounded-3xl bg-[#111] border border-white/5"
                 whileHover={{ rotateX: 3, rotateY: -3, scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 140, damping: 18 }}
             >
@@ -110,7 +110,7 @@ const ProjectCard: React.FC<{ project: Project; index: number; onClick: () => vo
                     variants={itemVariants}
                     className="text-lg text-white/60 mb-6 font-sans"
                 >
-                    {t(project.role)}
+                    {t(project.role).replace("Client:", "").trim()}
                 </motion.h4>
                 
                 <motion.p

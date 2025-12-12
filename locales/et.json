@@ -41,9 +41,10 @@
       "fintech": "FINTECH",
       "product": "TOODE",
       "uiux": "UI/UX",
-      "graphic": "GRAAFIKA",
+      "graphic": "GRAAFILINE",
       "designer": "DISAINER"
     },
+    "designerLabel": "Kujundaja",
     "location": "Tallinn, Eesti",
     "expertiseTitle": "EKSPERTIIS",
     "expertiseDescription": "Finantstoodete disain ja UX-arhitektuur",

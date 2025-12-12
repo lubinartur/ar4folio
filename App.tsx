@@ -12,18 +12,19 @@ import { Preloader } from './components/Preloader';
 import { CustomCursor } from './components/CustomCursor';
 import { LayoutGrid, X, Home, Briefcase, Layers, User, Mail, Cpu, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SOCIAL_LINKS } from './constants';
 import { Project } from './types';
 import { Language } from './services/i18n';
+
+// Public CV PDF (served from /public/cv/...)
+const CV_URL = "/cv/artur-lubin-cv-classic.pdf";
 
 // Header Component
 const Header: React.FC<{
   isMenuOpen: boolean;
   onMenuToggle: () => void;
-  onHome: () => void;
   language: Language;
   onLanguageChange: (lang: Language) => void;
-}> = ({ isMenuOpen, onMenuToggle, onHome, language, onLanguageChange }) => {
+}> = ({ isMenuOpen, onMenuToggle, language, onLanguageChange }) => {
   const { t } = useI18n();
   const [isLangOpen, setIsLangOpen] = useState(false);
 
@@ -40,39 +41,29 @@ const Header: React.FC<{
       transition={{ delay: 0.75, duration: 0.75, ease: "easeOut" }}
       className="fixed top-0 left-0 right-0 z-50 px-6 py-6 md:px-8 flex justify-between items-center"
     >
-       {/* Left: Status Badge Only (Name removed) */}
-       <div className="flex items-center gap-4 cursor-pointer" onClick={onHome}>
-         <button className="flex items-center gap-2 h-[42px] px-4 bg-white/5 hover:bg-white/10 backdrop-blur-md rounded-full border border-white/10 transition-colors cursor-none">
+       {/* Left: Status Badge Only (not clickable) */}
+       <div className="flex items-center gap-4">
+         <div className="flex items-center gap-2 h-[42px] px-4 bg-white/5 backdrop-blur-md rounded-full border border-white/10">
            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.9)]" />
            <span className="text-neutral-300 text-xs font-mono uppercase tracking-wider">
              <span className="hidden sm:inline">{t("header.availableLong")}</span>
              <span className="sm:hidden">{t("header.availableShort")}</span>
            </span>
-         </button>
+         </div>
        </div>
 
        {/* Right: Actions */}
        <div className="flex items-center gap-6">
           
-          {/* CV Button - scroll to CV/About section */}
-          <button
+          {/* CV Button - open PDF in new tab */}
+          <a
+            href={CV_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="hidden md:flex items-center gap-2 h-[42px] px-5 rounded-full bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 text-xs font-mono uppercase tracking-widest text-neutral-300 hover:text-white transition-colors cursor-none"
-            onClick={(e) => {
-              e.preventDefault();
-              const el = document.getElementById('cv');
-              if (el) {
-                const rect = el.getBoundingClientRect();
-                const headerOffset = 120;
-                const targetY = window.scrollY + rect.top - headerOffset;
-                window.scrollTo({
-                  top: targetY,
-                  behavior: 'smooth',
-                });
-              }
-            }}
           >
             {t("header.cv")}
-          </button>
+          </a>
 
           {/* Language Switcher - Icon Based (now also visible on mobile) */}
           <div className="relative flex items-center cursor-none">
@@ -247,7 +238,9 @@ const FullMenu: React.FC<{ isOpen: boolean; onClose: () => void; onNavigate: (id
              <div className="p-8 border-t border-white/10 md:hidden">
                 <div className="flex justify-center">
                    <a
-                     href={SOCIAL_LINKS.cv}
+                     href={CV_URL}
+                     target="_blank"
+                     rel="noopener noreferrer"
                      className="text-white text-sm font-bold cursor-none"
                    >
                      {t("menu.downloadCv")}
@@ -311,7 +304,6 @@ const App: React.FC = () => {
             <Header 
                 isMenuOpen={isMenuOpen} 
                 onMenuToggle={() => setIsMenuOpen(!isMenuOpen)} 
-                onHome={() => setActiveProject(null)}
                 language={language}
                 onLanguageChange={setLanguage}
             />

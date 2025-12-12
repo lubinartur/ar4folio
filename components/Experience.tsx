@@ -70,7 +70,7 @@ export const Experience: React.FC = () => {
                   {job.items.map((item, i) => (
                     <li
                       key={i}
-                      className="text-neutral-400 text-sm flex items-start gap-2"
+                      className="text-neutral-400 text-base flex items-start gap-2"
                     >
                       <span className="text-accent/50 mt-1.5 w-1.5 h-1.5 rounded-full bg-accent/50 block shrink-0" />
                       {t(item)}
@@ -78,7 +78,7 @@ export const Experience: React.FC = () => {
                   ))}
                 </ul>
               ) : (
-                <p className="text-neutral-400 max-w-2xl text-sm md:text-base leading-relaxed">
+                <p className="text-neutral-400 text-base md:text-base leading-relaxed">
                   {t(job.description)}
                 </p>
               )}

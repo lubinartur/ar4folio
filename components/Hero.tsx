@@ -18,11 +18,16 @@ export const Hero: React.FC = () => {
   const firstName = (nameParts[0] || "").toUpperCase();
   const lastName = nameParts.slice(1).join(" ").toUpperCase();
 
-  // Adjust heading size per language (RU is slightly smaller to avoid overlap, with stronger spacing)
-  const nameSizeClasses =
+  // Adjust heading size per language for first and last name separately
+  const firstNameClasses =
     language === "ru"
-      ? "text-[7.5vw] md:text-[8.5vw]"
-      : "text-[9vw] md:text-[10vw]";
+      ? "text-[6vw] md:text-[5vw]"
+      : "text-[6.5vw] md:text-[5vw]";
+
+  const lastNameClasses =
+    language === "ru"
+      ? "text-[24vw] md:text-[18vw]"
+      : "text-[26vw] md:text-[18vw]";
 
   const brands = [
     { name: "Decus",          src: "/brands/decus.svg" },
@@ -75,7 +80,7 @@ export const Hero: React.FC = () => {
   
   // Text Parallax - Positive Y creates a "slower than scroll" effect (lag)
   // Differing values create separation between layers: Subhead (Front/Fastest) -> Title (Mid) -> Image (Back/Slowest)
-  const subheadParallax = useTransform(scrollY, [0, 500], [0, 80]);
+  const subheadParallax = useTransform(scrollY, [0, 500], [0, 150]);
   const titleParallax = useTransform(scrollY, [0, 500], [0, 150]);
   // Fade text out more slowly so the name & role stay visible longer while scrolling
   const textOpacity = useTransform(scrollY, [0, 340, 900], [1, 1, 0]);
@@ -156,10 +161,11 @@ export const Hero: React.FC = () => {
         {/* Main Content Container */}
         <div className="container mx-auto px-6 md:px-12 relative z-10 min-h-screen flex flex-col items-center justify-end pb-8 md:pb-12">
           
+
           {/* Central Hero Image */}
           <motion.div 
             style={{ y: yParallax, opacity: opacityParallax }}
-            className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none"
+            className="absolute inset-0 z-15 flex items-center justify-center pointer-events-none"
           >
             {/* Image Container with Fade Mask and light sweep */}
             <div className="relative w-full max-w-2xl h-[70vh] md:h-[85vh] mt-0 md:mt-[-5vh]">
@@ -172,49 +178,31 @@ export const Hero: React.FC = () => {
           </motion.div>
 
           {/* Text Container */}
-          <div className="relative z-20 w-full flex flex-col items-center mt-16 md:mt-24 mb-8 md:mb-10">
+          <div className="relative w-full flex flex-col items-center mt-16 md:mt-24 mb-8 md:mb-10">
             
-            {/* Massive Typography - First name (white) + last name (accent) */}
-            <div className="relative">
-              <motion.div 
+            {/* Massive Typography - Last name as main foreground layer */}
+            <div className="relative w-full">
+              {/* Last name (front layer) */}
+              <motion.div
                 style={{ y: titleParallaxWithTilt, x: nameTiltXSpring, opacity: headerOpacity }}
-                className="flex items-baseline justify-center gap-[0.18em]"
+                className="relative z-30 flex justify-center md:justify-center"
                 onMouseMove={(event) => {
                   const rect = event.currentTarget.getBoundingClientRect();
                   const relX = (event.clientX - (rect.left + rect.width / 2)) / rect.width;
                   const relY = (event.clientY - (rect.top + rect.height / 2)) / rect.height;
-
-                  // Small, premium-feel offsets
-                  nameTiltX.set(relX * 30); // horizontal sway
-                  nameTiltY.set(relY * 18); // vertical sway
+                  nameTiltX.set(relX * 30);
+                  nameTiltY.set(relY * 18);
                 }}
                 onMouseLeave={() => {
                   nameTiltX.set(0);
                   nameTiltY.set(0);
                 }}
               >
-                {/* First name: clean white */}
-                <SplitText
-                  text={firstName}
-                  tag="h1"
-                  className={`${nameSizeClasses} leading-[0.85] font-science font-extrabold text-white tracking-[-0.01em] text-center whitespace-nowrap drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)]`}
-                  delay={100}
-                  duration={0.6}
-                  ease="power3.out"
-                  splitType="chars"
-                  from={{ opacity: 0, y: 40 }}
-                  to={{ opacity: 1, y: 0 }}
-                  threshold={0.1}
-                  rootMargin="-100px"
-                  textAlign="center"
-                />
-
-                {/* Last name: accent color, same animation */}
                 {lastName && (
                   <SplitText
                     text={lastName}
                     tag="h1"
-                    className={`${nameSizeClasses} leading-[0.85] font-science font-extrabold text-accent tracking-[-0.01em] text-center whitespace-nowrap drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)]`}
+                    className={`${lastNameClasses} leading-[0.8] font-science font-extrabold text-accent tracking-[-0.04em] text-center whitespace-nowrap drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)] md:inline-block md:align-baseline`}
                     delay={120}
                     duration={0.6}
                     ease="power3.out"
@@ -227,29 +215,52 @@ export const Hero: React.FC = () => {
                   />
                 )}
               </motion.div>
+
+              {/* First name aligned with last name, slightly above, acts as a second layer */}
+              <motion.div
+                style={{ y: titleParallaxWithTilt, x: nameTiltXSpring, opacity: headerOpacity }}
+                className="pointer-events-none absolute left-[7%] md:left-[9%] -top-[5vw] md:-top-[4vw] z-10"
+              >
+                {firstName && (
+                  <SplitText
+                    text={firstName}
+                    tag="h1"
+                    className={`${firstNameClasses} leading-[0.9] font-science font-extrabold text-white/85 tracking-[-0.03em] text-left whitespace-nowrap drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)]`}
+                    delay={100}
+                    duration={0.6}
+                    ease="power3.out"
+                    splitType="chars"
+                    from={{ opacity: 0, y: 40 }}
+                    to={{ opacity: 1, y: 0 }}
+                    threshold={0.1}
+                    rootMargin="-100px"
+                    textAlign="left"
+                  />
+                )}
+              </motion.div>
             </div>
             <motion.p
               style={{ y: subheadParallax, opacity: headerOpacity }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.9, duration: 0.45 }}
-              className={`${
+              className={`pointer-events-none relative z-25 ${
                 language === "ru" ? "mt-6 md:mt-8" : "mt-4 md:mt-5"
-              } text-base md:text-xl font-display font-semibold text-white uppercase text-center tracking-[0.28em] drop-shadow-[0_8px_24px_rgba(0,0,0,0.75)]`}
+              } text-base md:text-xl font-display font-semibold text-white uppercase text-center tracking-[0.28em] drop-shadow-[0_10px_28px_rgba(0,0,0,0.9)]`}
             >
               <span className="inline-flex items-center justify-center min-h-[1em] gap-2">
                 <span className="inline-block text-accent tracking-[0.35em]">
                   {roleText || "\u00A0"}
                 </span>
-                <span className="inline-block text-white/90 tracking-[0.28em]">
-                  DESIGNER
+                <span className="inline-block text-white tracking-[0.28em]">
+                  {t("hero.designerLabel")}
                 </span>
               </span>
             </motion.p>
           </div>
 
           {/* Footer Info Columns - Glassmorphism Bar */}
-          <div className="w-full flex justify-center relative z-20">
+          <div className="w-full flex justify-center relative z-40 isolate">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -260,7 +271,7 @@ export const Hero: React.FC = () => {
                 damping: 18,
                 delay: 0.05,
               }}
-              className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 px-6 md:px-10 py-6 md:py-7 rounded-3xl md:rounded-full border border-white/10 bg-gradient-to-r from-white/5 via-white/2 to-white/5 backdrop-blur-xl shadow-[0_18px_45px_rgba(0,0,0,0.6)]"
+              className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 px-6 md:px-10 py-6 md:py-7 rounded-3xl md:rounded-full border border-white/10 bg-black/25 bg-gradient-to-r from-white/6 via-white/3 to-white/6 backdrop-blur-xl shadow-[0_18px_45px_rgba(0,0,0,0.6)] relative z-10"
             >
               {/* Col 1 */}
               <motion.div

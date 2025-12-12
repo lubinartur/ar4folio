@@ -46,14 +46,16 @@ export const AboutIntro: React.FC = () => {
               viewport={{ once: true, amount: 0.6 }}
             >
               <a
-                href="/cv-classic.pdf"
+                href="/cv/artur-lubin-cv-classic.pdf"
+                target="_blank"
+                rel="noreferrer"
                 className="px-6 py-3 border border-accent text-accent rounded-full hover:bg-accent hover:text-black transition"
               >
                 {t("about.downloadCv")}
               </a>
 
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/artur-lubin-0588a0168/"
                 target="_blank"
                 className="px-6 py-3 border border-white/20 text-white rounded-full hover:bg-white hover:text-black transition"
                 rel="noreferrer"
