@@ -230,7 +230,7 @@ export const Hero: React.FC = () => {
                 role="img"
                 aria-label={name}
                 viewBox="0 0 806.16 153.9"
-                className="h-auto w-[min(92vw,980px)] md:w-[min(88vw,1200px)] drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)]"
+                className="h-auto w-[min(94vw,1100px)] md:w-[min(90vw,1350px)] lg:w-[min(86vw,1600px)] 2xl:w-[min(84vw,1750px)] drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)]"
                 variants={reduceMotion ? undefined : nameReveal}
                 initial={reduceMotion ? false : "hidden"}
                 animate={reduceMotion ? undefined : "show"}
