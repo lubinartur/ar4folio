@@ -63,14 +63,14 @@ const ProjectCard: React.FC<{ project: Project; index: number; onClick: () => vo
                 whileHover={{ rotateX: 3, rotateY: -3, scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 140, damping: 18 }}
             >
-                <div className="absolute inset-0 z-10 bg-black/40 group-hover:bg-transparent transition-colors duration-700" />
+                <div className="absolute inset-0 z-10 bg-transparent md:bg-black/40 md:group-hover:bg-transparent transition-colors duration-700" />
                 
                 {/* Parallax Image - Applied directly to motion.img */}
                 <motion.img 
                     style={{ y: imageY }}
                     src={project.image} 
                     alt={t(project.title)} 
-                    className="w-full h-[120%] -mt-[10%] object-cover opacity-80 group-hover:opacity-100 transition-all duration-700 filter grayscale group-hover:grayscale-0" 
+                    className="w-full h-[120%] -mt-[10%] object-cover opacity-100 md:opacity-80 md:group-hover:opacity-100 transition-all duration-700 filter md:grayscale md:group-hover:grayscale-0" 
                 />
                 
             </motion.div>

@@ -182,7 +182,7 @@ export const Hero: React.FC = () => {
           </motion.div>
 
           {/* Text Container */}
-          <div className="relative w-full flex flex-col items-center mt-14 md:mt-20 mb-6 md:mb-7">
+          <div className="relative w-full flex flex-col items-center mt-14 md:mt-20 mb-0">
 
             {/*
               IMPORTANT:
@@ -212,7 +212,12 @@ export const Hero: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.9, duration: 0.45 }}
-              className={`pointer-events-none relative z-25 mt-[clamp(9px,1.1vw,17px)] text-base md:text-xl font-display font-semibold text-white uppercase text-center tracking-[0.28em] drop-shadow-[0_10px_28px_rgba(0,0,0,0.9)]`}
+              className={`pointer-events-none relative z-25
+                mt-[clamp(12px,1.6vw,18px)]
+                mb-[clamp(8px,1.2vw,14px)]
+                text-base md:text-xl font-display font-semibold text-white uppercase
+                text-center tracking-[0.28em]
+                drop-shadow-[0_10px_28px_rgba(0,0,0,0.9)]`}
             >
               <span className="inline-flex items-center justify-center min-h-[1em] gap-1">
                 <span className="inline-block text-accent tracking-[0.35em]">
@@ -226,7 +231,7 @@ export const Hero: React.FC = () => {
           </div>
 
           {/* Footer Info Columns - Glassmorphism Bar */}
-          <div className="w-full flex justify-center relative z-40 isolate">
+          <div className="w-full flex justify-center relative z-40 isolate mt-[clamp(6px,0.8vw,12px)]">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
