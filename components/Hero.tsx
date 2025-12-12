@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue, useSpring, useReducedMotion } from 'framer-motion';
 import { useI18n } from "../services/i18n";
-import SplitText from "./SplitText";
 
 const ROLE_KEYS = ["hero.roles.fintech", "hero.roles.product", "hero.roles.uiux", "hero.roles.graphic"];
 
@@ -11,23 +10,45 @@ export const Hero: React.FC = () => {
   const { scrollY } = useScroll();
   
   const name = t("hero.name");
+  const _reduceMotionPref = useReducedMotion();
+  const reduceMotion = false; // force animations in Hero
+  const nameClipId = "hero-name-clip";
+
+  const nameReveal = {
+    hidden: {
+      opacity: 0,
+      y: 10,
+      x: 0,
+      skewX: 0,
+      filter: "blur(10px)",
+    },
+    show: {
+      opacity: 1,
+      y: 0,
+      x: 0,
+      skewX: 0,
+      filter: "blur(0px)",
+      transition: {
+        // базовое плавное появление
+        duration: 0.7,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
+
+  const clipRect = {
+    hidden: { scaleX: 0 },
+    show: {
+      scaleX: 1,
+      transition: {
+        duration: 0.85,
+        ease: [0.22, 1, 0.36, 1],
+        delay: 0.05,
+      },
+    },
+  };
 
 
-  // Split name into first and last for separate styling (e.g., "Artur Lubin")
-  const nameParts = (name || "").split(" ");
-  const firstName = (nameParts[0] || "").toUpperCase();
-  const lastName = nameParts.slice(1).join(" ").toUpperCase();
-
-  // Clamp-based typography so the layout stays stable across screens
-  const firstNameClasses =
-    language === "ru"
-      ? "text-[clamp(44px,6vw,80px)]"
-      : "text-[clamp(44px,6.2vw,84px)]";
-
-  const lastNameClasses =
-    language === "ru"
-      ? "text-[clamp(88px,23vw,220px)] md:text-[clamp(140px,18vw,340px)]"
-      : "text-[clamp(88px,23vw,220px)] md:text-[clamp(150px,19vw,360px)]";
 
   const brands = [
     { name: "Decus",          src: "/brands/decus.svg" },
@@ -44,19 +65,6 @@ export const Hero: React.FC = () => {
   const [roleText, setRoleText] = useState("");
   const [isRoleDeleting, setIsRoleDeleting] = useState(false);
 
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia('(max-width: 767px)');
-    const apply = () => setIsMobile(mq.matches);
-    apply();
-    if (mq.addEventListener) mq.addEventListener('change', apply);
-    else mq.addListener(apply);
-    return () => {
-      if (mq.removeEventListener) mq.removeEventListener('change', apply);
-      else mq.removeListener(apply);
-    };
-  }, []);
 
   useEffect(() => {
     const translated = t(ROLE_KEYS[roleIndex]) || "";
@@ -106,9 +114,7 @@ export const Hero: React.FC = () => {
     ([base, fade]) => Math.min(base, fade)
   );
 
-  // Cursor-reactive motion for the name: FIRST and LAST react differently (desynced)
-  const firstTiltX = useMotionValue(0);
-  const firstTiltY = useMotionValue(0);
+  // Cursor-reactive motion for the name mark
   const lastTiltX = useMotionValue(0);
   const lastTiltY = useMotionValue(0);
 
@@ -125,27 +131,10 @@ export const Hero: React.FC = () => {
     mass: 0.32,
   });
 
-  // FIRST name = weaker + heavier (lags a bit) + slight counter-parallax
-  const firstTiltXSpring = useSpring(firstTiltX, {
-    stiffness: 95,
-    damping: 22,
-    mass: 0.45,
-  });
-
-  const firstTiltYSpring = useSpring(firstTiltY, {
-    stiffness: 95,
-    damping: 24,
-    mass: 0.5,
-  });
 
   // Combine scroll parallax with cursor tilt on Y (separate per layer)
   const titleParallaxWithLastTilt = useTransform(
     [titleParallax, lastTiltYSpring],
-    ([base, tilt]) => base + tilt
-  );
-
-  const titleParallaxWithFirstTilt = useTransform(
-    [titleParallax, firstTiltYSpring],
     ([base, tilt]) => base + tilt
   );
 
@@ -220,88 +209,111 @@ export const Hero: React.FC = () => {
               - Use a shared left padding that is based on the viewport.
             */}
 
-            {/* Name block: stable left axis for ARTUR + LUBIN on all screens */}
-            <div className="relative w-full -translate-x-1 md:translate-x-0">
-              {/* Shared left axis so A starts exactly where L starts */}
-              <motion.div
-                style={{ y: titleParallaxWithFirstTilt, x: firstTiltXSpring, opacity: headerOpacity }}
-                className="relative z-20 w-full pl-0 md:pl-[clamp(24px,5vw,140px)]"
+            {/* Name mark (SVG): stable across monitors */}
+            <motion.div
+              style={{ y: titleParallaxWithLastTilt, x: lastTiltXSpring, opacity: headerOpacity }}
+              className="relative z-30 w-full flex justify-center"
+              onMouseMove={(event) => {
+                const rect = event.currentTarget.getBoundingClientRect();
+                const relX = (event.clientX - (rect.left + rect.width / 2)) / rect.width;
+                const relY = (event.clientY - (rect.top + rect.height / 2)) / rect.height;
+
+                lastTiltX.set(relX * 30);
+                lastTiltY.set(relY * 18);
+              }}
+              onMouseLeave={() => {
+                lastTiltX.set(0);
+                lastTiltY.set(0);
+              }}
+            >
+              <motion.svg
+                role="img"
+                aria-label={name}
+                viewBox="0 0 806.16 153.9"
+                className="h-auto w-[min(92vw,980px)] md:w-[min(88vw,1200px)] drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)]"
+                variants={reduceMotion ? undefined : nameReveal}
+                initial={reduceMotion ? false : "hidden"}
+                animate={reduceMotion ? undefined : "show"}
               >
-                {firstName && (
-                  isMobile ? (
-                    <h1
-                      className={`${firstNameClasses} leading-[0.92] font-science font-extrabold text-white/90 tracking-[-0.03em] text-left whitespace-nowrap drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)]`}
+                {!reduceMotion && (
+                  <defs>
+                    <clipPath id={nameClipId}>
+                      <motion.rect
+                        x={0}
+                        y={0}
+                        width={806.16}
+                        height={153.9}
+                        initial="hidden"
+                        animate="show"
+                        variants={clipRect}
+                        transformOrigin="0% 50%"
+                        style={{ transformBox: 'fill-box' as any }}
+                      />
+                    </clipPath>
+
+                    <linearGradient
+                      id={`${nameClipId}-shine`}
+                      x1="0"
+                      y1="0"
+                      x2="220"
+                      y2="0"
+                      gradientUnits="userSpaceOnUse"
                     >
-                      {firstName}
-                    </h1>
-                  ) : (
-                    <SplitText
-                      text={firstName}
-                      tag="h1"
-                      className={`${firstNameClasses} leading-[0.92] font-science font-extrabold text-white/90 tracking-[-0.03em] text-left whitespace-nowrap drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)]`}
-                      delay={100}
-                      duration={0.6}
-                      ease="power3.out"
-                      splitType="chars"
-                      from={{ opacity: 0, y: 40 }}
-                      to={{ opacity: 1, y: 0 }}
-                      threshold={0.1}
-                      rootMargin="-100px"
-                      textAlign="left"
-                    />
-                  )
+                      <stop offset="0" stopColor="white" stopOpacity="0" />
+                      <stop offset="0.45" stopColor="white" stopOpacity="0.85" />
+                      <stop offset="0.55" stopColor="white" stopOpacity="0.85" />
+                      <stop offset="1" stopColor="white" stopOpacity="0" />
+                    </linearGradient>
+
+                    <mask id={`${nameClipId}-lubin-mask`} maskUnits="userSpaceOnUse">
+                      <rect x="0" y="0" width="806.16" height="153.9" fill="black" />
+                      {/* LUBIN shape as mask */}
+                      <path fill="white" d="M0,152.38V.64h52.68v106.44h86.27v45.31H0Z" />
+                      <path fill="white" d="M163.88.64h52.78v107.74h59.18V.64h52.78v117.82c0,14.6-3.78,24.15-11.33,28.67-7.55,4.52-17.97,6.77-31.27,6.77h-79.66c-6.58,0-12.48-.49-17.72-1.46-5.24-.98-9.68-2.75-13.33-5.31-3.65-2.56-6.47-6.16-8.45-10.78-1.99-4.62-2.98-10.58-2.98-17.88V.64Z" />
+                      <path fill="white" d="M367.64,152.38V.64h117.92c6.79,0,12.79.72,17.99,2.17,5.2,1.45,9.54,3.67,13.01,6.67,3.47,3,6.09,6.79,7.86,11.38,1.77,4.59,2.66,9.99,2.66,16.2v6.83c0,7.52-1.64,13.89-4.93,19.13-3.29,5.24-8.26,9.38-14.9,12.41,7.51,3.11,12.99,7.59,16.42,13.44,3.43,5.85,5.15,13.01,5.15,21.46v6.29c0,6.21-.87,11.58-2.6,16.1-1.73,4.52-4.3,8.24-7.7,11.16-3.4,2.93-7.7,5.08-12.9,6.45-5.2,1.37-11.31,2.06-18.32,2.06h-119.66ZM420.31,57.76h46.06c3.11,0,5.4-.65,6.88-1.95,1.48-1.3,2.22-3.21,2.22-5.74v-5.31c0-2.38-.74-4.24-2.22-5.58-1.48-1.34-3.78-2.01-6.88-2.01h-46.06v20.59ZM420.31,115.53h46.61c3.04,0,5.31-.67,6.83-2.01,1.52-1.34,2.28-3.2,2.28-5.58v-6.29c0-2.53-.76-4.44-2.28-5.74-1.52-1.3-3.79-1.95-6.83-1.95h-46.61v21.57Z" />
+                      <path fill="white" d="M629.28,152.38V.64h39.13l88.77,77.93V.64h48.99v151.74h-39.34l-88.55-77.06v77.06h-48.99Z" />
+                    </mask>
+                  </defs>
                 )}
-              </motion.div>
+                <g clipPath={!reduceMotion ? `url(#${nameClipId})` : undefined}>
+                {/* LUBIN (accent) */}
+                <g className="text-accent">
+                  <path className="fill-current" d="M0,152.38V.64h52.68v106.44h86.27v45.31H0Z"/>
+                  <path className="fill-current" d="M163.88.64h52.78v107.74h59.18V.64h52.78v117.82c0,14.6-3.78,24.15-11.33,28.67-7.55,4.52-17.97,6.77-31.27,6.77h-79.66c-6.58,0-12.48-.49-17.72-1.46-5.24-.98-9.68-2.75-13.33-5.31-3.65-2.56-6.47-6.16-8.45-10.78-1.99-4.62-2.98-10.58-2.98-17.88V.64Z"/>
+                  <path className="fill-current" d="M367.64,152.38V.64h117.92c6.79,0,12.79.72,17.99,2.17,5.2,1.45,9.54,3.67,13.01,6.67,3.47,3,6.09,6.79,7.86,11.38,1.77,4.59,2.66,9.99,2.66,16.2v6.83c0,7.52-1.64,13.89-4.93,19.13-3.29,5.24-8.26,9.38-14.9,12.41,7.51,3.11,12.99,7.59,16.42,13.44,3.43,5.85,5.15,13.01,5.15,21.46v6.29c0,6.21-.87,11.58-2.6,16.1-1.73,4.52-4.3,8.24-7.7,11.16-3.4,2.93-7.7,5.08-12.9,6.45-5.2,1.37-11.31,2.06-18.32,2.06h-119.66ZM420.31,57.76h46.06c3.11,0,5.4-.65,6.88-1.95,1.48-1.3,2.22-3.21,2.22-5.74v-5.31c0-2.38-.74-4.24-2.22-5.58-1.48-1.34-3.78-2.01-6.88-2.01h-46.06v20.59ZM420.31,115.53h46.61c3.04,0,5.31-.67,6.83-2.01,1.52-1.34,2.28-3.2,2.28-5.58v-6.29c0-2.53-.76-4.44-2.28-5.74-1.52-1.3-3.79-1.95-6.83-1.95h-46.61v21.57Z"/>
+                  <path className="fill-current" d="M629.28,152.38V.64h39.13l88.77,77.93V.64h48.99v151.74h-39.34l-88.55-77.06v77.06h-48.99Z"/>
+                </g>
 
-              {/* Last name (main) */}
-              <motion.div
-                style={{ y: titleParallaxWithLastTilt, x: lastTiltXSpring, opacity: headerOpacity }}
-                className="relative z-30 w-full pl-0 md:pl-[clamp(24px,5vw,140px)] -mt-[clamp(2px,0.8vw,10px)]"
-                onMouseMove={(event) => {
-                  const rect = event.currentTarget.getBoundingClientRect();
-                  const relX = (event.clientX - (rect.left + rect.width / 2)) / rect.width;
-                  const relY = (event.clientY - (rect.top + rect.height / 2)) / rect.height;
-
-                  // LAST = stronger, FIRST = weaker + slight counter movement
-                  lastTiltX.set(relX * 30);
-                  lastTiltY.set(relY * 18);
-
-                  firstTiltX.set(relX * -14);
-                  firstTiltY.set(relY * -10);
-                }}
-                onMouseLeave={() => {
-                  lastTiltX.set(0);
-                  lastTiltY.set(0);
-                  firstTiltX.set(0);
-                  firstTiltY.set(0);
-                }}
-              >
-                {lastName && (
-                  isMobile ? (
-                    <h1
-                      className={`${lastNameClasses} leading-[0.82] font-science font-extrabold text-accent tracking-[-0.04em] text-left whitespace-nowrap drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)] md:inline-block md:align-baseline`}
-                    >
-                      {lastName}
-                    </h1>
-                  ) : (
-                    <SplitText
-                      text={lastName}
-                      tag="h1"
-                      className={`${lastNameClasses} leading-[0.82] font-science font-extrabold text-accent tracking-[-0.04em] text-left whitespace-nowrap drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)] md:inline-block md:align-baseline`}
-                      delay={120}
-                      duration={0.6}
-                      ease="power3.out"
-                      splitType="chars"
-                      from={{ opacity: 0, y: 40 }}
-                      to={{ opacity: 1, y: 0 }}
-                      threshold={0.1}
-                      rootMargin="-100px"
-                      textAlign="left"
+                {!reduceMotion && (
+                  <g
+                    mask={`url(#${nameClipId}-lubin-mask)`}
+                    opacity={0.75}
+                    style={{ mixBlendMode: 'screen' as any }}
+                  >
+                    <motion.rect
+                      x={-320}
+                      y={0}
+                      width={320}
+                      height={153.9}
+                      fill={`url(#${nameClipId}-shine)`}
+                      initial={{ x: -320, opacity: 0 }}
+                      animate={{ x: 900, opacity: [0, 1, 0] }}
+                      transition={{ duration: 0.75, ease: "easeInOut", delay: 0.2 }}
                     />
-                  )
+                  </g>
                 )}
-              </motion.div>
-            </div>
+
+                {/* ARTUR (white, vertical) */}
+                <g className="text-white">
+                  <path className="fill-current" d="M595.39,152.18l-32.12-12.31v-7.74l32.12-12.36v9.66l-4.98,1.75v10.49l4.98,1.9v8.61ZM583.24,138.92v-5.31l-7.23,2.53,7.23,2.77Z"/>
+                  <path className="fill-current" d="M595.39,116.6h-32.12v-18.33c0-2.02.48-3.64,1.43-4.86.96-1.22,2.9-1.84,5.84-1.84h6.77c2.26,0,3.93.42,5.01,1.25,1.08.83,1.74,2.02,1.98,3.55v.41l11.08-7.35v10.07l-10.09,6.41v2.43h10.09v8.27ZM576.79,108.34v-7.28c0-.44-.13-.78-.4-1-.27-.23-.68-.34-1.23-.34h-1.4c-.52,0-.92.11-1.2.34-.28.23-.42.56-.42,1v7.28h4.66Z"/>
+                  <path className="fill-current" d="M595.39,79.56h-22.53v8.47h-9.59v-25.22h9.59v8.47h22.53v8.28Z"/>
+                  <path className="fill-current" d="M563.28,59.15v-8.28h22.8v-9.29h-22.8v-8.28h24.94c3.09,0,5.11.59,6.07,1.78.96,1.19,1.43,2.82,1.43,4.91v12.5c0,1.03-.1,1.96-.31,2.78-.21.82-.58,1.52-1.12,2.09-.54.57-1.3,1.02-2.28,1.33-.98.31-2.24.47-3.79.47h-24.94Z"/>
+                  <path className="fill-current" d="M595.39,27.18h-32.12V8.84c0-2.02.48-3.64,1.43-4.86.96-1.22,2.9-1.84,5.84-1.84h6.77c2.26,0,3.93.42,5.01,1.25,1.08.83,1.74,2.02,1.98,3.55v.41l11.08-7.35v10.07l-10.09,6.41v2.43h10.09v8.27ZM576.79,18.91v-7.28c0-.44-.13-.78-.4-1-.27-.23-.68-.34-1.23-.34h-1.4c-.52,0-.92.11-1.2.34-.28.23-.42.56-.42,1v7.28h4.66Z"/>
+                </g>
+                </g>
+              </motion.svg>
+            </motion.div>
 
             {/* Role line: keep it below the big letters (no overlap) */}
             <motion.p
