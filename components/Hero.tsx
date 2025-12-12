@@ -146,37 +146,19 @@ export const Hero: React.FC = () => {
         <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden bg-black">
           {/* Base dark glow - static, just gives depth */}
           <div
-            className="absolute top-[-25%] left-[-25%] w-[150vw] h-[150vw] bg-[#020202] rounded-full blur-[160px]"
+            className="absolute top-[-20%] left-[-20%] w-[120vw] h-[120vw] bg-[#020202] rounded-full blur-[120px]"
           />
 
-          {/* Slow moving shadow blob */}
+          {/* Warm accent glow - light breathing (GPU-friendly) */}
           <motion.div
-            animate={{
-              x: ["-6%", "4%", "-6%"],
-              y: ["-4%", "3%", "-4%"],
-            }}
-            transition={{ duration: 40, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-[-15%] right-[-15%] w-[90vw] h-[90vw] bg-[#070707] rounded-full blur-[170px] opacity-40"
+            animate={reduceMotion ? undefined : { scale: [1, 1.08, 1], opacity: [0.05, 0.1, 0.05] }}
+            transition={reduceMotion ? undefined : { duration: 30, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute bottom-[18%] left-[18%] w-[55vw] h-[55vw] bg-accent rounded-full blur-[170px] will-change-transform"
           />
 
-          {/* Warm accent glow - very subtle breathing */}
-          <motion.div
-            animate={{
-              scale: [1, 1.12, 1],
-              opacity: [0.05, 0.12, 0.05],
-            }}
-            transition={{ duration: 32, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-[18%] left-[18%] w-[65vw] h-[65vw] bg-accent rounded-full blur-[230px]"
-          />
-
-          {/* Vertical light streak - minimal motion */}
-          <motion.div
-            animate={{
-              y: ["0%", "12%", "0%"],
-              opacity: [0, 0.12, 0],
-            }}
-            transition={{ duration: 28, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-[12%] right-[30%] w-[1px] h-[60vh] bg-gradient-to-b from-transparent via-white/12 to-transparent blur-[1px]"
+          {/* Vertical light streak - static (cheap) */}
+          <div
+            className="absolute top-[12%] right-[30%] w-[1px] h-[60vh] bg-gradient-to-b from-transparent via-white/8 to-transparent blur-[1px] opacity-70"
           />
         </div>
 
