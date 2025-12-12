@@ -191,111 +191,21 @@ export const Hero: React.FC = () => {
               - Use a shared left padding that is based on the viewport.
             */}
 
-            {/* Name mark (SVG): stable across monitors */}
-            <motion.div
-              style={{ y: titleParallaxWithLastTilt, x: lastTiltXSpring, opacity: headerOpacity }}
-              className="relative z-30 w-full flex justify-center"
-              onMouseMove={(event) => {
-                const rect = event.currentTarget.getBoundingClientRect();
-                const relX = (event.clientX - (rect.left + rect.width / 2)) / rect.width;
-                const relY = (event.clientY - (rect.top + rect.height / 2)) / rect.height;
-
-                lastTiltX.set(relX * 30);
-                lastTiltY.set(relY * 18);
+            <motion.img
+              src="/lubin-artur.svg"
+              alt={name}
+              draggable={false}
+              style={{
+                y: titleParallaxWithLastTilt,
+                x: lastTiltXSpring,
+                opacity: headerOpacity,
+                width: "clamp(480px, 64vw, 1040px)",
               }}
-              onMouseLeave={() => {
-                lastTiltX.set(0);
-                lastTiltY.set(0);
-              }}
-            >
-              <motion.svg
-                role="img"
-                aria-label={name}
-                viewBox="0 0 806.16 153.9"
-                className="h-auto w-[min(94vw,1100px)] md:w-[min(90vw,1350px)] lg:w-[min(86vw,1600px)] 2xl:w-[min(84vw,1750px)] drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)]"
-                variants={reduceMotion ? undefined : nameReveal}
-                initial={reduceMotion ? false : "hidden"}
-                animate={reduceMotion ? undefined : "show"}
-              >
-                {!reduceMotion && (
-                  <defs>
-                    <clipPath id={nameClipId}>
-                      <motion.rect
-                        x={0}
-                        y={0}
-                        width={806.16}
-                        height={153.9}
-                        initial="hidden"
-                        animate="show"
-                        variants={clipRect}
-                        transformOrigin="0% 50%"
-                        style={{ transformBox: 'fill-box' as any }}
-                      />
-                    </clipPath>
-
-                    <linearGradient
-                      id={`${nameClipId}-shine`}
-                      x1="0"
-                      y1="0"
-                      x2="220"
-                      y2="0"
-                      gradientUnits="userSpaceOnUse"
-                    >
-                      <stop offset="0" stopColor="white" stopOpacity="0" />
-                      <stop offset="0.45" stopColor="white" stopOpacity="0.85" />
-                      <stop offset="0.55" stopColor="white" stopOpacity="0.85" />
-                      <stop offset="1" stopColor="white" stopOpacity="0" />
-                    </linearGradient>
-
-                    <mask id={`${nameClipId}-lubin-mask`} maskUnits="userSpaceOnUse">
-                      <rect x="0" y="0" width="806.16" height="153.9" fill="black" />
-                      {/* LUBIN shape as mask */}
-                      <path fill="white" d="M0,152.38V.64h52.68v106.44h86.27v45.31H0Z" />
-                      <path fill="white" d="M163.88.64h52.78v107.74h59.18V.64h52.78v117.82c0,14.6-3.78,24.15-11.33,28.67-7.55,4.52-17.97,6.77-31.27,6.77h-79.66c-6.58,0-12.48-.49-17.72-1.46-5.24-.98-9.68-2.75-13.33-5.31-3.65-2.56-6.47-6.16-8.45-10.78-1.99-4.62-2.98-10.58-2.98-17.88V.64Z" />
-                      <path fill="white" d="M367.64,152.38V.64h117.92c6.79,0,12.79.72,17.99,2.17,5.2,1.45,9.54,3.67,13.01,6.67,3.47,3,6.09,6.79,7.86,11.38,1.77,4.59,2.66,9.99,2.66,16.2v6.83c0,7.52-1.64,13.89-4.93,19.13-3.29,5.24-8.26,9.38-14.9,12.41,7.51,3.11,12.99,7.59,16.42,13.44,3.43,5.85,5.15,13.01,5.15,21.46v6.29c0,6.21-.87,11.58-2.6,16.1-1.73,4.52-4.3,8.24-7.7,11.16-3.4,2.93-7.7,5.08-12.9,6.45-5.2,1.37-11.31,2.06-18.32,2.06h-119.66ZM420.31,57.76h46.06c3.11,0,5.4-.65,6.88-1.95,1.48-1.3,2.22-3.21,2.22-5.74v-5.31c0-2.38-.74-4.24-2.22-5.58-1.48-1.34-3.78-2.01-6.88-2.01h-46.06v20.59ZM420.31,115.53h46.61c3.04,0,5.31-.67,6.83-2.01,1.52-1.34,2.28-3.2,2.28-5.58v-6.29c0-2.53-.76-4.44-2.28-5.74-1.52-1.3-3.79-1.95-6.83-1.95h-46.61v21.57Z" />
-                      <path fill="white" d="M629.28,152.38V.64h39.13l88.77,77.93V.64h48.99v151.74h-39.34l-88.55-77.06v77.06h-48.99Z" />
-                    </mask>
-                  </defs>
-                )}
-                <g clipPath={!reduceMotion ? `url(#${nameClipId})` : undefined}>
-                {/* LUBIN (accent) */}
-                <g className="text-accent">
-                  <path className="fill-current" d="M0,152.38V.64h52.68v106.44h86.27v45.31H0Z"/>
-                  <path className="fill-current" d="M163.88.64h52.78v107.74h59.18V.64h52.78v117.82c0,14.6-3.78,24.15-11.33,28.67-7.55,4.52-17.97,6.77-31.27,6.77h-79.66c-6.58,0-12.48-.49-17.72-1.46-5.24-.98-9.68-2.75-13.33-5.31-3.65-2.56-6.47-6.16-8.45-10.78-1.99-4.62-2.98-10.58-2.98-17.88V.64Z"/>
-                  <path className="fill-current" d="M367.64,152.38V.64h117.92c6.79,0,12.79.72,17.99,2.17,5.2,1.45,9.54,3.67,13.01,6.67,3.47,3,6.09,6.79,7.86,11.38,1.77,4.59,2.66,9.99,2.66,16.2v6.83c0,7.52-1.64,13.89-4.93,19.13-3.29,5.24-8.26,9.38-14.9,12.41,7.51,3.11,12.99,7.59,16.42,13.44,3.43,5.85,5.15,13.01,5.15,21.46v6.29c0,6.21-.87,11.58-2.6,16.1-1.73,4.52-4.3,8.24-7.7,11.16-3.4,2.93-7.7,5.08-12.9,6.45-5.2,1.37-11.31,2.06-18.32,2.06h-119.66ZM420.31,57.76h46.06c3.11,0,5.4-.65,6.88-1.95,1.48-1.3,2.22-3.21,2.22-5.74v-5.31c0-2.38-.74-4.24-2.22-5.58-1.48-1.34-3.78-2.01-6.88-2.01h-46.06v20.59ZM420.31,115.53h46.61c3.04,0,5.31-.67,6.83-2.01,1.52-1.34,2.28-3.2,2.28-5.58v-6.29c0-2.53-.76-4.44-2.28-5.74-1.52-1.3-3.79-1.95-6.83-1.95h-46.61v21.57Z"/>
-                  <path className="fill-current" d="M629.28,152.38V.64h39.13l88.77,77.93V.64h48.99v151.74h-39.34l-88.55-77.06v77.06h-48.99Z"/>
-                </g>
-
-                {!reduceMotion && (
-                  <g
-                    mask={`url(#${nameClipId}-lubin-mask)`}
-                    opacity={0.75}
-                    style={{ mixBlendMode: 'screen' as any }}
-                  >
-                    <motion.rect
-                      x={-320}
-                      y={0}
-                      width={320}
-                      height={153.9}
-                      fill={`url(#${nameClipId}-shine)`}
-                      initial={{ x: -320, opacity: 0 }}
-                      animate={{ x: 900, opacity: [0, 1, 0] }}
-                      transition={{ duration: 0.75, ease: "easeInOut", delay: 0.2 }}
-                    />
-                  </g>
-                )}
-
-                {/* ARTUR (white, vertical) */}
-                <g className="text-white">
-                  <path className="fill-current" d="M595.39,152.18l-32.12-12.31v-7.74l32.12-12.36v9.66l-4.98,1.75v10.49l4.98,1.9v8.61ZM583.24,138.92v-5.31l-7.23,2.53,7.23,2.77Z"/>
-                  <path className="fill-current" d="M595.39,116.6h-32.12v-18.33c0-2.02.48-3.64,1.43-4.86.96-1.22,2.9-1.84,5.84-1.84h6.77c2.26,0,3.93.42,5.01,1.25,1.08.83,1.74,2.02,1.98,3.55v.41l11.08-7.35v10.07l-10.09,6.41v2.43h10.09v8.27ZM576.79,108.34v-7.28c0-.44-.13-.78-.4-1-.27-.23-.68-.34-1.23-.34h-1.4c-.52,0-.92.11-1.2.34-.28.23-.42.56-.42,1v7.28h4.66Z"/>
-                  <path className="fill-current" d="M595.39,79.56h-22.53v8.47h-9.59v-25.22h9.59v8.47h22.53v8.28Z"/>
-                  <path className="fill-current" d="M563.28,59.15v-8.28h22.8v-9.29h-22.8v-8.28h24.94c3.09,0,5.11.59,6.07,1.78.96,1.19,1.43,2.82,1.43,4.91v12.5c0,1.03-.1,1.96-.31,2.78-.21.82-.58,1.52-1.12,2.09-.54.57-1.3,1.02-2.28,1.33-.98.31-2.24.47-3.79.47h-24.94Z"/>
-                  <path className="fill-current" d="M595.39,27.18h-32.12V8.84c0-2.02.48-3.64,1.43-4.86.96-1.22,2.9-1.84,5.84-1.84h6.77c2.26,0,3.93.42,5.01,1.25,1.08.83,1.74,2.02,1.98,3.55v.41l11.08-7.35v10.07l-10.09,6.41v2.43h10.09v8.27ZM576.79,18.91v-7.28c0-.44-.13-.78-.4-1-.27-.23-.68-.34-1.23-.34h-1.4c-.52,0-.92.11-1.2.34-.28.23-.42.56-.42,1v7.28h4.66Z"/>
-                </g>
-                </g>
-              </motion.svg>
-            </motion.div>
+              className="select-none pointer-events-none h-auto 2xl:w-[min(80vw,1650px)] [filter:saturate(1.25)_brightness(1.08)] drop-shadow-[0_18px_46px_rgba(234,80,39,0.35)]"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            />
 
             {/* Role line: keep it below the big letters (no overlap) */}
             <motion.p
