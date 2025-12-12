@@ -200,7 +200,7 @@ export const Hero: React.FC = () => {
                 x: lastTiltXSpring,
                 opacity: headerOpacity,
               }}
-              className="select-none pointer-events-none h-auto w-[var(--hero-name-w)] [--hero-name-w:clamp(480px,64vw,1040px)] 2xl:[--hero-name-w:clamp(600px,80vw,2100px)] [filter:saturate(1.25)_brightness(1.08)] drop-shadow-[0_18px_46px_rgba(234,80,39,0.35)]"
+              className="select-none pointer-events-none h-auto w-[var(--hero-name-w)] [--hero-name-w:clamp(260px,34vw,540px)] min-[1700px]:[--hero-name-w:clamp(520px,68vw,1780px)] [filter:saturate(1.25)_brightness(1.08)] drop-shadow-[0_18px_46px_rgba(234,80,39,0.35)]"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
