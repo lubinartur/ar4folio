@@ -56,7 +56,7 @@ export const Experience: React.FC = () => {
                   {t(job.company)}
                 </h3>
 
-                <span className="font-mono text-sm text-accent bg-accent/10 px-3 py-1 rounded-full border border-accent/25">
+                <span className="font-mono text-sm text-accent bg-accent/10 px-3 py-1 rounded-full border border-accent/25 inline-flex w-fit self-start md:self-auto">
                   {t(job.period)}
                 </span>
               </div>

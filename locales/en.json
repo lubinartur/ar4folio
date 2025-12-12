@@ -110,6 +110,7 @@
   },
 
   "services": {
+    "kicker": "CORE SERVICES",
     "sectionTitle": "Services",
     "sectionSubtitle": "What I do",
     "serviceProduct": "Product & UX Design",

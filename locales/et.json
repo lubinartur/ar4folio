@@ -108,6 +108,7 @@
   },
 
   "services": {
+    "kicker": "PÕHITEENUSED",
     "sectionTitle": "Teenused",
     "sectionSubtitle": "Mida ma teen",
     "serviceProduct": "Toote- ja UX-disain",

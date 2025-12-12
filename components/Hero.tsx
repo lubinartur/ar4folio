@@ -18,16 +18,16 @@ export const Hero: React.FC = () => {
   const firstName = (nameParts[0] || "").toUpperCase();
   const lastName = nameParts.slice(1).join(" ").toUpperCase();
 
-  // Adjust heading size per language for first and last name separately
+  // Clamp-based typography so the layout stays stable across screens
   const firstNameClasses =
     language === "ru"
-      ? "text-[6vw] md:text-[5vw]"
-      : "text-[6.5vw] md:text-[5vw]";
+      ? "text-[clamp(44px,6vw,80px)]"
+      : "text-[clamp(44px,6.2vw,84px)]";
 
   const lastNameClasses =
     language === "ru"
-      ? "text-[24vw] md:text-[18vw]"
-      : "text-[26vw] md:text-[18vw]";
+      ? "text-[clamp(88px,23vw,220px)] md:text-[clamp(140px,18vw,340px)]"
+      : "text-[clamp(88px,23vw,220px)] md:text-[clamp(150px,19vw,360px)]";
 
   const brands = [
     { name: "Decus",          src: "/brands/decus.svg" },
@@ -43,6 +43,20 @@ export const Hero: React.FC = () => {
   const [roleIndex, setRoleIndex] = useState(0);
   const [roleText, setRoleText] = useState("");
   const [isRoleDeleting, setIsRoleDeleting] = useState(false);
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)');
+    const apply = () => setIsMobile(mq.matches);
+    apply();
+    if (mq.addEventListener) mq.addEventListener('change', apply);
+    else mq.addListener(apply);
+    return () => {
+      if (mq.removeEventListener) mq.removeEventListener('change', apply);
+      else mq.removeListener(apply);
+    };
+  }, []);
 
   useEffect(() => {
     const translated = t(ROLE_KEYS[roleIndex]) || "";
@@ -92,29 +106,48 @@ export const Hero: React.FC = () => {
     ([base, fade]) => Math.min(base, fade)
   );
 
-  // Cursor-reactive motion for the main name (subtle tilt/shift)
-  const nameTiltX = useMotionValue(0);
-  const nameTiltY = useMotionValue(0);
+  // Cursor-reactive motion for the name: FIRST and LAST react differently (desynced)
+  const firstTiltX = useMotionValue(0);
+  const firstTiltY = useMotionValue(0);
+  const lastTiltX = useMotionValue(0);
+  const lastTiltY = useMotionValue(0);
 
-  const nameTiltXSpring = useSpring(nameTiltX, {
-    stiffness: 120,
+  // LAST name = slightly stronger + snappier
+  const lastTiltXSpring = useSpring(lastTiltX, {
+    stiffness: 140,
+    damping: 16,
+    mass: 0.28,
+  });
+
+  const lastTiltYSpring = useSpring(lastTiltY, {
+    stiffness: 140,
     damping: 18,
-    mass: 0.3,
+    mass: 0.32,
   });
 
-  const nameTiltYSpring = useSpring(nameTiltY, {
-    stiffness: 120,
+  // FIRST name = weaker + heavier (lags a bit) + slight counter-parallax
+  const firstTiltXSpring = useSpring(firstTiltX, {
+    stiffness: 95,
     damping: 22,
-    mass: 0.35,
+    mass: 0.45,
   });
 
-  // Combine scroll parallax with cursor tilt on Y
-  const titleParallaxWithTilt = useTransform(
-    [titleParallax, nameTiltYSpring],
+  const firstTiltYSpring = useSpring(firstTiltY, {
+    stiffness: 95,
+    damping: 24,
+    mass: 0.5,
+  });
+
+  // Combine scroll parallax with cursor tilt on Y (separate per layer)
+  const titleParallaxWithLastTilt = useTransform(
+    [titleParallax, lastTiltYSpring],
     ([base, tilt]) => base + tilt
   );
-  // Highlight sweep for name - reacts to tilt X
-  const nameHighlightX = useTransform(nameTiltXSpring, [-30, 30], ["-14%", "14%"]);
+
+  const titleParallaxWithFirstTilt = useTransform(
+    [titleParallax, firstTiltYSpring],
+    ([base, tilt]) => base + tilt
+  );
 
   return (
     <>
@@ -168,87 +201,117 @@ export const Hero: React.FC = () => {
             className="absolute inset-0 z-15 flex items-center justify-center pointer-events-none"
           >
             {/* Image Container with Fade Mask and light sweep */}
-            <div className="relative w-full max-w-2xl h-[70vh] md:h-[85vh] mt-0 md:mt-[-5vh]">
+            <div className="relative w-full max-w-2xl h-[70vh] md:h-[85vh] mt-0 md:mt-[-5vh] -translate-y-6 translate-x-2 md:translate-x-0 md:translate-y-0">
               <img 
                 src="/images/hero-artur.png"
                 alt="Artur Lubin"
-                className="w-full h-full object-contain object-top opacity-80 md:opacity-90 [mask-image:linear-gradient(to_bottom,black_40%,transparent_100%)]"
+                className="w-full h-full object-contain object-[55%_0%] md:object-top opacity-80 md:opacity-90 [mask-image:linear-gradient(to_bottom,black_40%,transparent_100%)]"
               />
             </div>
           </motion.div>
 
           {/* Text Container */}
-          <div className="relative w-full flex flex-col items-center mt-16 md:mt-24 mb-8 md:mb-10">
-            
-            {/* Massive Typography - Last name as main foreground layer */}
-            <div className="relative w-full">
-              {/* Last name (front layer) */}
+          <div className="relative w-full flex flex-col items-center mt-14 md:mt-20 mb-6 md:mb-7">
+
+            {/*
+              IMPORTANT:
+              - The name axis must be stable across all screens.
+              - Do NOT center using max-width containers (it shifts on ultrawide).
+              - Use a shared left padding that is based on the viewport.
+            */}
+
+            {/* Name block: stable left axis for ARTUR + LUBIN on all screens */}
+            <div className="relative w-full -translate-x-1 md:translate-x-0">
+              {/* Shared left axis so A starts exactly where L starts */}
               <motion.div
-                style={{ y: titleParallaxWithTilt, x: nameTiltXSpring, opacity: headerOpacity }}
-                className="relative z-30 flex justify-center md:justify-center"
+                style={{ y: titleParallaxWithFirstTilt, x: firstTiltXSpring, opacity: headerOpacity }}
+                className="relative z-20 w-full pl-0 md:pl-[clamp(24px,5vw,140px)]"
+              >
+                {firstName && (
+                  isMobile ? (
+                    <h1
+                      className={`${firstNameClasses} leading-[0.92] font-science font-extrabold text-white/90 tracking-[-0.03em] text-left whitespace-nowrap drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)]`}
+                    >
+                      {firstName}
+                    </h1>
+                  ) : (
+                    <SplitText
+                      text={firstName}
+                      tag="h1"
+                      className={`${firstNameClasses} leading-[0.92] font-science font-extrabold text-white/90 tracking-[-0.03em] text-left whitespace-nowrap drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)]`}
+                      delay={100}
+                      duration={0.6}
+                      ease="power3.out"
+                      splitType="chars"
+                      from={{ opacity: 0, y: 40 }}
+                      to={{ opacity: 1, y: 0 }}
+                      threshold={0.1}
+                      rootMargin="-100px"
+                      textAlign="left"
+                    />
+                  )
+                )}
+              </motion.div>
+
+              {/* Last name (main) */}
+              <motion.div
+                style={{ y: titleParallaxWithLastTilt, x: lastTiltXSpring, opacity: headerOpacity }}
+                className="relative z-30 w-full pl-0 md:pl-[clamp(24px,5vw,140px)] -mt-[clamp(2px,0.8vw,10px)]"
                 onMouseMove={(event) => {
                   const rect = event.currentTarget.getBoundingClientRect();
                   const relX = (event.clientX - (rect.left + rect.width / 2)) / rect.width;
                   const relY = (event.clientY - (rect.top + rect.height / 2)) / rect.height;
-                  nameTiltX.set(relX * 30);
-                  nameTiltY.set(relY * 18);
+
+                  // LAST = stronger, FIRST = weaker + slight counter movement
+                  lastTiltX.set(relX * 30);
+                  lastTiltY.set(relY * 18);
+
+                  firstTiltX.set(relX * -14);
+                  firstTiltY.set(relY * -10);
                 }}
                 onMouseLeave={() => {
-                  nameTiltX.set(0);
-                  nameTiltY.set(0);
+                  lastTiltX.set(0);
+                  lastTiltY.set(0);
+                  firstTiltX.set(0);
+                  firstTiltY.set(0);
                 }}
               >
                 {lastName && (
-                  <SplitText
-                    text={lastName}
-                    tag="h1"
-                    className={`${lastNameClasses} leading-[0.8] font-science font-extrabold text-accent tracking-[-0.04em] text-center whitespace-nowrap drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)] md:inline-block md:align-baseline`}
-                    delay={120}
-                    duration={0.6}
-                    ease="power3.out"
-                    splitType="chars"
-                    from={{ opacity: 0, y: 40 }}
-                    to={{ opacity: 1, y: 0 }}
-                    threshold={0.1}
-                    rootMargin="-100px"
-                    textAlign="center"
-                  />
-                )}
-              </motion.div>
-
-              {/* First name aligned with last name, slightly above, acts as a second layer */}
-              <motion.div
-                style={{ y: titleParallaxWithTilt, x: nameTiltXSpring, opacity: headerOpacity }}
-                className="pointer-events-none absolute left-[7%] md:left-[9%] -top-[5vw] md:-top-[4vw] z-10"
-              >
-                {firstName && (
-                  <SplitText
-                    text={firstName}
-                    tag="h1"
-                    className={`${firstNameClasses} leading-[0.9] font-science font-extrabold text-white/85 tracking-[-0.03em] text-left whitespace-nowrap drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)]`}
-                    delay={100}
-                    duration={0.6}
-                    ease="power3.out"
-                    splitType="chars"
-                    from={{ opacity: 0, y: 40 }}
-                    to={{ opacity: 1, y: 0 }}
-                    threshold={0.1}
-                    rootMargin="-100px"
-                    textAlign="left"
-                  />
+                  isMobile ? (
+                    <h1
+                      className={`${lastNameClasses} leading-[0.82] font-science font-extrabold text-accent tracking-[-0.04em] text-left whitespace-nowrap drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)] md:inline-block md:align-baseline`}
+                    >
+                      {lastName}
+                    </h1>
+                  ) : (
+                    <SplitText
+                      text={lastName}
+                      tag="h1"
+                      className={`${lastNameClasses} leading-[0.82] font-science font-extrabold text-accent tracking-[-0.04em] text-left whitespace-nowrap drop-shadow-[0_18px_40px_rgba(0,0,0,0.9)] md:inline-block md:align-baseline`}
+                      delay={120}
+                      duration={0.6}
+                      ease="power3.out"
+                      splitType="chars"
+                      from={{ opacity: 0, y: 40 }}
+                      to={{ opacity: 1, y: 0 }}
+                      threshold={0.1}
+                      rootMargin="-100px"
+                      textAlign="left"
+                    />
+                  )
                 )}
               </motion.div>
             </div>
+
+            {/* Role line: keep it below the big letters (no overlap) */}
             <motion.p
               style={{ y: subheadParallax, opacity: headerOpacity }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.9, duration: 0.45 }}
-              className={`pointer-events-none relative z-25 ${
-                language === "ru" ? "mt-6 md:mt-8" : "mt-4 md:mt-5"
-              } text-base md:text-xl font-display font-semibold text-white uppercase text-center tracking-[0.28em] drop-shadow-[0_10px_28px_rgba(0,0,0,0.9)]`}
+              className={`pointer-events-none relative z-25 mt-[clamp(9px,1.1vw,17px)] text-base md:text-xl font-display font-semibold text-white uppercase text-center tracking-[0.28em] drop-shadow-[0_10px_28px_rgba(0,0,0,0.9)]`}
             >
-              <span className="inline-flex items-center justify-center min-h-[1em] gap-2">
+              <span className="inline-flex items-center justify-center min-h-[1em] gap-1">
                 <span className="inline-block text-accent tracking-[0.35em]">
                   {roleText || "\u00A0"}
                 </span>

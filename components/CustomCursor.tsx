@@ -5,6 +5,7 @@ export const CustomCursor: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [mode, setMode] = useState<'default' | 'text' | 'pointer'>('default');
 
   useEffect(() => {
     // Only show custom cursor on non-touch devices
@@ -29,7 +30,12 @@ export const CustomCursor: React.FC = () => {
         target.classList.contains('cursor-pointer') ||
         target.closest('.cursor-pointer');
 
+      const isText = !isInteractive && !!target.closest(
+        'p, span, li, h1, h2, h3, h4, h5, h6, blockquote, figcaption, label, input, textarea'
+      );
+
       setIsHovering(!!isInteractive);
+      setMode(isInteractive ? 'pointer' : isText ? 'text' : 'default');
     };
 
     window.addEventListener('mousemove', updateMousePosition);
@@ -45,28 +51,36 @@ export const CustomCursor: React.FC = () => {
 
   return (
     <>
-      {/* Main Dot */}
+      {/* Inner blur */}
       <motion.div
-        className="fixed top-0 left-0 w-2 h-2 bg-accent rounded-full pointer-events-none z-[9999] mix-blend-difference"
+        className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9997] overflow-hidden"
         animate={{
-          x: mousePosition.x - 4,
-          y: mousePosition.y - 4,
-          scale: isHovering ? 0 : 1
+          x: mousePosition.x - 16,
+          y: mousePosition.y - 16,
+          scale: isHovering ? 1.4 : 1,
+          opacity: isHovering ? 1 : 0.65
         }}
-        transition={{ type: "tween", ease: "backOut", duration: 0.1 }}
+        transition={{ type: 'tween', ease: 'easeOut', duration: 0.12 }}
+        style={{
+          backdropFilter: isHovering ? 'blur(0px)' : 'blur(26px)',
+          WebkitBackdropFilter: isHovering ? 'blur(0px)' : 'blur(26px)',
+          background: isHovering
+            ? 'rgba(255,61,0,0.10)'
+            : 'rgba(255,255,255,0.18)'
+        }}
       />
-      {/* Follower Ring */}
+
+      {/* Outline ring */}
       <motion.div
-        className="fixed top-0 left-0 w-10 h-10 border border-white/50 rounded-full pointer-events-none z-[9998] mix-blend-difference"
+        className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9998] mix-blend-difference border-2"
         animate={{
-          x: mousePosition.x - 20,
-          y: mousePosition.y - 20,
-          scale: isHovering ? 1.8 : 1,
-          borderColor: isHovering ? '#FF3D00' : 'rgba(255, 255, 255, 0.4)',
-          backgroundColor: isHovering ? 'rgba(255, 61, 0, 0.1)' : 'transparent',
-          borderWidth: isHovering ? '2px' : '1px'
+          x: mousePosition.x - 16,
+          y: mousePosition.y - 16,
+          scale: isHovering ? 1.4 : 1,
+          opacity: 1,
+          borderColor: isHovering ? '#FF3D00' : 'rgba(255,255,255,0.7)'
         }}
-        transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+        transition={{ type: 'tween', ease: 'easeOut', duration: 0.12 }}
       />
     </>
   );

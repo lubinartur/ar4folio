@@ -33,8 +33,8 @@ export const Services: React.FC = () => {
       <div className="container mx-auto px-6">
         <div className="mb-12 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 md:pb-10 border-b border-white/5">
           <div className="flex flex-col space-y-2">
-            <span className="text-accent text-sm tracking-widest font-medium">
-              {t("about.selectedWorkLabel")}
+            <span className="text-accent text-sm tracking-widest font-medium uppercase">
+              {t("services.kicker")}
             </span>
             <h2 className="text-4xl md:text-5xl font-display font-semibold text-white">
               {t("about.servicesTitle")}
