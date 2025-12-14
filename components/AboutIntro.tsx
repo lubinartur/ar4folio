@@ -6,25 +6,72 @@ export const AboutIntro: React.FC = () => {
   const { t } = useI18n();
 
   const container = {
-    hidden: { opacity: 0, y: 18 },
+    hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      y: 0,
       transition: {
-        duration: 0.55,
-        ease: "easeOut",
+        duration: 0.4,
+        ease: [0.16, 1, 0.3, 1],
         when: "beforeChildren",
         staggerChildren: 0.08,
       },
     },
   };
 
-  const item = {
-    hidden: { opacity: 0, y: 12 },
+  const titleItem = {
+    hidden: { 
+      opacity: 0, 
+      y: 30,
+      scale: 0.92,
+    },
     show: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.45, ease: "easeOut" },
+      scale: 1,
+      transition: { 
+        duration: 0.7,
+        ease: [0.16, 1, 0.3, 1],
+        opacity: { duration: 0.5, ease: "easeOut" },
+        y: { duration: 0.7, ease: [0.16, 1, 0.3, 1] },
+        scale: { duration: 0.6, ease: [0.34, 1.56, 0.64, 1] },
+      },
+    },
+  };
+
+  const textItem = {
+    hidden: { 
+      opacity: 0, 
+      y: 20,
+    },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { 
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
+        opacity: { duration: 0.4, ease: "easeOut" },
+        y: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+      },
+    },
+  };
+
+  const buttonItem = {
+    hidden: { 
+      opacity: 0, 
+      y: 15,
+      scale: 0.95,
+    },
+    show: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { 
+        duration: 0.4,
+        ease: [0.34, 1.56, 0.64, 1],
+        opacity: { duration: 0.3, ease: "easeOut" },
+        y: { duration: 0.4, ease: [0.34, 1.56, 0.64, 1] },
+        scale: { duration: 0.4, ease: [0.34, 1.56, 0.64, 1] },
+      },
     },
   };
 
@@ -36,13 +83,13 @@ export const AboutIntro: React.FC = () => {
           variants={container}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, amount: 0.4 }}
+          viewport={{ once: true, amount: 0.2 }}
         >
           {/* Text content with left accent border */}
           <div className="w-full pl-0">
             <motion.div
               className="border-l-4 border-accent/80 pl-6 md:pl-10 inline-block"
-              variants={item}
+              variants={titleItem}
             >
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight font-display font-semibold text-white mb-8 break-words">
                 {t("about.heroStatement")}
@@ -51,21 +98,21 @@ export const AboutIntro: React.FC = () => {
 
             <motion.p
               className="text-base sm:text-lg text-white/70 mb-10 pl-6 md:pl-10 border-l-4 border-transparent"
-              variants={item}
+              variants={textItem}
             >
               {t("about.shortSpecialization")}
             </motion.p>
 
             <motion.div
               className="flex flex-wrap gap-4 pl-6 md:pl-10"
-              variants={item}
+              variants={buttonItem}
             >
               <motion.a
                 href="/cv/artur-lubin-cv-classic.pdf"
                 target="_blank"
                 rel="noreferrer"
                 className="px-6 py-3 border border-accent text-accent rounded-full hover:bg-accent hover:text-black transition"
-                variants={item}
+                variants={buttonItem}
               >
                 {t("about.downloadCv")}
               </motion.a>
@@ -75,7 +122,7 @@ export const AboutIntro: React.FC = () => {
                 target="_blank"
                 className="px-6 py-3 border border-white/20 text-white rounded-full hover:bg-white hover:text-black transition"
                 rel="noreferrer"
-                variants={item}
+                variants={buttonItem}
               >
                 {t("about.viewLinkedIn")}
               </motion.a>

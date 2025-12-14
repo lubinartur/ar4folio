@@ -11,6 +11,11 @@ export interface Project {
   tags: string[];
   image: string;
   gallery?: string[];
+  screens?: Array<{
+    title: string;
+    description: string;
+    image: string;
+  }>;
   featured: boolean;
   year: string;
 }
