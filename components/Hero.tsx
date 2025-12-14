@@ -64,7 +64,13 @@ export const Hero: React.FC = () => {
   const [roleIndex, setRoleIndex] = useState(0);
   const [roleText, setRoleText] = useState("");
   const [isRoleDeleting, setIsRoleDeleting] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  // Initialize with proper check to avoid hydration mismatch
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 768;
+    }
+    return false;
+  });
 
   // Detect mobile screen size
   useEffect(() => {
@@ -223,10 +229,10 @@ export const Hero: React.FC = () => {
           {/* Central Hero Image */}
           <motion.div 
             style={{ y: yParallax, opacity: opacityParallax }}
-            className="absolute inset-0 z-10 md:z-15 flex items-start md:items-center justify-center pointer-events-none will-change-transform"
+            className="absolute inset-0 z-5 md:z-15 flex items-start md:items-center justify-center pointer-events-none will-change-transform"
           >
             {/* Image Container with Fade Mask and light sweep */}
-            <div className="relative w-full max-w-2xl h-[50vh] md:h-[85vh] mt-24 md:mt-[-5vh] -translate-y-0 md:-translate-y-6 translate-x-0 md:translate-x-0 md:translate-y-0">
+            <div className="relative w-full max-w-2xl h-[50vh] md:h-[85vh] mt-10 md:mt-[-5vh] -translate-y-0 md:-translate-y-6 translate-x-0 md:translate-x-0 md:translate-y-0">
               <img 
                 src="/images/hero-artur.png"
                 alt="Artur Lubin"
@@ -236,7 +242,7 @@ export const Hero: React.FC = () => {
           </motion.div>
 
           {/* Text Container */}
-          <div className="relative w-full flex flex-col items-center mt-[60vh] md:mt-24 lg:mt-28 mb-0 z-20">
+          <div className="relative w-full flex flex-col items-center mt-[27vh] md:mt-24 lg:mt-28 mb-0 z-20">
 
             {/*
               IMPORTANT:
@@ -247,25 +253,39 @@ export const Hero: React.FC = () => {
 
             <motion.div
               ref={nameContainerRef}
-              style={{
+              style={isMobile ? {
+                opacity: 1,
+                y: 0,
+                x: 0
+              } : {
                 y: titleParallaxWithLastTilt,
                 x: lastTiltXSpring,
                 opacity: headerOpacity,
               }}
-              className="scale-[0.85] md:scale-[0.92] lg:scale-[0.88] origin-center transform-gpu select-none relative"
-              initial={{ 
+              className="scale-[0.85] md:scale-[0.92] lg:scale-[0.88] origin-center transform-gpu select-none relative z-30"
+              initial={isMobile ? { 
+                opacity: 0, 
+                y: 20
+              } : { 
                 opacity: 0, 
                 y: 30,
                 scale: 0.85,
                 filter: "blur(20px)"
               }}
-              animate={{ 
+              animate={isMobile ? { 
+                opacity: 1, 
+                y: 0
+              } : { 
                 opacity: 1, 
                 y: 0,
                 scale: 1,
                 filter: "blur(0px)"
               }}
-              transition={{ 
+              transition={isMobile ? { 
+                duration: 0.8, 
+                delay: 0.2,
+                ease: [0.22, 1, 0.36, 1]
+              } : { 
                 duration: 1.2, 
                 delay: 0.3,
                 ease: [0.16, 1, 0.3, 1],
@@ -280,13 +300,19 @@ export const Hero: React.FC = () => {
                 alt={name}
                 draggable={false}
                 className="h-auto w-[var(--hero-name-w)] [--hero-name-w:clamp(280px,38vw,480px)] md:[--hero-name-w:clamp(260px,32vw,480px)] min-[1700px]:[--hero-name-w:clamp(480px,60vw,1600px)] [filter:saturate(1.25)_brightness(1.08)] drop-shadow-[0_18px_46px_rgba(234,80,39,0.35)]"
-                initial={{
+                initial={isMobile ? {
+                  opacity: 0,
+                  y: 15
+                } : {
                   clipPath: "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)",
                   x: -80,
                   scale: 0.7,
                   opacity: 0,
                 }}
-                animate={{
+                animate={isMobile ? {
+                  opacity: 1,
+                  y: 0
+                } : {
                   clipPath: [
                     "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)",
                     "polygon(0% 0%, 15% 0%, 15% 100%, 0% 100%)",
@@ -299,7 +325,11 @@ export const Hero: React.FC = () => {
                   scale: 1,
                   opacity: 1,
                 }}
-                transition={{
+                transition={isMobile ? {
+                  duration: 0.8,
+                  delay: 0.3,
+                  ease: [0.22, 1, 0.36, 1]
+                } : {
                   clipPath: {
                     duration: 1.2,
                     delay: 0.4,
@@ -322,15 +352,19 @@ export const Hero: React.FC = () => {
                     ease: "easeOut",
                   },
                 }}
+                style={isMobile ? { 
+                  display: 'block',
+                  visibility: 'visible'
+                } : {}}
               />
             </motion.div>
 
             {/* Role line: keep it below the big letters (no overlap) */}
             <motion.p
-              style={{ y: subheadParallax, opacity: headerOpacity }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.9, duration: 0.45 }}
+              style={isMobile ? {} : { y: subheadParallax, opacity: headerOpacity }}
+              initial={{ opacity: 0, y: isMobile ? 10 : 0 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={isMobile ? { delay: 0.5, duration: 0.6, ease: [0.22, 1, 0.36, 1] } : { delay: 0.9, duration: 0.45 }}
               className={`pointer-events-none relative z-25
                 mt-2 md:mt-4 lg:mt-5
                 mb-2 md:mb-4 lg:mb-5
@@ -350,12 +384,16 @@ export const Hero: React.FC = () => {
           </div>
 
           {/* Footer Info Columns - Glassmorphism Bar */}
-          <div className="w-full flex justify-center relative z-40 isolate mt-8 md:mt-0">
+          <div className="w-full flex justify-center relative z-40 isolate mt-6 md:mt-0">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: isMobile ? 15 : 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.35 }}
-              transition={{
+              transition={isMobile ? {
+                duration: 0.7,
+                delay: 0.6,
+                ease: [0.22, 1, 0.36, 1]
+              } : {
                 type: "spring",
                 stiffness: 140,
                 damping: 18,
@@ -366,10 +404,14 @@ export const Hero: React.FC = () => {
               {/* Col 1 */}
               <motion.div
                 className="flex flex-col items-center text-center space-y-1 relative group"
-                initial={{ opacity: 0, y: 22 }}
+                initial={{ opacity: 0, y: isMobile ? 10 : 22 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.45 }}
-                transition={{
+                transition={isMobile ? {
+                  duration: 0.6,
+                  delay: 0.7,
+                  ease: [0.22, 1, 0.36, 1]
+                } : {
                   type: "spring",
                   stiffness: 140,
                   damping: 18,
@@ -395,10 +437,14 @@ export const Hero: React.FC = () => {
               {/* Col 2 */}
               <motion.div
                 className="flex flex-col items-center text-center space-y-1 relative group"
-                initial={{ opacity: 0, y: 22 }}
+                initial={{ opacity: 0, y: isMobile ? 10 : 22 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.45 }}
-                transition={{
+                transition={isMobile ? {
+                  duration: 0.6,
+                  delay: 0.75,
+                  ease: [0.22, 1, 0.36, 1]
+                } : {
                   type: "spring",
                   stiffness: 140,
                   damping: 18,
@@ -424,10 +470,14 @@ export const Hero: React.FC = () => {
               {/* Col 3 */}
               <motion.div
                 className="flex flex-col items-center text-center space-y-1 relative group"
-                initial={{ opacity: 0, y: 22 }}
+                initial={{ opacity: 0, y: isMobile ? 10 : 22 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.45 }}
-                transition={{
+                transition={isMobile ? {
+                  duration: 0.6,
+                  delay: 0.8,
+                  ease: [0.22, 1, 0.36, 1]
+                } : {
                   type: "spring",
                   stiffness: 140,
                   damping: 18,
