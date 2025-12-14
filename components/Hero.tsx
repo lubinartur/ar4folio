@@ -228,14 +228,15 @@ export const Hero: React.FC = () => {
 
           {/* Central Hero Image */}
           <motion.div 
-            style={{ y: yParallax, opacity: opacityParallax }}
-            className="absolute inset-0 z-5 md:z-15 flex items-start md:items-center justify-center pointer-events-none will-change-transform"
+            style={isMobile ? { opacity: 1 } : { y: yParallax, opacity: opacityParallax }}
+            className="absolute inset-0 z-5 md:z-15 flex items-start md:items-center justify-center pointer-events-none"
           >
             {/* Image Container with Fade Mask and light sweep */}
             <div className="relative w-full max-w-2xl h-[50vh] md:h-[85vh] mt-10 md:mt-[-5vh] -translate-y-0 md:-translate-y-6 translate-x-0 md:translate-x-0 md:translate-y-0">
               <img 
                 src="/images/hero-artur.png"
                 alt="Artur Lubin"
+                loading={isMobile ? "eager" : "lazy"}
                 className="w-full h-full object-contain object-center md:object-top opacity-95 md:opacity-90 [mask-image:none] md:[mask-image:linear-gradient(to_bottom,black_40%,transparent_100%)]"
               />
             </div>
@@ -361,7 +362,7 @@ export const Hero: React.FC = () => {
 
             {/* Role line: keep it below the big letters (no overlap) */}
             <motion.p
-              style={isMobile ? {} : { y: subheadParallax, opacity: headerOpacity }}
+              style={isMobile ? { opacity: 1, y: 0 } : { y: subheadParallax, opacity: headerOpacity }}
               initial={{ opacity: 0, y: isMobile ? 10 : 0 }}
               animate={{ opacity: 1, y: 0 }}
               transition={isMobile ? { delay: 0.5, duration: 0.6, ease: [0.22, 1, 0.36, 1] } : { delay: 0.9, duration: 0.45 }}
@@ -387,8 +388,9 @@ export const Hero: React.FC = () => {
           <div className="w-full flex justify-center relative z-40 isolate mt-6 md:mt-0">
             <motion.div
               initial={{ opacity: 0, y: isMobile ? 15 : 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.35 }}
+              animate={isMobile ? { opacity: 1, y: 0 } : undefined}
+              whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
+              viewport={isMobile ? undefined : { once: true, amount: 0.35 }}
               transition={isMobile ? {
                 duration: 0.7,
                 delay: 0.6,
@@ -405,8 +407,9 @@ export const Hero: React.FC = () => {
               <motion.div
                 className="flex flex-col items-center text-center space-y-1 relative group"
                 initial={{ opacity: 0, y: isMobile ? 10 : 22 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.45 }}
+                animate={isMobile ? { opacity: 1, y: 0 } : undefined}
+                whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
+                viewport={isMobile ? undefined : { once: true, amount: 0.45 }}
                 transition={isMobile ? {
                   duration: 0.6,
                   delay: 0.7,
@@ -417,8 +420,8 @@ export const Hero: React.FC = () => {
                   damping: 18,
                   delay: 0.05,
                 }}
-                whileHover={{ y: -4, scale: 1.02 }}
-                whileTap={{ scale: 0.99 }}
+                whileHover={isMobile ? undefined : { y: -4, scale: 1.02 }}
+                whileTap={isMobile ? undefined : { scale: 0.99 }}
               >
                 <div className="flex items-center gap-2 mb-3 justify-center">
                   <span className="text-accent font-display text-base md:text-lg font-semibold">{`{ }`}</span>
@@ -438,8 +441,9 @@ export const Hero: React.FC = () => {
               <motion.div
                 className="flex flex-col items-center text-center space-y-1 relative group"
                 initial={{ opacity: 0, y: isMobile ? 10 : 22 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.45 }}
+                animate={isMobile ? { opacity: 1, y: 0 } : undefined}
+                whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
+                viewport={isMobile ? undefined : { once: true, amount: 0.45 }}
                 transition={isMobile ? {
                   duration: 0.6,
                   delay: 0.75,
@@ -450,8 +454,8 @@ export const Hero: React.FC = () => {
                   damping: 18,
                   delay: 0.16,
                 }}
-                whileHover={{ y: -4, scale: 1.02 }}
-                whileTap={{ scale: 0.99 }}
+                whileHover={isMobile ? undefined : { y: -4, scale: 1.02 }}
+                whileTap={isMobile ? undefined : { scale: 0.99 }}
               >
                 <div className="flex items-center gap-2 mb-3 justify-center">
                   <span className="text-accent font-display text-base md:text-lg font-semibold">9+</span>
@@ -471,8 +475,9 @@ export const Hero: React.FC = () => {
               <motion.div
                 className="flex flex-col items-center text-center space-y-1 relative group"
                 initial={{ opacity: 0, y: isMobile ? 10 : 22 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.45 }}
+                animate={isMobile ? { opacity: 1, y: 0 } : undefined}
+                whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
+                viewport={isMobile ? undefined : { once: true, amount: 0.45 }}
                 transition={isMobile ? {
                   duration: 0.6,
                   delay: 0.8,
@@ -483,8 +488,8 @@ export const Hero: React.FC = () => {
                   damping: 18,
                   delay: 0.27,
                 }}
-                whileHover={{ y: -4, scale: 1.02 }}
-                whileTap={{ scale: 0.99 }}
+                whileHover={isMobile ? undefined : { y: -4, scale: 1.02 }}
+                whileTap={isMobile ? undefined : { scale: 0.99 }}
               >
                 <div className="flex items-center gap-2 mb-3 justify-center">
                   <svg className="w-4 h-4 md:w-5 md:h-5 text-accent" fill="currentColor" viewBox="0 0 24 24">
