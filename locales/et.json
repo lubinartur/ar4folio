@@ -58,7 +58,26 @@
     "locationHover": "Koostöökeskne lähenemine.",
     "primaryCta": "Võta ühendust",
     "secondaryCta": "Vaata LinkedIni profiili",
-    "downloadCv": "Laadi alla klassikaline CV (PDF)"
+    "downloadCv": "Laadi alla klassikaline CV (PDF)",
+    "achievementsTitle": "Edu ja saavutused",
+    "achievements": {
+      "completedProjects": {
+        "value": "97",
+        "label": "Lõpetatud projekte"
+      },
+      "yearsDevelopment": {
+        "value": "6+",
+        "label": "Aastat arenduses"
+      },
+      "clientsWorldwide": {
+        "value": "17+",
+        "label": "Klienti üle maailma"
+      },
+      "usersPlatforms": {
+        "value": "10,000+",
+        "label": "Kasutajat minu loodud platvormidel"
+      }
+    }
   },
   "about": {
     "heroStatement": "Olen Product & UX disainer üle 9-aastase kogemusega. Ma loon digitaalseid tooteid, kus struktuur on esikohal —",

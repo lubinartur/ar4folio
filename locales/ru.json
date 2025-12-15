@@ -56,7 +56,26 @@
     "locationHover": "Подход через сотрудничество.",
     "primaryCta": "Связаться со мной",
     "secondaryCta": "Профиль в LinkedIn",
-    "downloadCv": "Скачать классическое резюме (PDF)"
+    "downloadCv": "Скачать классическое резюме (PDF)",
+    "achievementsTitle": "Успехи и достижения",
+    "achievements": {
+      "completedProjects": {
+        "value": "97",
+        "label": "Завершенных проектов"
+      },
+      "yearsDevelopment": {
+        "value": "6+",
+        "label": "Лет в разработке"
+      },
+      "clientsWorldwide": {
+        "value": "17+",
+        "label": "Клиентов по всему миру"
+      },
+      "usersPlatforms": {
+        "value": "10,000+",
+        "label": "Пользователей на моих платформах"
+      }
+    }
   },
 
   "about": {

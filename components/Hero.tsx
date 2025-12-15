@@ -1,10 +1,100 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { motion, useScroll, useTransform, useMotionValue, useSpring, useReducedMotion } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValue, useSpring, useReducedMotion, useMotionValue as useMotionValueHook } from 'framer-motion';
 import { useI18n } from "../services/i18n";
-import Orb from './Orb';
 
 const ROLE_KEYS = ["hero.roles.fintech", "hero.roles.product", "hero.roles.uiux", "hero.roles.graphic"];
 
+// Animated Counter Component
+const AnimatedCounter: React.FC<{ 
+  value: string; 
+  duration?: number; 
+  delay?: number;
+  isInView?: boolean;
+}> = ({ value, duration = 2, delay = 0, isInView = false }) => {
+  // Parse numeric value and suffix
+  const numericValue = parseInt(value.replace(/[^0-9]/g, '')) || 0;
+  const suffix = value.replace(/[0-9]/g, ''); // Extract non-numeric characters (like "+", ",")
+  
+  const [displayValue, setDisplayValue] = useState(0); // Start from 0
+  const hasStartedRef = useRef(false);
+  const animationIdRef = useRef<number | null>(null);
+  const valueKeyRef = useRef(value);
+
+  useEffect(() => {
+    // Reset if value changed
+    if (valueKeyRef.current !== value) {
+      valueKeyRef.current = value;
+      hasStartedRef.current = false;
+      setDisplayValue(0);
+    }
+
+    // Skip if already started or invalid value
+    if (hasStartedRef.current || numericValue === 0) {
+      // If animation completed, ensure final value is shown
+      if (hasStartedRef.current && displayValue < numericValue) {
+        setDisplayValue(numericValue);
+      }
+      return;
+    }
+    
+    hasStartedRef.current = true;
+
+    const startDelay = delay * 1000;
+    let startTime: number;
+    let animationFrameId: number;
+    let isCancelled = false;
+
+    const timer = setTimeout(() => {
+      if (isCancelled) return;
+      
+      startTime = Date.now();
+      
+      const animate = () => {
+        if (isCancelled) return;
+        
+        const elapsed = (Date.now() - startTime) / 1000;
+        const progress = Math.min(elapsed / duration, 1);
+        
+        // Easing function for smooth animation (ease-out cubic)
+        const easedProgress = 1 - Math.pow(1 - progress, 3);
+        const currentValue = Math.floor(numericValue * easedProgress);
+        
+        setDisplayValue(currentValue);
+
+        if (progress < 1) {
+          animationFrameId = requestAnimationFrame(animate);
+          animationIdRef.current = animationFrameId;
+        } else {
+          setDisplayValue(numericValue);
+          animationIdRef.current = null;
+        }
+      };
+
+      animationFrameId = requestAnimationFrame(animate);
+      animationIdRef.current = animationFrameId;
+    }, startDelay);
+
+    return () => {
+      isCancelled = true;
+      clearTimeout(timer);
+      if (animationIdRef.current) {
+        cancelAnimationFrame(animationIdRef.current);
+        animationIdRef.current = null;
+      }
+    };
+  }, [numericValue, duration, delay]);
+
+  // Format number with commas if needed
+  const formatNumber = (num: number) => {
+    if (num >= 1000) {
+      return num.toLocaleString();
+    }
+    return num.toString();
+  };
+
+  // Always show current display value
+  return <span>{formatNumber(displayValue)}{suffix}</span>;
+};
 
 export const Hero: React.FC = () => {
   const { language, t } = useI18n();
@@ -65,6 +155,8 @@ export const Hero: React.FC = () => {
   const [roleIndex, setRoleIndex] = useState(0);
   const [roleText, setRoleText] = useState("");
   const [isRoleDeleting, setIsRoleDeleting] = useState(false);
+  const [achievementsInView, setAchievementsInView] = useState(false);
+  const achievementsRef = useRef<HTMLDivElement>(null);
   // Initialize with proper check to avoid hydration mismatch
   const [isMobile, setIsMobile] = useState(() => {
     if (typeof window !== 'undefined') {
@@ -83,6 +175,16 @@ export const Hero: React.FC = () => {
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // Track achievements section visibility - always start after mount
+  useEffect(() => {
+    // Start counter after component mounts (with delay for animation)
+    const timer = setTimeout(() => {
+      setAchievementsInView(true);
+    }, isMobile ? 800 : 1000);
+
+    return () => clearTimeout(timer);
+  }, [isMobile]);
 
   // Set CSS variable for block width to match LUBIN text only on large screens
   useEffect(() => {
@@ -137,10 +239,6 @@ export const Hero: React.FC = () => {
   // Image moves significantly slower than scroll to act as a background anchor
   const yParallax = useTransform(scrollY, [0, 500], [0, 200]); 
   const opacityParallax = useTransform(scrollY, [0, 260, 700], [1, 1, 0]);
-  // Orb parallax - движется вниз вместе с контентом
-  const orbYParallax = useTransform(scrollY, [0, 500], [0, 150]);
-  // Orb opacity - исчезает в конце скролла Hero секции
-  const orbOpacity = useTransform(scrollY, [400, 700], [1, 0]);
   
   // Text Parallax - Positive Y creates a "slower than scroll" effect (lag)
   // Differing values create separation between layers: Subhead (Front/Fastest) -> Title (Mid) -> Image (Back/Slowest)
@@ -240,32 +338,6 @@ export const Hero: React.FC = () => {
             transition={reduceMotion ? undefined : { duration: 30, repeat: Infinity, ease: "easeInOut" }}
             className="absolute bottom-[18%] left-[18%] w-[55vw] h-[55vw] bg-accent rounded-full blur-[170px] will-change-transform opacity-40"
           />
-
-          {/* Orb Background - более заметный */}
-          {!isMobile && (
-            <motion.div 
-              className="absolute w-full h-full z-10 flex items-center justify-center" 
-              style={{ 
-                opacity: orbOpacity, 
-                top: '-10%',
-                left: 0,
-                right: 0,
-                bottom: 0,
-                height: '100%',
-                y: orbYParallax,
-                transform: 'translateX(4%)'
-              }}
-            >
-              <div style={{ width: '80.5%', height: '80.5%' }}>
-                <Orb
-                  hoverIntensity={0.8}
-                  rotateOnHover={true}
-                  hue={0}
-                  forceHoverState={false}
-                />
-              </div>
-            </motion.div>
-          )}
 
           {/* Vertical light streak - static (cheap) */}
           <div
@@ -435,8 +507,8 @@ export const Hero: React.FC = () => {
             </motion.p>
           </div>
 
-          {/* Footer Info Columns - Glassmorphism Bar */}
-          <div className="w-full flex justify-center relative z-40 isolate mt-6 md:mt-0">
+          {/* Success & Achievements Section - Replaces THINKING, EXPERIENCE, ROLE */}
+          <div ref={achievementsRef} className="w-full flex justify-center relative z-40 isolate mt-6 md:mt-0">
             <motion.div
               initial={{ opacity: 0, y: isMobile ? 15 : 20 }}
               animate={isMobile ? { opacity: 1, y: 0 } : undefined}
@@ -452,112 +524,51 @@ export const Hero: React.FC = () => {
                 damping: 18,
                 delay: 0.05,
               }}
-              className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 lg:gap-8 px-4 md:px-10 lg:px-12 py-3 md:py-5 lg:py-5 rounded-3xl md:rounded-full border border-white/10 bg-black/25 bg-gradient-to-r from-white/6 via-white/3 to-white/6 backdrop-blur-xl shadow-[0_18px_45px_rgba(0,0,0,0.6)] relative z-10 [&>div]:min-w-0"
+              className="w-full max-w-7xl px-4 md:px-10 lg:px-12 py-4 md:py-6 lg:py-8 rounded-3xl md:rounded-full border border-white/10 bg-black/25 bg-gradient-to-r from-white/6 via-white/3 to-white/6 backdrop-blur-xl shadow-[0_18px_45px_rgba(0,0,0,0.6)] relative z-10"
               style={{ maxWidth: 'var(--hero-block-w, 80rem)' }}
             >
-              {/* Col 1 */}
-              <motion.div
-                className="flex flex-col items-center md:items-start text-center md:text-left relative group min-w-0"
-                initial={{ opacity: 0, y: isMobile ? 10 : 22 }}
-                animate={isMobile ? { opacity: 1, y: 0 } : undefined}
-                whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
-                viewport={isMobile ? undefined : { once: true, amount: 0.45 }}
-                transition={isMobile ? {
-                  duration: 0.3,
-                  delay: 0.25,
-                  ease: [0.22, 1, 0.36, 1]
-                } : {
-                  type: "spring",
-                  stiffness: 140,
-                  damping: 18,
-                  delay: 0.05,
-                }}
-                whileHover={isMobile ? undefined : { y: -4, scale: 1.02 }}
-                whileTap={isMobile ? undefined : { scale: 0.99 }}
-              >
-                <div className="flex items-center gap-2 mb-3 justify-center md:justify-start w-full h-[1.75rem]">
-                  <span className="text-accent font-display text-base md:text-lg font-semibold leading-none">{`{ }`}</span>
-                  <h3 className="text-white font-display uppercase tracking-widest text-xs md:text-sm leading-none">
-                    {t("hero.expertiseTitle")}
-                  </h3>
-                </div>
-                <p className="text-neutral-400 font-sans text-sm md:text-base w-full leading-relaxed break-words min-h-[3rem]">
-                  {t("hero.expertiseDescription")}
-                </p>
-                <p className="text-accent/70 font-sans text-xs md:text-sm w-full leading-relaxed break-words mt-1 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-y-1 group-hover:translate-y-0">
-                  {t("hero.expertiseHover")}
-                </p>
-              </motion.div>
-
-              {/* Col 2 */}
-              <motion.div
-                className="flex flex-col items-center md:items-start text-center md:text-left relative group min-w-0"
-                initial={{ opacity: 0, y: isMobile ? 10 : 22 }}
-                animate={isMobile ? { opacity: 1, y: 0 } : undefined}
-                whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
-                viewport={isMobile ? undefined : { once: true, amount: 0.45 }}
-                transition={isMobile ? {
-                  duration: 0.3,
-                  delay: 0.3,
-                  ease: [0.22, 1, 0.36, 1]
-                } : {
-                  type: "spring",
-                  stiffness: 140,
-                  damping: 18,
-                  delay: 0.16,
-                }}
-                whileHover={isMobile ? undefined : { y: -4, scale: 1.02 }}
-                whileTap={isMobile ? undefined : { scale: 0.99 }}
-              >
-                <div className="flex items-center gap-2 mb-3 justify-center md:justify-start w-full h-[1.75rem]">
-                  <span className="text-accent font-display text-base md:text-lg font-semibold leading-none">9+</span>
-                  <h3 className="text-white font-display uppercase tracking-widest text-xs md:text-sm leading-none">
-                    {t("hero.specializationTitle")}
-                  </h3>
-                </div>
-                <p className="text-neutral-400 font-sans text-sm md:text-base w-full leading-relaxed break-words min-h-[3rem]">
-                  {t("hero.specializationDescription")}
-                </p>
-                <p className="text-accent/70 font-sans text-xs md:text-sm w-full leading-relaxed break-words mt-1 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-y-1 group-hover:translate-y-0">
-                  {t("hero.specializationHover")}
-                </p>
-              </motion.div>
-
-              {/* Col 3 */}
-              <motion.div
-                className="flex flex-col items-center md:items-start text-center md:text-left relative group min-w-0"
-                initial={{ opacity: 0, y: isMobile ? 10 : 22 }}
-                animate={isMobile ? { opacity: 1, y: 0 } : undefined}
-                whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
-                viewport={isMobile ? undefined : { once: true, amount: 0.45 }}
-                transition={isMobile ? {
-                  duration: 0.3,
-                  delay: 0.35,
-                  ease: [0.22, 1, 0.36, 1]
-                } : {
-                  type: "spring",
-                  stiffness: 140,
-                  damping: 18,
-                  delay: 0.27,
-                }}
-                whileHover={isMobile ? undefined : { y: -4, scale: 1.02 }}
-                whileTap={isMobile ? undefined : { scale: 0.99 }}
-              >
-                <div className="flex items-center gap-2 mb-3 justify-center md:justify-start w-full h-[1.75rem]">
-                  <svg className="text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" style={{ width: '1rem', height: '1rem' }}>
-                    <path d="M13 1L3 14h8v9l10-13h-8V1z"/>
-                  </svg>
-                  <h3 className="text-white font-display uppercase tracking-widest text-xs md:text-sm leading-none">
-                    {t("hero.locationLabel")}
-                  </h3>
-                </div>
-                <p className="text-neutral-400 font-sans text-sm md:text-base w-full leading-relaxed break-words min-h-[3rem]">
-                  {t("hero.location")}
-                </p>
-                <p className="text-accent/70 font-sans text-xs md:text-sm w-full leading-relaxed break-words mt-1 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-y-1 group-hover:translate-y-0">
-                  {t("hero.locationHover")}
-                </p>
-              </motion.div>
+              {/* Metrics Grid */}
+              <div className="grid grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+                {[
+                  { value: "53+", label: "Completed Projects" },
+                  { value: "9+", label: "Years in Development" },
+                  { value: "17", label: "Clients Worldwide" }
+                ].map((item, index) => {
+                  return (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: isMobile ? 10 : 15 }}
+                      animate={isMobile ? { opacity: 1, y: 0 } : undefined}
+                      whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
+                      viewport={isMobile ? undefined : { once: true, amount: 0.3 }}
+                      transition={isMobile ? {
+                        duration: 0.3,
+                        delay: 0.3 + index * 0.1,
+                        ease: [0.22, 1, 0.36, 1]
+                      } : {
+                        type: "spring",
+                        stiffness: 140,
+                        damping: 18,
+                        delay: 0.15 + index * 0.08,
+                      }}
+                      className="flex flex-col items-center text-center group"
+                      whileHover={isMobile ? undefined : { y: -2, scale: 1.02 }}
+                    >
+                      <div className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-accent mb-2 md:mb-3 leading-none">
+                        <AnimatedCounter 
+                          value={item.value} 
+                          duration={isMobile ? 1.5 : 2.5}
+                          delay={isMobile ? 0.8 + index * 0.2 : 0.6 + index * 0.15}
+                          isInView={true}
+                        />
+                      </div>
+                      <div className="text-xs md:text-sm text-neutral-400 font-sans leading-relaxed">
+                        {item.label}
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
             </motion.div>
           </div>
         </div>
@@ -572,13 +583,12 @@ export const Hero: React.FC = () => {
 
               {/* Marquee row of brands */}
               <div className="w-full max-w-6xl mx-auto overflow-hidden py-2 md:py-4 relative">
-                <motion.div
+                <div
                   className="flex items-center gap-x-10 md:gap-x-14 will-change-transform"
-                  animate={reduceMotion ? { x: 0 } : { x: ["0%", "-50%"] }}
-                  transition={reduceMotion ? {} : {
-                    duration: isMobile ? 6 : 10,
-                    repeat: Infinity,
-                    ease: "linear",
+                  style={{ 
+                    width: "fit-content",
+                    display: "flex",
+                    animation: reduceMotion ? 'none' : `marquee ${isMobile ? 15 : 18}s linear infinite`
                   }}
                 >
                   {[...brands, ...brands].map((brand, index) => {
@@ -607,11 +617,11 @@ export const Hero: React.FC = () => {
                       </div>
                     );
                   })}
-                </motion.div>
+                </div>
 
-                {/* Edge fade masks: very subtle, just to soften logo cut-off */}
-                <div className="pointer-events-none absolute inset-y-0 left-0 w-10 md:w-16 bg-gradient-to-r from-black/0 via-black/40 to-black/0" />
-                <div className="pointer-events-none absolute inset-y-0 right-0 w-10 md:w-16 bg-gradient-to-l from-black/0 via-black/40 to-black/0" />
+                {/* Edge fade masks: smooth gradient fade for seamless loop */}
+                <div className="pointer-events-none absolute inset-y-0 left-0 w-20 md:w-32 lg:w-40 z-10 bg-gradient-to-r from-black via-black/80 via-black/40 to-transparent" />
+                <div className="pointer-events-none absolute inset-y-0 right-0 w-20 md:w-32 lg:w-40 z-10 bg-gradient-to-l from-black via-black/80 via-black/40 to-transparent" />
               </div>
               <div className="w-full max-w-6xl mx-auto mt-2 md:mt-4 lg:mt-5">
                 <div className="h-px w-full bg-gradient-to-r from-transparent via-white/8 to-transparent opacity-60" />

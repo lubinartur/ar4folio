@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useI18n } from "../services/i18n";
 import { SERVICES } from "../constants";
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
@@ -53,7 +53,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index, t, isActive }
       whileInView={{ opacity: 1, scale: 1, y: 0 }}
       viewport={{ once: true, margin: "-10%" }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative flex-shrink-0 w-[380px] md:w-[420px] lg:w-[480px] h-[520px] md:h-[580px] rounded-3xl overflow-hidden"
+      className="group relative flex-shrink-0 w-[calc(100vw-72px)] max-w-[380px] md:w-[420px] lg:w-[480px] h-[520px] md:h-[580px] rounded-3xl overflow-hidden"
     >
       {/* Card background with gradient */}
       <div className={`absolute inset-0 bg-gradient-to-br ${gradients[index % gradients.length]} rounded-3xl`} />
@@ -137,6 +137,24 @@ export const Services: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+    };
+    
+    // Check immediately
+    checkMobile();
+    
+    // Listen for resize
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -149,33 +167,63 @@ export const Services: React.FC = () => {
   const smoothHeaderOpacity = useSpring(headerOpacity, { stiffness: 100, damping: 30 });
 
   const scrollToCard = (index: number) => {
+    if (index < 0 || index >= SERVICES.length) return;
+    if (!carouselRef.current) return;
+    
+    const container = carouselRef.current;
+    
+    // Update index immediately for UI feedback
     setActiveIndex(index);
-    if (carouselRef.current) {
-      const cardWidth = 480; // lg:w-[480px]
-      const gap = 24; // gap-6
-      const scrollPosition = index * (cardWidth + gap);
-      carouselRef.current.scrollTo({
-        left: scrollPosition,
-        behavior: "smooth",
+    
+    // Use a small delay to ensure state update is processed
+    setTimeout(() => {
+      if (!carouselRef.current) return;
+      
+      const cards = container.querySelectorAll('.snap-start');
+      if (cards.length === 0 || !cards[index]) return;
+      
+      const targetCard = cards[index] as HTMLElement;
+      const isMobileCheck = window.innerWidth < 768;
+      
+      // Temporarily disable snap
+      const originalSnapType = container.style.scrollSnapType;
+      container.style.scrollSnapType = 'none';
+      
+      // Use scrollIntoView - the most reliable method
+      targetCard.scrollIntoView({
+        behavior: isMobileCheck ? 'auto' : 'smooth',
+        block: 'nearest',
+        inline: 'start'
       });
-    }
+      
+      // Restore snap after scroll
+      setTimeout(() => {
+        if (container) {
+          container.style.scrollSnapType = originalSnapType || '';
+        }
+      }, isMobileCheck ? 50 : 300);
+    }, 10);
   };
 
   const nextCard = () => {
-    const next = (activeIndex + 1) % SERVICES.length;
-    scrollToCard(next);
+    const nextIndex = activeIndex + 1;
+    if (nextIndex < SERVICES.length) {
+      scrollToCard(nextIndex);
+    }
   };
 
   const prevCard = () => {
-    const prev = (activeIndex - 1 + SERVICES.length) % SERVICES.length;
-    scrollToCard(prev);
+    const prevIndex = activeIndex - 1;
+    if (prevIndex >= 0) {
+      scrollToCard(prevIndex);
+    }
   };
 
   return (
     <section
       ref={sectionRef}
       id="services"
-      className="py-24 md:py-32 bg-[#050505] relative overflow-hidden"
+      className="py-24 md:py-32 bg-[#050505] relative overflow-x-hidden overflow-y-visible"
     >
       {/* Background gradient effect */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent pointer-events-none" />
@@ -234,43 +282,46 @@ export const Services: React.FC = () => {
           </motion.div>
 
           {/* Right Panel - Carousel */}
-          <div className="lg:col-span-8">
+          <div className="lg:col-span-8 relative" style={{ position: 'relative' }}>
             {/* Carousel Container */}
-            <div className="relative">
-              {/* Navigation Buttons */}
-              <button
-                onClick={prevCard}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-black/60 border border-white/10 hover:border-accent/50 hover:bg-accent/10 flex items-center justify-center text-white transition-all duration-300 -translate-x-6"
-                aria-label="Previous service"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              
-              <button
-                onClick={nextCard}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-black/60 border border-white/10 hover:border-accent/50 hover:bg-accent/10 flex items-center justify-center text-white transition-all duration-300 translate-x-6"
-                aria-label="Next service"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-
-              {/* Scrollable Cards */}
+            <div className="relative" style={{ position: 'relative' }}>
+              {/* Scrollable Cards - First card aligned left, second card peeks from right */}
               <div
                 ref={carouselRef}
-                className="flex gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth pb-4"
-                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                data-carousel
+                className={`flex gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-4 ${!isMobile ? 'scroll-smooth' : ''}`}
+                data-snap-type="x mandatory"
+                style={{ 
+                  scrollbarWidth: 'none', 
+                  msOverflowStyle: 'none',
+                  paddingLeft: '0px',
+                  paddingRight: isMobile ? '36px' : '64px',
+                  touchAction: 'pan-x',
+                  position: 'relative',
+                  WebkitOverflowScrolling: 'touch'
+                }}
                 onScroll={(e) => {
                   const target = e.currentTarget;
-                  const cardWidth = 480;
+                  const isMobileCheck = window.innerWidth < 768;
+                  const isTablet = window.innerWidth >= 768 && window.innerWidth < 1024;
+                  
+                  // Get actual card width from DOM
+                  const cards = target.querySelectorAll('.snap-start');
+                  if (cards.length === 0) return;
+                  
+                  const firstCard = cards[0] as HTMLElement;
+                  const cardRect = firstCard.getBoundingClientRect();
+                  const cardWidth = cardRect.width;
                   const gap = 24;
-                  const newIndex = Math.round(target.scrollLeft / (cardWidth + gap));
+                  const scrollLeft = target.scrollLeft;
+                  const newIndex = Math.round(scrollLeft / (cardWidth + gap));
                   if (newIndex !== activeIndex && newIndex >= 0 && newIndex < SERVICES.length) {
                     setActiveIndex(newIndex);
                   }
                 }}
               >
                 {SERVICES.map((service, index) => (
-                  <div key={service.title} className="snap-center">
+                  <div key={service.title} className="snap-start flex-shrink-0">
                     <ServiceCard 
                       service={service} 
                       index={index} 
@@ -280,31 +331,131 @@ export const Services: React.FC = () => {
                   </div>
                 ))}
               </div>
-
-              {/* Pagination Dots */}
-              <div className="flex items-center justify-center gap-2 mt-8">
-                {SERVICES.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => scrollToCard(index)}
-                    className={`transition-all duration-300 rounded-full ${
-                      index === activeIndex
-                        ? "w-3 h-3 bg-accent"
-                        : "w-2 h-2 bg-neutral-600 hover:bg-neutral-500"
-                    }`}
-                    aria-label={`Go to service ${index + 1}`}
-                  />
-                ))}
-              </div>
             </div>
           </div>
         </div>
+
+        {/* Pagination with Navigation Arrows - Outside grid, always visible */}
+        <div className="flex items-center justify-center gap-4 mt-8 mb-4 w-full py-4 relative" style={{ zIndex: 50, position: 'relative' }}>
+          {/* Left Arrow */}
+          {activeIndex > 0 && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                prevCard();
+              }}
+              onTouchEnd={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                prevCard();
+              }}
+              className="w-10 h-10 rounded-full bg-black/60 backdrop-blur-sm border border-white/20 hover:border-accent/60 hover:bg-accent/10 flex items-center justify-center text-white transition-all duration-300 shadow-lg flex-shrink-0 touch-manipulation opacity-100 hover:scale-110 active:scale-95 cursor-pointer"
+              aria-label="Previous service"
+              style={{ 
+                width: '40px', 
+                height: '40px', 
+                minWidth: '40px', 
+                minHeight: '40px',
+                touchAction: 'manipulation',
+                WebkitTapHighlightColor: 'transparent',
+                zIndex: 50,
+                position: 'relative',
+                pointerEvents: 'auto'
+              }}
+            >
+              <ChevronLeft className="w-5 h-5" style={{ width: '20px', height: '20px', pointerEvents: 'none' }} />
+            </button>
+          )}
+          {activeIndex === 0 && (
+            <div className="w-10 h-10 flex items-center justify-center opacity-40" style={{ width: '40px', height: '40px', minWidth: '40px', minHeight: '40px' }}>
+              <ChevronLeft className="w-5 h-5" style={{ width: '20px', height: '20px' }} />
+            </div>
+          )}
+
+          {/* Pagination Dots */}
+          <div className="flex items-center gap-2.5">
+            {SERVICES.map((_, index) => (
+              <button
+                key={`pagination-${index}`}
+                onClick={() => scrollToCard(index)}
+                className={`transition-all duration-300 rounded-full cursor-pointer ${
+                  index === activeIndex
+                    ? "w-3.5 h-3.5 bg-accent shadow-lg shadow-accent/50"
+                    : "w-2.5 h-2.5 bg-white/40 hover:bg-white/60"
+                }`}
+                aria-label={`Go to service ${index + 1} of ${SERVICES.length}`}
+                style={{ 
+                  minWidth: index === activeIndex ? '14px' : '10px', 
+                  minHeight: index === activeIndex ? '14px' : '10px',
+                  display: 'block'
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Counter */}
+          <span className="text-sm text-white font-mono font-medium min-w-[50px] text-center">
+            {activeIndex + 1} / {SERVICES.length}
+          </span>
+
+          {/* Right Arrow */}
+          {activeIndex < SERVICES.length - 1 && (
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                nextCard();
+              }}
+              onTouchEnd={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                nextCard();
+              }}
+              className="w-10 h-10 rounded-full bg-black/60 backdrop-blur-sm border border-white/20 hover:border-accent/60 hover:bg-accent/10 flex items-center justify-center text-white transition-all duration-300 shadow-lg flex-shrink-0 touch-manipulation opacity-100 hover:scale-110 active:scale-95 cursor-pointer"
+              aria-label="Next service"
+              style={{ 
+                width: '40px', 
+                height: '40px', 
+                minWidth: '40px', 
+                minHeight: '40px',
+                touchAction: 'manipulation',
+                WebkitTapHighlightColor: 'transparent',
+                zIndex: 50,
+                position: 'relative',
+                pointerEvents: 'auto'
+              }}
+            >
+              <ChevronRight className="w-5 h-5" style={{ width: '20px', height: '20px', pointerEvents: 'none' }} />
+            </button>
+          )}
+          {activeIndex === SERVICES.length - 1 && (
+            <div className="w-10 h-10 flex items-center justify-center opacity-40" style={{ width: '40px', height: '40px', minWidth: '40px', minHeight: '40px' }}>
+              <ChevronRight className="w-5 h-5" style={{ width: '20px', height: '20px' }} />
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Hide scrollbar */}
-      <style jsx>{`
+      {/* Hide scrollbar and ensure mobile carousel visibility */}
+      <style>{`
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
+        }
+        @media (max-width: 767px) {
+          /* Ensure cards are visible and next card peeks */
+          [data-carousel] {
+            -webkit-overflow-scrolling: touch;
+          }
+          /* Ensure buttons are clickable on mobile */
+          button.touch-manipulation {
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            cursor: pointer;
+            user-select: none;
+          }
         }
       `}</style>
     </section>

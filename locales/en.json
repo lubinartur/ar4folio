@@ -71,7 +71,26 @@
     "locationHover": "Collaboration-first approach.",
     "primaryCta": "Contact me",
     "secondaryCta": "View LinkedIn Profile",
-    "downloadCv": "Download Classic CV (PDF)"
+    "downloadCv": "Download Classic CV (PDF)",
+    "achievementsTitle": "Success & Achievements",
+    "achievements": {
+      "completedProjects": {
+        "value": "97",
+        "label": "Completed Projects"
+      },
+      "yearsDevelopment": {
+        "value": "6+",
+        "label": "Years in Development"
+      },
+      "clientsWorldwide": {
+        "value": "17+",
+        "label": "Clients Worldwide"
+      },
+      "usersPlatforms": {
+        "value": "10,000+",
+        "label": "Users on My Built Platforms"
+      }
+    }
   },
   "about": {
     "heroStatement": "I'm a Product & UX Designer with 9+ years of experience. I design digital products where structure comes first —",
