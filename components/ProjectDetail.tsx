@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { Project } from '../types';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
@@ -69,45 +70,51 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
     window.scrollTo(0, 0);
   }, []);
 
-  return (
-    <motion.div 
-      ref={sectionRef}
-      initial={{ opacity: 0, filter: "blur(10px)" }}
-      animate={{ opacity: 1, filter: "blur(0px)" }}
-      exit={{ opacity: 0, filter: "blur(10px)" }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="min-h-screen bg-[#050505] pt-24 pb-20 relative overflow-hidden"
+  const backButton = (
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed left-6 bottom-8 z-[100] pointer-events-auto"
+      style={{ position: 'fixed' }}
     >
-      {/* Background gradient effect */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent pointer-events-none" />
-      <div className="container mx-auto px-6 relative z-10">
-        {/* Back Button (fixed, always visible) */}
+      <motion.button
+        onClick={onBack}
+        whileHover={{ scale: 1.05, x: 4 }}
+        whileTap={{ scale: 0.95 }}
+        className="group inline-flex items-center gap-3 px-4 py-2 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-neutral-300 hover:text-white hover:border-accent/60 transition-colors shadow-lg"
+      >
         <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed left-6 bottom-8 z-40"
+          className="w-9 h-9 rounded-full border border-white/20 bg-white text-black flex items-center justify-center transition-all 
+          group-hover:bg-accent group-hover:text-black group-hover:border-accent"
+          whileHover={{ rotate: -10 }}
+          transition={{ duration: 0.3 }}
         >
-          <motion.button
-            onClick={onBack}
-            whileHover={{ scale: 1.05, x: 4 }}
-            whileTap={{ scale: 0.95 }}
-            className="group inline-flex items-center gap-3 px-4 py-2 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 text-neutral-400 hover:text-white hover:border-accent/60 transition-colors"
-          >
-            <motion.div
-              className="w-9 h-9 rounded-full border border-white/20 bg-white text-black flex items-center justify-center transition-all 
-            group-hover:bg-accent group-hover:text-black group-hover:border-accent"
-              whileHover={{ rotate: -10 }}
-              transition={{ duration: 0.3 }}
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </motion.div>
-            <span className="text-xs md:text-sm font-mono uppercase tracking-[0.25em]">
-              Back to Projects
-            </span>
-          </motion.button>
+          <ArrowLeft className="w-5 h-5" />
         </motion.div>
+        <span className="text-xs md:text-sm font-mono uppercase tracking-[0.25em]">
+          Back to Projects
+        </span>
+      </motion.button>
+    </motion.div>
+  );
 
+  return (
+    <>
+      {typeof document !== 'undefined' && createPortal(backButton, document.body)}
+      <motion.div 
+        ref={sectionRef}
+        initial={{ opacity: 0, filter: "blur(10px)" }}
+        animate={{ opacity: 1, filter: "blur(0px)" }}
+        exit={{ opacity: 0, filter: "blur(10px)" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="min-h-screen bg-[#050505] pt-24 pb-20 relative"
+        style={{ overflow: 'visible' }}
+      >
+        {/* Background gradient effect */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent pointer-events-none" />
+
+      <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
         <motion.div
           style={{ y: smoothHeaderY, opacity: smoothHeaderOpacity }}
@@ -565,5 +572,6 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
 
       </div>
     </motion.div>
+    </>
   );
 };
