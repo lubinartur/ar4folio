@@ -3,6 +3,7 @@ import React, {
   useContext,
   useMemo,
   useState,
+  useEffect,
   ReactNode,
 } from "react";
 
@@ -20,6 +21,23 @@ const dictionaries: Record<Language, Messages> = {
   et,
 };
 
+const STORAGE_KEY = "portfolio-lang";
+
+const getStoredLanguage = (): Language => {
+  if (typeof window === "undefined") return "en";
+  
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored && (stored === "en" || stored === "ru" || stored === "et")) {
+      return stored as Language;
+    }
+  } catch (error) {
+    console.warn("Failed to read language from localStorage:", error);
+  }
+  
+  return "en";
+};
+
 type I18nContextType = {
   language: Language;
   setLanguage: (lang: Language) => void;
@@ -29,7 +47,15 @@ type I18nContextType = {
 const I18nContext = createContext<I18nContextType | undefined>(undefined);
 
 export const I18nProvider = ({ children }: { children: ReactNode }) => {
-  const [language, setLanguage] = useState<Language>("en");
+  const [language, setLanguage] = useState<Language>(getStoredLanguage);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, language);
+    } catch (error) {
+      console.warn("Failed to save language to localStorage:", error);
+    }
+  }, [language]);
 
   const value = useMemo<I18nContextType>(
     () => ({
