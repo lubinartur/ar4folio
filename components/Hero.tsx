@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, useScroll, useTransform, useMotionValue, useSpring, useReducedMotion } from 'framer-motion';
 import { useI18n } from "../services/i18n";
+import Orb from './Orb';
 
 const ROLE_KEYS = ["hero.roles.fintech", "hero.roles.product", "hero.roles.uiux", "hero.roles.graphic"];
 
@@ -71,6 +72,7 @@ export const Hero: React.FC = () => {
     }
     return false;
   });
+  
 
   // Detect mobile screen size
   useEffect(() => {
@@ -80,6 +82,25 @@ export const Hero: React.FC = () => {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Set CSS variable for block width to match LUBIN text only on large screens
+  useEffect(() => {
+    const updateBlockWidth = () => {
+      const width = window.innerWidth;
+      // Only match LUBIN width on large screens (>= 1700px)
+      // On smaller screens, use default max-width
+      if (width >= 1700) {
+        const blockWidth = 'clamp(480px, 60vw, 1600px)';
+        document.documentElement.style.setProperty('--hero-block-w', blockWidth);
+      } else {
+        // Remove the variable on smaller screens to use default max-w-7xl
+        document.documentElement.style.removeProperty('--hero-block-w');
+      }
+    };
+    updateBlockWidth();
+    window.addEventListener('resize', updateBlockWidth);
+    return () => window.removeEventListener('resize', updateBlockWidth);
   }, []);
 
 
@@ -116,6 +137,10 @@ export const Hero: React.FC = () => {
   // Image moves significantly slower than scroll to act as a background anchor
   const yParallax = useTransform(scrollY, [0, 500], [0, 200]); 
   const opacityParallax = useTransform(scrollY, [0, 260, 700], [1, 1, 0]);
+  // Orb parallax - движется вниз вместе с контентом
+  const orbYParallax = useTransform(scrollY, [0, 500], [0, 150]);
+  // Orb opacity - исчезает в конце скролла Hero секции
+  const orbOpacity = useTransform(scrollY, [400, 700], [1, 0]);
   
   // Text Parallax - Positive Y creates a "slower than scroll" effect (lag)
   // Differing values create separation between layers: Subhead (Front/Fastest) -> Title (Mid) -> Image (Back/Slowest)
@@ -206,19 +231,45 @@ export const Hero: React.FC = () => {
         <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden bg-black">
           {/* Base dark glow - static, just gives depth */}
           <div
-            className="absolute top-[-20%] left-[-20%] w-[120vw] h-[120vw] bg-[#020202] rounded-full blur-[120px]"
+            className="absolute top-[-20%] left-[-20%] w-[120vw] h-[120vw] bg-[#020202] rounded-full blur-[120px] opacity-60"
           />
 
           {/* Warm accent glow - light breathing (GPU-friendly) */}
           <motion.div
             animate={reduceMotion ? undefined : { scale: [1, 1.08, 1], opacity: [0.05, 0.1, 0.05] }}
             transition={reduceMotion ? undefined : { duration: 30, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-[18%] left-[18%] w-[55vw] h-[55vw] bg-accent rounded-full blur-[170px] will-change-transform"
+            className="absolute bottom-[18%] left-[18%] w-[55vw] h-[55vw] bg-accent rounded-full blur-[170px] will-change-transform opacity-40"
           />
+
+          {/* Orb Background - более заметный */}
+          {!isMobile && (
+            <motion.div 
+              className="absolute w-full h-full z-10 flex items-center justify-center" 
+              style={{ 
+                opacity: orbOpacity, 
+                top: '-10%',
+                left: 0,
+                right: 0,
+                bottom: 0,
+                height: '100%',
+                y: orbYParallax,
+                transform: 'translateX(4%)'
+              }}
+            >
+              <div style={{ width: '80.5%', height: '80.5%' }}>
+                <Orb
+                  hoverIntensity={0.8}
+                  rotateOnHover={true}
+                  hue={0}
+                  forceHoverState={false}
+                />
+              </div>
+            </motion.div>
+          )}
 
           {/* Vertical light streak - static (cheap) */}
           <div
-            className="absolute top-[12%] right-[30%] w-[1px] h-[60vh] bg-gradient-to-b from-transparent via-white/8 to-transparent blur-[1px] opacity-70"
+            className="absolute top-[12%] right-[30%] w-[1px] h-[60vh] bg-gradient-to-b from-transparent via-white/8 to-transparent blur-[1px] opacity-70 z-20"
           />
         </div>
 
@@ -401,11 +452,12 @@ export const Hero: React.FC = () => {
                 damping: 18,
                 delay: 0.05,
               }}
-              className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 lg:gap-8 px-4 md:px-10 lg:px-12 py-3 md:py-5 lg:py-5 rounded-3xl md:rounded-full border border-white/10 bg-black/25 bg-gradient-to-r from-white/6 via-white/3 to-white/6 backdrop-blur-xl shadow-[0_18px_45px_rgba(0,0,0,0.6)] relative z-10"
+              className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 lg:gap-8 px-4 md:px-10 lg:px-12 py-3 md:py-5 lg:py-5 rounded-3xl md:rounded-full border border-white/10 bg-black/25 bg-gradient-to-r from-white/6 via-white/3 to-white/6 backdrop-blur-xl shadow-[0_18px_45px_rgba(0,0,0,0.6)] relative z-10 [&>div]:min-w-0"
+              style={{ maxWidth: 'var(--hero-block-w, 80rem)' }}
             >
               {/* Col 1 */}
               <motion.div
-                className="flex flex-col items-center text-center space-y-1 relative group"
+                className="flex flex-col items-center md:items-start text-center md:text-left relative group min-w-0"
                 initial={{ opacity: 0, y: isMobile ? 10 : 22 }}
                 animate={isMobile ? { opacity: 1, y: 0 } : undefined}
                 whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
@@ -423,23 +475,23 @@ export const Hero: React.FC = () => {
                 whileHover={isMobile ? undefined : { y: -4, scale: 1.02 }}
                 whileTap={isMobile ? undefined : { scale: 0.99 }}
               >
-                <div className="flex items-center gap-2 mb-3 justify-center">
-                  <span className="text-accent font-display text-base md:text-lg font-semibold">{`{ }`}</span>
-                  <h3 className="text-white font-display uppercase tracking-widest text-xs md:text-sm">
+                <div className="flex items-center gap-2 mb-3 justify-center md:justify-start w-full h-[1.75rem]">
+                  <span className="text-accent font-display text-base md:text-lg font-semibold leading-none">{`{ }`}</span>
+                  <h3 className="text-white font-display uppercase tracking-widest text-xs md:text-sm leading-none">
                     {t("hero.expertiseTitle")}
                   </h3>
                 </div>
-                <p className="text-neutral-400 font-sans text-sm md:text-base max-w-[280px] leading-relaxed">
+                <p className="text-neutral-400 font-sans text-sm md:text-base w-full leading-relaxed break-words min-h-[3rem]">
                   {t("hero.expertiseDescription")}
                 </p>
-                <p className="text-accent/70 font-sans text-xs md:text-sm max-w-[280px] leading-relaxed mt-1 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-y-1 group-hover:translate-y-0">
+                <p className="text-accent/70 font-sans text-xs md:text-sm w-full leading-relaxed break-words mt-1 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-y-1 group-hover:translate-y-0">
                   {t("hero.expertiseHover")}
                 </p>
               </motion.div>
 
               {/* Col 2 */}
               <motion.div
-                className="flex flex-col items-center text-center space-y-1 relative group"
+                className="flex flex-col items-center md:items-start text-center md:text-left relative group min-w-0"
                 initial={{ opacity: 0, y: isMobile ? 10 : 22 }}
                 animate={isMobile ? { opacity: 1, y: 0 } : undefined}
                 whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
@@ -457,23 +509,23 @@ export const Hero: React.FC = () => {
                 whileHover={isMobile ? undefined : { y: -4, scale: 1.02 }}
                 whileTap={isMobile ? undefined : { scale: 0.99 }}
               >
-                <div className="flex items-center gap-2 mb-3 justify-center">
-                  <span className="text-accent font-display text-base md:text-lg font-semibold">9+</span>
-                  <h3 className="text-white font-display uppercase tracking-widest text-xs md:text-sm">
+                <div className="flex items-center gap-2 mb-3 justify-center md:justify-start w-full h-[1.75rem]">
+                  <span className="text-accent font-display text-base md:text-lg font-semibold leading-none">9+</span>
+                  <h3 className="text-white font-display uppercase tracking-widest text-xs md:text-sm leading-none">
                     {t("hero.specializationTitle")}
                   </h3>
                 </div>
-                <p className="text-neutral-400 font-sans text-sm md:text-base max-w-[280px] leading-relaxed">
+                <p className="text-neutral-400 font-sans text-sm md:text-base w-full leading-relaxed break-words min-h-[3rem]">
                   {t("hero.specializationDescription")}
                 </p>
-                <p className="text-accent/70 font-sans text-xs md:text-sm max-w-[280px] leading-relaxed mt-1 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-y-1 group-hover:translate-y-0">
+                <p className="text-accent/70 font-sans text-xs md:text-sm w-full leading-relaxed break-words mt-1 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-y-1 group-hover:translate-y-0">
                   {t("hero.specializationHover")}
                 </p>
               </motion.div>
 
               {/* Col 3 */}
               <motion.div
-                className="flex flex-col items-center text-center space-y-1 relative group"
+                className="flex flex-col items-center md:items-start text-center md:text-left relative group min-w-0"
                 initial={{ opacity: 0, y: isMobile ? 10 : 22 }}
                 animate={isMobile ? { opacity: 1, y: 0 } : undefined}
                 whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
@@ -491,18 +543,18 @@ export const Hero: React.FC = () => {
                 whileHover={isMobile ? undefined : { y: -4, scale: 1.02 }}
                 whileTap={isMobile ? undefined : { scale: 0.99 }}
               >
-                <div className="flex items-center gap-2 mb-3 justify-center">
-                  <svg className="w-4 h-4 md:w-5 md:h-5 text-accent" fill="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center gap-2 mb-3 justify-center md:justify-start w-full h-[1.75rem]">
+                  <svg className="text-accent flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" style={{ width: '1rem', height: '1rem' }}>
                     <path d="M13 1L3 14h8v9l10-13h-8V1z"/>
                   </svg>
-                  <h3 className="text-white font-display uppercase tracking-widest text-xs md:text-sm">
+                  <h3 className="text-white font-display uppercase tracking-widest text-xs md:text-sm leading-none">
                     {t("hero.locationLabel")}
                   </h3>
                 </div>
-                <p className="text-neutral-400 font-sans text-sm md:text-base max-w-[280px] leading-relaxed">
+                <p className="text-neutral-400 font-sans text-sm md:text-base w-full leading-relaxed break-words min-h-[3rem]">
                   {t("hero.location")}
                 </p>
-                <p className="text-accent/70 font-sans text-xs md:text-sm max-w-[280px] leading-relaxed mt-1 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-y-1 group-hover:translate-y-0">
+                <p className="text-accent/70 font-sans text-xs md:text-sm w-full leading-relaxed break-words mt-1 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-y-1 group-hover:translate-y-0">
                   {t("hero.locationHover")}
                 </p>
               </motion.div>
@@ -511,15 +563,15 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* Brands / Clients row lives in the same hero background */}
-        <div className="relative w-full pt-2 md:pt-10 lg:pt-12 pb-2 md:pb-10 lg:pb-12 z-20">
+        <div className="relative w-full pt-2 md:pt-4 lg:pt-6 pb-2 md:pb-4 lg:pb-6 z-20">
           <div className="w-full px-6 md:px-12">
-            <div className="flex flex-col items-center gap-2 md:gap-8 lg:gap-10">
-              <div className="w-full max-w-6xl mx-auto mb-2 md:mb-8 lg:mb-10">
+            <div className="flex flex-col items-center gap-2 md:gap-4 lg:gap-5">
+              <div className="w-full max-w-6xl mx-auto mb-2 md:mb-4 lg:mb-5">
                 <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-70" />
               </div>
 
               {/* Marquee row of brands */}
-              <div className="w-full max-w-6xl mx-auto overflow-hidden py-3 md:py-7 relative">
+              <div className="w-full max-w-6xl mx-auto overflow-hidden py-2 md:py-4 relative">
                 <motion.div
                   className="flex items-center gap-x-10 md:gap-x-14 will-change-transform"
                   animate={reduceMotion ? { x: 0 } : { x: ["0%", "-50%"] }}
@@ -561,7 +613,7 @@ export const Hero: React.FC = () => {
                 <div className="pointer-events-none absolute inset-y-0 left-0 w-10 md:w-16 bg-gradient-to-r from-black/0 via-black/40 to-black/0" />
                 <div className="pointer-events-none absolute inset-y-0 right-0 w-10 md:w-16 bg-gradient-to-l from-black/0 via-black/40 to-black/0" />
               </div>
-              <div className="w-full max-w-6xl mx-auto mt-2 md:mt-8 lg:mt-10">
+              <div className="w-full max-w-6xl mx-auto mt-2 md:mt-4 lg:mt-5">
                 <div className="h-px w-full bg-gradient-to-r from-transparent via-white/8 to-transparent opacity-60" />
               </div>
             </div>

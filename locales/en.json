@@ -11,7 +11,6 @@
     "available": "Available",
     "availableForWork": "Available for work"
   },
-
   "header": {
     "availableLong": "Available for work",
     "availableShort": "Available",
@@ -19,24 +18,40 @@
     "menu": "Menu",
     "close": "Close"
   },
-
   "menu": {
-    "home": { "name": "Home", "desc": "Start Here" },
-    "experience": { "name": "Experience", "desc": "My Journey" },
-    "services": { "name": "Services", "desc": "What I Do" },
-    "portfolio": { "name": "Portfolio", "desc": "Selected Work" },
-    "skills": { "name": "Skills", "desc": "Competencies" },
-    "contact": { "name": "Contact", "desc": "Get in Touch" },
+    "home": {
+      "name": "Home",
+      "desc": "Start Here"
+    },
+    "experience": {
+      "name": "Experience",
+      "desc": "My Journey"
+    },
+    "services": {
+      "name": "Services",
+      "desc": "What I Do"
+    },
+    "portfolio": {
+      "name": "Portfolio",
+      "desc": "Selected Work"
+    },
+    "skills": {
+      "name": "Skills",
+      "desc": "Competencies"
+    },
+    "contact": {
+      "name": "Contact",
+      "desc": "Get in Touch"
+    },
     "downloadCv": "Download CV"
   },
-
   "hero": {
     "name": "Artur Lubin",
     "title": "I’m a Product & UX Designer with 9+ years of experience building structured, intuitive, and emotionally intelligent digital systems.",
     "subtitle": "Specializing in fintech interfaces: onboarding, dashboards, flows, and decision-making tools.",
     "badgeExperience": "9+ years",
-    "tagline": "UX/UI & Product Designer",
-    "role": "Fintech Product Designer",
+    "tagline": "Product & UX Designer",
+    "role": "Fintech Product & UX Designer",
     "roles": {
       "fintech": "FINTECH",
       "product": "PRODUCT",
@@ -44,7 +59,7 @@
       "graphic": "GRAPHIC"
     },
     "designerLabel": "DESIGNER",
-    "location": "Tallinn, Estonia",
+    "location": "Product & UX designer working with teams, not pixels.",
     "expertiseTitle": "THINKING",
     "expertiseDescription": "UX architecture before UI. Structure over decoration.",
     "expertiseHover": "Systems thinking, not decoration.",
@@ -53,16 +68,14 @@
     "specializationHover": "9+ years building real products.",
     "locationLabel": "ROLE",
     "locationValue": "Tallinn, Estonia",
-    "location": "Product & UX designer working with teams, not pixels.",
     "locationHover": "Collaboration-first approach.",
     "primaryCta": "Contact me",
     "secondaryCta": "View LinkedIn Profile",
     "downloadCv": "Download Classic CV (PDF)"
   },
-
   "about": {
-    "heroStatement": "I’m a Product & UX Designer with 9+ years of experience creating structured, intuitive, and emotionally intelligent digital systems.",
-    "shortSpecialization": "Specializing in fintech interfaces: onboarding, dashboards, flows, and decision‑making tools.",
+    "heroStatement": "I'm a Product & UX Designer with 9+ years of experience. I design digital products where structure comes first —",
+    "shortSpecialization": "turning complex fintech and product logic into clear, usable systems people actually trust.",
     "experienceTitle": "Experience",
     "experienceDescription": "A timeline of professional growth and technical evolution.",
     "selectedWorkLabel": "Professional journey",
@@ -70,10 +83,9 @@
     "downloadCv": "Download Classic CV (PDF)",
     "viewLinkedIn": "View LinkedIn Profile"
   },
-
   "experience": {
     "placet": {
-      "role": "Senior UX/UI & Product Designer, Graphic Designer",
+      "role": "Senior Product & UX Designer, Graphic Designer",
       "period": "2016 — Present",
       "item1": "UX architecture for financial systems",
       "item2": "Full design system creation",
@@ -83,7 +95,7 @@
       "item6": "Visual identity, marketing assets, brand materials, digital & print design"
     },
     "air4": {
-      "role": "Creator & Product Designer",
+      "role": "Creator & Product & UX Designer",
       "period": "2023 — Present",
       "item1": "Concept and architecture of a local AI assistant",
       "item2": "UX for structured long-term memory and search",
@@ -99,7 +111,6 @@
       "description": "Designer for one of Estonia’s major e-commerce companies. Work included daily digital campaigns, banners, visual assets, and product categories management."
     }
   },
-
   "summary": {
     "experienceTitle": "Experience",
     "experienceLead": "A timeline of professional growth and technical evolution.",
@@ -112,7 +123,6 @@
     "langEn": "English — Professional working proficiency.",
     "langEt": "Estonian — Basic / conversational."
   },
-
   "services": {
     "kicker": "CORE SERVICES",
     "sectionTitle": "Services",
@@ -130,7 +140,7 @@
       "description": "Interfaces that turn complex flows into clarity and intuitive structure."
     },
     "product": {
-      "title": "Product Design",
+      "title": "Product & UX Design",
       "description": "Full product logic, prototyping, testing, refinement."
     },
     "fintech": {
@@ -146,7 +156,6 @@
       "description": "Improving clarity, usability, and conversion."
     }
   },
-
   "projects": {
     "sectionKicker": "Selected work",
     "sectionTitle": "Featured projects",
@@ -180,25 +189,39 @@
     "clickHint": "CLICK TO VIEW CASE STUDY",
     "viewCaseStudy": "View case study"
   },
-
   "skills": {
-    "sectionTitle": "Skills",
+    "kicker": "TOOLS & EXPERTISE",
+    "sectionTitle": "My Advantage",
     "ux": "Fintech UX: onboarding, loan flows, dashboards, credit products.",
-    "product": "Product design: structured flows, system thinking, data-driven interfaces.",
+    "product": "Product & UX design: structured flows, system thinking, data-driven interfaces.",
     "systems": "Design systems: components, tokens, guidelines, multi-brand usage.",
     "tools": "Figma, Adobe Photoshop, Illustrator, InDesign, prototyping.",
     "devCollab": "Close collaboration with developers and stakeholders."
   },
-
   "contact": {
     "heroTitle": "Let’s work on something meaningful.",
     "subtitle": "Available for UX/UI and product design collaborations. Open to discussing ambitious fintech projects.",
     "cta": "Contact me",
     "linkedin": "LinkedIn",
     "email": "Email",
-    "footerInfo": "© 2025 Artur Lubin — Product & UX Designer"
+    "footerInfo": "© 2025 Artur Lubin — Product & UX Designer",
+    "formName": "Name",
+    "formNamePlaceholder": "Your name",
+    "formEmail": "Email",
+    "formEmailPlaceholder": "your.email@example.com",
+    "formMessage": "Message",
+    "formMessagePlaceholder": "Tell me about your project...",
+    "formSubmit": "Send Message",
+    "formSubmitting": "Sending...",
+    "formSuccess": "Thank you! Your email client will open with your message.",
+    "formErrors": {
+      "nameRequired": "Name is required",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Invalid email address",
+      "messageRequired": "Message is required",
+      "submitError": "Failed to submit. Please try again."
+    }
   },
-
   "assistant": {
     "title": "Assistant",
     "powered": "AI powered",
@@ -208,7 +231,6 @@
     "quick3": "How do you approach loan UX?",
     "quick4": "What is your design stack?"
   },
-
   "chat": {
     "welcome": "Hello! I'm your portfolio assistant. I can tell you about fintech expertise, case studies, or design processes. How can I help?",
     "placeholder": "Ask a question...",
@@ -219,10 +241,9 @@
     "q3": "What is your design stack?",
     "q4": "How do you approach Loan UX?"
   },
-
   "languages": {
-  "en": "English",
-  "ru": "Russian",
-  "et": "Estonian"
-}
+    "en": "English",
+    "ru": "Russian",
+    "et": "Estonian"
+  }
 }

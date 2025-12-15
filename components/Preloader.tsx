@@ -3,10 +3,20 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) => {
   const [count, setCount] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const duration = 2000; // 2 seconds total
-    const intervalTime = 20;
+    // Detect mobile on mount
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+    };
+    checkMobile();
+  }, []);
+
+  useEffect(() => {
+    // Faster on mobile devices
+    const duration = isMobile ? 800 : 2000; // 0.8s on mobile, 2s on desktop
+    const intervalTime = isMobile ? 16 : 20;
     const steps = duration / intervalTime;
     const increment = 100 / steps;
 
@@ -23,13 +33,13 @@ export const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) 
 
     const completeTimer = setTimeout(() => {
       onComplete();
-    }, duration + 800); // Wait a bit after 100%
+    }, duration + (isMobile ? 200 : 800)); // Shorter wait on mobile
 
     return () => {
       clearInterval(timer);
       clearTimeout(completeTimer);
     };
-  }, [onComplete]);
+  }, [onComplete, isMobile]);
 
   return (
     <motion.div

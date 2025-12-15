@@ -41,12 +41,14 @@ const ProjectCard: React.FC<{ project: Project; index: number; onClick: () => vo
         offset: ["start end", "end start"]
     });
 
-    // Parallax effect for the image: moves slightly opposite to scroll
-    const imageY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
-    const textY = useTransform(scrollYProgress, [0, 1], ["20px", "-20px"]);
+    // Parallax effect for the image: moves opposite to scroll for WOW effect (reduced to prevent overflow)
+    const imageY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
+    const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.05, 1.1, 1.05]);
+    const textY = useTransform(scrollYProgress, [0, 1], ["30px", "-30px"]);
     
-    // Smooth spring animations
-    const smoothImageY = useSpring(imageY, { stiffness: 100, damping: 30 });
+    // Smooth spring animations with more responsiveness
+    const smoothImageY = useSpring(imageY, { stiffness: 80, damping: 25 });
+    const smoothImageScale = useSpring(imageScale, { stiffness: 100, damping: 30 });
     const smoothTextY = useSpring(textY, { stiffness: 100, damping: 30 });
 
     return (
@@ -76,17 +78,32 @@ const ProjectCard: React.FC<{ project: Project; index: number; onClick: () => vo
                     whileHover={{ backgroundColor: "rgba(0, 0, 0, 0)" }}
                 />
                 
-                {/* Parallax Image - Applied directly to motion.img */}
-                <motion.img 
-                    style={{ y: smoothImageY }}
-                    src={project.image} 
-                    alt={t(project.title)}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-[120%] -mt-[10%] object-cover opacity-100 md:opacity-80 md:group-hover:opacity-100 transition-all duration-700 filter md:grayscale md:group-hover:grayscale-0" 
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                />
+                {/* Parallax Image - Enhanced WOW effect with strict clipping */}
+                <div className="absolute inset-0 overflow-hidden rounded-3xl" style={{ clipPath: 'inset(0)', willChange: 'transform' }}>
+                    <motion.div
+                        style={{ 
+                            y: smoothImageY,
+                            scale: smoothImageScale,
+                            width: '110%',
+                            height: '110%',
+                            left: '-5%',
+                            top: '-5%'
+                        }}
+                        className="absolute"
+                    >
+                        <img 
+                            src={project.image} 
+                            alt={t(project.title)}
+                            loading="lazy"
+                            decoding="async"
+                            className="w-full h-full object-cover opacity-100 md:opacity-80 md:group-hover:opacity-100 transition-all duration-700 filter md:grayscale md:group-hover:grayscale-0" 
+                            style={{
+                                objectPosition: 'center',
+                                display: 'block'
+                            }}
+                        />
+                    </motion.div>
+                </div>
                 
             </motion.div>
 

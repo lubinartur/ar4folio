@@ -3,7 +3,57 @@ import { useI18n } from "../services/i18n";
 import { motion } from "framer-motion";
 
 export const AboutIntro: React.FC = () => {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
+
+  // Функция для выделения фразы оранжевым цветом
+  const highlightPhrase = (text: string): React.ReactNode => {
+    // Паттерны для поиска фразы на разных языках
+    const patterns: Record<string, RegExp> = {
+      en: /(Product & UX Designer with 9\+ years)/gi,
+      ru: /(Product & UX дизайнер с опытом более 9 лет)/gi,
+      et: /(Product & UX disainer üle 9-aastase kogemusega)/gi,
+    };
+
+    const pattern = patterns[language] || patterns.en;
+    if (!pattern) return text;
+
+    const matches = Array.from(text.matchAll(pattern));
+    if (matches.length === 0) return text;
+
+    const parts: React.ReactNode[] = [];
+    let lastIndex = 0;
+
+    matches.forEach((match, matchIndex) => {
+      if (match.index !== undefined) {
+        // Добавляем текст до совпадения
+        if (match.index > lastIndex) {
+          parts.push(
+            <React.Fragment key={`text-${matchIndex}`}>
+              {text.substring(lastIndex, match.index)}
+            </React.Fragment>
+          );
+        }
+        // Добавляем выделенную фразу
+        parts.push(
+          <span key={`highlight-${matchIndex}`} className="text-accent">
+            {match[0]}
+          </span>
+        );
+        lastIndex = match.index + match[0].length;
+      }
+    });
+
+    // Добавляем оставшийся текст
+    if (lastIndex < text.length) {
+      parts.push(
+        <React.Fragment key="text-end">
+          {text.substring(lastIndex)}
+        </React.Fragment>
+      );
+    }
+
+    return <>{parts}</>;
+  };
 
   const container = {
     hidden: { opacity: 0 },
@@ -92,7 +142,7 @@ export const AboutIntro: React.FC = () => {
               variants={titleItem}
             >
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight font-display font-semibold text-white mb-8 break-words">
-                {t("about.heroStatement")}
+                {highlightPhrase(t("about.heroStatement"))}
               </h1>
             </motion.div>
 

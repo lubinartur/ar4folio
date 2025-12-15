@@ -61,8 +61,8 @@
     "downloadCv": "Laadi alla klassikaline CV (PDF)"
   },
   "about": {
-    "heroStatement": "Olen Product & UX disainer üle 9-aastase kogemusega, luues struktureeritud, intuitiivseid ja emotsionaalselt nutikaid digitaalseid süsteeme.",
-    "shortSpecialization": "Spetsialiseerun finantsteenuste kasutajaliidestele: liitumisvood, juhtpaneelid, protsessid ja otsustamist toetavad tööriistad.",
+    "heroStatement": "Olen Product & UX disainer üle 9-aastase kogemusega. Ma loon digitaalseid tooteid, kus struktuur on esikohal —",
+    "shortSpecialization": "muutes keeruka fintechi ja tooteloogika selgeteks ning kasutatavateks süsteemideks, mida inimesed päriselt usaldavad.",
     "experienceTitle": "Kogemus",
     "experienceDescription": "Professionaalse arengu ja tehnilise kasvu ajajoon.",
     "selectedWorkLabel": "Professionaalne teekond",
@@ -198,7 +198,8 @@
   },
 
   "skills": {
-    "sectionTitle": "Oskused",
+    "kicker": "TÖÖRIISTAD JA EKSPERTIIS",
+    "sectionTitle": "Minu eelis",
     "ux": "Fintech UX: liitumisvood, laenuvood, juhtpaneelid, krediiditooted.",
     "product": "Tootedisain: struktureeritud kasutajavoog, süsteemne mõtlemine, andmepõhine lähenemine.",
     "systems": "Disainisüsteemid: komponendid, tokenid, juhised, mitme brändi tugi.",
@@ -211,6 +212,22 @@
     "subtitle": "Avatud koostööks UX/UI ja tootedisaini projektides. Eriti huvitavad ambitsioonikad finantstehnoloogia lahendused.",
     "cta": "Võta ühendust",
     "linkedin": "LinkedIn",
+    "formName": "Nimi",
+    "formNamePlaceholder": "Sinu nimi",
+    "formEmail": "E-post",
+    "formEmailPlaceholder": "sinu.email@example.com",
+    "formMessage": "Sõnum",
+    "formMessagePlaceholder": "Räägi mulle oma projektist...",
+    "formSubmit": "Saada sõnum",
+    "formSubmitting": "Saadan...",
+    "formSuccess": "Täname! Sinu e-posti klient avatakse koos sinu sõnumiga.",
+    "formErrors": {
+      "nameRequired": "Nimi on kohustuslik",
+      "emailRequired": "E-post on kohustuslik",
+      "emailInvalid": "Vale e-posti aadress",
+      "messageRequired": "Sõnum on kohustuslik",
+      "submitError": "Saatmine ebaõnnestus. Palun proovi uuesti."
+    },
     "email": "Email",
     "footerInfo": "© 2025 Artur Lubin — Product & UX Designer"
   },

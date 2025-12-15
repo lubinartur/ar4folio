@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LayoutGrid, X, Globe } from 'lucide-react';
 import { useI18n } from '../services/i18n';
@@ -16,6 +16,16 @@ export const Header: React.FC<{
 }> = ({ isMenuOpen, onMenuToggle, language, onLanguageChange }) => {
   const { t } = useI18n();
   const [isLangOpen, setIsLangOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const langLabels: Record<Language, string> = {
     en: t("languages.en"),
@@ -25,9 +35,9 @@ export const Header: React.FC<{
 
   return (
     <motion.header 
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ delay: 0.75, duration: 0.75, ease: "easeOut" }}
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ delay: isMobile ? 0 : 0.75, duration: isMobile ? 0.4 : 0.75, ease: "easeOut" }}
       className="fixed top-0 left-0 right-0 z-50 px-6 py-6 md:px-8 flex justify-between items-center"
     >
        {/* Left: Status Badge Only (not clickable) */}

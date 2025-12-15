@@ -1,8 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useI18n } from "../services/i18n";
 import { SERVICES } from "../constants";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { Layout, Box, TrendingUp, PenTool, Zap } from "lucide-react";
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
+import { Layout, Box, TrendingUp, PenTool, Zap, ChevronLeft, ChevronRight } from "lucide-react";
 
 const iconMap: Record<string, React.ComponentType<any>> = {
   layout: Layout,
@@ -12,174 +12,122 @@ const iconMap: Record<string, React.ComponentType<any>> = {
   zap: Zap,
 };
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      delayChildren: 0.2,
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const cardVariants = {
-  hidden: {
-    opacity: 0,
-    y: 50,
-    scale: 0.9,
-    filter: "blur(10px)",
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    filter: "blur(0px)",
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
 interface ServiceCardProps {
   service: typeof SERVICES[0];
   index: number;
   t: (key: string) => string;
+  isActive: boolean;
 }
 
-const ServiceCard: React.FC<ServiceCardProps> = ({ service, index, t }) => {
-  const cardRef = useRef<HTMLDivElement>(null);
+const ServiceCard: React.FC<ServiceCardProps> = ({ service, index, t, isActive }) => {
   const Icon = iconMap[service.icon] ?? Layout;
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: cardRef,
-    offset: ["start end", "center start"],
+    offset: ["start end", "end start"],
   });
 
-  const cardY = useTransform(scrollYProgress, [0, 1], [40, -20]);
-  const cardOpacity = useTransform(scrollYProgress, [0, 0.3, 1], [0.4, 0.8, 1]);
-  const cardScale = useTransform(scrollYProgress, [0, 1], [0.95, 1]);
+  const cardY = useTransform(scrollYProgress, [0, 1], [30, -20]);
+  const cardOpacity = useTransform(scrollYProgress, [0, 0.3, 1], [0.6, 0.9, 1]);
   const smoothY = useSpring(cardY, { stiffness: 100, damping: 30 });
   const smoothOpacity = useSpring(cardOpacity, { stiffness: 100, damping: 30 });
-  const smoothScale = useSpring(cardScale, { stiffness: 100, damping: 30 });
+
+  // Different gradient colors for each card
+  const gradients = [
+    "from-accent/40 via-accent/20 to-transparent", // Orange-red
+    "from-accent/30 via-accent/15 to-transparent",
+    "from-accent/35 via-accent/18 to-transparent",
+    "from-accent/25 via-accent/12 to-transparent",
+    "from-accent/40 via-accent/20 to-transparent",
+  ];
 
   return (
     <motion.div
       ref={cardRef}
-      variants={cardVariants}
       style={{ 
         y: smoothY, 
-        opacity: smoothOpacity, 
-        scale: smoothScale,
+        opacity: smoothOpacity,
       }}
-      whileHover={{
-        y: -12,
-        scale: 1.04,
-        rotateX: 2,
-        rotateY: -2,
-        transition: {
-          type: "spring",
-          stiffness: 300,
-          damping: 25,
-        },
-      }}
-      className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-accent/35 via-white/5 to-transparent p-[1px]"
+      initial={{ opacity: 0, scale: 0.9, y: 50 }}
+      whileInView={{ opacity: 1, scale: 1, y: 0 }}
+      viewport={{ once: true, margin: "-10%" }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative flex-shrink-0 w-[380px] md:w-[420px] lg:w-[480px] h-[520px] md:h-[580px] rounded-3xl overflow-hidden"
     >
-      {/* Card body */}
+      {/* Card background with gradient */}
+      <div className={`absolute inset-0 bg-gradient-to-br ${gradients[index % gradients.length]} rounded-3xl`} />
+      
+      {/* Dark base */}
+      <div className="absolute inset-0 bg-[#0a0a0a] rounded-3xl border border-white/10" />
+      
+      {/* Glowing accent in top-left */}
       <motion.div
-        className="relative h-full rounded-2xl bg-[#101010] border border-white/5 px-7 py-8 flex flex-col justify-between overflow-hidden"
-        whileHover={{
-          borderColor: "rgba(255, 107, 53, 0.4)",
-          transition: { duration: 0.3 },
-        }}
-      >
-        {/* Animated gradient glow on hover */}
-        <motion.div
-          className="pointer-events-none absolute inset-[-40%] bg-[radial-gradient(circle_at_top_right,rgba(255,120,80,0.16),transparent_60%)]"
-          initial={{ opacity: 0 }}
-          whileHover={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        />
+        className="absolute -top-20 -left-20 w-40 h-40 rounded-full bg-accent/30 blur-3xl"
+        animate={isActive ? { 
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3]
+        } : { scale: 1, opacity: 0.2 }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+      />
 
-        {/* Large background icon with animation */}
-        <motion.div
-          className="absolute -right-6 -top-6"
-          initial={{ opacity: 0.05, scale: 1, rotate: 0 }}
-          whileHover={{ opacity: 0.15, scale: 1.1, rotate: 5 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Icon className="w-28 h-28 text-accent" />
-        </motion.div>
-
-        <div className="relative z-[1] flex flex-col gap-6">
-          {/* Index pill + small icon with animation */}
-          <div className="flex items-center justify-between gap-4">
-            <motion.span
-              className="inline-flex items-center rounded-full border border-white/10 px-3 py-1 text-[11px] font-mono tracking-[0.25em] uppercase text-accent/80"
-              whileHover={{
-                borderColor: "rgba(255, 107, 53, 0.5)",
-                color: "#ff6b35",
-                scale: 1.05,
-              }}
-              transition={{ duration: 0.2 }}
-            >
-              {String(index + 1).padStart(2, "0")}
-            </motion.span>
-            <motion.div
-              className="w-11 h-11 bg-white/5 rounded-md flex items-center justify-center text-neutral-400"
-              whileHover={{
-                backgroundColor: "#ff6b35",
-                color: "#000",
-                scale: 1.1,
-                rotate: 5,
-              }}
-              transition={{
-                type: "spring",
-                stiffness: 300,
-                damping: 20,
-              }}
-            >
-              <motion.div
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
-              >
-                <Icon className="w-5 h-5" />
-              </motion.div>
-            </motion.div>
+      {/* Content */}
+      <div className="relative z-10 h-full flex flex-col p-8 md:p-10">
+        {/* Top badge area */}
+        <div className="flex items-start justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-accent/20 border border-accent/40 flex items-center justify-center">
+              <Icon className="w-5 h-5 text-accent" />
+            </div>
           </div>
-
-          {/* Title + copy with animation */}
-          <motion.div
-            initial={{ opacity: 0.9 }}
-            whileHover={{ opacity: 1 }}
-          >
-            <motion.h3
-              className="text-lg md:text-xl font-display font-semibold mb-3 text-white"
-              whileHover={{ x: 4, color: "#ff6b35" }}
-              transition={{ duration: 0.2 }}
-            >
-              {t(service.title)}
-            </motion.h3>
-            <motion.p
-              className="text-neutral-400 leading-relaxed text-sm md:text-[15px]"
-              whileHover={{ color: "#ffffff" }}
-              transition={{ duration: 0.2 }}
-            >
-              {t(service.description)}
-            </motion.p>
-          </motion.div>
+          {index === 0 && (
+            <div className="px-3 py-1 rounded-full bg-accent/20 border border-accent/40 text-accent text-xs font-bold">
+              75%
+            </div>
+          )}
         </div>
 
-        {/* Shine effect on hover */}
+        {/* Large central icon with glow */}
         <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
-          initial={{ x: "-100%", opacity: 0 }}
-          whileHover={{ x: "100%", opacity: 1 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
-          style={{ pointerEvents: "none" }}
-        />
-      </motion.div>
+          className="flex-1 flex items-center justify-center mb-8"
+          animate={isActive ? { scale: [1, 1.05, 1] } : { scale: 1 }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <div className="relative">
+            {/* Glow effect */}
+            <div className="absolute inset-0 bg-accent/20 blur-2xl rounded-full" />
+            <Icon className="relative w-32 h-32 md:w-40 md:h-40 text-accent drop-shadow-[0_0_30px_rgba(255,61,0,0.5)]" />
+          </div>
+        </motion.div>
+
+        {/* Title */}
+        <motion.h3
+          className="text-2xl md:text-3xl font-display font-bold text-white mb-4"
+          whileHover={{ x: 4 }}
+          transition={{ duration: 0.2 }}
+        >
+          {t(service.title)}
+        </motion.h3>
+
+        {/* Description with bullet points style */}
+        <div className="space-y-3">
+          <div className="flex items-start gap-3">
+            <div className="w-2 h-2 rounded-full bg-accent mt-2 flex-shrink-0" />
+            <p className="text-neutral-300 text-sm md:text-base leading-relaxed">
+              {t(service.description)}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Hover shine effect */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"
+        initial={{ x: "-100%" }}
+        whileHover={{ x: "100%" }}
+        transition={{ duration: 0.8, ease: "easeInOut" }}
+        style={{ pointerEvents: "none" }}
+      />
     </motion.div>
   );
 };
@@ -187,69 +135,178 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index, t }) => {
 export const Services: React.FC = () => {
   const { t } = useI18n();
   const sectionRef = useRef<HTMLElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
   });
 
   const headerY = useTransform(scrollYProgress, [0, 1], [30, -20]);
-  const headerOpacity = useTransform(scrollYProgress, [0, 0.3, 1], [0.5, 0.8, 1]);
+  const headerOpacity = useTransform(scrollYProgress, [0, 0.3, 1], [0.5, 0.9, 1]);
+  const smoothHeaderY = useSpring(headerY, { stiffness: 100, damping: 30 });
+  const smoothHeaderOpacity = useSpring(headerOpacity, { stiffness: 100, damping: 30 });
+
+  const scrollToCard = (index: number) => {
+    setActiveIndex(index);
+    if (carouselRef.current) {
+      const cardWidth = 480; // lg:w-[480px]
+      const gap = 24; // gap-6
+      const scrollPosition = index * (cardWidth + gap);
+      carouselRef.current.scrollTo({
+        left: scrollPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const nextCard = () => {
+    const next = (activeIndex + 1) % SERVICES.length;
+    scrollToCard(next);
+  };
+
+  const prevCard = () => {
+    const prev = (activeIndex - 1 + SERVICES.length) % SERVICES.length;
+    scrollToCard(prev);
+  };
 
   return (
     <section
       ref={sectionRef}
       id="services"
-      className="py-24 md:py-32 bg-[#0a0a0a] relative overflow-hidden"
+      className="py-24 md:py-32 bg-[#050505] relative overflow-hidden"
     >
       {/* Background gradient effect */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent pointer-events-none" />
       
       <div className="container mx-auto px-6 relative z-10">
-        {/* Section header with parallax */}
-        <motion.div
-          style={{ y: headerY, opacity: headerOpacity }}
-          initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          viewport={{ once: true, margin: "-10%" }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-12 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 md:pb-10 border-b border-white/5"
-        >
-          <div className="flex flex-col space-y-3">
-            <motion.span
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1, duration: 0.6 }}
-              className="text-accent text-sm tracking-widest font-medium uppercase"
-            >
-              {t("services.kicker")}
-            </motion.span>
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="text-4xl md:text-5xl font-display font-semibold text-white"
-            >
-              {t("about.servicesTitle")}
-            </motion.h2>
-          </div>
-        </motion.div>
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          {/* Left Panel - Title and Description */}
+          <motion.div
+            style={{ y: smoothHeaderY, opacity: smoothHeaderOpacity }}
+            initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-4"
+          >
+            <div className="space-y-6">
+              <motion.span
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1, duration: 0.6 }}
+                className="text-accent text-sm tracking-widest font-medium uppercase block"
+              >
+                {t("services.kicker")}
+              </motion.span>
+              
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white leading-tight"
+              >
+                {t("about.servicesTitle")}
+              </motion.h2>
 
-        {/* Services Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-10%" }}
-          style={{ perspective: 1000 }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {SERVICES.map((service, idx) => (
-            <ServiceCard key={service.title} service={service} index={idx} t={t} />
-          ))}
-        </motion.div>
+              {/* Gradient underline accent */}
+              <motion.div
+                initial={{ width: 0 }}
+                whileInView={{ width: "120px" }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="h-1 bg-gradient-to-r from-accent via-accent/60 to-transparent rounded-full"
+              />
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="text-neutral-400 text-base md:text-lg leading-relaxed max-w-md"
+              >
+                {t("services.sectionSubtitle") || "We handle your technological challenges so you can focus on scaling your business."}
+              </motion.p>
+            </div>
+          </motion.div>
+
+          {/* Right Panel - Carousel */}
+          <div className="lg:col-span-8">
+            {/* Carousel Container */}
+            <div className="relative">
+              {/* Navigation Buttons */}
+              <button
+                onClick={prevCard}
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-black/60 border border-white/10 hover:border-accent/50 hover:bg-accent/10 flex items-center justify-center text-white transition-all duration-300 -translate-x-6"
+                aria-label="Previous service"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              
+              <button
+                onClick={nextCard}
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-black/60 border border-white/10 hover:border-accent/50 hover:bg-accent/10 flex items-center justify-center text-white transition-all duration-300 translate-x-6"
+                aria-label="Next service"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+
+              {/* Scrollable Cards */}
+              <div
+                ref={carouselRef}
+                className="flex gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory scroll-smooth pb-4"
+                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                onScroll={(e) => {
+                  const target = e.currentTarget;
+                  const cardWidth = 480;
+                  const gap = 24;
+                  const newIndex = Math.round(target.scrollLeft / (cardWidth + gap));
+                  if (newIndex !== activeIndex && newIndex >= 0 && newIndex < SERVICES.length) {
+                    setActiveIndex(newIndex);
+                  }
+                }}
+              >
+                {SERVICES.map((service, index) => (
+                  <div key={service.title} className="snap-center">
+                    <ServiceCard 
+                      service={service} 
+                      index={index} 
+                      t={t}
+                      isActive={index === activeIndex}
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* Pagination Dots */}
+              <div className="flex items-center justify-center gap-2 mt-8">
+                {SERVICES.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => scrollToCard(index)}
+                    className={`transition-all duration-300 rounded-full ${
+                      index === activeIndex
+                        ? "w-3 h-3 bg-accent"
+                        : "w-2 h-2 bg-neutral-600 hover:bg-neutral-500"
+                    }`}
+                    aria-label={`Go to service ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
+      {/* Hide scrollbar */}
+      <style jsx>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </section>
   );
 };

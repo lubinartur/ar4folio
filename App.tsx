@@ -4,6 +4,7 @@ import { Hero } from './components/Hero';
 import { Projects } from './components/Projects';
 import { ProjectDetail } from './components/ProjectDetail';
 import { AboutIntro } from './components/AboutIntro';
+import { Skills } from './components/Skills';
 import { Experience } from './components/Experience';
 import { Services } from './components/Services';
 import { Contact } from './components/Contact';
@@ -20,6 +21,15 @@ const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const { language, setLanguage } = useI18n();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Detect mobile immediately
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+    };
+    checkMobile();
+  }, []);
 
   useEffect(() => {
     // Disable scrolling while loading
@@ -88,13 +98,14 @@ const App: React.FC = () => {
                     initial={{ opacity: 0 }} 
                     animate={{ opacity: 1 }} 
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.8 }}
+                    transition={{ duration: isMobile ? 0.3 : 0.8 }}
                 >
                     <div id="home">
                       <Hero />
                     </div>
                     <AboutIntro />
                     <Projects onProjectClick={setActiveProject} />
+                    <Skills />
                     <Experience />
                     <Services />
                     <Contact />
