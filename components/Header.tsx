@@ -37,7 +37,7 @@ export const Header: React.FC<{
     <motion.header 
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ delay: isMobile ? 0 : 0.75, duration: isMobile ? 0.4 : 0.75, ease: "easeOut" }}
+      transition={{ delay: isMobile ? 0 : 0.75, duration: isMobile ? 0.2 : 0.75, ease: "easeOut" }}
       className="fixed top-0 left-0 right-0 z-50 px-6 py-6 md:px-8 flex justify-between items-center"
     >
        {/* Left: Status Badge Only (not clickable) */}

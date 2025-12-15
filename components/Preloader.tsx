@@ -14,9 +14,9 @@ export const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) 
   }, []);
 
   useEffect(() => {
-    // Faster on mobile devices
-    const duration = isMobile ? 800 : 2000; // 0.8s on mobile, 2s on desktop
-    const intervalTime = isMobile ? 16 : 20;
+    // Much faster on mobile devices
+    const duration = isMobile ? 400 : 2000; // 0.4s on mobile, 2s on desktop
+    const intervalTime = isMobile ? 8 : 20;
     const steps = duration / intervalTime;
     const increment = 100 / steps;
 
@@ -33,7 +33,7 @@ export const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) 
 
     const completeTimer = setTimeout(() => {
       onComplete();
-    }, duration + (isMobile ? 200 : 800)); // Shorter wait on mobile
+    }, duration + (isMobile ? 100 : 800)); // Much shorter wait on mobile
 
     return () => {
       clearInterval(timer);
