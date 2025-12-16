@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { motion, useScroll, useTransform, useMotionValue, useSpring, useReducedMotion, useMotionValue as useMotionValueHook } from 'framer-motion';
 import { useI18n } from "../services/i18n";
 
-const ROLE_KEYS = ["hero.roles.fintech", "hero.roles.product", "hero.roles.uiux", "hero.roles.graphic"];
+const ROLE_KEYS = ["hero.roles.fintech", "hero.roles.product", "hero.roles.uiux"];
 
 // Animated Counter Component
 const AnimatedCounter: React.FC<{ 
@@ -530,9 +530,9 @@ export const Hero: React.FC = () => {
               {/* Metrics Grid */}
               <div className="grid grid-cols-3 gap-4 md:gap-6 lg:gap-8">
                 {[
-                  { value: "53+", label: "Completed Projects" },
-                  { value: "9+", label: "Years in Development" },
-                  { value: "17", label: "Clients Worldwide" }
+                  { value: t("hero.achievements.completedProjects.value"), label: t("hero.achievements.completedProjects.label") },
+                  { value: t("hero.achievements.yearsDevelopment.value"), label: t("hero.achievements.yearsDevelopment.label") },
+                  { value: t("hero.achievements.clientsWorldwide.value"), label: t("hero.achievements.clientsWorldwide.label") }
                 ].map((item, index) => {
                   return (
                     <motion.div

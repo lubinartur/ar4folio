@@ -1,11 +1,12 @@
 import React, { useRef } from "react";
 import { useI18n } from "../services/i18n";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 
 interface Skill {
   name: string;
-  percentage: number;
+  descriptor: string;
   icon: string | React.ReactNode;
+  group: 'tools' | 'ai';
 }
 
 // Компонент иконки Figma (официальные цвета)
@@ -55,7 +56,7 @@ const CursorIcon: React.FC<{ className?: string }> = ({ className = "w-16 h-16" 
 const ChatGPTIcon: React.FC<{ className?: string }> = ({ className = "w-16 h-16" }) => (
   <svg className={className} viewBox="-0.17090198558635983 0.482230148717937 41.14235318283891 40.0339509076386" fill="none" xmlns="http://www.w3.org/2000/svg">
     <text x="-9999" y="-9999">ChatGPT</text>
-    <path d="M37.532 16.87a9.963 9.963 0 0 0-.856-8.184 10.078 10.078 0 0 0-10.855-4.835A9.964 9.964 0 0 0 18.306.5a10.079 10.079 0 0 0-9.614 6.977 9.967 9.967 0 0 0-6.664 4.834 10.08 10.08 0 0 0 1.24 11.817 9.965 9.965 0 0 0 .856 8.185 10.079 10.079 0 0 0 10.855 4.835 9.965 9.965 0 0 0 7.516 3.35 10.078 10.078 0 0 0 9.617-6.981 9.967 9.967 0 0 0 6.663-4.834 10.079 10.079 0 0 0-1.243-11.813zM22.498 37.886a7.474 7.474 0 0 1-4.799-1.735c.061-.033.168-.091.237-.134l7.964-4.6a1.294 1.294 0 0 0 .655-1.134V19.054l3.366 1.944a.12.12 0 0 1 .066.092v9.299a7.505 7.505 0 0 1-7.49 7.496zM6.392 31.006a7.471 7.471 0 0 1-.894-5.023c.06.036.162.099.237.141l7.964 4.6a1.297 1.297 0 0 0 1.308 0l9.724-5.614v3.888a.12.12 0 0 1-.048.103l-8.051 4.649a7.504 7.504 0 0 1-10.24-2.744zM4.297 13.62A7.469 7.469 0 0 1 8.2 10.333c0 .068-.004.19-.004.274v9.201a1.294 1.294 0 0 0 .654 1.132l9.723 5.614-3.366 1.944a.12.12 0 0 1-.114.01L7.04 23.856a7.504 7.504 0 0 1-2.743-10.237zm27.658 6.437l-9.724-5.615 3.367-1.943a.121.121 0 0 1 .113-.01l8.052 4.648a7.498 7.498 0 0 1-1.158 13.528v-9.476a1.293 1.293 0 0 0-.65-1.132zm3.35-5.043c-.059-.037-.162-.099-.236-.141l-7.965-4.6a1.298 1.298 0 0 0-1.308 0l-9.723 5.614v-3.888a.12.12 0 0 1 .048-.103l8.05-4.645a7.497 7.497 0 0 1 11.135 7.763zm-21.063 6.929l-3.367-1.944a.12.12 0 0 1-.065-.092v-9.299a7.497 7.497 0 0 1 12.293-5.756 6.94 6.94 0 0 0-.236.134l-7.965 4.6a1.294 1.294 0 0 0-.654 1.132l-.006 11.225zm1.829-3.943l4.33-2.501 4.332 2.5v5l-4.331 2.5-4.331-2.5V18z" fill="currentColor"/>
+    <path d="M37.532 16.87a9.963 9.963 0 0 0-.856-8.184 10.078 10.078 0 0 0-10.855-4.835A9.964 9.964 0 0 0 18.306.5a10.079 10.079 0 0 0-9.614 6.977 9.967 9.967 0 0 0-6.664 4.834 10.08 10.08 0 0 0 1.24 11.817 9.965 9.965 0 0 0 .856 8.185 10.079 10.079 0 0 0 10.855 4.835 9.965 9.965 0 0 0 7.516 3.35 10.078 10.078 0 0 0 9.617-6.981 9.967 9.967 0 0 0 6.663-4.834 10.079 10.079 0 0 0-1.243-11.813zM22.498 37.886a7.474 7.474 0 0 1-4.799-1.735c.061-.033.168-.091.237-.134l7.964-4.6a1.294 1.294 0 0 0 .655-1.134V19.054l3.366 1.944a.12.12 0 0 1 .066.092v9.299a7.505 7.505 0 0 1-7.49 7.496zM6.392 31.006a7.471 7.471 0 0 1-.894-5.023c.06.036.162.099.237.141l7.964 4.6a1.297 1.297 0 0 0 1.308 0l9.724-5.614v3.888a.12.12 0 0 1-.048.103l-8.051 4.649a7.504 7.504 0 0 1-10.24-2.744zM4.297 13.62A7.469 7.469 0 0 1 8.2 10.333c0 .068-.004.19-.004.274v9.201a1.294 1.294 0 0 0 .654 1.132l9.723 5.614-3.366 1.944a.12.12 0 0 1-.114.01L7.04 23.856a7.504 7.504 0 0 1-2.743-10.237zm27.658 6.437l-9.724-5.615 3.367-1.943a.121.121 0 0 1 .113-.01l8.052 4.648a7.498 7.498 0 0 1-1.158 13.528v-9.476a1.293 1.293 0 0 0-.65-1.132zm3.35-5.043c-.059-.037-.162-.099-.236-.141l-7.965-4.6a1.298 1.298 0 0 0-1.308 0l-9.723 5.614v-3.888a.12.12 0 0 1 .048-.103l8.05-4.645a7.497 7.497 0 0 1 11.135 7.763zm-21.063 6.929l-3.367-1.944a.12.12 0 0 1-.065-.092v-9.299a7.497 7.497 0 0 1 12.293-5.756 6.94 6.94 0 0 0-.236.134l-7.965 4.6a1.294 1.294 0 0 0-.654 1.132l-.006 11.225zm1.829-3.943l4.33-2.501 4.332 2.5v5l-4.331 2.5-4.331-2.5V18z" fill="white" stroke="none"/>
   </svg>
 );
 
@@ -68,6 +69,18 @@ const AIStudioIcon: React.FC<{ className?: string }> = ({ className = "w-16 h-16
   />
 );
 
+// Компонент иконки Midjourney
+const MidjourneyIcon: React.FC<{ className?: string }> = ({ className = "w-16 h-16" }) => (
+  <svg className={className} viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g style={{ fill: "none", stroke: "currentColor", strokeWidth: "18px", strokeLinecap: "round", strokeLinejoin: "round" }}>
+      <path d="m 174,794 c 20,0 50,-42 85,-48 c 20,0 35,42 85,48 c 35,0 50,-42 85,-42 c 35,0 50,42 85,42 c 35,0 50,-42 85,-42 c 35,0 50,42 85,42 c 35,0 50,-42 85,-42 c 35,0 50,42 85,42"/>
+      <path d="M 242.4,752.2 L 219.5,708.4 L 809.5,670.4 C 763.1,712.6 703.5,746.8 643.2,774.8"/>
+      <path d="M 454.4,300.4 C 554.8,331.1 695.2,479.4 743,638.8 C 716.8,628.5 697.2,618 660.4,627.4 C 624.8,497.9 561.1,374.2 454.4,300.4 z"/>
+      <path d="M 267.7,229.5 C 396.3,284.5 572.7,437.6 605.1,641.5 C 456.8,581.7 343.9,613.6 265.3,662.1 C 385.2,509.7 331.4,336.4 267.7,229.5 z"/>
+    </g>
+  </svg>
+);
+
 // Иконки для инструментов
 const getToolIcon = (name: string): React.ReactNode => {
   const icons: Record<string, React.ReactNode> = {
@@ -76,6 +89,7 @@ const getToolIcon = (name: string): React.ReactNode => {
     "Illustrator": <IllustratorIcon className="w-16 h-16 md:w-20 md:h-20" />,
     "Cursor AI": <CursorIcon className="w-16 h-16 md:w-20 md:h-20" />,
     "ChatGPT": <ChatGPTIcon className="w-16 h-16 md:w-20 md:h-20" />,
+    "Midjourney": <MidjourneyIcon className="w-16 h-16 md:w-20 md:h-20" />,
     "AI Studio": <AIStudioIcon className="w-16 h-16 md:w-20 md:h-20" />,
     "Sketch": <span className="text-5xl md:text-6xl">💎</span>,
     "Adobe XD": <span className="text-5xl md:text-6xl">⚫</span>,
@@ -83,44 +97,21 @@ const getToolIcon = (name: string): React.ReactNode => {
   return icons[name] || <span className="text-5xl md:text-6xl">🎯</span>;
 };
 
-const skills: Skill[] = [
-  { name: "Figma", percentage: 90, icon: getToolIcon("Figma") },
-  { name: "Photoshop", percentage: 88, icon: getToolIcon("Photoshop") },
-  { name: "Illustrator", percentage: 85, icon: getToolIcon("Illustrator") },
-  { name: "Cursor AI", percentage: 92, icon: getToolIcon("Cursor AI") },
-  { name: "ChatGPT", percentage: 95, icon: getToolIcon("ChatGPT") },
-];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      delayChildren: 0.2,
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const cardVariants = {
-  hidden: {
-    opacity: 0,
-    y: 50,
-    scale: 0.9,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.8,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
-
 export const Skills: React.FC = () => {
   const { t } = useI18n();
+  
+  const designTools: Skill[] = [
+    { name: "Figma", descriptor: t("skills.figmaDescriptor"), icon: getToolIcon("Figma"), group: 'tools' },
+    { name: "Photoshop", descriptor: t("skills.photoshopDescriptor"), icon: getToolIcon("Photoshop"), group: 'tools' },
+    { name: "Illustrator", descriptor: t("skills.illustratorDescriptor"), icon: getToolIcon("Illustrator"), group: 'tools' },
+  ];
+
+  const aiTools: Skill[] = [
+    { name: "ChatGPT", descriptor: t("skills.chatgptDescriptor"), icon: getToolIcon("ChatGPT"), group: 'ai' },
+    { name: "Cursor AI", descriptor: t("skills.cursorDescriptor"), icon: getToolIcon("Cursor AI"), group: 'ai' },
+    { name: "Midjourney", descriptor: t("skills.midjourneyDescriptor"), icon: getToolIcon("Midjourney"), group: 'ai' },
+  ];
+  
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -129,6 +120,34 @@ export const Skills: React.FC = () => {
 
   const headerY = useTransform(scrollYProgress, [0, 1], [30, -20]);
   const headerOpacity = useTransform(scrollYProgress, [0, 0.3, 1], [0.5, 0.8, 1]);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.2,
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: {
+      opacity: 0,
+      y: 50,
+      scale: 0.9,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
 
   return (
     <section
@@ -147,7 +166,7 @@ export const Skills: React.FC = () => {
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-12 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 md:pb-10 border-b border-white/5"
+          className="mb-12 md:mb-16 pb-6 md:pb-10 border-b border-white/5"
         >
           <div className="flex flex-col space-y-3">
             <motion.span
@@ -168,84 +187,188 @@ export const Skills: React.FC = () => {
             >
               {t("skills.sectionTitle")}
             </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="text-neutral-400 text-base md:text-lg max-w-2xl"
+            >
+              {t("skills.subtitle")}
+            </motion.p>
           </div>
         </motion.div>
 
-        {/* Skills Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-10%" }}
-          style={{ perspective: 1000 }}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 max-w-7xl mx-auto"
-        >
-          {skills.map((skill, index) => (
-            <motion.div
-              key={skill.name}
-              variants={cardVariants}
-              whileHover={{
-                y: -12,
-                scale: 1.04,
-                rotateX: 2,
-                rotateY: -2,
-                transition: {
-                  type: "spring",
-                  stiffness: 300,
-                  damping: 25,
-                },
-              }}
-              className="relative group"
+        {/* Two Column Layout */}
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-12 max-w-7xl mx-auto">
+          {/* Left Column: Design Tools */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-10%" }}
+            style={{ perspective: 1000 }}
+            className="flex flex-col"
+          >
+            <motion.h3
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1, duration: 0.6 }}
+              className="text-xl md:text-2xl font-display font-semibold text-white mb-6 h-[2.5rem] md:h-[3rem] flex items-end"
             >
-              {/* Card */}
-              <div className="relative bg-gradient-to-br from-accent/35 via-white/5 to-transparent p-[1px] rounded-2xl overflow-hidden group/card">
-                <div className="relative h-full rounded-2xl bg-[#101010] border border-white/5 px-7 py-8 flex flex-col items-center text-center overflow-hidden group-hover/card:border-accent/30 transition-all duration-300">
-                  {/* Animated gradient glow on hover */}
-                  <motion.div
-                    className="pointer-events-none absolute inset-[-40%] bg-[radial-gradient(circle_at_top_right,rgba(255,120,80,0.16),transparent_60%)]"
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                  />
+              {t("skills.designColumnTitle")}
+            </motion.h3>
+            <div className="grid grid-rows-3 gap-6">
+              {designTools.map((skill, index) => (
+                <motion.div
+                  key={skill.name}
+                  variants={cardVariants}
+                  whileHover={{
+                    y: -12,
+                    scale: 1.04,
+                    rotateX: 2,
+                    rotateY: -2,
+                    transition: {
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 25,
+                    },
+                  }}
+                  className="relative group"
+                >
+                  {/* Card */}
+                  <div className="relative bg-gradient-to-br from-accent/35 via-white/5 to-transparent p-[1px] rounded-2xl overflow-hidden group/card h-full">
+                    <div className="relative h-full rounded-2xl bg-[#101010] border border-white/5 px-7 py-8 flex flex-row items-center gap-6 overflow-hidden group-hover/card:border-accent/30 transition-all duration-300">
+                      {/* Animated gradient glow on hover */}
+                      <motion.div
+                        className="pointer-events-none absolute inset-[-40%] bg-[radial-gradient(circle_at_top_right,rgba(255,120,80,0.16),transparent_60%)]"
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
+                        transition={{ duration: 0.5 }}
+                      />
 
-                  {/* Icon */}
-                  <div className="relative z-[1] w-16 h-16 md:w-20 md:h-20 mb-6 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
-                    {typeof skill.icon === 'string' ? (
-                      <span className="text-5xl md:text-6xl">{skill.icon}</span>
-                    ) : (
-                      skill.icon
-                    )}
+                      {/* Icon */}
+                      <div className="relative z-[1] flex-shrink-0 w-16 h-16 md:w-20 md:h-20 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                        {typeof skill.icon === 'string' ? (
+                          <span className="text-5xl md:text-6xl">{skill.icon}</span>
+                        ) : (
+                          skill.icon
+                        )}
+                      </div>
+
+                      {/* Text content */}
+                      <div className="relative z-[1] flex flex-col justify-center flex-1 min-w-0">
+                        {/* Name */}
+                        <h4 className="text-lg md:text-xl font-display font-semibold text-white mb-2 group-hover:text-accent transition-colors duration-300">
+                          {skill.name}
+                        </h4>
+
+                        {/* Descriptor */}
+                        <p className="text-xs md:text-sm text-neutral-400 leading-relaxed">
+                          {skill.descriptor}
+                        </p>
+                      </div>
+
+                      {/* Shine effect on hover */}
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                        initial={{ x: "-100%", opacity: 0 }}
+                        whileHover={{ x: "100%", opacity: 1 }}
+                        transition={{ duration: 0.6, ease: "easeInOut" }}
+                        style={{ pointerEvents: "none" }}
+                      />
+                    </div>
                   </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
 
-                  {/* Percentage */}
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 + index * 0.1, duration: 0.6 }}
-                    className="relative z-[1] text-5xl md:text-6xl font-display font-bold text-white mb-4 group-hover:text-accent transition-colors duration-300"
-                  >
-                    {skill.percentage}%
-                  </motion.div>
+          {/* Right Column: AI-assisted workflow */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-10%" }}
+            style={{ perspective: 1000 }}
+            className="flex flex-col"
+          >
+            <motion.h3
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1, duration: 0.6 }}
+              className="text-xl md:text-2xl font-display font-semibold text-white mb-6 h-[2.5rem] md:h-[3rem] flex items-end"
+            >
+              {t("skills.aiColumnTitle")}
+            </motion.h3>
+            <div className="grid grid-rows-3 gap-6">
+              {aiTools.map((skill, index) => (
+                <motion.div
+                  key={skill.name}
+                  variants={cardVariants}
+                  whileHover={{
+                    y: -12,
+                    scale: 1.04,
+                    rotateX: 2,
+                    rotateY: -2,
+                    transition: {
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 25,
+                    },
+                  }}
+                  className="relative group"
+                >
+                  {/* Card */}
+                  <div className="relative bg-gradient-to-br from-accent/35 via-white/5 to-transparent p-[1px] rounded-2xl overflow-hidden group/card h-full">
+                    <div className="relative h-full rounded-2xl bg-[#101010] border border-white/5 px-7 py-8 flex flex-row items-center gap-6 overflow-hidden group-hover/card:border-accent/30 transition-all duration-300">
+                      {/* Animated gradient glow on hover */}
+                      <motion.div
+                        className="pointer-events-none absolute inset-[-40%] bg-[radial-gradient(circle_at_top_right,rgba(255,120,80,0.16),transparent_60%)]"
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
+                        transition={{ duration: 0.5 }}
+                      />
 
-                  {/* Name */}
-                  <h3 className="relative z-[1] text-lg md:text-xl font-display font-semibold text-white group-hover:text-accent transition-colors duration-300">
-                    {skill.name}
-                  </h3>
+                      {/* Icon */}
+                      <div className="relative z-[1] flex-shrink-0 w-16 h-16 md:w-20 md:h-20 flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                        {typeof skill.icon === 'string' ? (
+                          <span className="text-5xl md:text-6xl">{skill.icon}</span>
+                        ) : (
+                          skill.icon
+                        )}
+                      </div>
 
-                  {/* Shine effect on hover */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
-                    initial={{ x: "-100%", opacity: 0 }}
-                    whileHover={{ x: "100%", opacity: 1 }}
-                    transition={{ duration: 0.6, ease: "easeInOut" }}
-                    style={{ pointerEvents: "none" }}
-                  />
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+                      {/* Text content */}
+                      <div className="relative z-[1] flex flex-col justify-center flex-1 min-w-0">
+                        {/* Name */}
+                        <h4 className="text-lg md:text-xl font-display font-semibold text-white mb-2 group-hover:text-accent transition-colors duration-300">
+                          {skill.name}
+                        </h4>
+
+                        {/* Descriptor */}
+                        <p className="text-xs md:text-sm text-neutral-400 leading-relaxed">
+                          {skill.descriptor}
+                        </p>
+                      </div>
+
+                      {/* Shine effect on hover */}
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                        initial={{ x: "-100%", opacity: 0 }}
+                        whileHover={{ x: "100%", opacity: 1 }}
+                        transition={{ duration: 0.6, ease: "easeInOut" }}
+                        style={{ pointerEvents: "none" }}
+                      />
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

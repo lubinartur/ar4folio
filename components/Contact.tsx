@@ -7,10 +7,24 @@ import { useI18n } from '../services/i18n';
 export const Contact: React.FC = () => {
   const { t } = useI18n();
   const sectionRef = useRef<HTMLElement>(null);
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ 
+    name: '', 
+    email: '', 
+    projectType: '',
+    projectStage: '',
+    description: '',
+    budget: '',
+    timeline: ''
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [errors, setErrors] = useState<{ name?: string; email?: string; message?: string }>({});
+  const [errors, setErrors] = useState<{ 
+    name?: string; 
+    email?: string; 
+    projectType?: string;
+    projectStage?: string;
+    description?: string;
+  }>({});
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -28,7 +42,13 @@ export const Contact: React.FC = () => {
   const smoothFormY = useSpring(formY, { stiffness: 100, damping: 30 });
 
   const validateForm = () => {
-    const newErrors: { name?: string; email?: string; message?: string } = {};
+    const newErrors: { 
+      name?: string; 
+      email?: string; 
+      projectType?: string;
+      projectStage?: string;
+      description?: string;
+    } = {};
     
     if (!formData.name.trim()) {
       newErrors.name = t("contact.formErrors.nameRequired") || "Name is required";
@@ -40,8 +60,16 @@ export const Contact: React.FC = () => {
       newErrors.email = t("contact.formErrors.emailInvalid") || "Invalid email address";
     }
     
-    if (!formData.message.trim()) {
-      newErrors.message = t("contact.formErrors.messageRequired") || "Message is required";
+    if (!formData.projectType) {
+      newErrors.projectType = t("contact.formErrors.projectTypeRequired") || "Please select a project type";
+    }
+    
+    if (!formData.projectStage) {
+      newErrors.projectStage = t("contact.formErrors.projectStageRequired") || "Please select a project stage";
+    }
+    
+    if (!formData.description.trim()) {
+      newErrors.description = t("contact.formErrors.descriptionRequired") || "Please describe your project";
     }
     
     setErrors(newErrors);
@@ -59,11 +87,28 @@ export const Contact: React.FC = () => {
     setErrors({});
 
     try {
-      // Create mailto link with form data
-      const subject = encodeURIComponent(`Contact from ${formData.name}`);
-      const body = encodeURIComponent(
-        `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-      );
+      // Build structured message
+      const messageParts = [
+        `Name: ${formData.name}`,
+        `Email: ${formData.email}`,
+        ``,
+        `Project Type: ${t(`contact.step1Options.${formData.projectType}`)}`,
+        `Project Stage: ${t(`contact.step2Options.${formData.projectStage}`)}`,
+        ``,
+        `Description:`,
+        formData.description,
+      ];
+
+      if (formData.budget) {
+        messageParts.push(``, `Budget: ${formData.budget}`);
+      }
+
+      if (formData.timeline) {
+        messageParts.push(`Timeline: ${formData.timeline}`);
+      }
+
+      const body = encodeURIComponent(messageParts.join('\n'));
+      const subject = encodeURIComponent(`Project inquiry: ${t(`contact.step1Options.${formData.projectType}`)}`);
       const mailtoLink = `mailto:${SOCIAL_LINKS.email}?subject=${subject}&body=${body}`;
       
       // Open email client
@@ -71,7 +116,15 @@ export const Contact: React.FC = () => {
       
       // Show success message
       setIsSubmitted(true);
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ 
+        name: '', 
+        email: '', 
+        projectType: '',
+        projectStage: '',
+        description: '',
+        budget: '',
+        timeline: ''
+      });
       
       // Reset success message after 5 seconds
       setTimeout(() => {
@@ -79,13 +132,13 @@ export const Contact: React.FC = () => {
       }, 5000);
     } catch (error) {
       console.error('Error submitting form:', error);
-      setErrors({ message: t("contact.formErrors.submitError") || "Failed to submit. Please try again." });
+      setErrors({ description: t("contact.formErrors.submitError") || "Failed to submit. Please try again." });
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
     // Clear error when user starts typing
@@ -93,6 +146,21 @@ export const Contact: React.FC = () => {
       setErrors(prev => ({ ...prev, [name]: undefined }));
     }
   };
+
+  const projectTypeOptions = [
+    { value: 'productUx', key: 'productUx' },
+    { value: 'fintechLending', key: 'fintechLending' },
+    { value: 'uxAudit', key: 'uxAudit' },
+    { value: 'newIdea', key: 'newIdea' },
+    { value: 'notSure', key: 'notSure' }
+  ];
+
+  const projectStageOptions = [
+    { value: 'idea', key: 'idea' },
+    { value: 'inProgress', key: 'inProgress' },
+    { value: 'redesign', key: 'redesign' },
+    { value: 'scaling', key: 'scaling' }
+  ];
 
   return (
     <footer 
@@ -104,63 +172,35 @@ export const Contact: React.FC = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-5xl mx-auto text-center mb-32">
+        <div className="max-w-3xl mx-auto mb-32">
+          {/* Header */}
           <motion.div
             style={{ y: smoothTitleY, opacity: smoothTitleOpacity }}
             initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="text-center mb-12"
           >
             <motion.h2
-              className="text-5xl md:text-7xl lg:text-9xl font-display font-bold tracking-tighter mb-12 leading-[0.9]"
-              whileHover={{ scale: 1.02 }}
+              className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight"
+              whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.3 }}
             >
-              {(() => {
-                const title = t("contact.heroTitle");
-                // Разбиваем текст на части для цветовой палитры
-                // "Let's work on something meaningful."
-                const match = title.match(/^(.+?)(something)(.+?)(meaningful\.?)$/i);
-                
-                if (match) {
-                  const [, beforeSomething, something, between, meaningful] = match;
-                  return (
-                    <span className="block">
-                      {/* Первая часть - белый */}
-                      <span className="text-white">{beforeSomething}</span>
-                      {/* "something" - градиент от светло-серого к темно-серому */}
-                      <span className="bg-gradient-to-r from-[#C0C0C0] via-[#A0A0A0] to-[#606060] text-transparent bg-clip-text">
-                        {something}
-                      </span>
-                      {/* Между словами - белый */}
-                      <span className="text-white">{between}</span>
-                      {/* "meaningful." - оранжевый цвет */}
-                      <span className="text-accent">{meaningful}</span>
-                    </span>
-                  );
-                }
-                
-                // Fallback - если паттерн не совпал, используем оригинальный градиент
-                return (
-                  <span className="bg-gradient-to-b from-white via-neutral-400 to-accent text-transparent bg-clip-text">
-                    {title}
-                  </span>
-                );
-              })()}
+              {t("contact.heroTitle")}
             </motion.h2>
+            
+            <motion.p
+              style={{ y: smoothSubtitleY }}
+              initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+              className="text-lg md:text-xl text-neutral-400 font-light font-sans"
+            >
+              {t("contact.subtitle")}
+            </motion.p>
           </motion.div>
-          
-          <motion.p
-            style={{ y: smoothSubtitleY }}
-            initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            viewport={{ once: true, margin: "-10%" }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-            className="text-xl text-neutral-400 mb-12 max-w-xl mx-auto font-light font-sans"
-          >
-            {t("contact.subtitle")}
-          </motion.p>
           
           {/* Contact Form */}
           <motion.form
@@ -174,10 +214,10 @@ export const Contact: React.FC = () => {
               ease: [0.22, 1, 0.36, 1], 
               delay: 0.2
             }}
-            className="max-w-2xl mx-auto"
+            className="space-y-8"
           >
-            <div className="space-y-6 mb-8">
-              {/* Name Field */}
+            {/* Name & Email */}
+            <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <input
                   type="text"
@@ -185,10 +225,10 @@ export const Contact: React.FC = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 bg-black/40 border rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:ring-2 transition-all ${
+                  className={`w-full px-5 py-4 bg-[#0a0a0a] border rounded-2xl text-white placeholder-neutral-500 focus:outline-none transition-all duration-300 ${
                     errors.name 
-                      ? 'border-red-500 focus:ring-red-500/50' 
-                      : 'border-white/10 focus:border-accent focus:ring-accent/50'
+                      ? 'border-red-500/50 focus:border-red-500/70' 
+                      : 'border-white/10 focus:border-accent/50 hover:border-white/20'
                   }`}
                   placeholder={t("contact.formNamePlaceholder") || "Your name"}
                 />
@@ -196,14 +236,13 @@ export const Contact: React.FC = () => {
                   <motion.p
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mt-1 text-sm text-red-400"
+                    className="mt-2 text-sm text-red-400"
                   >
                     {errors.name}
                   </motion.p>
                 )}
               </div>
 
-              {/* Email Field */}
               <div>
                 <input
                   type="email"
@@ -211,10 +250,10 @@ export const Contact: React.FC = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 bg-black/40 border rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:ring-2 transition-all ${
+                  className={`w-full px-5 py-4 bg-[#0a0a0a] border rounded-2xl text-white placeholder-neutral-500 focus:outline-none transition-all duration-300 ${
                     errors.email 
-                      ? 'border-red-500 focus:ring-red-500/50' 
-                      : 'border-white/10 focus:border-accent focus:ring-accent/50'
+                      ? 'border-red-500/50 focus:border-red-500/70' 
+                      : 'border-white/10 focus:border-accent/50 hover:border-white/20'
                   }`}
                   placeholder={t("contact.formEmailPlaceholder") || "your.email@example.com"}
                 />
@@ -222,37 +261,201 @@ export const Contact: React.FC = () => {
                   <motion.p
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mt-1 text-sm text-red-400"
+                    className="mt-2 text-sm text-red-400"
                   >
                     {errors.email}
                   </motion.p>
                 )}
               </div>
+            </div>
 
-              {/* Message Field */}
-              <div>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows={6}
-                  className={`w-full px-4 py-3 bg-black/40 border rounded-lg text-white placeholder-neutral-500 focus:outline-none focus:ring-2 transition-all resize-none ${
-                    errors.message 
-                      ? 'border-red-500 focus:ring-red-500/50' 
-                      : 'border-white/10 focus:border-accent focus:ring-accent/50'
-                  }`}
-                  placeholder={t("contact.formMessagePlaceholder") || "Tell me about your project..."}
-                />
-                {errors.message && (
-                  <motion.p
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mt-1 text-sm text-red-400"
+            {/* Step 1: Project Type */}
+            <div>
+              <label className="block text-sm font-medium text-neutral-300 mb-4 font-sans">
+                {t("contact.step1Label")}
+              </label>
+              <div className="space-y-3">
+                {projectTypeOptions.map((option) => (
+                  <motion.label
+                    key={option.value}
+                    whileHover={{ x: 4, scale: 1.01 }}
+                    whileTap={{ scale: 0.99 }}
+                    className={`group relative flex items-center gap-4 px-5 py-4 rounded-2xl border cursor-pointer transition-all duration-300 ${
+                      formData.projectType === option.value
+                        ? 'border-accent/60 bg-gradient-to-br from-accent/10 to-accent/5 shadow-[0_0_20px_rgba(255,107,53,0.15)]'
+                        : 'border-white/10 bg-[#0a0a0a] hover:border-white/20 hover:bg-[#111]'
+                    } ${errors.projectType ? 'border-red-500/50' : ''}`}
                   >
-                    {errors.message}
-                  </motion.p>
-                )}
+                    {/* Custom radio button */}
+                    <div className="relative flex items-center justify-center">
+                      <div className={`w-5 h-5 rounded-full border-2 transition-all duration-300 ${
+                        formData.projectType === option.value
+                          ? 'border-accent bg-accent'
+                          : 'border-white/30 bg-transparent group-hover:border-white/50'
+                      }`}>
+                        {formData.projectType === option.value && (
+                          <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            className="absolute inset-0 flex items-center justify-center"
+                          >
+                            <div className="w-2 h-2 rounded-full bg-black" />
+                          </motion.div>
+                        )}
+                      </div>
+                    </div>
+                    <input
+                      type="radio"
+                      name="projectType"
+                      value={option.value}
+                      checked={formData.projectType === option.value}
+                      onChange={handleChange}
+                      className="sr-only"
+                    />
+                    <span className={`text-sm font-sans transition-colors duration-300 ${
+                      formData.projectType === option.value
+                        ? 'text-white'
+                        : 'text-neutral-300 group-hover:text-white'
+                    }`}>
+                      {t(`contact.step1Options.${option.key}`)}
+                    </span>
+                  </motion.label>
+                ))}
+              </div>
+              {errors.projectType && (
+                <motion.p
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-2 text-sm text-red-400"
+                >
+                  {errors.projectType}
+                </motion.p>
+              )}
+            </div>
+
+            {/* Step 2: Project Stage */}
+            <div>
+              <label className="block text-sm font-medium text-neutral-300 mb-4 font-sans">
+                {t("contact.step2Label")}
+              </label>
+              <div className="space-y-3">
+                {projectStageOptions.map((option) => (
+                  <motion.label
+                    key={option.value}
+                    whileHover={{ x: 4, scale: 1.01 }}
+                    whileTap={{ scale: 0.99 }}
+                    className={`group relative flex items-center gap-4 px-5 py-4 rounded-2xl border cursor-pointer transition-all duration-300 ${
+                      formData.projectStage === option.value
+                        ? 'border-accent/60 bg-gradient-to-br from-accent/10 to-accent/5 shadow-[0_0_20px_rgba(255,107,53,0.15)]'
+                        : 'border-white/10 bg-[#0a0a0a] hover:border-white/20 hover:bg-[#111]'
+                    } ${errors.projectStage ? 'border-red-500/50' : ''}`}
+                  >
+                    {/* Custom radio button */}
+                    <div className="relative flex items-center justify-center">
+                      <div className={`w-5 h-5 rounded-full border-2 transition-all duration-300 ${
+                        formData.projectStage === option.value
+                          ? 'border-accent bg-accent'
+                          : 'border-white/30 bg-transparent group-hover:border-white/50'
+                      }`}>
+                        {formData.projectStage === option.value && (
+                          <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            className="absolute inset-0 flex items-center justify-center"
+                          >
+                            <div className="w-2 h-2 rounded-full bg-black" />
+                          </motion.div>
+                        )}
+                      </div>
+                    </div>
+                    <input
+                      type="radio"
+                      name="projectStage"
+                      value={option.value}
+                      checked={formData.projectStage === option.value}
+                      onChange={handleChange}
+                      className="sr-only"
+                    />
+                    <span className={`text-sm font-sans transition-colors duration-300 ${
+                      formData.projectStage === option.value
+                        ? 'text-white'
+                        : 'text-neutral-300 group-hover:text-white'
+                    }`}>
+                      {t(`contact.step2Options.${option.key}`)}
+                    </span>
+                  </motion.label>
+                ))}
+              </div>
+              {errors.projectStage && (
+                <motion.p
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-2 text-sm text-red-400"
+                >
+                  {errors.projectStage}
+                </motion.p>
+              )}
+            </div>
+
+            {/* Step 3: Project Description */}
+            <div>
+              <label className="block text-sm font-medium text-neutral-300 mb-4 font-sans">
+                {t("contact.step3Label")}
+              </label>
+              <textarea
+                id="description"
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                rows={6}
+                className={`w-full px-5 py-4 bg-[#0a0a0a] border rounded-2xl text-white placeholder-neutral-500 focus:outline-none transition-all duration-300 resize-none leading-relaxed ${
+                  errors.description 
+                    ? 'border-red-500/50 focus:border-red-500/70' 
+                    : 'border-white/10 focus:border-accent/50 hover:border-white/20'
+                }`}
+                placeholder={t("contact.step3Placeholder") || "What problem are you trying to solve?\nWhat constraints should I know about (regulation, tech, timing)?\nWhat would success look like for you?"}
+              />
+              {errors.description && (
+                <motion.p
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-2 text-sm text-red-400"
+                >
+                  {errors.description}
+                </motion.p>
+              )}
+            </div>
+
+            {/* Optional Fields */}
+            <div className="grid md:grid-cols-2 gap-6 pt-6 border-t border-white/5">
+              <div>
+                <label className="block text-sm font-medium text-neutral-400 mb-3 font-sans">
+                  {t("contact.optionalBudgetLabel")} <span className="text-neutral-600 text-xs font-normal">(optional)</span>
+                </label>
+                <input
+                  type="text"
+                  id="budget"
+                  name="budget"
+                  value={formData.budget}
+                  onChange={handleChange}
+                  className="w-full px-5 py-4 bg-[#0a0a0a] border border-white/10 rounded-2xl text-white placeholder-neutral-500 focus:outline-none focus:border-accent/50 hover:border-white/20 transition-all duration-300"
+                  placeholder="e.g., €10k–€50k"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-neutral-400 mb-3 font-sans">
+                  {t("contact.optionalTimelineLabel")} <span className="text-neutral-600 text-xs font-normal">(optional)</span>
+                </label>
+                <input
+                  type="text"
+                  id="timeline"
+                  name="timeline"
+                  value={formData.timeline}
+                  onChange={handleChange}
+                  className="w-full px-5 py-4 bg-[#0a0a0a] border border-white/10 rounded-2xl text-white placeholder-neutral-500 focus:outline-none focus:border-accent/50 hover:border-white/20 transition-all duration-300"
+                  placeholder="e.g., Q2 2025"
+                />
               </div>
             </div>
 
@@ -263,7 +466,7 @@ export const Contact: React.FC = () => {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="mb-6 p-4 bg-accent/10 border border-accent/30 rounded-lg flex items-center gap-3"
+                  className="p-4 bg-accent/10 border border-accent/30 rounded-lg flex items-center gap-3"
                 >
                   <CheckCircle className="w-5 h-5 text-accent flex-shrink-0" />
                   <p className="text-accent text-sm">
@@ -273,44 +476,41 @@ export const Contact: React.FC = () => {
               )}
             </AnimatePresence>
 
-            {/* Submit Button */}
-            <motion.button
-              type="submit"
-              disabled={isSubmitting}
-              whileHover={{ 
-                scale: 1.05, 
-                y: -4,
-                boxShadow: "0 20px 40px rgba(255, 107, 53, 0.3)",
-              }}
-              whileTap={{ scale: 0.98 }}
-              className="w-full md:w-auto inline-flex items-center justify-center gap-4 bg-accent text-black px-12 py-6 rounded-full text-lg font-bold font-display uppercase tracking-wider relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {/* Shine effect */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                initial={{ x: "-100%" }}
-                whileHover={{ x: "100%" }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
-              />
-              <span className="relative z-10">
-                {isSubmitting ? (t("contact.formSubmitting") || "Sending...") : (t("contact.formSubmit") || "Send Message")}
-              </span>
-              <motion.div
-                className="relative z-10"
-                animate={isSubmitting ? { rotate: 360 } : {}}
-                transition={{ duration: 1, repeat: isSubmitting ? Infinity : 0, ease: "linear" }}
+            {/* Submit Section */}
+            <div className="space-y-4 pt-8">
+              <motion.button
+                type="submit"
+                disabled={isSubmitting}
+                whileHover={{ 
+                  scale: 1.02, 
+                  y: -2,
+                }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full md:w-auto inline-flex items-center justify-center gap-3 bg-accent text-black px-8 py-4 rounded-2xl text-base font-semibold font-display relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed shadow-[0_0_30px_rgba(255,107,53,0.3)] hover:shadow-[0_0_40px_rgba(255,107,53,0.4)] transition-all duration-300"
               >
-                {isSubmitting ? (
-                  <Send className="w-5 h-5" />
-                ) : (
-                  <ArrowRight className="w-5 h-5" />
-                )}
-              </motion.div>
-            </motion.button>
+                <span className="relative z-10">
+                  {isSubmitting ? (t("contact.formSubmitting") || "Sending...") : (t("contact.formSubmit") || "Send message")}
+                </span>
+                <motion.div
+                  className="relative z-10"
+                  animate={isSubmitting ? { rotate: 360 } : {}}
+                  transition={{ duration: 1, repeat: isSubmitting ? Infinity : 0, ease: "linear" }}
+                >
+                  {isSubmitting ? (
+                    <Send className="w-4 h-4" />
+                  ) : (
+                    <ArrowRight className="w-4 h-4" />
+                  )}
+                </motion.div>
+              </motion.button>
+
+              <p className="text-sm text-neutral-500 font-sans">
+                {t("contact.formHelperText") || "I usually reply within 1–2 business days."}
+              </p>
+            </div>
 
             {/* Alternative: Direct email link */}
-            <div className="mt-6 text-center">
-              <p className="text-neutral-500 text-sm mb-3">or</p>
+            <div className="pt-4 border-t border-white/5 text-center">
               <motion.a
                 href={`mailto:${SOCIAL_LINKS.email}`}
                 className="inline-flex items-center gap-2 text-neutral-400 hover:text-accent transition-colors text-sm"

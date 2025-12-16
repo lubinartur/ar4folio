@@ -31,9 +31,13 @@ interface ProjectsProps {
   onProjectClick: (project: Project) => void;
 }
 
-const ProjectCard: React.FC<{ project: Project; index: number; onClick: () => void }> = ({ project, index, onClick }) => {
+const ProjectCard: React.FC<{ project: Project; index: number; totalProjects: number; onClick: () => void }> = ({ project, index, totalProjects, onClick }) => {
     const { t } = useI18n();
     const containerRef = useRef<HTMLDivElement>(null);
+    
+    // Use listDescription if available, otherwise fall back to description
+    const descriptionKey = project.listDescription || project.description;
+    const descriptionText = t(descriptionKey);
     
     // Create local scroll progress for this specific card
     const { scrollYProgress } = useScroll({
@@ -56,8 +60,6 @@ const ProjectCard: React.FC<{ project: Project; index: number; onClick: () => vo
             ref={containerRef}
             initial={{ opacity: 0, y: 100, filter: "blur(10px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            whileHover={{ y: -8, scale: 1.01 }}
-            whileTap={{ scale: 0.99 }}
             transition={{ 
                 duration: 0.8, 
                 ease: [0.22, 1, 0.36, 1], 
@@ -65,13 +67,17 @@ const ProjectCard: React.FC<{ project: Project; index: number; onClick: () => vo
             }}
             viewport={{ once: true, margin: "-10%" }}
             onClick={onClick}
-            className="group relative grid lg:grid-cols-12 gap-8 lg:gap-16 items-center cursor-pointer mb-16 md:mb-20 lg:mb-32 last:mb-0"
+            className={`group relative grid lg:grid-cols-12 gap-8 lg:gap-12 items-center cursor-pointer ${
+              index === 0 
+                ? 'mt-0 mb-16 md:mb-20 lg:mb-24' 
+                : index === totalProjects - 1 
+                ? 'mt-0 mb-0 pb-20 md:pb-28 lg:pb-36' 
+                : 'mt-0 mb-16 md:mb-20 lg:mb-24'
+            }`}
         >
             {/* Image Side */}
             <motion.div
-                className="relative lg:col-span-7 aspect-[16/10] overflow-hidden rounded-3xl bg-[#111] border border-white/5 group/image"
-                whileHover={{ rotateX: 3, rotateY: -3, scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 140, damping: 18 }}
+                className="relative lg:col-span-7 aspect-[16/10] overflow-hidden rounded-3xl bg-[#111] border border-white/5 group-hover:border-accent/20 transition-colors duration-300"
             >
                 <motion.div 
                     className="absolute inset-0 z-10 bg-transparent md:bg-black/40 md:group-hover:bg-transparent transition-colors duration-700"
@@ -114,11 +120,12 @@ const ProjectCard: React.FC<{ project: Project; index: number; onClick: () => vo
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-10%" }}
-                className="lg:col-span-5 flex flex-col justify-center items-start"
+                className="lg:col-span-5 flex flex-col justify-center items-start max-w-[480px]"
             >
+                {/* Tags */}
                 <motion.div
                     variants={itemVariants}
-                    className="mb-6 flex flex-wrap gap-2"
+                    className="mb-5 flex flex-wrap gap-2"
                 >
                     {project.tags.map((tag, tagIndex) => (
                         <motion.span
@@ -126,54 +133,43 @@ const ProjectCard: React.FC<{ project: Project; index: number; onClick: () => vo
                             custom={tagIndex}
                             variants={itemVariants}
                             className="px-4 py-1 text-[11px] uppercase tracking-wider border border-white/10 text-neutral-400 font-medium rounded-full group-hover:border-accent/30 transition-colors"
-                            whileHover={{ 
-                                scale: 1.05, 
-                                borderColor: "rgba(255, 107, 53, 0.5)",
-                                color: "#ff6b35"
-                            }}
-                            transition={{ duration: 0.2 }}
                         >
                             {tag}
                         </motion.span>
                     ))}
                 </motion.div>
                 
-                <motion.h3
-                    variants={itemVariants}
-                    className="text-3xl md:text-4xl font-display font-bold mb-3 text-white group-hover:text-accent transition-colors duration-300"
-                    whileHover={{ x: 4 }}
-                >
-                    {t(project.title)}
-                </motion.h3>
-                
-                
-                <motion.h4
-                    variants={itemVariants}
-                    className="text-lg text-white/60 mb-6 font-sans group-hover:text-white transition-colors duration-300"
-                >
-                    {t(project.role).replace("Client:", "").trim()}
-                </motion.h4>
-                
-                <motion.p
-                    variants={itemVariants}
-                    className="text-neutral-400 leading-relaxed text-base md:text-lg mb-8 max-w-md group-hover:text-neutral-300 transition-colors duration-300"
-                >
-                    {t(project.description)}
-                </motion.p>
-                
-                <motion.div
-                    variants={itemVariants}
-                    className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white hover:text-accent transition-colors group/btn"
-                    whileHover={{ x: 4 }}
-                >
-                    {t("projects.viewCaseStudy")}
-                    <motion.div
-                        whileHover={{ rotate: 45 }}
-                        transition={{ duration: 0.3 }}
+                {/* Text Content Group */}
+                <div className="flex flex-col items-start">
+                    <motion.h3
+                        variants={itemVariants}
+                        className="text-3xl md:text-4xl font-display font-bold mb-2 text-white group-hover:text-accent transition-colors duration-300"
                     >
+                        {t(project.title)}
+                    </motion.h3>
+                    
+                    <motion.h4
+                        variants={itemVariants}
+                        className="text-lg text-white/60 mb-4 font-sans group-hover:text-white transition-colors duration-300"
+                    >
+                        {t(project.role)}
+                    </motion.h4>
+                    
+                    <motion.p
+                        variants={itemVariants}
+                        className="text-neutral-400 leading-relaxed text-base md:text-lg mb-4 group-hover:text-neutral-300 transition-colors duration-300"
+                    >
+                        {descriptionText}
+                    </motion.p>
+                    
+                    <motion.div
+                        variants={itemVariants}
+                        className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white hover:text-accent transition-colors group/btn"
+                    >
+                        {t("projects.viewCaseStudy")}
                         <ArrowUpRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1" />
                     </motion.div>
-                </motion.div>
+                </div>
             </motion.div>
         </motion.div>
     );
@@ -208,7 +204,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onProjectClick }) => {
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-12 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 md:pb-12 border-b border-white/5"
+          className="mb-8 md:mb-12 lg:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 md:pb-12 border-b border-white/5"
         >
           <div className="space-y-3">
             <motion.span
@@ -237,7 +233,8 @@ export const Projects: React.FC<ProjectsProps> = ({ onProjectClick }) => {
             <ProjectCard 
                 key={project.id} 
                 project={project} 
-                index={index} 
+                index={index}
+                totalProjects={PROJECTS.length}
                 onClick={() => onProjectClick(project)} 
             />
           ))}

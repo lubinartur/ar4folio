@@ -21,34 +21,35 @@
   "menu": {
     "home": {
       "name": "Home",
-      "desc": "Start Here"
+      "desc": "Start here"
     },
     "experience": {
       "name": "Experience",
-      "desc": "My Journey"
+      "desc": "My journey"
     },
     "services": {
       "name": "Services",
-      "desc": "What I Do"
+      "desc": "What I do"
     },
     "portfolio": {
       "name": "Portfolio",
-      "desc": "Selected Work"
+      "desc": "Selected work"
     },
     "skills": {
       "name": "Skills",
-      "desc": "Competencies"
+      "desc": "Expertise"
     },
     "contact": {
-      "name": "Contact",
-      "desc": "Get in Touch"
+      "name": "Contacts",
+      "desc": "Get in touch"
     },
-    "downloadCv": "Download CV"
+    "downloadCv": "Download CV",
+    "close": "Close"
   },
   "hero": {
     "name": "Artur Lubin",
-    "title": "I’m a Product & UX Designer with 9+ years of experience building structured, intuitive, and emotionally intelligent digital systems.",
-    "subtitle": "Specializing in fintech interfaces: onboarding, dashboards, flows, and decision-making tools.",
+    "title": "I'm a Senior Product & UX Designer with 9+ years of experience.",
+    "subtitle": "I design complex fintech systems, turning credit and product logic into clear and reliable interfaces.",
     "badgeExperience": "9+ years",
     "tagline": "Product & UX Designer",
     "role": "Fintech Product & UX Designer",
@@ -75,20 +76,16 @@
     "achievementsTitle": "Success & Achievements",
     "achievements": {
       "completedProjects": {
-        "value": "97",
+        "value": "53+",
         "label": "Completed Projects"
       },
       "yearsDevelopment": {
-        "value": "6+",
+        "value": "9+",
         "label": "Years in Development"
       },
       "clientsWorldwide": {
-        "value": "17+",
+        "value": "17",
         "label": "Clients Worldwide"
-      },
-      "usersPlatforms": {
-        "value": "10,000+",
-        "label": "Users on My Built Platforms"
       }
     }
   },
@@ -106,28 +103,26 @@
     "placet": {
       "role": "Senior Product & UX Designer, Graphic Designer",
       "period": "2016 — Present",
-      "item1": "UX architecture for financial systems",
-      "item2": "Full design system creation",
-      "item3": "Loan calculators, dashboards, onboarding",
-      "item4": "Improving flow clarity",
-      "item5": "Mobile + web interfaces",
-      "item6": "Visual identity, marketing assets, brand materials, digital & print design"
+      "item1": "UX architecture for credit and financial systems",
+      "item2": "Onboarding, KYC flows, calculators, and dashboards",
+      "item3": "Web and mobile interfaces, close collaboration with development",
+      "item4": "Creating and evolving design systems for multiple brands"
     },
     "air4": {
-      "role": "Creator & Product & UX Designer",
+      "role": "Creator & Product & UX Designer (end-to-end)",
       "period": "2023 — Present",
-      "item1": "Concept and architecture of a local AI assistant",
-      "item2": "UX for structured long-term memory and search",
-      "item3": "Design of dark premium chat and dashboard interfaces",
-      "item4": "Integrations with tools, documents, and workflows"
+      "item1": "Concept and UX architecture of a local AI assistant",
+      "item2": "Interfaces for long-term memory, search, and data management",
+      "item3": "Design of premium chat and analytical dashboards",
+      "item4": "Integrations with documents, tools, and workflows"
     },
     "krauta": {
       "role": "Digital Designer",
-      "description": "Created digital campaigns, banners, and marketing visuals for Facebook/Google Ads. Prepared assets for email marketing."
+      "description": "Digital campaigns, banners, and visuals for performance marketing (Facebook, Google Ads)."
     },
     "kaup24": {
       "role": "Designer",
-      "description": "Designer for one of Estonia’s major e-commerce companies. Work included daily digital campaigns, banners, visual assets, and product categories management."
+      "description": "Design of e-commerce campaigns, banners, and categories."
     }
   },
   "summary": {
@@ -146,6 +141,9 @@
     "kicker": "CORE SERVICES",
     "sectionTitle": "Services",
     "sectionSubtitle": "What I do",
+    "mainTitle": "What I build",
+    "subtitle": "Systems people trust.",
+    "tags": "Fintech UX • Product logic • Design systems",
     "serviceProduct": "Product & UX Design",
     "serviceProductDesc": "User journeys, wireframes, prototypes, and UX logic for complex fintech flows.",
     "serviceInterface": "Interface & UI Systems",
@@ -154,25 +152,25 @@
     "serviceDashboardsDesc": "Clear, data-driven interfaces for financial decision-making.",
     "serviceBrand": "Brand & Visual Support",
     "serviceBrandDesc": "Landing pages, campaigns, banners, and print assets aligned with the product.",
-    "uxui": {
-      "title": "UX/UI Design",
-      "description": "Interfaces that turn complex flows into clarity and intuitive structure."
-    },
     "product": {
       "title": "Product & UX Design",
-      "description": "Full product logic, prototyping, testing, refinement."
+      "description": "Product logic and solutions. User scenarios, constraints, flows, and decision points."
+    },
+    "uxui": {
+      "title": "UX/UI Design",
+      "description": "Interfaces and interaction. Readability, navigation, visual hierarchy."
     },
     "fintech": {
       "title": "Fintech Systems",
-      "description": "Dashboards, calculators, loan logic, data-driven flows."
+      "description": "Credit products, calculators, dashboards, and data-driven regulatory flows."
+    },
+    "optimization": {
+      "title": "UX Audit & Improvements",
+      "description": "User scenario analysis, problem identification, and concrete improvements."
     },
     "branding": {
       "title": "Branding & Identity",
-      "description": "Logo systems, typography, visual concepts."
-    },
-    "optimization": {
-      "title": "Interface Optimization",
-      "description": "Improving clarity, usability, and conversion."
+      "description": "Visual product support: logos, typography, brand assets."
     }
   },
   "projects": {
@@ -190,36 +188,119 @@
     "placet": {
       "title": "Application Design",
       "role": "Client: Placet Group",
-      "description": "End-to-end application design for a fintech ecosystem, focusing on clarity, conversion, and scalable UX patterns.",
-      "cta": "View case"
+      "description": "Complete redesign of a fintech ecosystem with focus on onboarding, conversion, and scalable UX patterns.",
+      "listDescription": "Complete redesign of Placet Group mobile app focused on clear financial states, transparent flows, and unified logic for loans, cards, and payments.",
+      "cta": "View case",
+      "challenge": "Managing consumer finance is inherently stressful. Users seek clarity, predictability, and control, yet most financial apps overwhelm them with numbers, legal language, and fragmented flows. Placet's mobile experience suffered from inconsistent user journeys, unclear financial states, and non-uniform interface logic across loans, credit lines, and card features.",
+      "solution": "I redesigned the Placet app end-to-end with a focus on calm structure, transparency, and instant comprehension. Authentication was rebuilt using Smart-ID, Mobile-ID, and Face ID to establish trust from the first interaction. The dashboard follows a glance-first model, showing balance, next payment, and actions within seconds. A multi-state financial architecture was designed: processing, active, overdue, and empty states. The transaction feed was rebuilt into a dense but readable list with clear hierarchy and color-coded amounts. A full physical card journey was designed: ordered, shipped, expected delivery, activation, and active use. Both dark and light themes share a unified premium fintech visual language.",
+      "result": "The redesign improved user confidence and reduced ambiguity in daily financial actions. Support requests decreased due to clearer states and predictable flows. Users understood upcoming payments faster and navigated the app with less friction. The structure strengthened trust — the most valuable currency in fintech.",
+      "screens": {
+        "screen1": {
+          "title": "Authentication & Face ID onboarding",
+          "description": "The journey starts with a secure but minimal login flow using Smart-ID, Mobile-ID and Face ID. The goal is to remove friction while keeping the visual tone calm and trustworthy."
+        },
+        "screen2": {
+          "title": "Dashboard — credit line at a glance",
+          "description": "A high-level overview of the user's financial situation: remaining amount, next payment date and upcoming payment. The layout is optimised for quick scanning and daily use."
+        },
+        "screen3": {
+          "title": "Financial states — processing, active and overdue",
+          "description": "Different UI states explain what is happening with the credit line: application in processing, active credit with transactions, a clean empty state and an overdue state with a clear but non-aggressive warning."
+        },
+        "screen4": {
+          "title": "Card ordering and delivery timeline",
+          "description": "A step-based flow for physical card ordering: ordered, shipped and expected delivery. The UI uses a simple progress line and copy that reduces anxiety around where the card is in the journey."
+        },
+        "screen5": {
+          "title": "Black Card controls and safety tools",
+          "description": "Once the card is active, users get a control panel for contactless payments, internet transactions, temporary freeze and PIN tools. Each control is designed as a clear, tappable tile with strong hierarchy."
+        },
+        "screen6": {
+          "title": "Visual system — dark & light explorations",
+          "description": "Two visual directions: a deep, premium dark mode for fintech and a lighter, airy version for clarity. Both share the same structure and interaction patterns, making the system scalable."
+        }
+      }
     },
     "paskolos": {
       "title": "Lending Platform",
       "role": "Client: Paskolos.lt",
-      "description": "Mobile-first redesign for the Lithuanian lending market, improving loan discovery, comparison, and application confidence.",
+      "description": "Mobile UX for Lithuanian market: clear loan selection, offer comparison, and confident application start. Platform redesign focused on product clarity, transparent terms, and simplified application flow.",
+      "listDescription": "Mobile UX for Lithuanian market: clear loan selection, offer comparison, and confident application start.",
       "cta": "View case"
     },
     "placetSelfservice": {
       "title": "Unified Self-Service",
       "role": "Client: Placet Group",
-      "description": "A single self-service account for all Placet Group brands with unified login, products, and payment flows.",
-      "cta": "View case"
+      "description": "Unified self-service for all Placet Group brands with single login, products, payments and history. A single access point to all financial products with transparent structure and clear navigation.",
+      "listDescription": "Unified self-service for all Placet Group brands with single login, products, and payments in one interface.",
+      "cta": "View case",
+      "challenge": "Previously, each Placet Group brand — smsraha, laen.ee, smsmoney and others — operated its own self-service environment. Users had different accounts, entry points and slightly different interfaces depending on the brand where they started. This fragmented experience caused confusion, increased support load and made it harder to understand the full customer relationship.",
+      "solution": "I designed a unified self-service portal acting as a shared account layer across all Placet Group brands. Regardless of entry brand, users access a single environment with one login. The UX is built around a brand-agnostic core: a shared dashboard with all products, balances, payments and agreements, while preserving brand identity. Navigation and action flows were unified across all products.",
+      "result": "The unified self-service simplified product maintenance and reduced interface duplication. Users no longer struggle with remembering brands or entry points. The new structure provides a clear overview of all products in one place and strengthens trust in Placet Group as a consistent financial partner.",
+      "screens": {
+        "screen1": {
+          "title": "Unified login across brands",
+          "description": "A single authentication layer that works for customers of smsraha, laen.ee, smsmoney and other Placet Group brands, removing the need to remember separate portals."
+        },
+        "screen2": {
+          "title": "Multi-product dashboard",
+          "description": "A brand-agnostic dashboard that aggregates all active loans, credit lines and cards into one structured overview with clear states and next steps."
+        },
+        "screen3": {
+          "title": "Payments and schedules",
+          "description": "Unified payment flows and schedules, showing upcoming instalments across products in a single, predictable pattern, reducing confusion and missed payments."
+        },
+        "screen4": {
+          "title": "Contracts and profile management",
+          "description": "A shared area for contracts, personal data and communication settings, so customers can manage their relationship with Placet Group as one entity."
+        }
+      }
     },
     "clickHint": "CLICK TO VIEW CASE STUDY",
-    "viewCaseStudy": "View case study"
+    "viewCaseStudy": "View case study",
+    "backToProjects": "Back to Projects",
+    "relatedProjects": "Related projects",
+    "placetContext": "— application design",
+    "paskolosContext": "— lending UX",
+    "placetSelfserviceContext": "— self-service"
+  },
+  "projectDetail": {
+    "challenge": "The Challenge",
+    "solution": "The Solution",
+    "result": "The Result",
+    "overview": "Overview",
+    "impact": "Impact",
+    "process": "Process",
+    "client": "Client",
+    "year": "Year",
+    "focus": "Focus",
+    "onTimeRepayments": "On-time repayments",
+    "supportQuestions": "Support questions",
+    "fasterToInsight": "Faster to insight",
+    "interestedInWorkflow": "INTERESTED IN THIS WORKFLOW?",
+    "discussProject": "Let's Discuss Your Project"
   },
   "skills": {
-    "kicker": "TOOLS & EXPERTISE",
-    "sectionTitle": "My Advantage",
+    "kicker": "HOW I WORK",
+    "sectionTitle": "Stack",
+    "subtitle": "Daily work stack.",
+    "designColumnTitle": "Design Tools",
+    "aiColumnTitle": "AI-assisted workflow",
     "ux": "Fintech UX: onboarding, loan flows, dashboards, credit products.",
     "product": "Product & UX design: structured flows, system thinking, data-driven interfaces.",
     "systems": "Design systems: components, tokens, guidelines, multi-brand usage.",
     "tools": "Figma, Adobe Photoshop, Illustrator, InDesign, prototyping.",
-    "devCollab": "Close collaboration with developers and stakeholders."
+    "devCollab": "Close collaboration with developers and stakeholders.",
+    "figmaDescriptor": "Product interfaces, scalable systems, interactive prototypes",
+    "photoshopDescriptor": "Visual asset production and image refinement",
+    "illustratorDescriptor": "Systematic iconography and brand visual language",
+    "cursorDescriptor": "Product logic prototyping and code-driven exploration",
+    "chatgptDescriptor": "Product analysis, UX content structure, workflow support",
+    "midjourneyDescriptor": "Rapid visual concept exploration for product ideation"
   },
   "contact": {
-    "heroTitle": "Let’s work on something meaningful.",
-    "subtitle": "Available for UX/UI and product design collaborations. Open to discussing ambitious fintech projects.",
+    "heroTitle": "Let's work on something meaningful.",
+    "subtitle": "Product & UX design for complex products — especially fintech and systems with real constraints.",
     "cta": "Contact me",
     "linkedin": "LinkedIn",
     "email": "Email",
@@ -228,16 +309,36 @@
     "formNamePlaceholder": "Your name",
     "formEmail": "Email",
     "formEmailPlaceholder": "your.email@example.com",
-    "formMessage": "Message",
-    "formMessagePlaceholder": "Tell me about your project...",
-    "formSubmit": "Send Message",
+    "step1Label": "What are you looking for?",
+    "step1Options": {
+      "productUx": "Product & UX design",
+      "fintechLending": "Fintech / lending UX",
+      "uxAudit": "UX audit & improvements",
+      "newIdea": "New idea / MVP",
+      "notSure": "Not sure yet"
+    },
+    "step2Label": "Project stage",
+    "step2Options": {
+      "idea": "Idea / early concept",
+      "inProgress": "In progress",
+      "redesign": "Redesign",
+      "scaling": "Scaling / optimisation"
+    },
+    "step3Label": "Project description",
+    "step3Placeholder": "What problem are you trying to solve?\nWhat constraints should I know about (regulation, tech, timing)?\nWhat would success look like for you?",
+    "optionalBudgetLabel": "Budget range (optional)",
+    "optionalTimelineLabel": "Timeline (optional)",
+    "formSubmit": "Send message",
     "formSubmitting": "Sending...",
     "formSuccess": "Thank you! Your email client will open with your message.",
+    "formHelperText": "I usually reply within 1–2 business days.",
     "formErrors": {
       "nameRequired": "Name is required",
       "emailRequired": "Email is required",
       "emailInvalid": "Invalid email address",
-      "messageRequired": "Message is required",
+      "projectTypeRequired": "Please select a project type",
+      "projectStageRequired": "Please select a project stage",
+      "descriptionRequired": "Please describe your project",
       "submitError": "Failed to submit. Please try again."
     }
   },
@@ -254,7 +355,7 @@
     "welcome": "Hello! I'm your portfolio assistant. I can tell you about fintech expertise, case studies, or design processes. How can I help?",
     "placeholder": "Ask a question...",
     "openHint": "Ask Assistant",
-    "error": "I’m having trouble connecting to the server. Please try again later.",
+    "error": "I'm having trouble connecting to the server. Please try again later.",
     "q1": "What is your fintech expertise?",
     "q2": "Tell me about Placet Group.",
     "q3": "What is your design stack?",

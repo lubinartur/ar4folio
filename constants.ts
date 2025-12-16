@@ -13,10 +13,11 @@ export const PROJECTS: Project[] = [
     role: "projects.placet.role",
     year: "2023",
     description: "projects.placet.description",
+    listDescription: "projects.placet.listDescription",
     fullDescription: {
-      challenge: "Managing consumer finance is inherently stressful. Users want clarity, predictability, and control — yet most financial applications overload the screen with numbers, legal jargon, and unnecessary steps. Placet’s mobile experience suffered from scattered flows, unclear financial states, and inconsistent interface logic across loan, credit line, and card features.",
-      solution: "I rebuilt the Placet App experience end‑to‑end, focusing on calm structure, transparency, and instant comprehension. The authentication layer was redesigned with Smart‑ID, Mobile‑ID, and FaceID onboarding to establish trust from the first interaction. The dashboard was reorganized around a glance‑first model where remaining balance, next payment, and available actions are readable within seconds. I designed a multi‑state financial architecture covering processing, active, overdue, and empty transaction scenarios — each adapting UI tone, interaction level, and clarity. The transaction feed was rebuilt into a clean, high‑density list with color-coded amounts and clear hierarchy. A full physical card journey was created, including ordered–shipped–expected–activation–active states with complete control toggles for NFC, online payments, PIN tools, and temporary freeze. Both light and dark themes were developed with a premium fintech aesthetic and consistent visual language.",
-      result: "The redesign significantly improved user confidence and reduced ambiguity in day‑to‑day financial actions. Support questions dropped due to clearer card delivery states, predictable financial states, and simplified onboarding. Users understood their next payments faster, navigated the app with less friction, and interacted with features more consistently across dark and light modes. The new structure strengthened trust — the most valuable currency in fintech."
+      challenge: "Managing consumer finance is inherently stressful. Users seek clarity, predictability, and control, yet most financial apps overwhelm them with numbers, legal language, and fragmented flows. Placet's mobile experience suffered from inconsistent user journeys, unclear financial states, and non-uniform interface logic across loans, credit lines, and card features.",
+      solution: "I redesigned the Placet app end-to-end with a focus on calm structure, transparency, and instant comprehension. Authentication was rebuilt using Smart-ID, Mobile-ID, and Face ID to establish trust from the first interaction. The dashboard follows a glance-first model, showing balance, next payment, and actions within seconds. A multi-state financial architecture was designed: processing, active, overdue, and empty states. The transaction feed was rebuilt into a dense but readable list with clear hierarchy and color-coded amounts. A full physical card journey was designed: ordered, shipped, expected delivery, activation, and active use. Both dark and light themes share a unified premium fintech visual language.",
+      result: "The redesign improved user confidence and reduced ambiguity in daily financial actions. Support requests decreased due to clearer states and predictable flows. Users understood upcoming payments faster and navigated the app with less friction. The structure strengthened trust — the most valuable currency in fintech."
     },
     tags: ["Fintech", "Application Design", "UX/UI"],
     image: "/images/projects/placet-app-cover.jpg", 
@@ -70,6 +71,7 @@ export const PROJECTS: Project[] = [
     role: "projects.paskolos.role",
     year: "2022",
     description: "projects.paskolos.description",
+    listDescription: "projects.paskolos.listDescription",
     fullDescription: {
       challenge:
         "The previous Paskolos.lt experience felt outdated and fragmented. Information about loan types, terms, and legal requirements was scattered across multiple pages, and several CTAs competed on the same screen. Heavy legal language, unclear comparison patterns, and a desktop-first layout made it hard for users to understand what they were signing up for and which product was right for them.",
@@ -118,6 +120,7 @@ export const PROJECTS: Project[] = [
     role: "projects.placetSelfservice.role",
     year: "2023",
     description: "projects.placetSelfservice.description",
+    listDescription: "projects.placetSelfservice.listDescription",
     fullDescription: {
       challenge:
         "Previously, each Placet Group brand — smsraha, laen.ee, smsmoney and others — had its own separate self-service environment. Users had different logins, different URLs and slightly different interfaces depending on where they first took a loan. This fragmented experience created confusion, extra support load and made it harder to understand a customer’s full relationship with the company.",
@@ -171,9 +174,7 @@ export const EXPERIENCE: Job[] = [
       "experience.placet.item1",
       "experience.placet.item2",
       "experience.placet.item3",
-      "experience.placet.item4",
-      "experience.placet.item5",
-      "experience.placet.item6"
+      "experience.placet.item4"
     ]
   },
   {
@@ -203,14 +204,14 @@ export const EXPERIENCE: Job[] = [
 
 export const SERVICES: Service[] = [
   {
-    title: "services.uxui.title",
-    description: "services.uxui.description",
-    icon: "layout"
-  },
-  {
     title: "services.product.title",
     description: "services.product.description",
     icon: "box"
+  },
+  {
+    title: "services.uxui.title",
+    description: "services.uxui.description",
+    icon: "layout"
   },
   {
     title: "services.fintech.title",
@@ -218,14 +219,14 @@ export const SERVICES: Service[] = [
     icon: "trending-up"
   },
   {
-    title: "services.branding.title",
-    description: "services.branding.description",
-    icon: "pen-tool"
-  },
-  {
     title: "services.optimization.title",
     description: "services.optimization.description",
     icon: "zap"
+  },
+  {
+    title: "services.branding.title",
+    description: "services.branding.description",
+    icon: "pen-tool"
   }
 ];
 

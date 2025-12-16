@@ -3,6 +3,7 @@ export interface Project {
   title: string;
   role: string;
   description: string;
+  listDescription?: string; // Optional: short description for project list (1-2 lines, ends with period)
   fullDescription: {
     challenge: string;
     solution: string;

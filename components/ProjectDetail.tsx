@@ -46,14 +46,18 @@ const listItemVariants = {
 interface ProjectDetailProps {
   project: Project;
   onBack: () => void;
+  onProjectClick: (project: Project) => void;
 }
 
-export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack }) => {
+export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, onProjectClick }) => {
   const { t } = useI18n();
   const roleLabel = project.role ? t(project.role) : '';
-  const clientName = roleLabel.replace(/^Client:\s*/i, '');
+  // Extract client name by removing "Client:", "Клиент:", "Klient:" prefix
+  const clientName = roleLabel.replace(/^(Client|Клиент|Klient):\s*/i, '');
   // Other projects (for footer navigation)
   const otherProjects = PROJECTS.filter((p) => p.title !== project.title).slice(0, 2);
+  // Map project.id to localization key (e.g., 'placet-selfservice' -> 'placetSelfservice')
+  const projectKey = project.id === 'placet-selfservice' ? 'placetSelfservice' : project.id;
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -93,7 +97,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
           <ArrowLeft className="w-5 h-5" />
         </motion.div>
         <span className="text-xs md:text-sm font-mono uppercase tracking-[0.25em]">
-          Back to Projects
+          {t("projects.backToProjects")}
         </span>
       </motion.button>
     </motion.div>
@@ -198,23 +202,9 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
            <motion.div className="md:col-span-8 space-y-16">
               
               <motion.div variants={itemVariants}>
-                 <h3 className="text-2xl text-white font-display font-bold mb-4">The Challenge</h3>
+                 <h3 className="text-2xl text-white font-display font-bold mb-4">{t("projectDetail.challenge")}</h3>
                  <div className="text-neutral-400 text-[16px] leading-relaxed space-y-3">
-                   <p>Users want clarity, predictability, and control — but most financial apps overload screens with complexity. Placet’s mobile experience suffered from:</p>
-                   <ul className="space-y-1">
-                     <li className="flex items-start gap-2">
-                       <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent/70 block shrink-0" />
-                       <span>Scattered and inconsistent user flows</span>
-                     </li>
-                     <li className="flex items-start gap-2">
-                       <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent/70 block shrink-0" />
-                       <span>Unclear financial states across loans, credit lines, and cards</span>
-                     </li>
-                     <li className="flex items-start gap-2">
-                       <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent/70 block shrink-0" />
-                       <span>Non‑uniform interface logic</span>
-                     </li>
-                   </ul>
+                   <p className="whitespace-pre-line">{t(`projects.${projectKey}.challenge`) || project.fullDescription?.challenge || "Managing consumer finance is inherently stressful. Users seek clarity, predictability, and control, yet most financial apps overwhelm them with numbers, legal language, and fragmented flows. Placet's mobile experience suffered from inconsistent user journeys, unclear financial states, and non-uniform interface logic across loans, credit lines, and card features."}</p>
                  </div>
               </motion.div>
 
@@ -224,38 +214,12 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
                    whileHover={{ x: 4, color: "#ff6b35" }}
                    transition={{ duration: 0.2 }}
                  >
-                   The Solution
+                   {t("projectDetail.solution")}
                  </motion.h3>
                  <div className="text-neutral-400 text-[16px] leading-relaxed space-y-4">
-                   <motion.p variants={itemVariants}>
-                     I redesigned the Placet App end‑to‑end with focus on calm structure, transparency, and instant comprehension.
+                   <motion.p variants={itemVariants} className="whitespace-pre-line">
+                     {t(`projects.${projectKey}.solution`) || project.fullDescription?.solution || "I redesigned the Placet app end-to-end with a focus on calm structure, transparency, and instant comprehension. Authentication was rebuilt using Smart-ID, Mobile-ID, and Face ID to establish trust from the first interaction. The dashboard follows a glance-first model, showing balance, next payment, and actions within seconds. A multi-state financial architecture was designed: processing, active, overdue, and empty states. The transaction feed was rebuilt into a dense but readable list with clear hierarchy and color-coded amounts. A full physical card journey was designed: ordered, shipped, expected delivery, activation, and active use. Both dark and light themes share a unified premium fintech visual language."}
                    </motion.p>
-                   <motion.ul
-                     variants={containerVariants}
-                     className="space-y-1"
-                   >
-                     {[
-                       "Rebuilt authentication with Smart‑ID, Mobile‑ID, FaceID",
-                       "Glance‑first dashboard for clear balance, next payment, actions",
-                       "Multi‑state financial architecture: processing, active, overdue",
-                       "Dense, readable transaction feed with color‑coding",
-                       "Redesigned full card journey: ordered → shipped → active",
-                       "Unified light & dark premium fintech themes"
-                     ].map((item, i) => (
-                       <motion.li
-                         key={i}
-                         custom={i}
-                         variants={listItemVariants}
-                         className="flex items-start gap-2 group/item"
-                         whileHover={{ x: 4 }}
-                       >
-                         <motion.span
-                           className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent/70 block shrink-0 group-hover/item:bg-accent group-hover/item:scale-150 transition-all duration-300"
-                         />
-                         <span className="group-hover/item:text-white transition-colors duration-300">{item}</span>
-                       </motion.li>
-                     ))}
-                   </motion.ul>
                  </div>
               </motion.div>
 
@@ -265,36 +229,12 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
                    whileHover={{ x: 4, color: "#ff6b35" }}
                    transition={{ duration: 0.2 }}
                  >
-                   The Result
+                   {t("projectDetail.result")}
                  </motion.h3>
                  <div className="text-neutral-400 text-[16px] leading-relaxed space-y-6">
-                   <motion.p variants={itemVariants}>
-                     The redesign strengthened user confidence and reduced ambiguity.
+                   <motion.p variants={itemVariants} className="whitespace-pre-line">
+                     {t(`projects.${projectKey}.result`) || project.fullDescription?.result || "The redesign improved user confidence and reduced ambiguity in daily financial actions. Support requests decreased due to clearer states and predictable flows. Users understood upcoming payments faster and navigated the app with less friction. The structure strengthened trust — the most valuable currency in fintech."}
                    </motion.p>
-                   <motion.ul
-                     variants={containerVariants}
-                     className="space-y-1"
-                   >
-                     {[
-                       "Fewer support questions from clearer financial states",
-                       "Faster understanding of upcoming payments",
-                       "Smoother onboarding and everyday flows",
-                       "Consistent experience across dark & light modes"
-                     ].map((item, i) => (
-                       <motion.li
-                         key={i}
-                         custom={i}
-                         variants={listItemVariants}
-                         className="flex items-start gap-2 group/item"
-                         whileHover={{ x: 4 }}
-                       >
-                         <motion.span
-                           className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent/70 block shrink-0 group-hover/item:bg-accent group-hover/item:scale-150 transition-all duration-300"
-                         />
-                         <span className="group-hover/item:text-white transition-colors duration-300">{item}</span>
-                       </motion.li>
-                     ))}
-                   </motion.ul>
                  </div>
               </motion.div>
 
@@ -313,12 +253,12 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
                 whileHover={{ x: 4, color: "#ff6b35" }}
                 transition={{ duration: 0.2 }}
               >
-                Overview
+                {t("projectDetail.overview")}
               </motion.h3>
               <div className="space-y-5 text-neutral-400 text-[16px] md:text-[16px] leading-relaxed">
                 {[
-                  { label: "Client", value: clientName },
-                  { label: "Year", value: project.year }
+                  { label: t("projectDetail.client"), value: clientName },
+                  { label: t("projectDetail.year"), value: project.year }
                 ].map((item, i) => (
                   <motion.div
                     key={i}
@@ -336,7 +276,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
                 ))}
                 <motion.div variants={itemVariants}>
                   <div className="text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 mb-1.5">
-                    Focus
+                    {t("projectDetail.focus")}
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map((tag, i) => (
@@ -362,13 +302,13 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
                 whileHover={{ x: 4, color: "#ff6b35" }}
                 transition={{ duration: 0.2 }}
               >
-                Impact
+                {t("projectDetail.impact")}
               </motion.h3>
               <div className="space-y-5">
                 {[
-                  { value: "+XX%", label: "On-time repayments" },
-                  { value: "-YY%", label: "Support questions" },
-                  { value: "3x", label: "Faster to insight" }
+                  { value: "+XX%", label: t("projectDetail.onTimeRepayments") },
+                  { value: "-YY%", label: t("projectDetail.supportQuestions") },
+                  { value: "3x", label: t("projectDetail.fasterToInsight") }
                 ].map((item, i) => (
                   <motion.div
                     key={i}
@@ -399,7 +339,12 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
             viewport={{ once: true, margin: "-10%" }}
             className="space-y-16 mb-24"
           >
-            {project.screens.map((screen, index) => (
+            {project.screens.map((screen, index) => {
+              const screenKey = `screen${index + 1}`;
+              const localizedTitle = t(`projects.${projectKey}.screens.${screenKey}.title`) || screen.title;
+              const localizedDescription = t(`projects.${projectKey}.screens.${screenKey}.description`) || screen.description;
+              
+              return (
               <motion.section
                 key={screen.title + index}
                 custom={index}
@@ -411,21 +356,21 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
                     className="text-xs font-mono uppercase tracking-[0.25em] text-neutral-500"
                     whileHover={{ x: 4 }}
                   >
-                    Process {index + 1 < 10 ? `0${index + 1}` : index + 1}
+                    {t("projectDetail.process")} {index + 1 < 10 ? `0${index + 1}` : index + 1}
                   </motion.p>
                   <motion.h3
                     className="text-2xl md:text-3xl font-display font-semibold text-white"
                     whileHover={{ x: 4, color: "#ff6b35" }}
                     transition={{ duration: 0.2 }}
                   >
-                    {screen.title}
+                    {localizedTitle}
                   </motion.h3>
-                  {screen.description && (
+                  {localizedDescription && (
                     <motion.p
                       className="text-neutral-400 text-[16px] md:text-[16px] leading-relaxed"
                       whileHover={{ color: "#ffffff" }}
                     >
-                      {screen.description}
+                      {localizedDescription}
                     </motion.p>
                   )}
                 </div>
@@ -444,8 +389,9 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
                     transition={{ duration: 0.6, ease: "easeOut" }}
                   />
                 </motion.div>
-              </motion.section>
-            ))}
+                </motion.section>
+              );
+            })}
           </motion.div>
         ) : (
           project.gallery && (
@@ -493,7 +439,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
                 variants={itemVariants}
                 className="text-xs font-mono uppercase tracking-[0.25em] text-neutral-500"
               >
-                More projects
+                {t("projects.relatedProjects")}
               </motion.p>
 
               <div className="grid gap-4 sm:grid-cols-2">
@@ -503,7 +449,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
                     custom={i}
                     variants={listItemVariants}
                     type="button"
-                    onClick={onBack}
+                    onClick={() => onProjectClick(p)}
                     whileHover={{ scale: 1.02, y: -4, borderColor: "rgba(255, 107, 53, 0.6)" }}
                     whileTap={{ scale: 0.98 }}
                     className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-left cursor-pointer hover:bg-white/[0.06] transition-colors"
@@ -526,6 +472,9 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
                       </p>
                       <h3 className="text-sm md:text-base font-display font-semibold text-white group-hover:text-accent transition-colors">
                         {t(p.title)}
+                        {p.id === 'placet' && <span className="text-neutral-500 font-normal"> {t("projects.placetContext")}</span>}
+                        {p.id === 'paskolos' && <span className="text-neutral-500 font-normal"> {t("projects.paskolosContext")}</span>}
+                        {p.id === 'placet-selfservice' && <span className="text-neutral-500 font-normal"> {t("projects.placetSelfserviceContext")}</span>}
                       </h3>
                       {p.role && (
                         <p className="text-[11px] text-neutral-400 group-hover:text-neutral-300 transition-colors">
@@ -552,7 +501,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
               variants={itemVariants}
               className="text-neutral-500 mb-6 font-mono uppercase tracking-widest"
             >
-              Interested in this workflow?
+              {t("projectDetail.interestedInWorkflow")}
             </motion.h3>
             <motion.a
               variants={itemVariants}
@@ -560,7 +509,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
               whileHover={{ scale: 1.05, color: "#ff6b35" }}
               className="inline-flex items-center gap-2 text-3xl md:text-5xl font-display font-bold text-white hover:text-accent transition-colors group"
             >
-              Let's Discuss Your Project
+              {t("projectDetail.discussProject")}
               <motion.div
                 whileHover={{ rotate: 45, x: 4, y: -4 }}
                 transition={{ duration: 0.3 }}

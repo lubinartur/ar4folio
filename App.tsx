@@ -90,7 +90,17 @@ const App: React.FC = () => {
                 <ProjectDetail 
                     key="project-detail"
                     project={activeProject} 
-                    onBack={() => setActiveProject(null)} 
+                    onBack={() => {
+                      setActiveProject(null);
+                      // Scroll to Projects section after closing project
+                      setTimeout(() => {
+                        const projectsSection = document.querySelector('#projects');
+                        if (projectsSection) {
+                          projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                      }, 300); // Wait for exit animation
+                    }}
+                    onProjectClick={setActiveProject}
                 />
                 ) : (
                 <motion.main 

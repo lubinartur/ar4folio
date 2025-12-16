@@ -10,7 +10,7 @@ export const AboutIntro: React.FC = () => {
     // Паттерны для поиска фразы на разных языках
     const patterns: Record<string, RegExp> = {
       en: /(Product & UX Designer with 9\+ years)/gi,
-      ru: /(Product & UX дизайнер с опытом более 9 лет)/gi,
+      ru: /(более 9 лет)/gi,
       et: /(Product & UX disainer üle 9-aastase kogemusega)/gi,
     };
 
@@ -27,11 +27,22 @@ export const AboutIntro: React.FC = () => {
       if (match.index !== undefined) {
         // Добавляем текст до совпадения
         if (match.index > lastIndex) {
-          parts.push(
-            <React.Fragment key={`text-${matchIndex}`}>
-              {text.substring(lastIndex, match.index)}
-            </React.Fragment>
-          );
+          const beforeText = text.substring(lastIndex, match.index);
+          // Для русского языка добавляем перенос перед "более 9 лет"
+          if (language === "ru") {
+            parts.push(
+              <React.Fragment key={`text-${matchIndex}`}>
+                {beforeText}
+                <br />
+              </React.Fragment>
+            );
+          } else {
+            parts.push(
+              <React.Fragment key={`text-${matchIndex}`}>
+                {beforeText}
+              </React.Fragment>
+            );
+          }
         }
         // Добавляем выделенную фразу
         parts.push(
