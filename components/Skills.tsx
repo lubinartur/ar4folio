@@ -166,7 +166,7 @@ export const Skills: React.FC = () => {
           whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-12 md:mb-16 pb-6 md:pb-10 border-b border-white/5"
+          className="mb-8 md:mb-10 pb-4 md:pb-6 border-b border-white/5"
         >
           <div className="flex flex-col space-y-3">
             <motion.span
@@ -215,11 +215,11 @@ export const Skills: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1, duration: 0.6 }}
-              className="text-xl md:text-2xl font-display font-semibold text-white mb-6 h-[2.5rem] md:h-[3rem] flex items-end"
+              className="text-xl md:text-2xl font-display font-semibold text-white mb-4 h-[2.5rem] md:h-[3rem] flex items-end"
             >
               {t("skills.designColumnTitle")}
             </motion.h3>
-            <div className="grid grid-rows-3 gap-6">
+            <div className="grid grid-rows-3 gap-4">
               {designTools.map((skill, index) => (
                 <motion.div
                   key={skill.name}
@@ -239,7 +239,7 @@ export const Skills: React.FC = () => {
                 >
                   {/* Card */}
                   <div className="relative bg-gradient-to-br from-accent/35 via-white/5 to-transparent p-[1px] rounded-2xl overflow-hidden group/card h-full">
-                    <div className="relative h-full rounded-2xl bg-[#101010] border border-white/5 px-7 py-8 flex flex-row items-center gap-6 overflow-hidden group-hover/card:border-accent/30 transition-all duration-300">
+                    <div className="relative h-full rounded-2xl bg-[#101010] border border-white/5 px-5 py-5 flex flex-row items-center gap-5 overflow-hidden group-hover/card:border-accent/30 transition-all duration-300">
                       {/* Animated gradient glow on hover */}
                       <motion.div
                         className="pointer-events-none absolute inset-[-40%] bg-[radial-gradient(circle_at_top_right,rgba(255,120,80,0.16),transparent_60%)]"
@@ -260,7 +260,7 @@ export const Skills: React.FC = () => {
                       {/* Text content */}
                       <div className="relative z-[1] flex flex-col justify-center flex-1 min-w-0">
                         {/* Name */}
-                        <h4 className="text-lg md:text-xl font-display font-semibold text-white mb-2 group-hover:text-accent transition-colors duration-300">
+                        <h4 className="text-lg md:text-xl font-display font-semibold text-white mb-1.5 group-hover:text-accent transition-colors duration-300">
                           {skill.name}
                         </h4>
 
@@ -299,11 +299,11 @@ export const Skills: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1, duration: 0.6 }}
-              className="text-xl md:text-2xl font-display font-semibold text-white mb-6 h-[2.5rem] md:h-[3rem] flex items-end"
+              className="text-xl md:text-2xl font-display font-semibold text-white mb-4 h-[2.5rem] md:h-[3rem] flex items-end"
             >
               {t("skills.aiColumnTitle")}
             </motion.h3>
-            <div className="grid grid-rows-3 gap-6">
+            <div className="grid grid-rows-3 gap-4">
               {aiTools.map((skill, index) => (
                 <motion.div
                   key={skill.name}
@@ -323,7 +323,7 @@ export const Skills: React.FC = () => {
                 >
                   {/* Card */}
                   <div className="relative bg-gradient-to-br from-accent/35 via-white/5 to-transparent p-[1px] rounded-2xl overflow-hidden group/card h-full">
-                    <div className="relative h-full rounded-2xl bg-[#101010] border border-white/5 px-7 py-8 flex flex-row items-center gap-6 overflow-hidden group-hover/card:border-accent/30 transition-all duration-300">
+                    <div className="relative h-full rounded-2xl bg-[#101010] border border-white/5 px-5 py-5 flex flex-row items-center gap-5 overflow-hidden group-hover/card:border-accent/30 transition-all duration-300">
                       {/* Animated gradient glow on hover */}
                       <motion.div
                         className="pointer-events-none absolute inset-[-40%] bg-[radial-gradient(circle_at_top_right,rgba(255,120,80,0.16),transparent_60%)]"
@@ -344,7 +344,7 @@ export const Skills: React.FC = () => {
                       {/* Text content */}
                       <div className="relative z-[1] flex flex-col justify-center flex-1 min-w-0">
                         {/* Name */}
-                        <h4 className="text-lg md:text-xl font-display font-semibold text-white mb-2 group-hover:text-accent transition-colors duration-300">
+                        <h4 className="text-lg md:text-xl font-display font-semibold text-white mb-1.5 group-hover:text-accent transition-colors duration-300">
                           {skill.name}
                         </h4>
 

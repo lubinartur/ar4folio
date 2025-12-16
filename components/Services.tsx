@@ -41,11 +41,14 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index, t }) => {
         delay: index * 0.08,
         ease: [0.22, 1, 0.36, 1] 
       }}
-      whileHover={{ y: -6, scale: 1.02 }}
+      whileHover={{ 
+        y: isPrimary ? -6 : -3, 
+        scale: isPrimary ? 1.02 : 1.01 
+      }}
       className={`group relative rounded-3xl overflow-hidden ${
         isPrimary 
           ? 'md:col-span-1 md:row-span-2' 
-          : ''
+          : 'min-h-0'
       }`}
     >
       {/* Refined card background with gradient */}
@@ -55,7 +58,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index, t }) => {
       <div className={`absolute inset-0 bg-gradient-to-b from-[#0a0a0a] to-[#050505] rounded-3xl border transition-all duration-500 ${
         isPrimary 
           ? 'border-accent/50 group-hover:border-accent/70 shadow-[0_0_30px_rgba(255,120,80,0.15)]' 
-          : 'border-white/10 group-hover:border-white/20'
+          : 'border-white/5 group-hover:border-white/12 shadow-[0_0_10px_rgba(255,255,255,0.03)]'
       }`} />
       
       {/* Multiple glowing accents for primary card */}
@@ -113,27 +116,27 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index, t }) => {
         </div>
       ) : (
         // Horizontal layout for other cards - centered vertically
-        <div className="relative z-10 flex flex-row gap-4 md:gap-5 p-6 md:p-8 h-full">
+        <div className="relative z-10 flex flex-row gap-3 md:gap-4 p-4 md:p-5 h-full">
           {/* Fixed-size square icon - aligned with text block center */}
           <div className="flex items-center flex-shrink-0">
             <motion.div
-              className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-gradient-to-br from-accent/25 to-accent/10 border border-accent/40 flex items-center justify-center group-hover:from-accent/35 group-hover:to-accent/20 group-hover:border-accent/60 transition-all duration-300"
+              className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-accent/25 to-accent/10 border border-accent/40 flex items-center justify-center group-hover:from-accent/35 group-hover:to-accent/20 group-hover:border-accent/60 transition-all duration-300"
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 400, damping: 20 }}
             >
-              <Icon className="w-6 h-6 md:w-7 md:h-7 text-accent" />
+              <Icon className="w-5 h-5 md:w-6 md:h-6 text-accent" />
             </motion.div>
           </div>
           
           {/* Text wrapper - left-aligned, centered vertically */}
           <div className="flex flex-col items-start justify-center flex-1 min-w-0">
             {/* Title - consistent font-weight */}
-            <h3 className="text-lg md:text-xl font-display font-semibold text-white group-hover:text-accent transition-colors duration-300 mb-2">
+            <h3 className="text-base md:text-lg font-display font-semibold text-white group-hover:text-accent transition-colors duration-300 mb-1.5">
               {t(service.title)}
             </h3>
 
             {/* Description - muted color, max 2 lines */}
-            <p className="text-sm md:text-base text-neutral-300 leading-relaxed group-hover:text-neutral-200 transition-colors duration-300 line-clamp-2">
+            <p className="text-sm md:text-base text-neutral-300 leading-snug group-hover:text-neutral-200 transition-colors duration-300 line-clamp-2">
               {t(service.description)}
             </p>
           </div>
@@ -142,7 +145,9 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index, t }) => {
 
       {/* Refined hover shine effect */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/8 to-transparent"
+        className={`absolute inset-0 bg-gradient-to-r from-transparent to-transparent rounded-3xl ${
+          isPrimary ? 'via-white/8' : 'via-white/4'
+        }`}
         initial={{ x: "-100%", opacity: 0 }}
         whileHover={{ x: "100%", opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeInOut" }}
@@ -153,7 +158,9 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index, t }) => {
       <motion.div
         className="absolute inset-0 bg-gradient-to-br from-accent/0 via-accent/0 to-accent/0 rounded-3xl"
         whileHover={{ 
-          background: "linear-gradient(to bottom right, rgba(255,120,80,0.05), rgba(255,120,80,0.02), rgba(255,120,80,0))"
+          background: isPrimary 
+            ? "linear-gradient(to bottom right, rgba(255,120,80,0.05), rgba(255,120,80,0.02), rgba(255,120,80,0))"
+            : "linear-gradient(to bottom right, rgba(255,120,80,0.02), rgba(255,120,80,0.01), rgba(255,120,80,0))"
         }}
         transition={{ duration: 0.3 }}
         style={{ pointerEvents: "none" }}
@@ -227,7 +234,7 @@ export const Services: React.FC = () => {
         </motion.div>
 
         {/* Services Grid - Large card on left, 4 cards in 2x2 grid on right */}
-        <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 md:gap-6 auto-rows-fr">
+        <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 md:gap-6 md:auto-rows-[minmax(140px,auto)]">
           {SERVICES.map((service, index) => (
             <ServiceCard 
               key={service.title} 
