@@ -188,6 +188,7 @@ export const Services: React.FC = () => {
       ref={sectionRef}
       id="services"
       className="py-24 md:py-32 bg-[#050505] relative"
+      style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 600px' }}
     >
       {/* Background gradient effect */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent pointer-events-none" />

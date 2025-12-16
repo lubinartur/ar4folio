@@ -181,13 +181,30 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
           whileHover={{ scale: 1.02 }}
           className="w-full aspect-video bg-[#111] rounded-3xl overflow-hidden mb-20 group relative"
         >
-           <motion.img
-             src={project.image}
-             alt={project.title}
-             className="w-full h-full object-cover"
-             whileHover={{ scale: 1.05 }}
-             transition={{ duration: 0.6, ease: "easeOut" }}
-           />
+           <picture>
+             <source
+               srcSet={`${project.image.replace(/\.(jpg|jpeg|png)$/i, '.avif')}`}
+               type="image/avif"
+               sizes="100vw"
+             />
+             <source
+               srcSet={`${project.image.replace(/\.(jpg|jpeg|png)$/i, '.webp')}`}
+               type="image/webp"
+               sizes="100vw"
+             />
+             <motion.img
+               src={project.image}
+               alt={project.title}
+               className="w-full h-full object-cover"
+               loading="lazy"
+               decoding="async"
+               sizes="100vw"
+               width="1200"
+               height="675"
+               whileHover={{ scale: 1.05 }}
+               transition={{ duration: 0.6, ease: "easeOut" }}
+             />
+           </picture>
            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
         </motion.div>
 
@@ -379,15 +396,30 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
                   whileHover={{ scale: 1.01, borderColor: "rgba(255, 107, 53, 0.3)" }}
                   transition={{ duration: 0.3 }}
                 >
-                  <motion.img
-                    src={screen.image}
-                    alt={screen.title}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                  />
+                  <picture>
+                    <source
+                      srcSet={`${screen.image.replace(/\.(jpg|jpeg|png)$/i, '.avif')}`}
+                      type="image/avif"
+                      sizes="100vw"
+                    />
+                    <source
+                      srcSet={`${screen.image.replace(/\.(jpg|jpeg|png)$/i, '.webp')}`}
+                      type="image/webp"
+                      sizes="100vw"
+                    />
+                    <motion.img
+                      src={screen.image}
+                      alt={screen.title}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover"
+                      sizes="100vw"
+                      width="1200"
+                      height="800"
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.6, ease: "easeOut" }}
+                    />
+                  </picture>
                 </motion.div>
                 </motion.section>
               );
@@ -410,15 +442,30 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
                   className="aspect-[4/3] bg-[#111] rounded-3xl overflow-hidden group"
                   whileHover={{ scale: 1.02, y: -4 }}
                 >
-                  <motion.img
-                    src={img}
-                    alt={`Gallery ${i}`}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                  />
+                  <picture>
+                    <source
+                      srcSet={`${img.replace(/\.(jpg|jpeg|png)$/i, '.avif')}`}
+                      type="image/avif"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    <source
+                      srcSet={`${img.replace(/\.(jpg|jpeg|png)$/i, '.webp')}`}
+                      type="image/webp"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    <motion.img
+                      src={img}
+                      alt={`Gallery ${i}`}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      width="800"
+                      height="600"
+                      whileHover={{ scale: 1.05 }}
+                      transition={{ duration: 0.6, ease: "easeOut" }}
+                    />
+                  </picture>
                 </motion.div>
               ))}
             </motion.div>

@@ -27,7 +27,8 @@ export const Contact: React.FC = () => {
     <>
       <footer 
         ref={sectionRef}
-        id="contact" 
+        id="contact"
+        style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 600px' }} 
         className="relative bg-black pt-40 pb-12 overflow-hidden"
       >
         {/* Background gradient effect */}

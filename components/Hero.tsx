@@ -356,12 +356,29 @@ export const Hero: React.FC = () => {
           >
             {/* Image Container with Fade Mask and light sweep */}
             <div className="relative w-full max-w-2xl h-[50vh] md:h-[85vh] mt-10 md:mt-[-5vh] -translate-y-0 md:-translate-y-6 translate-x-0 md:translate-x-0 md:translate-y-0">
-              <img 
-                src="/images/hero-artur.png"
-                alt="Artur Lubin"
-                loading={isMobile ? "eager" : "lazy"}
-                className="w-full h-full object-contain object-center md:object-top opacity-95 md:opacity-90 [mask-image:none] md:[mask-image:linear-gradient(to_bottom,black_40%,transparent_100%)]"
-              />
+              <picture>
+                <source
+                  srcSet="/images/hero-artur.avif"
+                  type="image/avif"
+                  sizes="(max-width: 768px) 100vw, 800px"
+                />
+                <source
+                  srcSet="/images/hero-artur.webp"
+                  type="image/webp"
+                  sizes="(max-width: 768px) 100vw, 800px"
+                />
+                <img 
+                  src="/images/hero-artur.png"
+                  alt="Artur Lubin"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="sync"
+                  className="w-full h-full object-contain object-center md:object-top opacity-95 md:opacity-90 [mask-image:none] md:[mask-image:linear-gradient(to_bottom,black_40%,transparent_100%)]"
+                  sizes="(max-width: 768px) 100vw, 800px"
+                  width="800"
+                  height="1200"
+                />
+              </picture>
             </div>
           </motion.div>
 

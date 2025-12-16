@@ -154,6 +154,7 @@ export const Skills: React.FC = () => {
       ref={sectionRef}
       id="skills"
       className="py-24 md:py-32 border-t border-white/5 bg-[#0a0a0a] relative overflow-hidden"
+      style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 800px' }}
     >
       {/* Background gradient effect */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent pointer-events-none" />

@@ -186,6 +186,7 @@ export const Experience: React.FC = () => {
     <section
       ref={sectionRef}
       id="experience"
+      style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 700px' }}
       className="py-24 md:py-32 border-t border-white/5 bg-[#0a0a0a] relative overflow-hidden"
     >
       {/* Background gradient effect */}
