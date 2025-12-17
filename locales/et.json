@@ -33,11 +33,11 @@
 
   "hero": {
     "name": "Artur Lubin",
-    "title": "Olen Senior Product & UX disainer 9+ aasta kogemusega.",
-    "subtitle": "Disainin keerukaid fintech-süsteeme, muutes krediidi- ja tootelogika selgeteks ja usaldusväärseteks liidesteks.",
+    "title": "Senior Product & UX disainer 9+ aasta kogemusega digitaalsete toodete disainis",
+    "subtitle": "Disainin keerukaid finantssüsteeme: krediidiliinid, isiklikud kontod, liitumisvood ja juhtpaneelid. Töötan tootelogika, piirangute ja reaalsete kasutajastsenaariumidega.",
     "badgeExperience": "9+ aastat",
-    "tagline": "UX/UI & Product Designer",
-    "role": "Fintech Product Designer",
+    "tagline": "Product & UX Designer",
+    "role": "Senior Product & UX Designer",
     "roles": {
       "fintech": "FINTECH",
       "product": "TOODE",
@@ -45,21 +45,22 @@
       "graphic": "GRAAFILINE",
       "designer": "DISAINER"
     },
-    "designerLabel": "Kujundaja",
+    "designerLabel": "DISAINER",
     "location": "Tallinn, Eesti",
-    "expertiseTitle": "MÕTLEMINE",
-    "expertiseDescription": "UX-arhitektuur enne UI-d. Struktuur enne dekoratsiooni.",
-    "expertiseHover": "Süsteemne mõtlemine, mitte dekoratsioon.",
-    "specializationTitle": "KOGEMUS",
-    "specializationDescription": "Fintechi tooted ja juhtpaneelid. Keerukad vood piirangutega.",
-    "specializationHover": "9+ aastat reaalsete toodete loomist.",
-    "locationLabel": "ROLL",
+    "expertiseTitle": "LÄHENEMINE",
+    "expertiseDescription": "UX-arhitektuur enne visuaali. Selgus, prognoositavus, skaleeritavus.",
+    "expertiseHover": "Vähem vigu, kiiremad otsused, suurem kasutajate usaldus.",
+    "specializationTitle": "SPETSIALISEERUMINE",
+    "specializationDescription": "Fintechi tooted: laenud, isiklikud kontod, juhtpaneelid, regulatiivsed stsenaariumid.",
+    "specializationHover": "Kogemus reaalsete toodete disainimisega regulatiivsete nõuete alusel.",
+    "locationLabel": "ASUKOHT",
     "locationValue": "Tallinn, Eesti",
-    "location": "Product & UX disainer. Töö meeskondadega, mitte pikslitega.",
     "locationHover": "Koostöökeskne lähenemine.",
+    "collabDescription": "Töötan disaini, toote ja arenduse ristumiskohas. Vastutan lahenduste eest, mitte ainult liideste eest.",
+    "collabHover": "Meeskonnatöö ja vastutus tulemuste eest.",
     "primaryCta": "Võta ühendust",
-    "secondaryCta": "Vaata LinkedIni profiili",
-    "downloadCv": "Laadi alla klassikaline CV (PDF)",
+    "secondaryCta": "LinkedIn",
+    "downloadCv": "Laadi alla CV (PDF)",
     "achievementsTitle": "Edu ja saavutused",
     "achievements": {
       "completedProjects": {
@@ -77,8 +78,8 @@
     }
   },
   "about": {
-    "heroStatement": "Olen Product & UX disainer üle 9-aastase kogemusega. Ma loon digitaalseid tooteid, kus struktuur on esikohal —",
-    "shortSpecialization": "muutes keeruka fintechi ja tooteloogika selgeteks ning kasutatavateks süsteemideks, mida inimesed päriselt usaldavad.",
+    "heroStatement": "Olen Senior Product & UX disainer 9+ aasta kogemusega digitaalsete toodete disainis.",
+    "shortSpecialization": "Fintech ja kõrge vastutusega süsteemid: laenud, maksetstsenaariumid, isiklikud kontod ja analüütilised liidesed.\n\nKeskendun kasutajastsenaariumite arhitektuurile, tootelogikale ja lahenduste läbipaistvusele.",
     "experienceTitle": "Kogemus",
     "experienceDescription": "Professionaalse arengu ja tehnilise kasvu ajajoon.",
     "selectedWorkLabel": "Professionaalne teekond",
@@ -88,28 +89,29 @@
   },
   "experience": {
     "placet": {
-      "role": "Senior UX/UI ja tootedisainer, graafiline disainer",
+      "role": "Senior Product & UX Designer",
       "period": "2016 — tänaseni",
-      "item1": "UX-arhitektuur krediidi- ja finantssüsteemidele",
-      "item2": "Liitumisvood, KYC-vood, kalkulaatorid ja juhtpaneelid",
-      "item3": "Veebi- ja mobiiliidesed, tihe koostöö arendusega",
-      "item4": "Disainisüsteemide loomine ja arendamine mitmele brändile"
+      "item1": "Finantstoote UX-arhitektuuri kujundamine",
+      "item2": "Krediidivood, liitumisvood, KYC, kalkulaatorid, juhtpaneelid",
+      "item3": "Veebi- ja mobiiliidesed",
+      "item4": "Disainisüsteemide loomine ja arendamine mitmele brändile",
+      "item5": "Tihe koostöö arendus- ja tootetegevuse juhtimisega"
     },
     "air4": {
-      "role": "Looja ja tootedisainer (end-to-end)",
+      "role": "Looja, Product & UX disainer (end-to-end)",
       "period": "2023 — tänaseni",
-      "item1": "Kohaliku AI-assistendi kontseptsioon ja UX-arhitektuur",
-      "item2": "Liidesed pikaajalise mälu, otsingu ja andmehalduse jaoks",
-      "item3": "Premium vestluse ja analüütiliste juhtpaneelide disain",
-      "item4": "Integratsioonid dokumentide, tööriistade ja töövoogudega"
+      "item1": "Kohaliku AI-assistendi kontseptsioon ja arhitektuur",
+      "item2": "UX pikaajalise mälu, otsingu ja analüütika jaoks",
+      "item3": "Premium vestluse ja juhtpaneelite liidesed",
+      "item4": "Integratsioonid failide ja töövoogudega"
     },
     "krauta": {
       "role": "Digidisainer",
-      "description": "Digikampaaniad, bännerid ja visuaalid performance-turunduseks (Facebook, Google Ads)."
+      "description": "Digikampaaniad ja performance-visuaalid. Töö turundusstsenaariumidega."
     },
     "kaup24": {
       "role": "Disainer",
-      "description": "E-kaubanduse kampaaniate, bännerite ja kategooriate disain."
+      "description": "E-kaubanduse kampaaniate ja kategooriate disain"
     }
   },
   "summary": {
@@ -141,20 +143,20 @@
     "serviceBrand": "Brändi- ja visuaalne tugi",
     "serviceBrandDesc": "Landing-lehed, kampaaniad, bännerid ja trükimaterjalid kooskõlas tootega.",
     "product": {
-      "title": "Toote- ja UX-disain",
-      "description": "Tooteloogika ja lahendused. Kasutajastsenaariumid, piirangud, vood ja otsustuspunktid."
+      "title": "Product & UX Design",
+      "description": "Tooteloogika, kasutajastsenaariumid, lahenduste arhitektuur."
     },
     "uxui": {
-      "title": "UX/UI-disain",
-      "description": "Liidesed ja interaktsioon. Loetavus, navigatsioon, visuaalne hierarhia."
+      "title": "UX/UI ja disainisüsteemid",
+      "description": "Komponendid, tokenid, mustrid, skaleeritavad süsteemid."
     },
     "fintech": {
-      "title": "Fintech-süsteemid",
-      "description": "Krediiditooted, kalkulaatorid, juhtpaneelid ja andmepõhised regulatiivsed vood."
+      "title": "Fintechi liidesed",
+      "description": "Krediiditooted, juhtpaneelid, otsustamise liidesed."
     },
     "optimization": {
-      "title": "UX-audit ja parandused",
-      "description": "Kasutajastsenaariumide analüüs, probleemide tuvastamine ja konkreetsed parandused."
+      "title": "UX-audit",
+      "description": "Stsenaariumide analüüs, probleemide tuvastamine, sihtparandused."
     },
     "branding": {
       "title": "Bränding ja identiteet",
@@ -175,14 +177,19 @@
     "selfServiceTagline": "Konto ja krediitide haldamise portaal",
     "selfServiceSummary": "Ühine iseteeninduskeskkond mitmele brändile – konto, maksed, tehingud ja teavitused ühes liideses.",
     "placet": {
-      "title": "Rakenduse disain",
-      "role": "Klient: Placet Group",
-      "description": "Fintech-ökosüsteemi täielik ümberdisain, keskendudes onboardingule, konversioonile ja skaleeritavatele UX-mustritele.",
-      "listDescription": "Placet Group mobiilirakenduse täielik ümberdisain, keskendudes selgetele finantsseisunditele, läbipaistvatele voogudele ja ühtsele loogikale laenude, kaartide ja maksete jaoks.",
+      "title": "Placet Group — Mobiilirakendus",
+      "role": "Senior Product & UX Designer",
+      "description": "Mobiilirakenduse täielik ümberdisain, keskendudes selgusele, kontrollile ja usaldusele. Ümberehitatud kasutajastsenaariumite arhitektuur, finantsseisundid ja kaardi teekond.",
+      "listDescription": "Mobiilirakenduse täielik ümberdisain, keskendudes selgusele, kontrollile ja usaldusele. Ümberehitatud kasutajastsenaariumite arhitektuur, finantsseisundid ja kaardi teekond.",
       "cta": "Vaata projekti",
       "challenge": "Isiklike finantside haldamine on oma olemuselt stressirohke. Kasutajad vajavad selgust, prognoositavust ja kontrolli, kuid enamik finantsrakendusi koormab neid liigse info, juriidilise keele ja killustatud kasutajateekondadega. Placet'i mobiilirakenduses esines ebajärjekindlaid kasutajavooge, ebaselgeid finantsseisundeid ning erinevat liidese loogikat laenude, krediidiliinide ja kaartide vahel.",
       "solution": "Kujundasin Placet'i mobiilirakenduse täielikult ümber, keskendudes rahulikule struktuurile, läbipaistvusele ja kiirele arusaadavusele. Autentimine ehitati ümber Smart-ID, Mobile-ID ja Face ID abil, et luua usaldus juba esimesest sammust. Avaleht järgib glance-first loogikat, näidates põhiinfot sekunditega. Loodud on mitmeolekuline finantsarhitektuur: töötlemisel, aktiivne, hilinenud ja tühjad olekud. Tehingute loend on tihe, kuid loetav, selge hierarhia ja värvikodeeritud summadega. Kujundatud on täielik füüsilise kaardi teekond: tellimine, saatmine, ooteaeg, aktiveerimine ja kasutamine. Tume ja hele režiim jagavad ühtset premium-fintech visuaalkeelt.",
-      "result": "Uus disain suurendas kasutajate kindlustunnet ja vähendas ebaselgust igapäevastes finantstoimingutes. Tugipäringute arv vähenes tänu selgetele olekutele ja prognoositavatele voogudele. Kasutajad mõistsid tulevasi makseid kiiremini ja liikusid rakenduses sujuvamalt. Struktuur tugevdas usaldust — fintech'i kõige väärtuslikumat komponenti.",
+      "result": "Vähendatud toe koormus, kasvanud õigeaegsed tagasimaksed, prognoositavam kasutajakogemus.",
+      "impact": [
+        { "value": "+14%", "label": "Õigeaegsed tagasimaksed" },
+        { "value": "−26%", "label": "Tugipäringud" },
+        { "value": "2.4×", "label": "Kiirem arusaam" }
+      ],
       "screens": {
         "screen1": {
           "title": "Autentimine ja Face ID onboarding",
@@ -211,37 +218,100 @@
       }
     },
     "paskolos": {
-      "title": "Laenuplatvorm",
-      "role": "Klient: Paskolos.lt",
-      "description": "Mobiilne UX Leedu turule: selge laenude valik, pakkumiste võrdlemine ja kindel taotluse alustamine. Platvormi ümberdisain, keskendudes toodete selgusele, läbipaistvatele tingimustele ja lihtsustatud taotlusvoole.",
-      "listDescription": "Mobiilne UX Leedu turule: selge laenude valik, pakkumiste võrdlemine ja kindel taotluse alustamine.",
-      "cta": "Vaata projekti"
+      "title": "Paskolos.lt — Krediidiliin",
+      "role": "Product & UX Designer / Klient: Paskolos.lt",
+      "description": "Krediidiliini tootedisain, rõhutades tingimuste läbipaistvust ja teadlikke otsuseid.",
+      "listDescription": "Krediidiliini tootedisain, rõhutades tingimuste läbipaistvust ja teadlikke otsuseid.",
+      "cta": "Vaata projekti",
+      "challenge": "Kasutajad võrdlevad pakkumisi kiiresti, kuid laenutingimused tunduvad sageli abstraktsed. Vajalikud olid selged limiidid, arusaadavad tähtajad ja nähtavad tagajärjed.",
+      "solution": "Kujundasin kasutajavoo ümber limiidi valiku, summa ja perioodi mõju ning otsustuskonteksti säilitamise ümber igal etapil.",
+      "result": "Puhtam kasutajateekond, vähenenud loobumised taotluse protsessi käigus.",
+      "impact": [
+        { "value": "+14%", "label": "Õigeaegsed tagasimaksed" },
+        { "value": "−26%", "label": "Toe päringud" },
+        { "value": "2.4×", "label": "Kiirem ülevaate saamine" }
+      ],
+      "screens": {
+        "screen1": {
+          "title": "Tarbelaenu sihtleht (Desktop)",
+          "description": "Sisenemispunkt selge toote lubadusega."
+        },
+        "screen2": {
+          "title": "Krediidilimiidi valik (Desktop)",
+          "description": "Limiidi valik piirangute ja kohese tagasisidega."
+        },
+        "screen3": {
+          "title": "Tingimused ja taotluse sammud (Desktop)",
+          "description": "Läbipaistvad tingimused ja samm-sammuline juhendamine."
+        },
+        "screen4": {
+          "title": "Krediidiliini sihtleht (Desktop)",
+          "description": "Eraldi krediidiliini leht keskendunud sõnumiga."
+        },
+        "screen5": {
+          "title": "Toote soovitused (Desktop)",
+          "description": "Kontekstuaalsed soovitused otsuste kvaliteedi parandamiseks."
+        },
+        "screen6": {
+          "title": "Miks Paskolos (Desktop)",
+          "description": "Usalduse loomise sektsioon: eelised, partnerid, sotsiaalne tõendusmaterjal."
+        },
+        "screen7": {
+          "title": "Tarbelaen (Mobile)",
+          "description": "Mobiilne sisenemisekraan optimeeritud kiireks alguseks."
+        },
+        "screen8": {
+          "title": "Krediidiliin (Mobile)",
+          "description": "Mobiilne krediidiliini sisenemine selge hierarhiaga."
+        }
+      }
     },
     "placetSelfservice": {
-      "title": "Ühtne iseteenindus",
-      "role": "Klient: Placet Group",
-      "description": "Ühine iseteenindus kõigile Placet Groupi brändidele: üks sisselogimine, tooted, maksed ja ajalugu. Üks juurdepääsupunkt kõigile finantstoodetele selge struktuuri ja arusaadava navigatsiooniga.",
-      "listDescription": "Ühtne iseteenindus kõigile Placet Groupi brändidele ühe sisselogimise, toodete ja maksetega ühes liideses.",
+      "title": "Placet Group — Ühtne iseteenindus",
+      "role": "Senior Product & UX Designer",
+      "description": "Ühtne iseteenindusplatvorm mitmele brändile: laenud, kaardid, dokumendid, tugi.",
+      "listDescription": "Ühtne iseteenindusplatvorm mitmele brändile: laenud, kaardid, dokumendid, tugi.",
       "cta": "Vaata projekti",
       "challenge": "Varem oli igal Placet Groupi brändil — smsraha, laen.ee, smsmoney ja teistel — oma eraldi iseteenindus. Kasutajatel olid erinevad kontod, sisselogimised ja liidesed sõltuvalt brändist, kust krediit algselt võeti. Killustatud kogemus tekitas segadust, suurendas toe koormust ja raskendas kliendi kogu finantssuhte mõistmist.",
       "solution": "Ma kavandasin ühtse iseteenindusportaali, mis toimib ühise kontokihina kõigile Placet Groupi brändidele. Sõltumata sisenemise brändist jõuab kasutaja ühtsesse keskkonda ühe sisselogimisega. UX põhineb brändineutraalsel tuumal: ühine töölaud kõigi toodete, saldode, maksete ja lepingutega, säilitades samas brändi visuaalse identiteedi. Navigeerimine ja kasutusvood ühtlustati kõigi toodete vahel.",
-      "result": "Ühtne iseteenindus lihtsustas toote hooldust ja vähendas liideste dubleerimist. Kasutajad ei pea enam meeles pidama erinevaid brände ega sisenemiskohti. Uus struktuur annab selge ülevaate kõigist toodetest ühes kohas ja tugevdab usaldust Placet Groupi kui tervikliku finantspartneri vastu.",
+      "result": "Lihtsustatud tootestruktuur, kasvanud usaldus ja vähenenud segadus brändide vahel.",
+      "impact": [
+        { "value": "+12%", "label": "Õigeaegsed tagasimaksed" },
+        { "value": "−24%", "label": "Toe küsimused" },
+        { "value": "2.2×", "label": "Kiirem ülevaate saamine" }
+      ],
       "screens": {
         "screen1": {
-          "title": "Ühtne sisselogimine kõigile brändidele",
-          "description": "Üks autentimiskihid, mis töötab smsraha, laen.ee, smsmoney ja teiste Placet Groupi brändide klientidele, eemaldades vajaduse meeles pidada eraldi portaale."
+          "title": "Tarbimislaenu taotlus (Desktop)",
+          "description": "Lihtsustatud taotlusvorm selgete väljade ja valideerimisega."
         },
         "screen2": {
-          "title": "Mitmetooteline töölaud",
-          "description": "Brändineutraalne töölaud, mis koondab kõik aktiivsed laenud, krediidiliinid ja kaardid ühte struktureeritud ülevaatusse selgete olekute ja järgmiste sammudega."
+          "title": "Krediidiliini taotlus (Desktop)",
+          "description": "Ühtne sisselogimine krediidiliinile läbipaistvate sammudega."
         },
         "screen3": {
-          "title": "Maksed ja graafikud",
-          "description": "Ühtlustatud maksevoogud ja graafikud, mis näitavad tulevaid makseid kõigi toodete vahel ühes prognoositavas mustris, vähendades segadust ja vahele jäänud makseid."
+          "title": "Krediidiliini töölaud (Desktop)",
+          "description": "Konto ülevaade: limiidid, kasutus, toimingud ja olekud ühes kohas."
         },
         "screen4": {
-          "title": "Lepingud ja profiili haldamine",
-          "description": "Ühine ala lepingute, isikuandmete ja suhtlusseadete jaoks, võimaldades klientidel hallata oma suhet Placet Groupiga kui ühe organisatsiooniga."
+          "title": "Krediitkaart (Desktop)",
+          "description": "Kaardi ülevaade + juhtimine, mis on loodud selguse ja turvalisuse jaoks."
+        },
+        "screen5": {
+          "title": "Krediidiliin (Mobile)",
+          "description": "Mobiilne krediidiliini ülevaade, mis on optimeeritud kiirete otsuste tegemiseks."
+        },
+        "screen6": {
+          "title": "Krediitkaart (Mobile)",
+          "description": "Mobiilne kaardi haldamine selgete põhitoimingutega."
+        },
+        "screen7": {
+          "title": "Kaardi kohaletoimetamine ja aktiveerimine (Mobile)",
+          "description": "Kohaletoimetamise jälgimine + aktiveerimisvoog lihtsa juhendamisega."
+        },
+        "screen8": {
+          "title": "Sularaha väljavõtmine (Mobile)",
+          "description": "Lihtne sularaha väljavõtmine krediidiliinist pangakontole tagasisidega."
         }
       }
     },
@@ -293,10 +363,10 @@
     "subtitle": "Igapäevane tööstaak.",
     "designColumnTitle": "Disainitööriistad",
     "aiColumnTitle": "AI-abistatud töövoog",
-    "ux": "Fintech UX: liitumisvood, laenuvood, juhtpaneelid, krediiditooted.",
-    "product": "Tootedisain: struktureeritud kasutajavoog, süsteemne mõtlemine, andmepõhine lähenemine.",
-    "systems": "Disainisüsteemid: komponendid, tokenid, juhised, mitme brändi tugi.",
-    "tools": "Figma, Adobe Photoshop, Illustrator, InDesign, prototüüpimine.",
+    "ux": "UX / Product: Fintech UX, liitumisvood, krediidistsenaariumid, juhtpaneelid.",
+    "product": "Süsteemid: Disainisüsteemid, komponendid, tokenid, juhised.",
+    "systems": "Tööriistad: Figma, Photoshop, Illustrator, prototüüpimine.",
+    "tools": "AI-workflow: Cursor, ChatGPT, Midjourney — analüüsiks, ideedeks ja protsesside kiirendamiseks.",
     "devCollab": "Tihe koostöö arendajate ja osapooltega.",
     "figmaDescriptor": "Tooteliidesed, skaleeritavad süsteemid, interaktiivsed prototüübid",
     "photoshopDescriptor": "Visuaalsete varade tootmine ja pilditöötlus",
@@ -309,9 +379,9 @@
   "contact": {
     "heroTitle": "Teeme midagi tõeliselt mõtestatut.",
     "subtitle": "Toote- ja UX-disain keerukatele toodetele — eriti fintech ja süsteemid reaalsete piirangutega.",
-    "cta": "Võta ühendust",
+    "cta": "Võta ühendust · LinkedIn",
     "requestQuote": "Saada päring",
-    "responseTime": "Vastan tavaliselt 24 tunni jooksul",
+    "responseTime": "Tavaliselt vastan 1–2 tööpäeva jooksul",
     "linkedin": "LinkedIn",
     "formName": "Nimi",
     "formNamePlaceholder": "Sinu nimi",

@@ -19,7 +19,7 @@ export const PROJECTS: Project[] = [
       solution: "I redesigned the Placet app end-to-end with a focus on calm structure, transparency, and instant comprehension. Authentication was rebuilt using Smart-ID, Mobile-ID, and Face ID to establish trust from the first interaction. The dashboard follows a glance-first model, showing balance, next payment, and actions within seconds. A multi-state financial architecture was designed: processing, active, overdue, and empty states. The transaction feed was rebuilt into a dense but readable list with clear hierarchy and color-coded amounts. A full physical card journey was designed: ordered, shipped, expected delivery, activation, and active use. Both dark and light themes share a unified premium fintech visual language.",
       result: "The redesign improved user confidence and reduced ambiguity in daily financial actions. Support requests decreased due to clearer states and predictable flows. Users understood upcoming payments faster and navigated the app with less friction. The structure strengthened trust — the most valuable currency in fintech."
     },
-    tags: ["Fintech", "Application Design", "UX/UI"],
+    tags: ["Fintech", "Application Design"],
     image: "/images/projects/placet-app-cover.jpg", 
     gallery: [
        "https://picsum.photos/800/600?random=1",
@@ -69,16 +69,16 @@ export const PROJECTS: Project[] = [
     id: 'paskolos',
     title: "projects.paskolos.title",
     role: "projects.paskolos.role",
-    year: "2022",
+    year: "2025",
     description: "projects.paskolos.description",
     listDescription: "projects.paskolos.listDescription",
     fullDescription: {
       challenge:
-        "The previous Paskolos.lt experience felt outdated and fragmented. Information about loan types, terms, and legal requirements was scattered across multiple pages, and several CTAs competed on the same screen. Heavy legal language, unclear comparison patterns, and a desktop-first layout made it hard for users to understand what they were signing up for and which product was right for them.",
+        "Users compare offers quickly, yet loan terms often feel abstract. The product needed clear limits, understandable durations, and visible consequences.",
       solution:
-        "I started with a UX audit and information architecture pass, mapping all loan categories, mandatory legal content, and campaign modules into a single, predictable structure. The landing page was redesigned around a clear narrative: what the product is, how it works, and what to do next. Comparison modules were introduced to show key differences between loan options in one place, instead of forcing users to jump between pages. The visual system moved to a mobile-first grid with large tappable cards, readable typography on 375–414 px screens, and reusable components for hero, comparison, FAQ, and CTA blocks. This made it easier for marketing to launch campaigns without breaking the UX.",
+        "Redesigned the user flow around limit selection, impact of amount and term, maintaining decision context at every step.",
       result:
-        "The new structure made the lending journey easier to understand and more trustworthy. Users see what Paskolos offers within the first screen, understand key differences between products faster, and reach the application form with less cognitive load. The reusable layout and components also simplified ongoing marketing work, as new campaigns could plug into the same UX framework instead of creating one-off pages."
+        "Cleaner user journey, reduced drop-offs during the application process."
     },
     tags: ["Fintech", "Lending UX", "UX/UI Design"],
     image: "/images/projects/paskolos-cover.jpg",
@@ -88,28 +88,52 @@ export const PROJECTS: Project[] = [
     ],
     screens: [
       {
-        title: "Information architecture & content model",
+        title: "Consumer loan landing (Desktop)",
         description:
-          "I mapped existing pages, loan types, and legal content into a single information architecture. This reduced duplication, clarified where each loan journey starts, and defined stable areas for legal copy so the main screens could stay light.",
-        image: "/images/paskolos/01-ia-structure.png"
+          "Entry point with clear product promise.",
+        image: "/images/paskolos/paskolos-consumer-loan-landing-desktop.jpg"
       },
       {
-        title: "Landing page and comparison modules",
+        title: "Credit limit selection (Desktop)",
         description:
-          "The new landing explains what Paskolos offers in a hero + explanation + comparison pattern. Users see loan options, terms, and differences in one structured view, with a single primary CTA and a calm secondary path for learning more.",
-        image: "/images/paskolos/02-landing-comparison.png"
+          "Limit selection with constraints and instant feedback.",
+        image: "/images/paskolos/paskolos-credit-limit-selection-desktop.jpg"
       },
       {
-        title: "Mobile-first layouts",
+        title: "Terms & application steps (Desktop)",
         description:
-          "Layouts were designed mobile-first with large tappable cards, clear hierarchy, and typography tuned for small screens. Desktop reuses the same structure, so there is no split between 'mobile' and 'desktop-only' UX.",
-        image: "/images/paskolos/03-mobile-layouts.png"
+          "Transparent conditions and step-by-step guidance.",
+        image: "/images/paskolos/paskolos-terms-and-apply-steps-desktop.jpg"
       },
       {
-        title: "Campaign and legal content blocks",
+        title: "Credit line landing (Desktop)",
         description:
-          "Campaign banners, promotional rates, and legal content are handled by dedicated blocks that can be turned on and off without redesigning the page. This keeps marketing flexible while preserving UX consistency.",
-        image: "/images/paskolos/04-campaign-legal.png"
+          "Dedicated credit line page with focused messaging.",
+        image: "/images/paskolos/paskolos-credit-line-landing-desktop.jpg"
+      },
+      {
+        title: "Product recommendations (Desktop)",
+        description:
+          "Contextual recommendations to improve decision quality.",
+        image: "/images/paskolos/paskolos-product-recommendations-desktop.jpg"
+      },
+      {
+        title: "Why Paskolos (Desktop)",
+        description:
+          "Trust-building section: benefits, partners, social proof.",
+        image: "/images/paskolos/paskolos-why-paskolos-desktop.jpg"
+      },
+      {
+        title: "Consumer loan (Mobile)",
+        description:
+          "Mobile entry screen optimized for quick start.",
+        image: "/images/paskolos/paskolos-consumer-loan-landing-mobile.jpg"
+      },
+      {
+        title: "Credit line (Mobile)",
+        description:
+          "Mobile credit line entry with clear hierarchy.",
+        image: "/images/paskolos/paskolos-credit-line-landing-mobile.jpg"
       }
     ],
     featured: true
@@ -129,7 +153,7 @@ export const PROJECTS: Project[] = [
       result:
         "The unified portal reduced duplication of interfaces and simplified support, as the team now maintains one self-service system instead of several. For customers, it removed friction around remembering 'where' they took a loan and which site they need to use. The new structure gives a clearer overview of all products in one place and strengthens the perception of Placet Group as a consistent, reliable financial partner."
     },
-    tags: ["Fintech", "Self-Service", "UX/UI Design"],
+    tags: ["Fintech", "Self-Service"],
     image: "/images/projects/placet-selfservice-cover.jpg",
     gallery: [
       "https://picsum.photos/800/600?random=5",
@@ -137,28 +161,52 @@ export const PROJECTS: Project[] = [
     ],
     screens: [
       {
-        title: "Unified login across brands",
+        title: "Consumer loan application (Desktop)",
         description:
-          "A single authentication layer that works for customers of smsraha, laen.ee, smsmoney and other Placet Group brands, removing the need to remember separate portals.",
-        image: "/images/placet-selfservice/01-unified-login.png"
+          "Streamlined application form with clear fields and validation.",
+        image: "/images/placet-selfservice/placet-selfservice-consumer-loan-application-desktop.jpg"
       },
       {
-        title: "Multi-product dashboard",
+        title: "Credit line application (Desktop)",
         description:
-          "A brand-agnostic dashboard that aggregates all active loans, credit lines and cards into one structured overview with clear states and next steps.",
-        image: "/images/placet-selfservice/02-multiproduct-dashboard.png"
+          "Unified onboarding for credit line with transparent steps.",
+        image: "/images/placet-selfservice/placet-selfservice-credit-line-application-desktop.jpg"
       },
       {
-        title: "Payments and schedules",
+        title: "Credit line dashboard (Desktop)",
         description:
-          "Unified payment flows and schedules, showing upcoming instalments across products in a single, predictable pattern, reducing confusion and missed payments.",
-        image: "/images/placet-selfservice/03-payments-schedule.png"
+          "Account overview: limits, usage, actions, and statuses in one place.",
+        image: "/images/placet-selfservice/placet-selfservice-credit-line-dashboard-desktop.jpg"
       },
       {
-        title: "Contracts and profile management",
+        title: "Credit card (Desktop)",
         description:
-          "A shared area for contracts, personal data and communication settings, so customers can manage their relationship with Placet Group as one entity.",
-        image: "/images/placet-selfservice/04-contracts-profile.png"
+          "Card overview + controls designed for clarity and security.",
+        image: "/images/placet-selfservice/placet-selfservice-credit-card-desktop.jpg"
+      },
+      {
+        title: "Credit line (Mobile)",
+        description:
+          "Mobile credit line overview optimized for quick decisions.",
+        image: "/images/placet-selfservice/placet-selfservice-credit-line-mobile.jpg"
+      },
+      {
+        title: "Credit card (Mobile)",
+        description:
+          "Mobile card management with clear primary actions.",
+        image: "/images/placet-selfservice/placet-selfservice-credit-card-mobile.jpg"
+      },
+      {
+        title: "Card delivery & activation (Mobile)",
+        description:
+          "Delivery tracking + activation flow with frictionless guidance.",
+        image: "/images/placet-selfservice/placet-selfservice-card-delivery-activation-mobile.jpg"
+      },
+      {
+        title: "Cash-out / withdrawal (Mobile)",
+        description:
+          "Simple cash-out from credit line to bank account with feedback.",
+        image: "/images/placet-selfservice/placet-selfservice-credit-cashout-mobile.jpg"
       }
     ],
     featured: true

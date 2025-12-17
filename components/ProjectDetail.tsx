@@ -5,6 +5,9 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { useI18n } from '../services/i18n';
 import { PROJECTS } from '../constants';
+import en from '../locales/en.json';
+import ru from '../locales/ru.json';
+import et from '../locales/et.json';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -50,7 +53,7 @@ interface ProjectDetailProps {
 }
 
 export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, onProjectClick }) => {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const roleLabel = project.role ? t(project.role) : '';
   // Extract client name by removing "Client:", "Клиент:", "Klient:" prefix
   const clientName = roleLabel.replace(/^(Client|Клиент|Klient):\s*/i, '');
@@ -58,6 +61,16 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
   const otherProjects = PROJECTS.filter((p) => p.title !== project.title).slice(0, 2);
   // Map project.id to localization key (e.g., 'placet-selfservice' -> 'placetSelfservice')
   const projectKey = project.id === 'placet-selfservice' ? 'placetSelfservice' : project.id;
+  
+  // Get impact metrics from locale files
+  const dictionaries: Record<string, any> = { en, ru, et };
+  const dict = dictionaries[language] || dictionaries.en;
+  const projectData = dict?.projects?.[projectKey];
+  const impactMetrics = (Array.isArray(projectData?.impact) ? projectData.impact : [
+    { value: "+XX%", label: t("projectDetail.onTimeRepayments") },
+    { value: "-YY%", label: t("projectDetail.supportQuestions") },
+    { value: "3x", label: t("projectDetail.fasterToInsight") }
+  ]) as Array<{value: string, label: string}>;
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -83,7 +96,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
       style={{ position: 'fixed' }}
     >
       <motion.button
-        onClick={onBack}
+        onClick={() => onBack()}
         whileHover={{ scale: 1.05, x: 4 }}
         whileTap={{ scale: 0.95 }}
         className="group inline-flex items-center gap-3 px-4 py-2 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-neutral-300 hover:text-white hover:border-accent/60 transition-colors shadow-lg"
@@ -153,14 +166,6 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
                   {roleLabel}
                 </motion.p>
              </div>
-             <motion.div
-               variants={itemVariants}
-               className="text-right"
-               whileHover={{ scale: 1.1 }}
-               transition={{ duration: 0.3 }}
-             >
-                <span className="text-4xl font-display font-bold text-white/10">{project.year}</span>
-             </motion.div>
           </motion.div>
           {project.description && (
             <motion.p
@@ -172,7 +177,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
           )}
         </motion.div>
 
-        {/* Main Image */}
+        {/* Project Media */}
         <motion.div
           initial={{ y: 50, opacity: 0, filter: "blur(10px)", scale: 0.95 }}
           whileInView={{ y: 0, opacity: 1, filter: "blur(0px)", scale: 1 }}
@@ -191,63 +196,17 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
         </motion.div>
 
-        {/* Content Grid */}
+        {/* Overview & Impact - Desktop: side by side, Mobile: stacked */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-10%" }}
-          className="grid md:grid-cols-12 gap-12 mb-24"
+          className="mb-12"
         >
-           <motion.div className="md:col-span-8 space-y-16">
-              
-              <motion.div variants={itemVariants}>
-                 <h3 className="text-2xl text-white font-display font-bold mb-4">{t("projectDetail.challenge")}</h3>
-                 <div className="text-neutral-400 text-[16px] leading-relaxed space-y-3">
-                   <p className="whitespace-pre-line">{t(`projects.${projectKey}.challenge`) || project.fullDescription?.challenge || "Managing consumer finance is inherently stressful. Users seek clarity, predictability, and control, yet most financial apps overwhelm them with numbers, legal language, and fragmented flows. Placet's mobile experience suffered from inconsistent user journeys, unclear financial states, and non-uniform interface logic across loans, credit lines, and card features."}</p>
-                 </div>
-              </motion.div>
-
-              <motion.div variants={itemVariants}>
-                 <motion.h3
-                   className="text-2xl text-white font-display font-bold mb-4"
-                   whileHover={{ x: 4, color: "#ff6b35" }}
-                   transition={{ duration: 0.2 }}
-                 >
-                   {t("projectDetail.solution")}
-                 </motion.h3>
-                 <div className="text-neutral-400 text-[16px] leading-relaxed space-y-4">
-                   <motion.p variants={itemVariants} className="whitespace-pre-line">
-                     {t(`projects.${projectKey}.solution`) || project.fullDescription?.solution || "I redesigned the Placet app end-to-end with a focus on calm structure, transparency, and instant comprehension. Authentication was rebuilt using Smart-ID, Mobile-ID, and Face ID to establish trust from the first interaction. The dashboard follows a glance-first model, showing balance, next payment, and actions within seconds. A multi-state financial architecture was designed: processing, active, overdue, and empty states. The transaction feed was rebuilt into a dense but readable list with clear hierarchy and color-coded amounts. A full physical card journey was designed: ordered, shipped, expected delivery, activation, and active use. Both dark and light themes share a unified premium fintech visual language."}
-                   </motion.p>
-                 </div>
-              </motion.div>
-
-              <motion.div variants={itemVariants}>
-                 <motion.h3
-                   className="text-2xl text-white font-display font-bold mb-4"
-                   whileHover={{ x: 4, color: "#ff6b35" }}
-                   transition={{ duration: 0.2 }}
-                 >
-                   {t("projectDetail.result")}
-                 </motion.h3>
-                 <div className="text-neutral-400 text-[16px] leading-relaxed space-y-6">
-                   <motion.p variants={itemVariants} className="whitespace-pre-line">
-                     {t(`projects.${projectKey}.result`) || project.fullDescription?.result || "The redesign improved user confidence and reduced ambiguity in daily financial actions. Support requests decreased due to clearer states and predictable flows. Users understood upcoming payments faster and navigated the app with less friction. The structure strengthened trust — the most valuable currency in fintech."}
-                   </motion.p>
-                 </div>
-              </motion.div>
-
-           </motion.div>
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-10%" }}
-            className="md:col-span-4 space-y-10"
-          >
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
             {/* Overview */}
-            <motion.div variants={itemVariants}>
+            <motion.div variants={itemVariants} className="flex flex-col">
               <motion.h3
                 className="text-2xl text-white font-display font-bold mb-4"
                 whileHover={{ x: 4, color: "#ff6b35" }}
@@ -255,37 +214,54 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
               >
                 {t("projectDetail.overview")}
               </motion.h3>
-              <div className="space-y-5 text-neutral-400 text-[16px] md:text-[16px] leading-relaxed">
-                {[
-                  { label: t("projectDetail.client"), value: clientName },
-                  { label: t("projectDetail.year"), value: project.year }
-                ].map((item, i) => (
-                  <motion.div
-                    key={i}
-                    custom={i}
-                    variants={itemVariants}
-                    whileHover={{ x: 4 }}
-                  >
-                    <div className="text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 mb-1.5">
-                      {item.label}
-                    </div>
-                    <div className="text-neutral-100">
-                      {item.value}
-                    </div>
-                  </motion.div>
-                ))}
-                <motion.div variants={itemVariants}>
-                  <div className="text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 mb-1.5">
+              <div className="space-y-4">
+                {/* Card 1: Client + Year */}
+                <motion.div
+                  custom={0}
+                  variants={listItemVariants}
+                  whileHover={{ scale: 1.02, y: -4, borderColor: "rgba(255, 107, 53, 0.3)" }}
+                  className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm px-6 py-4 transition-all duration-300"
+                >
+                  <div className="space-y-4 text-neutral-400 text-[16px] leading-relaxed">
+                    {[
+                      { label: t("projectDetail.client"), value: clientName },
+                      { label: t("projectDetail.year"), value: project.year }
+                    ].map((item, i) => (
+                      <motion.div
+                        key={i}
+                        custom={i}
+                        variants={itemVariants}
+                        whileHover={{ x: 4 }}
+                      >
+                        <div className="text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 mb-1.5">
+                          {item.label}
+                        </div>
+                        <div className="text-neutral-100">
+                          {item.value}
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+                
+                {/* Card 2: Focus chips */}
+                <motion.div
+                  custom={1}
+                  variants={listItemVariants}
+                  whileHover={{ scale: 1.02, y: -4, borderColor: "rgba(255, 107, 53, 0.3)" }}
+                  className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm px-6 py-4 transition-all duration-300"
+                >
+                  <div className="text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 mb-3">
                     {t("projectDetail.focus")}
                   </div>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-nowrap gap-2 overflow-x-auto">
                     {project.tags.map((tag, i) => (
                       <motion.span
                         key={tag}
                         custom={i}
                         variants={listItemVariants}
                         whileHover={{ scale: 1.05, borderColor: "rgba(255, 107, 53, 0.5)", color: "#ff6b35" }}
-                        className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono uppercase tracking-[0.18em] text-neutral-100 transition-all duration-300"
+                        className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono uppercase tracking-[0.18em] text-neutral-100 transition-all duration-300 whitespace-nowrap flex-shrink-0"
                       >
                         {tag}
                       </motion.span>
@@ -296,7 +272,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
             </motion.div>
 
             {/* Impact */}
-            <motion.div variants={itemVariants}>
+            <motion.div variants={itemVariants} className="flex flex-col">
               <motion.h3
                 className="text-2xl text-white font-display font-bold mb-4"
                 whileHover={{ x: 4, color: "#ff6b35" }}
@@ -304,18 +280,14 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
               >
                 {t("projectDetail.impact")}
               </motion.h3>
-              <div className="space-y-5">
-                {[
-                  { value: "+XX%", label: t("projectDetail.onTimeRepayments") },
-                  { value: "-YY%", label: t("projectDetail.supportQuestions") },
-                  { value: "3x", label: t("projectDetail.fasterToInsight") }
-                ].map((item, i) => (
+              <div className="space-y-4">
+                {impactMetrics.map((item: {value: string, label: string}, i: number) => (
                   <motion.div
                     key={i}
                     custom={i}
                     variants={listItemVariants}
                     whileHover={{ scale: 1.02, y: -4, borderColor: "rgba(255, 107, 53, 0.3)" }}
-                    className="rounded-2xl border border-white/10 bg-white/[0.03] px-6 py-5 transition-all duration-300"
+                    className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm px-6 py-4 transition-all duration-300"
                   >
                     <div className="text-2xl font-display font-bold text-accent mb-1">
                       {item.value}
@@ -327,6 +299,52 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
                 ))}
               </div>
             </motion.div>
+          </div>
+        </motion.div>
+
+        {/* Challenge, Solution, Result */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-10%" }}
+          className="space-y-16 mb-24"
+        >
+          <motion.div variants={itemVariants}>
+            <h3 className="text-2xl text-white font-display font-bold mb-4">{t("projectDetail.challenge")}</h3>
+            <div className="text-neutral-400 text-[16px] leading-relaxed space-y-3">
+              <p className="whitespace-pre-line">{t(`projects.${projectKey}.challenge`) || project.fullDescription?.challenge || "Managing consumer finance is inherently stressful. Users seek clarity, predictability, and control, yet most financial apps overwhelm them with numbers, legal language, and fragmented flows. Placet's mobile experience suffered from inconsistent user journeys, unclear financial states, and non-uniform interface logic across loans, credit lines, and card features."}</p>
+            </div>
+          </motion.div>
+
+          <motion.div variants={itemVariants}>
+            <motion.h3
+              className="text-2xl text-white font-display font-bold mb-4"
+              whileHover={{ x: 4, color: "#ff6b35" }}
+              transition={{ duration: 0.2 }}
+            >
+              {t("projectDetail.solution")}
+            </motion.h3>
+            <div className="text-neutral-400 text-[16px] leading-relaxed space-y-4">
+              <motion.p variants={itemVariants} className="whitespace-pre-line">
+                {t(`projects.${projectKey}.solution`) || project.fullDescription?.solution || "I redesigned the Placet app end-to-end with a focus on calm structure, transparency, and instant comprehension. Authentication was rebuilt using Smart-ID, Mobile-ID, and Face ID to establish trust from the first interaction. The dashboard follows a glance-first model, showing balance, next payment, and actions within seconds. A multi-state financial architecture was designed: processing, active, overdue, and empty states. The transaction feed was rebuilt into a dense but readable list with clear hierarchy and color-coded amounts. A full physical card journey was designed: ordered, shipped, expected delivery, activation, and active use. Both dark and light themes share a unified premium fintech visual language."}
+              </motion.p>
+            </div>
+          </motion.div>
+
+          <motion.div variants={itemVariants}>
+            <motion.h3
+              className="text-2xl text-white font-display font-bold mb-4"
+              whileHover={{ x: 4, color: "#ff6b35" }}
+              transition={{ duration: 0.2 }}
+            >
+              {t("projectDetail.result")}
+            </motion.h3>
+            <div className="text-neutral-400 text-[16px] leading-relaxed space-y-6">
+              <motion.p variants={itemVariants} className="whitespace-pre-line">
+                {t(`projects.${projectKey}.result`) || project.fullDescription?.result || "The redesign improved user confidence and reduced ambiguity in daily financial actions. Support requests decreased due to clearer states and predictable flows. Users understood upcoming payments faster and navigated the app with less friction. The structure strengthened trust — the most valuable currency in fintech."}
+              </motion.p>
+            </div>
           </motion.div>
         </motion.div>
 

@@ -8,15 +8,17 @@ export const AboutIntro: React.FC = () => {
   // Функция для выделения фразы оранжевым цветом
   const highlightPhrase = (text: string): React.ReactNode => {
     // Паттерны для поиска фразы на разных языках
+    // Используем \s+ для поиска любого пробела (включая неразрывный)
     const patterns: Record<string, RegExp> = {
       en: /(Product & UX Designer with 9\+ years)/gi,
-      ru: /(более 9 лет)/gi,
+      ru: /(9\+[\s\u00A0]+лет[\s\u00A0]+опыта)/gi,
       et: /(Product & UX disainer üle 9-aastase kogemusega)/gi,
     };
 
     const pattern = patterns[language] || patterns.en;
     if (!pattern) return text;
 
+    // Ищем совпадения в оригинальном тексте
     const matches = Array.from(text.matchAll(pattern));
     if (matches.length === 0) return text;
 
@@ -25,24 +27,14 @@ export const AboutIntro: React.FC = () => {
 
     matches.forEach((match, matchIndex) => {
       if (match.index !== undefined) {
-        // Добавляем текст до совпадения
+        // Добавляем текст до совпадения (используем оригинальный текст для сохранения неразрывных пробелов)
         if (match.index > lastIndex) {
           const beforeText = text.substring(lastIndex, match.index);
-          // Для русского языка добавляем перенос перед "более 9 лет"
-          if (language === "ru") {
-            parts.push(
-              <React.Fragment key={`text-${matchIndex}`}>
-                {beforeText}
-                <br />
-              </React.Fragment>
-            );
-          } else {
-            parts.push(
-              <React.Fragment key={`text-${matchIndex}`}>
-                {beforeText}
-              </React.Fragment>
-            );
-          }
+          parts.push(
+            <React.Fragment key={`text-${matchIndex}`}>
+              {beforeText}
+            </React.Fragment>
+          );
         }
         // Добавляем выделенную фразу
         parts.push(

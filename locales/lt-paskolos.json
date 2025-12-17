@@ -1,0 +1,50 @@
+{
+  "paskolos": {
+    "title": "Kredito linija",
+    "role": "Klientas: Paskolos.lt",
+    "description": "Lanksti kredito linija, skirta pakartotiniam naudojimui ir ilgalaikiams finansiniams poreikiams. Klientai gali bet kada naudotis turimu limitu, grąžinti lėšas savo tempu ir vėl jas panaudoti be naujos paraiškos. Pagrindinis dėmesys skiriamas paprastumui, skaidrumui ir aiškioms sąlygoms.",
+    "listDescription": "Lanksti kredito linija, skirta pakartotiniam naudojimui ir ilgalaikiams finansiniams poreikiams. Klientai gali bet kada naudotis turimu limitu, grąžinti lėšas savo tempu ir vėl jas panaudoti be naujos paraiškos.",
+    "cta": "Peržiūrėti projektą",
+    "secondaryProduct": {
+      "title": "Vartojimo paskola",
+      "description": "Tradicinė vartojimo paskola didesnėms vienkartinėms išlaidoms padengti. Aiškus paraiškos procesas, skaidrios sąlygos ir suprantamas grąžinimo grafikas."
+    },
+    "calculator": {
+      "title": "Skaičiuoklė ir sąlygos",
+      "description": "Kredito skaičiuoklė ir sąlygos leidžia iš karto matyti mėnesines įmokas, palūkanas ir bendrą kredito kainą. Sąsaja sukurta taip, kad sprendimai būtų aiškūs ir pagrįsti."
+    },
+    "applicationFlow": {
+      "title": "Paraiškos procesas",
+      "description": "Paraiškos pateikimas suskaidytas į aiškius ir paprastus žingsnius: sumos pasirinkimas, duomenų pateikimas ir lėšų gavimas. Procesas optimizuotas sklandžiam ir greitam sprendimui."
+    },
+    "mobileExperience": {
+      "title": "Mobilioji patirtis",
+      "description": "Mobilioji versija išlaiko visą produkto logiką, pritaikant išdėstymą, tipografiją ir sąveikas mažesniems ekranams. Pagrindiniai veiksmai išlieka lengvai pasiekiami."
+    },
+    "challenge": "Kredito produktai reikalauja didelio pasitikėjimo, tačiau dauguma platformų perpildo vartotojus sudėtinga terminologija, tankiu turiniu ir neaiškiais procesais.\n\nPaskolos atveju vartotojai susidūrė su:\n— sunkumais suprantant kredito sąlygas\n— nepakankamu skaidrumu skaičiavimuose\n— fragmentuotu kelionės nuo produkto pasirinkimo iki paraiškos procesu\n\nDėl to vartotojai dvejojo ir neturėjo pasitikėjimo priimant finansinius sprendimus.",
+    "solution": "Perdariau Paskolos platformą, sutelkdamas dėmesį į aiškumą, nuspėjamumą ir sumažintą kognityvinę apkrovą.\n\nSprendimas pagrįstas:\n— aiškia produkto hierarchija, kur Kredito linija yra pagrindinis produktas\n— skaitomais skaičiuoklėmis ir skaidriomis sąlygomis\n— logišku žingsnis po žingsnio procesu nuo sumos pasirinkimo iki paraiškos\n\nTinklalapiai ir produkto ekranai buvo pertvarkyti taip, kad vartotojai galėtų:\n— iš karto suprasti prieinamas galimybes\n— matyti skaičiavimus be paslėptos sudėtingumo\n— jaustis kontroliuojantys visą procesą\n\nAsmeninis kabinetas pratęsia patirtį po kredito išdavimo, suteikdamas aiškų statuso, mokėjimų ir aktyvių produktų apžvalgą.",
+    "result": "Perdarymas pagerino kredito produktų supratimą ir sumažino trintį paraiškos pradžioje.\n\n— vartotojai greičiau orientuojasi sąlygose\n— paraiškos procesai tapo aiškesni ir trumpesni\n— pasitikėjimas platforma padidėjo\n\nPaskolos suvokiama kaip patikimas ir skaidrus finansinis paslaugų teikėjas.",
+    "screens": {
+      "screen1": {
+        "title": "Kredito linija — pagrindinis produktas",
+        "description": "Lanksti kredito linija, skirta pakartotiniam naudojimui ir ilgalaikiams finansiniams poreikiams. Klientai gali bet kada naudotis turimu limitu, grąžinti lėšas savo tempu ir vėl jas panaudoti be naujos paraiškos."
+      },
+      "screen2": {
+        "title": "Vartojimo paskola — antrinis produktas",
+        "description": "Tradicinė vartojimo paskola didesnėms vienkartinėms išlaidoms padengti. Aiškus paraiškos procesas, skaidrios sąlygos ir suprantamas grąžinimo grafikas."
+      },
+      "screen3": {
+        "title": "Skaičiuoklė ir sąlygos",
+        "description": "Kredito skaičiuoklė ir sąlygos leidžia iš karto matyti mėnesines įmokas, palūkanas ir bendrą kredito kainą. Sąsaja sukurta taip, kad sprendimai būtų aiškūs ir pagrįsti."
+      },
+      "screen4": {
+        "title": "Paraiškos procesas",
+        "description": "Paraiškos pateikimas suskaidytas į aiškius ir paprastus žingsnius: sumos pasirinkimas, duomenų pateikimas ir lėšų gavimas. Procesas optimizuotas sklandžiam ir greitam sprendimui."
+      },
+      "screen5": {
+        "title": "Mobilioji patirtis",
+        "description": "Mobilioji versija išlaiko visą produkto logiką, pritaikant išdėstymą, tipografiją ir sąveikas mažesniems ekranams. Pagrindiniai veiksmai išlieka lengvai pasiekiami."
+      }
+    }
+  }
+}

@@ -247,7 +247,7 @@ export const AIChat: React.FC = () => {
                 </motion.div>
             ) : (
                 <motion.div key="chat" initial={{ scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.5, opacity: 0 }}>
-                    <MessageSquare className="w-6 h-6" />
+                    <Sparkles className="w-6 h-6" />
                 </motion.div>
             )}
         </AnimatePresence>

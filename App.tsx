@@ -92,7 +92,7 @@ const App: React.FC = () => {
                     project={activeProject} 
                     onBack={() => {
                       setActiveProject(null);
-                      // Scroll to Projects section after closing project
+                      // Scroll to Projects section after closing
                       setTimeout(() => {
                         const projectsSection = document.querySelector('#projects');
                         if (projectsSection) {

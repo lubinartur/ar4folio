@@ -359,7 +359,9 @@ export const Hero: React.FC = () => {
               <img 
                 src="/images/hero-artur.png"
                 alt="Artur Lubin"
-                loading={isMobile ? "eager" : "lazy"}
+                loading="eager"
+                fetchPriority="high"
+                decoding="sync"
                 className="w-full h-full object-contain object-center md:object-top opacity-95 md:opacity-90 [mask-image:none] md:[mask-image:linear-gradient(to_bottom,black_40%,transparent_100%)]"
               />
             </div>

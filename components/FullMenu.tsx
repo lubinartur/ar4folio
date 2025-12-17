@@ -28,10 +28,10 @@ export const FullMenu: React.FC<{ isOpen: boolean; onClose: () => void; onNaviga
             transition={{ duration: 0.4 }}
             className="fixed inset-0 z-[40] bg-[#050505] flex flex-col cursor-none"
           >
-            <div className="container mx-auto px-6 flex-1 flex flex-col justify-between md:justify-center pt-20 pb-6 md:pt-24 md:pb-10 relative z-10">
+            <div className="container mx-auto px-3 sm:px-4 md:px-6 flex-1 flex flex-col md:justify-center pt-20 sm:pt-24 pb-0 md:pt-24 md:pb-10 relative z-10" style={{ overflowY: 'auto', WebkitOverflowScrolling: 'touch' }}>
               {/* Mobile menu: compact vertical list, fits into one screen */}
-              <div className="md:hidden w-full max-w-lg mx-auto">
-                <div className="space-y-3">
+              <div className="md:hidden w-full max-w-full sm:max-w-lg mx-auto flex flex-col flex-1">
+                <div className="space-y-2 sm:space-y-2.5 flex-1">
                   {menuItems.map((item, idx) => (
                     <motion.button
                       key={item.key}
@@ -44,23 +44,37 @@ export const FullMenu: React.FC<{ isOpen: boolean; onClose: () => void; onNaviga
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: idx * 0.04 }}
-                      className="w-full flex items-center justify-between px-4 py-5 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.07] transition-all duration-200 cursor-none"
+                      className="w-full flex items-center justify-between px-4 py-3 sm:py-4 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.07] transition-all duration-200 cursor-none"
                     >
                       <div className="flex items-center gap-3">
                         <div className="p-2 rounded-lg bg-black border border-white/10 text-neutral-400">
                           <item.icon className="w-4 h-4" />
                         </div>
                         <div className="text-left">
-                          <span className="block text-base font-medium text-white">
+                          <span className="block text-sm sm:text-base font-medium text-white">
                             {t(`menu.${item.key}.name`)}
                           </span>
-                          <span className="block text-[13px] font-mono uppercase tracking-[0.16em] text-neutral-500">
+                          <span className="block text-[11px] sm:text-[13px] font-mono uppercase tracking-[0.16em] text-neutral-500">
                             {t(`menu.${item.key}.desc`)}
                           </span>
                         </div>
                       </div>
                     </motion.button>
                   ))}
+                </div>
+                
+                {/* Mobile Footer in Menu - Directly after menu items, no gap */}
+                <div className="mt-4 sm:mt-6 pb-4 sm:pb-6 border-t border-white/10 pt-4 sm:pt-6 md:hidden">
+                  <div className="flex justify-center">
+                    <a
+                      href={CV_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white text-xs sm:text-sm font-bold cursor-none"
+                    >
+                      {t("menu.downloadCv")}
+                    </a>
+                  </div>
                 </div>
               </div>
 
@@ -95,20 +109,6 @@ export const FullMenu: React.FC<{ isOpen: boolean; onClose: () => void; onNaviga
                 ))}
               </div>
             </div>
-            
-            {/* Mobile Footer in Menu */}
-             <div className="p-8 border-t border-white/10 md:hidden">
-                <div className="flex justify-center">
-                   <a
-                     href={CV_URL}
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     className="text-white text-sm font-bold cursor-none"
-                   >
-                     {t("menu.downloadCv")}
-                   </a>
-                </div>
-             </div>
 
           </motion.div>
         )}

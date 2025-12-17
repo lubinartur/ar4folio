@@ -31,7 +31,7 @@ interface ProjectsProps {
   onProjectClick: (project: Project) => void;
 }
 
-const ProjectCard: React.FC<{ project: Project; index: number; totalProjects: number; onClick: () => void }> = ({ project, index, totalProjects, onClick }) => {
+const ProjectCard: React.FC<{ project: Project; index: number; totalProjects: number; onClick: () => void }> = React.memo(({ project, index, totalProjects, onClick }) => {
     const { t } = useI18n();
     const containerRef = useRef<HTMLDivElement>(null);
     
@@ -58,6 +58,7 @@ const ProjectCard: React.FC<{ project: Project; index: number; totalProjects: nu
     return (
         <motion.div 
             ref={containerRef}
+            data-project-id={project.id}
             initial={{ opacity: 0, y: 100, filter: "blur(10px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ 
@@ -173,7 +174,13 @@ const ProjectCard: React.FC<{ project: Project; index: number; totalProjects: nu
             </motion.div>
         </motion.div>
     );
-};
+}, (prevProps, nextProps) => {
+    // Memo comparison: only re-render if project data changes
+    return prevProps.project.id === nextProps.project.id && 
+           prevProps.index === nextProps.index;
+});
+
+ProjectCard.displayName = 'ProjectCard';
 
 export const Projects: React.FC<ProjectsProps> = ({ onProjectClick }) => {
   const { t } = useI18n();
@@ -193,6 +200,7 @@ export const Projects: React.FC<ProjectsProps> = ({ onProjectClick }) => {
       ref={sectionRef}
       id="projects" 
       className="py-16 md:py-32 bg-[#050505] relative z-20 border-t border-white/5 overflow-hidden"
+      style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1000px' }}
     >
       {/* Background gradient effect */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent pointer-events-none" />
