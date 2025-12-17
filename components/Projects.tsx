@@ -31,7 +31,7 @@ interface ProjectsProps {
   onProjectClick: (project: Project) => void;
 }
 
-const ProjectCard: React.FC<{ project: Project; index: number; totalProjects: number; onClick: () => void }> = React.memo(({ project, index, totalProjects, onClick }) => {
+const ProjectCard: React.FC<{ project: Project; index: number; totalProjects: number; onClick: () => void }> = ({ project, index, totalProjects, onClick }) => {
     const { t } = useI18n();
     const containerRef = useRef<HTMLDivElement>(null);
     
@@ -97,32 +97,17 @@ const ProjectCard: React.FC<{ project: Project; index: number; totalProjects: nu
                         }}
                         className="absolute"
                     >
-                        <picture>
-                            <source
-                                srcSet={`${project.image.replace(/\.(jpg|jpeg|png)$/i, '.avif')}`}
-                                type="image/avif"
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-                            />
-                            <source
-                                srcSet={`${project.image.replace(/\.(jpg|jpeg|png)$/i, '.webp')}`}
-                                type="image/webp"
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-                            />
-                            <img 
-                                src={project.image} 
-                                alt={t(project.title)}
-                                loading="lazy"
-                                decoding="async"
-                                className="w-full h-full object-cover opacity-100 md:opacity-80 md:group-hover:opacity-100 transition-all duration-700 filter md:grayscale md:group-hover:grayscale-0" 
-                                style={{
-                                    objectPosition: 'center',
-                                    display: 'block'
-                                }}
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
-                                width="600"
-                                height="400"
-                            />
-                        </picture>
+                        <img 
+                            src={project.image} 
+                            alt={t(project.title)}
+                            loading="lazy"
+                            decoding="async"
+                            className="w-full h-full object-cover opacity-100 md:opacity-80 md:group-hover:opacity-100 transition-all duration-700 filter md:grayscale md:group-hover:grayscale-0" 
+                            style={{
+                                objectPosition: 'center',
+                                display: 'block'
+                            }}
+                        />
                     </motion.div>
                 </div>
                 
@@ -188,13 +173,7 @@ const ProjectCard: React.FC<{ project: Project; index: number; totalProjects: nu
             </motion.div>
         </motion.div>
     );
-}, (prevProps, nextProps) => {
-    // Memo comparison: only re-render if project data changes
-    return prevProps.project.id === nextProps.project.id && 
-           prevProps.index === nextProps.index;
-});
-
-ProjectCard.displayName = 'ProjectCard';
+};
 
 export const Projects: React.FC<ProjectsProps> = ({ onProjectClick }) => {
   const { t } = useI18n();
@@ -214,7 +193,6 @@ export const Projects: React.FC<ProjectsProps> = ({ onProjectClick }) => {
       ref={sectionRef}
       id="projects" 
       className="py-16 md:py-32 bg-[#050505] relative z-20 border-t border-white/5 overflow-hidden"
-      style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 1000px' }}
     >
       {/* Background gradient effect */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent pointer-events-none" />

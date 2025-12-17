@@ -1,22 +1,20 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useI18n } from './services/i18n';
 import { Hero } from './components/Hero';
 import { Projects } from './components/Projects';
 import { ProjectDetail } from './components/ProjectDetail';
 import { AboutIntro } from './components/AboutIntro';
+import { Skills } from './components/Skills';
+import { Experience } from './components/Experience';
+import { Services } from './components/Services';
+import { Contact } from './components/Contact';
+import { AIChat } from './components/AIChat';
 import { Preloader } from './components/Preloader';
 import { CustomCursor } from './components/CustomCursor';
 import { Header } from './components/Header';
 import { FullMenu } from './components/FullMenu';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Project } from './types';
-
-// Lazy load below-fold components for better initial load performance
-const Skills = lazy(() => import('./components/Skills').then(module => ({ default: module.Skills })));
-const Experience = lazy(() => import('./components/Experience').then(module => ({ default: module.Experience })));
-const Services = lazy(() => import('./components/Services').then(module => ({ default: module.Services })));
-const Contact = lazy(() => import('./components/Contact').then(module => ({ default: module.Contact })));
-const AIChat = lazy(() => import('./components/AIChat').then(module => ({ default: module.AIChat })));
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -117,25 +115,15 @@ const App: React.FC = () => {
                     </div>
                     <AboutIntro />
                     <Projects onProjectClick={setActiveProject} />
-                    <Suspense fallback={<div className="min-h-[400px]" />}>
-                      <Skills />
-                    </Suspense>
-                    <Suspense fallback={<div className="min-h-[400px]" />}>
-                      <Experience />
-                    </Suspense>
-                    <Suspense fallback={<div className="min-h-[400px]" />}>
-                      <Services />
-                    </Suspense>
-                    <Suspense fallback={<div className="min-h-[400px]" />}>
-                      <Contact />
-                    </Suspense>
+                    <Skills />
+                    <Experience />
+                    <Services />
+                    <Contact />
                 </motion.main>
                 )}
             </AnimatePresence>
 
-            <Suspense fallback={null}>
-              <AIChat />
-            </Suspense>
+            <AIChat />
         </>
       )}
     </div>
