@@ -49,7 +49,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index, t }) => {
         isPrimary 
           ? 'md:col-span-1 md:row-span-2' 
           : 'min-h-0'
-      }`}
+      } h-full`}
     >
       {/* Refined card background with gradient */}
       <div className={`absolute inset-0 bg-gradient-to-br ${gradients[index % gradients.length]} rounded-3xl`} />
@@ -234,7 +234,7 @@ export const Services: React.FC = () => {
         </motion.div>
 
         {/* Services Grid - Large card on left, 4 cards in 2x2 grid on right */}
-        <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 md:gap-6 md:auto-rows-[minmax(140px,auto)]">
+        <div className="grid grid-cols-1 md:grid-cols-3 md:grid-rows-2 gap-4 md:gap-6 md:auto-rows-[minmax(140px,auto)] items-stretch">
           {SERVICES.map((service, index) => (
             <ServiceCard 
               key={service.title} 

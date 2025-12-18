@@ -17,6 +17,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Project } from './types';
 import { PROJECTS } from './constants';
 
+const RETURN_TARGET_KEY = 'portfolio:returnTarget';
+const SCROLL_RESTORE_KEY = 'portfolio:scrollRestore';
+
+type ScrollRestorePayload = {
+  key: string;
+  y: number;
+  x: number;
+  ts: number;
+};
+
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,6 +35,62 @@ const App: React.FC = () => {
   const [scrollTargetIdOnClose, setScrollTargetIdOnClose] = useState<string>('projects-start');
   const { language, setLanguage } = useI18n();
   const [isMobile, setIsMobile] = useState(false);
+
+  // Disable native browser scroll restoration to avoid Safari/Chrome interference on push/replaceState.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
+  const safeSessionGet = (key: string) => {
+    try {
+      return sessionStorage.getItem(key);
+    } catch {
+      return null;
+    }
+  };
+
+  const safeSessionSet = (key: string, value: string) => {
+    try {
+      sessionStorage.setItem(key, value);
+    } catch {
+      // ignore
+    }
+  };
+
+  const safeSessionRemove = (key: string) => {
+    try {
+      sessionStorage.removeItem(key);
+    } catch {
+      // ignore
+    }
+  };
+
+  const normalizeTarget = (raw: string | null | undefined) => {
+    const v = (raw || '').trim();
+    if (!v) return '';
+    return v.replace(/^#/, '');
+  };
+
+  const getReturnTarget = () => {
+    if (typeof window === 'undefined') return '';
+    const params = new URLSearchParams(window.location.search);
+    const from = normalizeTarget(params.get('from'));
+    if (from) return from;
+    return normalizeTarget(safeSessionGet(RETURN_TARGET_KEY));
+  };
+
+  const setReturnTarget = (target: string) => {
+    const normalized = normalizeTarget(target);
+    if (!normalized) return;
+    safeSessionSet(RETURN_TARGET_KEY, normalized);
+  };
+
+  const clearReturnTarget = () => {
+    safeSessionRemove(RETURN_TARGET_KEY);
+  };
 
   useEffect(() => {
     // Detect mobile immediately
@@ -63,38 +129,52 @@ const App: React.FC = () => {
       return id.replace(/[^a-zA-Z0-9_-]/g, '\\$&');
     };
 
+    const resolveAndScroll = (targetRaw: string) => {
+      const target = normalizeTarget(targetRaw) || 'projects';
+
+      // Keep URL deterministic: always land on Home with hash (no history.back)
+      if (`${window.location.pathname}${window.location.hash}` !== `/#${target}`) {
+        window.history.replaceState(null, '', `/#${target}`);
+      }
+
+      const maxFrames = 60; // as requested
+
+      const tryScroll = (frame = 0) => {
+        if (frame >= maxFrames) {
+          const fallback =
+            document.querySelector('#projects-start') || document.querySelector('#projects');
+          fallback?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          clearReturnTarget();
+          return;
+        }
+
+        const selector = `#${escapeId(target)}`;
+        const element =
+          // If target is section, land at start of cards list (below header) when available
+          (target === 'projects' ? document.querySelector('#projects-start') : null) ||
+          document.querySelector(selector) ||
+          document.querySelector('#projects-start') ||
+          document.querySelector('#projects');
+
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Clean up after success (no sticky return targets)
+          clearReturnTarget();
+          return;
+        }
+
+        window.requestAnimationFrame(() => tryScroll(frame + 1));
+      };
+
+      window.requestAnimationFrame(() => tryScroll(0));
+    };
+
+    // Only resolve when Home is actually mounted (activeProject null) and caller asked for it.
     if (activeProject !== null) return;
     if (!scrollToProjectsOnClose) return;
 
     setScrollToProjectsOnClose(false);
-
-    const target = scrollTargetIdOnClose || 'projects';
-
-    // Keep URL deterministic: always land on Home with hash
-    if (`${window.location.pathname}${window.location.hash}` !== `/#${target}`) {
-      window.history.replaceState(null, '', `/#${target}`);
-    }
-
-    const tryScroll = (attempt = 0) => {
-      const selector = `#${escapeId(target)}`;
-      const element =
-        // If target is the section, land at start of cards list (below header) when available
-        (target === 'projects' ? document.querySelector('#projects-start') : null) ||
-        document.querySelector(selector) ||
-        document.querySelector('#projects-start') ||
-        document.querySelector('#projects');
-
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        return;
-      }
-
-      if (attempt < 40) {
-        window.requestAnimationFrame(() => tryScroll(attempt + 1));
-      }
-    };
-
-    window.requestAnimationFrame(() => tryScroll(0));
+    resolveAndScroll(scrollTargetIdOnClose || 'projects');
   }, [activeProject, scrollToProjectsOnClose, scrollTargetIdOnClose]);
 
   // Support direct open / refresh on case URL:
@@ -120,10 +200,63 @@ const App: React.FC = () => {
     if (!project) return;
 
     const params = new URLSearchParams(search);
-    const from = params.get('from') || '';
+    const from = normalizeTarget(params.get('from'));
+    if (from) setReturnTarget(from);
     setScrollTargetIdOnClose(from || 'projects');
     setActiveProject(project);
   }, []);
+
+  // Language switch: preserve scroll position across re-render.
+  const handleLanguageChange = (nextLang: typeof language) => {
+    if (typeof window !== 'undefined') {
+      const payload: ScrollRestorePayload = {
+        key: `${window.location.pathname}${window.location.search}${window.location.hash}`,
+        y: window.scrollY,
+        x: window.scrollX,
+        ts: Date.now(),
+      };
+      safeSessionSet(SCROLL_RESTORE_KEY, JSON.stringify(payload));
+    }
+    setLanguage(nextLang);
+  };
+
+  // Restore scroll after language change (best-effort).
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const raw = safeSessionGet(SCROLL_RESTORE_KEY);
+    if (!raw) return;
+
+    let payload: ScrollRestorePayload | null = null;
+    try {
+      payload = JSON.parse(raw) as ScrollRestorePayload;
+    } catch {
+      safeSessionRemove(SCROLL_RESTORE_KEY);
+      return;
+    }
+
+    const nowKey = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+    // Only restore on the same "route key"; ignore stale entries (e.g. after navigation).
+    if (!payload || payload.key !== nowKey) {
+      // Even if route changed, don't keep stale restore payload around.
+      safeSessionRemove(SCROLL_RESTORE_KEY);
+      return;
+    }
+    if (Date.now() - payload.ts > 3000) {
+      safeSessionRemove(SCROLL_RESTORE_KEY);
+      return;
+    }
+
+    const restore = (frame = 0) => {
+      window.scrollTo({ top: payload!.y, left: payload!.x, behavior: 'auto' });
+      if (Math.abs(window.scrollY - payload!.y) <= 2 || frame >= 10) {
+        safeSessionRemove(SCROLL_RESTORE_KEY);
+        return;
+      }
+      window.requestAnimationFrame(() => restore(frame + 1));
+    };
+
+    window.requestAnimationFrame(() => restore(0));
+  }, [language]);
 
   const handleNavigate = (id: string) => {
     setActiveProject(null); // Close project view if open
@@ -150,7 +283,7 @@ const App: React.FC = () => {
                 isMenuOpen={isMenuOpen} 
                 onMenuToggle={() => setIsMenuOpen(!isMenuOpen)} 
                 language={language}
-                onLanguageChange={setLanguage}
+                onLanguageChange={handleLanguageChange}
             />
             
             <FullMenu 
@@ -166,19 +299,25 @@ const App: React.FC = () => {
                     project={activeProject} 
                     onBack={() => {
                       // Deterministic return (no history.back):
-                      // If from exists -> /#from else /#projects, then guaranteed scroll after Home mounts.
-                      const params = new URLSearchParams(window.location.search);
-                      const from = params.get('from') || '';
+                      // If returnTarget/from exists -> /#<id> else /#projects, then guaranteed scroll after Home mounts.
+                      const from = getReturnTarget();
                       const target = from || 'projects';
-                      window.history.pushState(null, '', `/#${target}`);
+                      // Normalize URL immediately: after Back, URL must never contain /cases/* or ?from=.
+                      window.history.replaceState(null, '', `/#${target}`);
                       setScrollTargetIdOnClose(target);
                       setScrollToProjectsOnClose(true);
                       setActiveProject(null);
                     }}
                     onProjectClick={(p) => {
-                      // Opening a case from inside a case: fallback to projects as return target
-                      window.history.pushState(null, '', `/cases/${p.id}`);
-                      setScrollTargetIdOnClose('projects-start');
+                      // Opening a case from inside a case: always keep the already-known return target.
+                      const from =
+                        normalizeTarget(scrollTargetIdOnClose) ||
+                        getReturnTarget() ||
+                        'projects';
+
+                      setReturnTarget(from);
+                      window.history.pushState(null, '', `/cases/${p.id}?from=${encodeURIComponent(from)}`);
+                      setScrollTargetIdOnClose(from);
                       setActiveProject(p);
                     }}
                 />
@@ -197,6 +336,7 @@ const App: React.FC = () => {
                     <Projects onProjectClick={(project) => {
                       const from = `project-${project.id}`;
                       // Navigate to case with `from`
+                      setReturnTarget(from);
                       window.history.pushState(null, '', `/cases/${project.id}?from=${encodeURIComponent(from)}`);
                       setScrollTargetIdOnClose(from);
                       setActiveProject(project);

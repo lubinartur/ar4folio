@@ -226,8 +226,10 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
         >
            <motion.img
              src={project.image}
-             alt={project.title}
-             className="w-full h-full object-cover"
+             alt={typeof project.title === 'string' ? project.title : t(project.title)}
+             loading="eager"
+             decoding="async"
+             className="w-full h-full object-cover block"
              whileHover={{ scale: 1.05 }}
              transition={{ duration: 0.6, ease: "easeOut" }}
            />
@@ -431,7 +433,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
                   )}
                 </div>
                 <motion.div
-                  className="w-full bg-[#111] rounded-3xl overflow-hidden border border-white/10 group/image"
+                  className="w-full bg-[#111] rounded-3xl overflow-hidden border border-white/10 group/image aspect-[16/10] min-h-[220px] md:min-h-[380px]"
                   whileHover={{ scale: 1.01, borderColor: "rgba(255, 107, 53, 0.3)" }}
                   transition={{ duration: 0.3 }}
                 >
@@ -440,7 +442,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
                     alt={screen.title}
                     loading="lazy"
                     decoding="async"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover block"
                     whileHover={{ scale: 1.05 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
                   />
