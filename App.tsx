@@ -145,6 +145,12 @@ const App: React.FC = () => {
             document.querySelector('#projects-start') || document.querySelector('#projects');
           fallback?.scrollIntoView({ behavior: 'smooth', block: 'start' });
           clearReturnTarget();
+          // After scroll attempt, clean URL (remove hash/search) to avoid sticky anchors.
+          // Use BASE_URL for deployments under subpaths (Vite). Fallback to "/".
+          const base = (import.meta as any)?.env?.BASE_URL || '/';
+          window.requestAnimationFrame(() => {
+            window.history.replaceState(null, '', base);
+          });
           return;
         }
 
@@ -160,6 +166,11 @@ const App: React.FC = () => {
           element.scrollIntoView({ behavior: 'smooth', block: 'start' });
           // Clean up after success (no sticky return targets)
           clearReturnTarget();
+          // After successful scroll, clean URL (remove hash/search) to avoid sticky anchors.
+          const base = (import.meta as any)?.env?.BASE_URL || '/';
+          window.requestAnimationFrame(() => {
+            window.history.replaceState(null, '', base);
+          });
           return;
         }
 
