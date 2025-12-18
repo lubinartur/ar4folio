@@ -5,57 +5,60 @@ import { motion } from "framer-motion";
 export const AboutIntro: React.FC = () => {
   const { t, language } = useI18n();
 
-  // Функция для выделения фразы оранжевым цветом
+  // Highlight the same phrase across languages + support explicit line breaks (\n)
   const highlightPhrase = (text: string): React.ReactNode => {
-    // Паттерны для поиска фразы на разных языках
-    // Используем \s+ для поиска любого пробела (включая неразрывный)
-    const patterns: Record<string, RegExp> = {
-      en: /(Product & UX Designer with 9\+ years)/gi,
-      ru: /(9\+[\s\u00A0]+лет[\s\u00A0]+опыта)/gi,
-      et: /(Product & UX disainer üle 9-aastase kogemusega)/gi,
-    };
+    const pattern = /(Senior Product\s*&\s*UX Designer)/gi;
 
-    const pattern = patterns[language] || patterns.en;
-    if (!pattern) return text;
+    const renderLine = (line: string, lineIndex: number) => {
+      const matches = Array.from(line.matchAll(pattern));
+      if (matches.length === 0) return <React.Fragment key={`line-${lineIndex}`}>{line}</React.Fragment>;
 
-    // Ищем совпадения в оригинальном тексте
-    const matches = Array.from(text.matchAll(pattern));
-    if (matches.length === 0) return text;
+      const parts: React.ReactNode[] = [];
+      let lastIndex = 0;
 
-    const parts: React.ReactNode[] = [];
-    let lastIndex = 0;
+      matches.forEach((match, matchIndex) => {
+        if (match.index === undefined) return;
 
-    matches.forEach((match, matchIndex) => {
-      if (match.index !== undefined) {
-        // Добавляем текст до совпадения (используем оригинальный текст для сохранения неразрывных пробелов)
         if (match.index > lastIndex) {
-          const beforeText = text.substring(lastIndex, match.index);
           parts.push(
-            <React.Fragment key={`text-${matchIndex}`}>
-              {beforeText}
+            <React.Fragment key={`text-${lineIndex}-${matchIndex}`}>
+              {line.substring(lastIndex, match.index)}
             </React.Fragment>
           );
         }
-        // Добавляем выделенную фразу
+
         parts.push(
-          <span key={`highlight-${matchIndex}`} className="text-accent">
+          <span key={`highlight-${lineIndex}-${matchIndex}`} className="text-accent">
             {match[0]}
           </span>
         );
+
         lastIndex = match.index + match[0].length;
+      });
+
+      if (lastIndex < line.length) {
+        parts.push(
+          <React.Fragment key={`text-end-${lineIndex}`}>
+            {line.substring(lastIndex)}
+          </React.Fragment>
+        );
       }
-    });
 
-    // Добавляем оставшийся текст
-    if (lastIndex < text.length) {
-      parts.push(
-        <React.Fragment key="text-end">
-          {text.substring(lastIndex)}
-        </React.Fragment>
-      );
-    }
+      return <React.Fragment key={`line-${lineIndex}`}>{parts}</React.Fragment>;
+    };
 
-    return <>{parts}</>;
+    const lines = text.split("\n");
+    if (lines.length === 1) return renderLine(text, 0);
+
+    return (
+      <span className="block">
+        {lines.map((line, i) => (
+          <span key={i} className="block">
+            {renderLine(line, i)}
+          </span>
+        ))}
+      </span>
+    );
   };
 
   const container = {

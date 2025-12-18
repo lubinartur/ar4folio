@@ -234,6 +234,15 @@ export const Projects: React.FC<ProjectsProps> = ({ onProjectClick }) => {
             >
               {t("projects.sectionTitle")}
             </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="text-neutral-400 text-base md:text-lg max-w-2xl"
+            >
+              {t("projects.sectionSubtitle")}
+            </motion.p>
           </div>
         </motion.div>
 

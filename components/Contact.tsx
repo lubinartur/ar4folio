@@ -44,7 +44,7 @@ export const Contact: React.FC = () => {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
             <motion.h2
-              className="text-6xl sm:text-7xl md:text-7xl lg:text-9xl font-display font-bold tracking-tighter mb-10 md:mb-12 leading-[0.9]"
+              className="w-full text-center text-6xl sm:text-7xl md:text-7xl lg:text-9xl font-display font-bold tracking-tighter mb-10 md:mb-12 leading-[0.9]"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
@@ -55,22 +55,27 @@ export const Contact: React.FC = () => {
                 if (lines.length === 0) return title;
                 
                 return (
-                  <span className="block">
+                  <span className="inline-flex flex-col items-center w-full">
                     {lines.map((line, lineIndex) => {
-                      const words = line.trim().split(/\s+/);
                       const isLastLine = lineIndex === lines.length - 1;
+                      const trimmedLine = line.trim();
+                      const words = trimmedLine.split(/\s+/);
                       const lastWord = words[words.length - 1];
                       const beforeLastWord = words.slice(0, -1).join(' ');
                       
                       return (
-                        <span key={lineIndex} className="block whitespace-normal md:whitespace-nowrap">
-                          {beforeLastWord && <span className="text-white">{beforeLastWord} </span>}
-                          {isLastLine ? (
-                            <span className="text-accent">{lastWord}</span>
-                          ) : (
-                            <span className="text-white">{lastWord}</span>
-                          )}
-                        </span>
+                        <span key={lineIndex} className="block text-center w-full">
+                          <span className="inline-block whitespace-normal md:whitespace-nowrap">
+                            {isLastLine ? (
+                              <>
+                                {beforeLastWord && <span className="text-white">{beforeLastWord} </span>}
+                                <span className="text-accent">{lastWord}</span>
+                              </>
+                            ) : (
+                              <span className="text-white">{trimmedLine}</span>
+                            )}
+                          </span>
+                        </span>  
                       );
                     })}
                   </span>
