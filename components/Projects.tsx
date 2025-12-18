@@ -4,6 +4,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Project } from '../types';
 import { useI18n } from '../services/i18n';
+import { MotionMedia } from './Media';
 
 const contentVariants = {
   hidden: { opacity: 0, y: 24 },
@@ -45,14 +46,15 @@ const ProjectCard: React.FC<{ project: Project; index: number; totalProjects: nu
         offset: ["start end", "end start"]
     });
 
-    // Parallax effect for the image: moves opposite to scroll for WOW effect (reduced to prevent overflow)
-    const imageY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
-    const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.05, 1.1, 1.05]);
+    // Parallax effect for the image (stronger, but still "expensive" + safe).
+    // Use more scale so edges never reveal (no "empty" frame).
+    const imageY = useTransform(scrollYProgress, [0, 1], ["-18%", "18%"]);
+    const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.2, 1.26, 1.2]);
     const textY = useTransform(scrollYProgress, [0, 1], ["30px", "-30px"]);
     
-    // Smooth spring animations with more responsiveness
-    const smoothImageY = useSpring(imageY, { stiffness: 80, damping: 25 });
-    const smoothImageScale = useSpring(imageScale, { stiffness: 100, damping: 30 });
+    // Smooth spring animations (softer / premium feel)
+    const smoothImageY = useSpring(imageY, { stiffness: 55, damping: 28 });
+    const smoothImageScale = useSpring(imageScale, { stiffness: 70, damping: 30 });
     const smoothTextY = useSpring(textY, { stiffness: 100, damping: 30 });
 
     return (
@@ -62,6 +64,7 @@ const ProjectCard: React.FC<{ project: Project; index: number; totalProjects: nu
             data-project-id={project.id}
             initial={{ opacity: 0, y: 100, filter: "blur(10px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            whileHover={{ y: -10 }}
             transition={{ 
                 duration: 0.8, 
                 ease: [0.22, 1, 0.36, 1], 
@@ -79,39 +82,24 @@ const ProjectCard: React.FC<{ project: Project; index: number; totalProjects: nu
         >
             {/* Image Side */}
             <motion.div
-                className="relative lg:col-span-7 aspect-[16/10] overflow-hidden rounded-3xl bg-[#111] border border-white/5 group-hover:border-accent/20 transition-colors duration-300"
+                className="relative lg:col-span-7 aspect-[16/10] overflow-hidden rounded-3xl bg-[#111] border border-white/5 group-hover:border-accent/30 transition-colors duration-300"
+                whileHover={{ scale: 1.01 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
             >
                 <motion.div 
                     className="absolute inset-0 z-10 bg-transparent md:bg-black/40 md:group-hover:bg-transparent transition-colors duration-700"
                     whileHover={{ backgroundColor: "rgba(0, 0, 0, 0)" }}
                 />
                 
-                {/* Parallax Image - Enhanced WOW effect with strict clipping */}
-                <div className="absolute inset-0 overflow-hidden rounded-3xl" style={{ clipPath: 'inset(0)', willChange: 'transform' }}>
-                    <motion.div
-                        style={{ 
-                            y: smoothImageY,
-                            scale: smoothImageScale,
-                            width: '110%',
-                            height: '110%',
-                            left: '-5%',
-                            top: '-5%'
-                        }}
-                        className="absolute"
-                    >
-                        <img 
-                            src={project.image} 
-                            alt={t(project.title)}
-                            loading="lazy"
-                            decoding="async"
-                            className="w-full h-full object-cover opacity-100 md:opacity-80 md:group-hover:opacity-100 transition-all duration-700 filter md:grayscale md:group-hover:grayscale-0" 
-                            style={{
-                                objectPosition: 'center',
-                                display: 'block'
-                            }}
-                        />
-                    </motion.div>
-                </div>
+                {/* Parallax image: stable media container (prevents h-full without height issues) */}
+                <MotionMedia
+                  src={project.image}
+                  alt={t(project.title)}
+                  aspect="16/10"
+                  className="absolute inset-0 rounded-3xl"
+                  imgClassName="opacity-100 md:opacity-80 md:group-hover:opacity-100 transition-all duration-700 filter md:grayscale md:group-hover:grayscale-0"
+                  motionStyle={{ y: smoothImageY, scale: smoothImageScale }}
+                />
                 
             </motion.div>
 

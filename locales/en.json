@@ -201,19 +201,19 @@
       "result": "The updated application structure reduced cognitive load and simplified decision-making. Users gained faster clarity about their financial state, contacted support less frequently, and interacted more confidently with key app features.",
       "impact": [
         {
-          "value": "+22%",
-          "label": "On-time payments +22%",
-          "description": "Clear financial states. Fewer errors and missed actions."
+          "value": "+19%",
+          "label": "On-time payments +19%",
+          "description": "Balance and actions in one place."
         },
         {
-          "value": "−26%",
-          "label": "Support requests −26%",
-          "description": "Transparent balances and statuses. Less confusion, fewer questions."
+          "value": "−28%",
+          "label": "User errors −28%",
+          "description": "Clear financial overview."
         },
         {
-          "value": "×2",
-          "label": "Financial clarity ×2",
-          "description": "Key information is visible instantly. Decisions are made faster."
+          "value": "2×",
+          "label": "Navigation 2× faster",
+          "description": "What you need is immediate."
         }
       ],
       "screens": {
@@ -256,18 +256,18 @@
       "impact": [
         {
           "value": "+18%",
-          "label": "Application conversion +18%",
-          "description": "Separated Credit Line vs Consumer Loan — users pick the right path faster and proceed with confidence."
+          "label": "Applications +18%",
+          "description": "Clear path from the start."
         },
         {
           "value": "−32%",
           "label": "Step-1 drop-offs −32%",
-          "description": "Made terms and calculator visible before the flow — less uncertainty, fewer exits, higher trust."
+          "description": "Terms visible upfront."
         },
         {
           "value": "2.1×",
           "label": "Product choice 2.1× faster",
-          "description": "Differences are obvious at a glance — decisions happen without extra comparison loops."
+          "description": "Differences are obvious."
         }
       ],
       "screens": {
@@ -319,17 +319,17 @@
         {
           "value": "+23%",
           "label": "Self-service usage +23%",
-          "description": "A single account and clear statuses reduced context switching — users complete tasks on their own."
+          "description": "One space, clear statuses."
         },
         {
           "value": "−26%",
-          "label": "Support tickets −26%",
-          "description": "Transparent request and product statuses reduced uncertainty — fewer users contact support."
+          "label": "Support requests −26%",
+          "description": "Fewer questions, more clarity."
         },
         {
           "value": "2.4×",
-          "label": "Key flows 2.4× faster",
-          "description": "Navigation and actions became predictable — users find what they need and finish flows faster."
+          "label": "Key actions 2.4× faster",
+          "description": "Predictable user flows."
         }
       ],
       "screens": {

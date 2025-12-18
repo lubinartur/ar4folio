@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ArrowLeft, ArrowUpRight, TrendingUp, ShieldCheck, Zap } from 'lucide-react';
 import { useI18n } from '../services/i18n';
 import { PROJECTS } from '../constants';
+import { Media, MotionMedia } from './Media';
 import en from '../locales/en.json';
 import ru from '../locales/ru.json';
 import et from '../locales/et.json';
@@ -77,11 +78,24 @@ interface ProjectDetailProps {
 
 export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, onProjectClick }) => {
   const { t, language } = useI18n();
-  const roleLabel = project.role ? t(project.role) : '';
+  // Canonical project resolution:
+  // - Always prefer slug/id from URL (/cases/:slugOrId)
+  // - Then fallback to incoming prop (may be a lightweight preview object)
+  const routeSlugOrId =
+    typeof window !== 'undefined'
+      ? window.location.pathname.replace('/cases/', '').split('/')[0]
+      : '';
+
+  const canonicalProject =
+    PROJECTS.find((p) => (p as any)?.slug === routeSlugOrId || p.id === routeSlugOrId) ||
+    (project?.id ? PROJECTS.find((p) => p.id === project.id) : undefined) ||
+    project;
+
+  const roleLabel = canonicalProject.role ? t(canonicalProject.role) : '';
   // Other projects (for footer navigation)
-  const otherProjects = PROJECTS.filter((p) => p.title !== project.title).slice(0, 2);
+  const otherProjects = PROJECTS.filter((p) => p.title !== canonicalProject.title).slice(0, 2);
   // Map project.id to localization key (e.g., 'placet-selfservice' -> 'placetSelfservice')
-  const projectKey = project.id === 'placet-selfservice' ? 'placetSelfservice' : project.id;
+  const projectKey = canonicalProject.id === 'placet-selfservice' ? 'placetSelfservice' : canonicalProject.id;
   
   // Get project data from locale files
   const dictionaries: Record<string, any> = { en, ru, et };
@@ -189,15 +203,15 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
                   variants={itemVariants}
                   className="text-accent font-mono text-sm mb-4"
                 >
-                  {project.tags.join(' / ')}
+                  {canonicalProject.tags.join(' / ')}
                 </motion.h4>
                 <motion.h1
                   variants={itemVariants}
-                  className="text-5xl md:text-7xl font-display font-bold text-white mb-2"
+                  className="text-4xl sm:text-5xl md:text-7xl font-display font-bold text-white mb-2 break-words [hyphens:auto] [overflow-wrap:anywhere]"
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.3 }}
                 >
-                  {t(project.title)}
+                  {t(canonicalProject.title)}
                 </motion.h1>
                 <motion.p
                   variants={itemVariants}
@@ -207,12 +221,12 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
                 </motion.p>
              </div>
           </motion.div>
-          {project.description && (
+          {canonicalProject.description && (
             <motion.p
               variants={itemVariants}
               className="text-neutral-400 text-[16px] md:text-[16px] max-w-3xl"
             >
-              {t(project.description)}
+              {t(canonicalProject.description)}
             </motion.p>
           )}
         </motion.div>
@@ -223,19 +237,30 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
           whileInView={{ y: 0, opacity: 1, filter: "blur(0px)", scale: 1 }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          whileHover={{ scale: 1.02 }}
-          className="w-full aspect-video bg-[#111] rounded-3xl overflow-hidden mb-20 group relative"
+          className="w-full mb-20 group relative"
         >
-           <motion.img
-             src={project.image}
-             alt={typeof project.title === 'string' ? project.title : t(project.title)}
-             loading="eager"
-             decoding="async"
-             className="w-full h-full object-cover block"
-             whileHover={{ scale: 1.05 }}
-             transition={{ duration: 0.6, ease: "easeOut" }}
-           />
-           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
+          {/* Hover on container, not on Media internals */}
+          <motion.div
+            whileHover={{ scale: 1.015 }}
+            transition={{ duration: 0.45, ease: "easeOut" }}
+            className="w-full"
+          >
+          {canonicalProject.image ? (
+            <MotionMedia
+              src={canonicalProject.image}
+              alt={
+                typeof canonicalProject.title === 'string'
+                  ? canonicalProject.title
+                  : t(canonicalProject.title)
+              }
+              aspect="16/9"
+              className="w-full rounded-3xl bg-[#111]"
+              imgClassName="transition-transform duration-700 ease-out"
+              priority
+            />
+          ) : null}
+          </motion.div>
+          <div className="pointer-events-none absolute inset-0 rounded-3xl bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
         </motion.div>
 
         {/* Impact (full width) */}
@@ -314,7 +339,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
             </motion.h3>
             <div className="text-neutral-400 text-[16px] leading-relaxed space-y-4">
               <motion.p variants={itemVariants} className="whitespace-pre-line">
-                {t(`projects.${projectKey}.solution`) || project.fullDescription?.solution || "I redesigned the Placet app end-to-end with a focus on calm structure, transparency, and instant comprehension. Authentication was rebuilt using Smart-ID, Mobile-ID, and Face ID to establish trust from the first interaction. The dashboard follows a glance-first model, showing balance, next payment, and actions within seconds. A multi-state financial architecture was designed: processing, active, overdue, and empty states. The transaction feed was rebuilt into a dense but readable list with clear hierarchy and color-coded amounts. A full physical card journey was designed: ordered, shipped, expected delivery, activation, and active use. Both dark and light themes share a unified premium fintech visual language."}
+                {t(`projects.${projectKey}.solution`) || canonicalProject.fullDescription?.solution || "I redesigned the Placet app end-to-end with a focus on calm structure, transparency, and instant comprehension. Authentication was rebuilt using Smart-ID, Mobile-ID, and Face ID to establish trust from the first interaction. The dashboard follows a glance-first model, showing balance, next payment, and actions within seconds. A multi-state financial architecture was designed: processing, active, overdue, and empty states. The transaction feed was rebuilt into a dense but readable list with clear hierarchy and color-coded amounts. A full physical card journey was designed: ordered, shipped, expected delivery, activation, and active use. Both dark and light themes share a unified premium fintech visual language."}
               </motion.p>
             </div>
           </motion.div>
@@ -329,14 +354,14 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
             </motion.h3>
             <div className="text-neutral-400 text-[16px] leading-relaxed space-y-6">
               <motion.p variants={itemVariants} className="whitespace-pre-line">
-                {t(`projects.${projectKey}.result`) || project.fullDescription?.result || "The redesign improved user confidence and reduced ambiguity in daily financial actions. Support requests decreased due to clearer states and predictable flows. Users understood upcoming payments faster and navigated the app with less friction. The structure strengthened trust — the most valuable currency in fintech."}
+                {t(`projects.${projectKey}.result`) || canonicalProject.fullDescription?.result || "The redesign improved user confidence and reduced ambiguity in daily financial actions. Support requests decreased due to clearer states and predictable flows. Users understood upcoming payments faster and navigated the app with less friction. The structure strengthened trust — the most valuable currency in fintech."}
               </motion.p>
             </div>
           </motion.div>
         </motion.div>
 
         {/* Screens / Gallery */}
-        {project.screens && project.screens.length > 0 ? (
+        {canonicalProject.screens && canonicalProject.screens.length > 0 ? (
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -344,7 +369,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
             viewport={{ once: true, margin: "-10%" }}
             className="space-y-16 mb-24"
           >
-            {project.screens.map((screen, index) => {
+            {canonicalProject.screens.map((screen, index) => {
               const screenKey = `screen${index + 1}`;
               const localizedTitle = t(`projects.${projectKey}.screens.${screenKey}.title`) || screen.title;
               const localizedDescription = t(`projects.${projectKey}.screens.${screenKey}.description`) || screen.description;
@@ -380,26 +405,32 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
                   )}
                 </div>
                 <motion.div
-                  className="w-full bg-[#111] rounded-3xl overflow-hidden border border-white/10 group/image aspect-[16/10] min-h-[220px] md:min-h-[380px]"
+                  className="w-full group/image relative"
                   whileHover={{ scale: 1.01, borderColor: "rgba(255, 107, 53, 0.3)" }}
                   transition={{ duration: 0.3 }}
                 >
-                  <motion.img
-                    src={screen.image}
-                    alt={screen.title}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover block"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                  />
+                  {screen.image ? (
+                    <motion.div
+                      whileHover={{ scale: 1.015 }}
+                      transition={{ duration: 0.45, ease: "easeOut" }}
+                      className="w-full"
+                    >
+                      <MotionMedia
+                        src={screen.image}
+                        alt={screen.title}
+                        aspect="16/10"
+                        className="w-full rounded-3xl bg-[#111] border border-white/10"
+                        imgClassName="transition-transform duration-700 ease-out"
+                      />
+                    </motion.div>
+                  ) : null}
                 </motion.div>
                 </motion.section>
               );
             })}
           </motion.div>
         ) : (
-          project.gallery && (
+          canonicalProject.gallery && (
             <motion.div
               variants={containerVariants}
               initial="hidden"
@@ -407,23 +438,29 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
               viewport={{ once: true, margin: "-10%" }}
               className="grid md:grid-cols-2 gap-8 mb-24"
             >
-              {project.gallery.map((img, i) => (
+              {canonicalProject.gallery.map((img, i) => (
                 <motion.div
                   key={i}
                   custom={i}
                   variants={itemVariants}
-                  className="aspect-[4/3] bg-[#111] rounded-3xl overflow-hidden group"
+                  className="relative group"
                   whileHover={{ scale: 1.02, y: -4 }}
                 >
-                  <motion.img
-                    src={img}
-                    alt={`Gallery ${i}`}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-500"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                  />
+                  {img ? (
+                    <motion.div
+                      whileHover={{ scale: 1.015 }}
+                      transition={{ duration: 0.45, ease: "easeOut" }}
+                      className="w-full"
+                    >
+                      <MotionMedia
+                        src={img}
+                        alt={`Gallery ${i}`}
+                        aspect="4/3"
+                        className="w-full rounded-3xl bg-[#111]"
+                        imgClassName="opacity-80 group-hover:opacity-100 transition-opacity duration-500 transition-transform duration-700 ease-out"
+                      />
+                    </motion.div>
+                  ) : null}
                 </motion.div>
               ))}
             </motion.div>
@@ -454,21 +491,28 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
                     custom={i}
                     variants={listItemVariants}
                     type="button"
-                    onClick={() => onProjectClick(p)}
+                    onClick={() => {
+                      const slugOrId = (p as any)?.slug || p.id;
+                      const canonical =
+                        PROJECTS.find((x) => (x as any)?.slug === slugOrId || x.id === slugOrId) || p;
+                      onProjectClick(canonical);
+                    }}
                     whileHover={{ scale: 1.02, y: -4, borderColor: "rgba(255, 107, 53, 0.6)" }}
                     whileTap={{ scale: 0.98 }}
                     className="group flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-left cursor-pointer hover:bg-white/[0.06] transition-colors"
                   >
                     <motion.div
-                      className="w-28 h-20 md:w-32 md:h-24 rounded-xl overflow-hidden border border-white/10 bg-[#111]"
-                      whileHover={{ scale: 1.05 }}
+                      className="w-28 md:w-32 rounded-xl border border-white/10 bg-[#111] relative overflow-hidden"
+                      // Hover on container, not on img
+                      whileHover={{ scale: 1.03 }}
+                      transition={{ duration: 0.25, ease: "easeOut" }}
                     >
-                      <img
+                      <Media
                         src={p.image}
                         alt={t(p.title)}
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                        aspect="4/3"
+                        className="w-full rounded-xl bg-[#111]"
+                        imgClassName="opacity-80 group-hover:opacity-100 transition-opacity duration-300"
                       />
                     </motion.div>
                     <div className="space-y-1">

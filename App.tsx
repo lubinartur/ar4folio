@@ -36,6 +36,25 @@ const App: React.FC = () => {
   const { language, setLanguage } = useI18n();
   const [isMobile, setIsMobile] = useState(false);
 
+  const getSlugOrIdFromUrl = () => {
+    if (typeof window === 'undefined') return '';
+    const path = window.location.pathname || '/';
+    const parts = path.split('/').filter(Boolean);
+    const idx = parts.indexOf('cases');
+    return idx >= 0 ? parts[idx + 1] || '' : '';
+  };
+
+  // Normalize incoming project objects to the canonical PROJECTS entry (full data).
+  const canonicalize = (p: Project | null) => {
+    if (!p) return p;
+    const key = (p as any)?.slug || p.id;
+    return (
+      PROJECTS.find((x) => (x as any)?.slug === key || x.id === key) ||
+      PROJECTS.find((x) => x.id === p.id) ||
+      p
+    );
+  };
+
   // Disable native browser scroll restoration to avoid Safari/Chrome interference on push/replaceState.
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -206,8 +225,9 @@ const App: React.FC = () => {
 
     if (!isCase) return;
 
-    const projectId = pathname.replace('/cases/', '').split('/')[0];
-    const project = PROJECTS.find((p) => p.id === projectId) || null;
+    const slugOrId = pathname.replace('/cases/', '').split('/')[0];
+    const project =
+      PROJECTS.find((p) => (p as any)?.slug === slugOrId || p.id === slugOrId) || null;
     if (!project) return;
 
     const params = new URLSearchParams(search);
@@ -306,7 +326,8 @@ const App: React.FC = () => {
             <AnimatePresence mode='wait'>
                 {activeProject ? (
                 <ProjectDetail 
-                    key="project-detail"
+                    // IMPORTANT: force remount on case -> related -> case navigation
+                    key={`project-detail-${((activeProject as any)?.slug || activeProject.id || getSlugOrIdFromUrl()) ?? 'unknown'}`}
                     project={activeProject} 
                     onBack={() => {
                       // Deterministic return (no history.back):
@@ -326,10 +347,12 @@ const App: React.FC = () => {
                         getReturnTarget() ||
                         'projects';
 
+                      const canonical = canonicalize(p);
+                      const slugOrId = (canonical as any)?.slug || canonical?.id || (p as any)?.slug || p.id;
                       setReturnTarget(from);
-                      window.history.pushState(null, '', `/cases/${p.id}?from=${encodeURIComponent(from)}`);
+                      window.history.pushState(null, '', `/cases/${slugOrId}?from=${encodeURIComponent(from)}`);
                       setScrollTargetIdOnClose(from);
-                      setActiveProject(p);
+                      setActiveProject(canonical);
                     }}
                 />
                 ) : (
@@ -347,10 +370,12 @@ const App: React.FC = () => {
                     <Projects onProjectClick={(project) => {
                       const from = `project-${project.id}`;
                       // Navigate to case with `from`
+                      const canonical = canonicalize(project);
+                      const slugOrId = (canonical as any)?.slug || canonical?.id || (project as any)?.slug || project.id;
                       setReturnTarget(from);
-                      window.history.pushState(null, '', `/cases/${project.id}?from=${encodeURIComponent(from)}`);
+                      window.history.pushState(null, '', `/cases/${slugOrId}?from=${encodeURIComponent(from)}`);
                       setScrollTargetIdOnClose(from);
-                      setActiveProject(project);
+                      setActiveProject(canonical);
                     }} />
                     <Skills />
                     <Experience />

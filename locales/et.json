@@ -202,19 +202,19 @@
       "result": "Uuendatud rakenduse struktuur vähendas kognitiivset koormust ja lihtsustas otsuste tegemist. Kasutajad said kiiremini selguse oma finantsolukorrast, pöördusid harvemini toe poole ning kasutasid rakenduse põhifunktsioone kindlamalt.",
       "impact": [
         {
-          "value": "+22%",
-          "label": "Õigeaegsed maksed +22%",
-          "description": "Selged finantsseisud. Vähem vigu ja unustamisi."
+          "value": "+19%",
+          "label": "Õigeaegsed maksed +19%",
+          "description": "Bilanss ja tegevused koos."
         },
         {
-          "value": "−26%",
-          "label": "Pöördumised toesse −26%",
-          "description": "Läbipaistev saldo ja staatused. Vähem segadust kasutajatele."
+          "value": "−28%",
+          "label": "Kasutusvead −28%",
+          "description": "Selge finantsülevaade."
         },
         {
           "value": "2×",
-          "label": "Finantsidest arusaamine 2×",
-          "description": "Oluline info kohe nähtav. Otsused sünnivad kiiremini."
+          "label": "Navigeerimine 2× kiirem",
+          "description": "Vajalik leitakse kohe."
         }
       ],
       "screens": {
@@ -257,18 +257,18 @@
       "impact": [
         {
           "value": "+18%",
-          "label": "Taotluse konversioon +18%",
-          "description": "Eristasime Credit Line’i ja Consumer Loan’i — kasutajad valivad tee kiiremini ja liiguvad kindlamalt taotluseni."
+          "label": "Taotluste kasv +18%",
+          "description": "Selge valik algusest."
         },
         {
           "value": "−32%",
           "label": "Katkestused 1. sammul −32%",
-          "description": "Tingimused ja kalkulaator enne voogu — vähem ebakindlust, vähem lahkumisi, rohkem usaldust."
+          "description": "Tingimused enne algust."
         },
         {
           "value": "2.1×",
           "label": "Toote valik 2.1× kiirem",
-          "description": "Erinevus on kohe arusaadav — otsus sünnib ilma lisavõrdlusteta."
+          "description": "Erinevus kohe nähtav."
         }
       ],
       "screens": {
@@ -320,17 +320,17 @@
         {
           "value": "+23%",
           "label": "Iseteeninduse kasutus +23%",
-          "description": "Ühtne konto ja selged staatused. Vähem liikumist süsteemide vahel."
+          "description": "Üks vaade, selged staatused."
         },
         {
           "value": "−26%",
           "label": "Pöördumised tugiteenusesse −26%",
-          "description": "Taotluste ja toodete seisud on selged. Vähem ebakindlust, vähem pöördumisi."
+          "description": "Vähem küsimusi, rohkem selgust."
         },
         {
           "value": "2.4×",
-          "label": "Põhistsenaariumid 2.4× kiiremini",
-          "description": "Navigeerimine on etteaimatav. Kasutajad lõpetavad toimingud kiiremini."
+          "label": "Põhitegevused 2.4× kiiremini",
+          "description": "Ettearvatavad kasutusvood."
         }
       ],
       "screens": {
