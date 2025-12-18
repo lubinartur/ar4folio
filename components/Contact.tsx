@@ -44,7 +44,7 @@ export const Contact: React.FC = () => {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
             <motion.h2
-              className="mx-auto max-w-[34ch] sm:max-w-[36ch] text-center text-6xl sm:text-7xl md:text-7xl lg:text-9xl font-display font-bold tracking-tighter mb-10 md:mb-12 leading-[0.9] text-pretty"
+              className="mx-auto w-full max-w-[34ch] sm:max-w-[36ch] px-4 sm:px-0 text-center text-[clamp(40px,9.5vw,56px)] sm:text-7xl md:text-7xl lg:text-9xl font-display font-bold tracking-tighter mb-10 md:mb-12 leading-[0.9] text-pretty break-words [hyphens:auto] [overflow-wrap:break-word]"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
