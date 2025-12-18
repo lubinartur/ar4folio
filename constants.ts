@@ -88,52 +88,52 @@ export const PROJECTS: Project[] = [
     ],
     screens: [
       {
-        title: "Consumer loan landing (Desktop)",
+        title: "Credit Line (Desktop)",
         description:
-          "Entry point with clear product promise.",
-        image: "/images/paskolos/paskolos-consumer-loan-landing-desktop.jpg"
-      },
-      {
-        title: "Credit limit selection (Desktop)",
-        description:
-          "Limit selection with constraints and instant feedback.",
+          "Основной entry point — кредитная линия (desktop).",
         image: "/images/paskolos/paskolos-credit-limit-selection-desktop.jpg"
       },
       {
-        title: "Terms & application steps (Desktop)",
+        title: "Credit Line (Mobile)",
         description:
-          "Transparent conditions and step-by-step guidance.",
-        image: "/images/paskolos/paskolos-terms-and-apply-steps-desktop.jpg"
-      },
-      {
-        title: "Credit line landing (Desktop)",
-        description:
-          "Dedicated credit line page with focused messaging.",
-        image: "/images/paskolos/paskolos-credit-line-landing-desktop.jpg"
-      },
-      {
-        title: "Product recommendations (Desktop)",
-        description:
-          "Contextual recommendations to improve decision quality.",
-        image: "/images/paskolos/paskolos-product-recommendations-desktop.jpg"
-      },
-      {
-        title: "Why Paskolos (Desktop)",
-        description:
-          "Trust-building section: benefits, partners, social proof.",
-        image: "/images/paskolos/paskolos-why-paskolos-desktop.jpg"
-      },
-      {
-        title: "Consumer loan (Mobile)",
-        description:
-          "Mobile entry screen optimized for quick start.",
+          "Мобильный экран кредитной линии (файл назван неверно).",
         image: "/images/paskolos/paskolos-consumer-loan-landing-mobile.jpg"
       },
       {
-        title: "Credit line (Mobile)",
+        title: "Consumer Loan (Desktop)",
         description:
-          "Mobile credit line entry with clear hierarchy.",
+          "Вторичный продукт — потребительский кредит (desktop).",
+        image: "/images/paskolos/paskolos-consumer-loan-landing-desktop.jpg"
+      },
+      {
+        title: "Consumer Loan: Benefits + 3-step flow",
+        description:
+          "Преимущества + 3 шага оформления.",
+        image: "/images/paskolos/paskolos-why-paskolos-desktop.jpg"
+      },
+      {
+        title: "Consumer Loan (Mobile)",
+        description:
+          "Мобильный экран потребительского кредита (файл назван неверно).",
         image: "/images/paskolos/paskolos-credit-line-landing-mobile.jpg"
+      },
+      {
+        title: "Calculator / Credit limit selection",
+        description:
+          "Интерактивный выбор лимита/суммы и подготовка к CTA.",
+        image: "/images/paskolos/paskolos-credit-line-landing-desktop.jpg"
+      },
+      {
+        title: "Recommended products",
+        description:
+          "Поддержка выбора через альтернативные продукты.",
+        image: "/images/paskolos/paskolos-product-recommendations-desktop.jpg"
+      },
+      {
+        title: "Why Paskolos (Bonuses)",
+        description:
+          "Финальное усиление доверия и причин выбора бренда.",
+        image: "/images/paskolos/paskolos-terms-and-apply-steps-desktop.jpg"
       }
     ],
     featured: true

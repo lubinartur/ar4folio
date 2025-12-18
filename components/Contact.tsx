@@ -44,7 +44,7 @@ export const Contact: React.FC = () => {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
             <motion.h2
-              className="text-5xl md:text-7xl lg:text-9xl font-display font-bold tracking-tighter mb-12 leading-[0.9]"
+              className="text-6xl sm:text-7xl md:text-7xl lg:text-9xl font-display font-bold tracking-tighter mb-10 md:mb-12 leading-[0.9]"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
@@ -63,7 +63,7 @@ export const Contact: React.FC = () => {
                       const beforeLastWord = words.slice(0, -1).join(' ');
                       
                       return (
-                        <span key={lineIndex} className="block whitespace-nowrap">
+                        <span key={lineIndex} className="block whitespace-normal md:whitespace-nowrap">
                           {beforeLastWord && <span className="text-white">{beforeLastWord} </span>}
                           {isLastLine ? (
                             <span className="text-accent">{lastWord}</span>
@@ -85,7 +85,7 @@ export const Contact: React.FC = () => {
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-            className="text-xl text-neutral-400 mb-12 max-w-xl mx-auto font-light font-sans"
+            className="text-lg sm:text-xl text-neutral-300 mb-10 md:mb-12 max-w-xl mx-auto font-light font-sans"
           >
             {t("contact.subtitle")}
           </motion.p>
@@ -111,7 +111,7 @@ export const Contact: React.FC = () => {
                 boxShadow: "0 20px 40px rgba(255, 107, 53, 0.3)",
               }}
               whileTap={{ scale: 0.98 }}
-              className="w-full flex items-center justify-center gap-4 bg-accent text-black px-12 py-6 rounded-full text-lg font-bold font-display uppercase tracking-wider relative overflow-hidden group"
+              className="w-full flex items-center justify-center gap-4 bg-accent text-black px-10 sm:px-12 py-7 sm:py-6 rounded-full text-lg sm:text-lg font-bold font-display uppercase tracking-wider relative overflow-hidden group"
             >
               {/* Shine effect */}
               <motion.div
@@ -120,10 +120,10 @@ export const Contact: React.FC = () => {
                 whileHover={{ x: "100%" }}
                 transition={{ duration: 0.6, ease: "easeInOut" }}
               />
-              <span className="relative z-10">
+              <span className="relative z-10 whitespace-nowrap">
                 {t("contact.formSubmit") || "Get in Touch"}
               </span>
-              <ArrowRight className="w-5 h-5 relative z-10" />
+              <ArrowRight className="w-6 h-6 sm:w-5 sm:h-5 relative z-10" />
             </motion.button>
           </motion.div>
 

@@ -11,10 +11,10 @@ export const FullMenu: React.FC<{ isOpen: boolean; onClose: () => void; onNaviga
   const { t } = useI18n();
   const menuItems = [
     { key: 'home', href: '#home', icon: Home },
-    { key: 'experience', href: '#about', icon: Briefcase },
+    { key: 'experience', href: '#experience', icon: Briefcase },
     { key: 'services', href: '#services', icon: Cpu },
     { key: 'portfolio', href: '#projects', icon: Layers },
-    { key: 'skills', href: '#about', icon: User },
+    { key: 'skills', href: '#skills', icon: User },
     { key: 'contact', href: '#contact', icon: Mail },
   ];
 

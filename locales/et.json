@@ -179,6 +179,7 @@
     "placet": {
       "title": "Placet Group — Mobiilirakendus",
       "role": "Senior Product & UX Designer",
+      "client": "Placet Group",
       "description": "Mobiilirakenduse täielik ümberdisain, keskendudes selgusele, kontrollile ja usaldusele. Ümberehitatud kasutajastsenaariumite arhitektuur, finantsseisundid ja kaardi teekond.",
       "listDescription": "Mobiilirakenduse täielik ümberdisain, keskendudes selgusele, kontrollile ja usaldusele. Ümberehitatud kasutajastsenaariumite arhitektuur, finantsseisundid ja kaardi teekond.",
       "cta": "Vaata projekti",
@@ -219,7 +220,8 @@
     },
     "paskolos": {
       "title": "Paskolos.lt — Krediidiliin",
-      "role": "Product & UX Designer / Klient: Paskolos.lt",
+      "role": "Product & UX Designer",
+      "client": "Paskolos.lt",
       "description": "Krediidiliini tootedisain, rõhutades tingimuste läbipaistvust ja teadlikke otsuseid.",
       "listDescription": "Krediidiliini tootedisain, rõhutades tingimuste läbipaistvust ja teadlikke otsuseid.",
       "cta": "Vaata projekti",
@@ -234,41 +236,42 @@
       "screens": {
         "screen1": {
           "title": "Tarbelaenu sihtleht (Desktop)",
-          "description": "Sisenemispunkt selge toote lubadusega."
+          "description": "Toote sisenemispunkt selge lubadusega ja selge kutsega tegevuseks."
         },
         "screen2": {
           "title": "Krediidilimiidi valik (Desktop)",
-          "description": "Limiidi valik piirangute ja kohese tagasisidega."
+          "description": "Krediidilimiidi valik piirangute ja kohese tagasisidega summa ja tingimuste osas."
         },
         "screen3": {
           "title": "Tingimused ja taotluse sammud (Desktop)",
-          "description": "Läbipaistvad tingimused ja samm-sammuline juhendamine."
+          "description": "Läbipaistvad tingimused ja põhiinfo otsuste tegemiseks ilma varjatud detailideta."
         },
         "screen4": {
           "title": "Krediidiliini sihtleht (Desktop)",
-          "description": "Eraldi krediidiliini leht keskendunud sõnumiga."
+          "description": "Eraldi krediidiliini leht, rõhutades toote eeliseid ja tingimuste kontrolli."
         },
         "screen5": {
           "title": "Toote soovitused (Desktop)",
-          "description": "Kontekstuaalsed soovitused otsuste kvaliteedi parandamiseks."
+          "description": "Kontekstuaalsed soovitused, mis suurendavad valiku asjakohasust ilma kasutajatele survet avaldamata."
         },
         "screen6": {
           "title": "Miks Paskolos (Desktop)",
-          "description": "Usalduse loomise sektsioon: eelised, partnerid, sotsiaalne tõendusmaterjal."
+          "description": "Usalduse loomise sektsioon: tingimused, partnerid ja sotsiaalne tõendusmaterjal."
         },
         "screen7": {
           "title": "Tarbelaen (Mobile)",
-          "description": "Mobiilne sisenemisekraan optimeeritud kiireks alguseks."
+          "description": "Mobiilne sisenemisekraan optimeeritud kiireks alguseks ja minimaalse sammude arvuga."
         },
         "screen8": {
           "title": "Krediidiliin (Mobile)",
-          "description": "Mobiilne krediidiliini sisenemine selge hierarhiaga."
+          "description": "Mobiilne krediidiliini sisenemine selge hierarhiaga, tingimustega ja kutsega tegevuseks."
         }
       }
     },
     "placetSelfservice": {
       "title": "Placet Group — Ühtne iseteenindus",
       "role": "Senior Product & UX Designer",
+      "client": "Placet Group",
       "description": "Ühtne iseteenindusplatvorm mitmele brändile: laenud, kaardid, dokumendid, tugi.",
       "listDescription": "Ühtne iseteenindusplatvorm mitmele brändile: laenud, kaardid, dokumendid, tugi.",
       "cta": "Vaata projekti",
@@ -331,6 +334,7 @@
     "impact": "Mõju",
     "process": "Protsess",
     "client": "Klient",
+    "myRole": "Minu roll",
     "year": "Aasta",
     "focus": "Fookus",
     "onTimeRepayments": "Õigeaegsed tagasimaksed",

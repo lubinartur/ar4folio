@@ -33,7 +33,7 @@ interface ProjectsProps {
 
 const ProjectCard: React.FC<{ project: Project; index: number; totalProjects: number; onClick: () => void }> = React.memo(({ project, index, totalProjects, onClick }) => {
     const { t } = useI18n();
-    const containerRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLElement>(null);
     
     // Use listDescription if available, otherwise fall back to description
     const descriptionKey = project.listDescription || project.description;
@@ -56,8 +56,9 @@ const ProjectCard: React.FC<{ project: Project; index: number; totalProjects: nu
     const smoothTextY = useSpring(textY, { stiffness: 100, damping: 30 });
 
     return (
-        <motion.div 
+        <motion.article 
             ref={containerRef}
+            id={`project-${project.id}`}
             data-project-id={project.id}
             initial={{ opacity: 0, y: 100, filter: "blur(10px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -172,7 +173,7 @@ const ProjectCard: React.FC<{ project: Project; index: number; totalProjects: nu
                     </motion.div>
                 </div>
             </motion.div>
-        </motion.div>
+        </motion.article>
     );
 }, (prevProps, nextProps) => {
     // Memo comparison: only re-render if project data changes
@@ -235,6 +236,9 @@ export const Projects: React.FC<ProjectsProps> = ({ onProjectClick }) => {
             </motion.h2>
           </div>
         </motion.div>
+
+        {/* Anchor: start of project cards list (below section header) */}
+        <div id="projects-start" />
 
         <div className="flex flex-col">
           {PROJECTS.map((project, index) => (

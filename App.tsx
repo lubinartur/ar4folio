@@ -15,11 +15,14 @@ import { Header } from './components/Header';
 import { FullMenu } from './components/FullMenu';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Project } from './types';
+import { PROJECTS } from './constants';
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeProject, setActiveProject] = useState<Project | null>(null);
+  const [scrollToProjectsOnClose, setScrollToProjectsOnClose] = useState(false);
+  const [scrollTargetIdOnClose, setScrollTargetIdOnClose] = useState<string>('projects-start');
   const { language, setLanguage } = useI18n();
   const [isMobile, setIsMobile] = useState(false);
 
@@ -50,6 +53,77 @@ const App: React.FC = () => {
       window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
     }
   }, [activeProject]);
+
+  useEffect(() => {
+    const escapeId = (id: string) => {
+      // CSS.escape not supported in some older browsers
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const cssAny = (window as any).CSS;
+      if (cssAny && typeof cssAny.escape === 'function') return cssAny.escape(id);
+      return id.replace(/[^a-zA-Z0-9_-]/g, '\\$&');
+    };
+
+    if (activeProject !== null) return;
+    if (!scrollToProjectsOnClose) return;
+
+    setScrollToProjectsOnClose(false);
+
+    const target = scrollTargetIdOnClose || 'projects';
+
+    // Keep URL deterministic: always land on Home with hash
+    if (`${window.location.pathname}${window.location.hash}` !== `/#${target}`) {
+      window.history.replaceState(null, '', `/#${target}`);
+    }
+
+    const tryScroll = (attempt = 0) => {
+      const selector = `#${escapeId(target)}`;
+      const element =
+        // If target is the section, land at start of cards list (below header) when available
+        (target === 'projects' ? document.querySelector('#projects-start') : null) ||
+        document.querySelector(selector) ||
+        document.querySelector('#projects-start') ||
+        document.querySelector('#projects');
+
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+
+      if (attempt < 40) {
+        window.requestAnimationFrame(() => tryScroll(attempt + 1));
+      }
+    };
+
+    window.requestAnimationFrame(() => tryScroll(0));
+  }, [activeProject, scrollToProjectsOnClose, scrollTargetIdOnClose]);
+
+  // Support direct open / refresh on case URL:
+  // /cases/:id?from=project-xxx
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const { pathname, search, hash } = window.location;
+    const isCase = pathname.startsWith('/cases/');
+
+    // If we are on main page with hash, ensure scroll on first paint
+    if (!isCase && hash) {
+      const id = hash.replace('#', '');
+      setScrollTargetIdOnClose(id || 'projects');
+      setScrollToProjectsOnClose(true);
+      return;
+    }
+
+    if (!isCase) return;
+
+    const projectId = pathname.replace('/cases/', '').split('/')[0];
+    const project = PROJECTS.find((p) => p.id === projectId) || null;
+    if (!project) return;
+
+    const params = new URLSearchParams(search);
+    const from = params.get('from') || '';
+    setScrollTargetIdOnClose(from || 'projects');
+    setActiveProject(project);
+  }, []);
 
   const handleNavigate = (id: string) => {
     setActiveProject(null); // Close project view if open
@@ -91,16 +165,22 @@ const App: React.FC = () => {
                     key="project-detail"
                     project={activeProject} 
                     onBack={() => {
+                      // Deterministic return (no history.back):
+                      // If from exists -> /#from else /#projects, then guaranteed scroll after Home mounts.
+                      const params = new URLSearchParams(window.location.search);
+                      const from = params.get('from') || '';
+                      const target = from || 'projects';
+                      window.history.pushState(null, '', `/#${target}`);
+                      setScrollTargetIdOnClose(target);
+                      setScrollToProjectsOnClose(true);
                       setActiveProject(null);
-                      // Scroll to Projects section after closing
-                      setTimeout(() => {
-                        const projectsSection = document.querySelector('#projects');
-                        if (projectsSection) {
-                          projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }
-                      }, 300); // Wait for exit animation
                     }}
-                    onProjectClick={setActiveProject}
+                    onProjectClick={(p) => {
+                      // Opening a case from inside a case: fallback to projects as return target
+                      window.history.pushState(null, '', `/cases/${p.id}`);
+                      setScrollTargetIdOnClose('projects-start');
+                      setActiveProject(p);
+                    }}
                 />
                 ) : (
                 <motion.main 
@@ -114,7 +194,13 @@ const App: React.FC = () => {
                       <Hero />
                     </div>
                     <AboutIntro />
-                    <Projects onProjectClick={setActiveProject} />
+                    <Projects onProjectClick={(project) => {
+                      const from = `project-${project.id}`;
+                      // Navigate to case with `from`
+                      window.history.pushState(null, '', `/cases/${project.id}?from=${encodeURIComponent(from)}`);
+                      setScrollTargetIdOnClose(from);
+                      setActiveProject(project);
+                    }} />
                     <Skills />
                     <Experience />
                     <Services />
