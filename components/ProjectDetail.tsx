@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Project } from '../types';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, TrendingUp, ShieldCheck, Zap } from 'lucide-react';
 import { useI18n } from '../services/i18n';
 import { PROJECTS } from '../constants';
 import en from '../locales/en.json';
@@ -109,6 +109,8 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
     { value: "-YY%", label: t("projectDetail.supportQuestions") },
     { value: "3x", label: t("projectDetail.fasterToInsight") }
   ]) as Array<{ value: string; label: string; description?: string }>;
+
+  const impactIcons = [TrendingUp, ShieldCheck, Zap] as const;
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -236,7 +238,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
         </motion.div>
 
-        {/* Case top: Overview (one card) + Impact (stacked metrics) */}
+        {/* Impact (full width) */}
         <section className="pb-16 md:pb-24">
           <motion.div
             variants={containerVariants}
@@ -244,100 +246,45 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
             whileInView="visible"
             viewport={{ once: true, margin: "-10%" }}
           >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-stretch">
-              {/* Overview */}
-              <motion.div variants={itemVariants} className="flex flex-col h-full min-h-0">
-                <motion.h3
-                  className="text-2xl text-white font-display font-bold mb-4"
-                  whileHover={{ x: 4, color: "#ff6b35" }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {t("projectDetail.overview")}
-                </motion.h3>
+            <motion.h3
+              variants={itemVariants}
+              className="text-2xl text-white font-display font-bold mb-4 md:mb-6"
+              whileHover={{ x: 4, color: "#ff6b35" }}
+              transition={{ duration: 0.2 }}
+            >
+              {t("projectDetail.impact")}
+            </motion.h3>
 
-                {/* One overview card (contains 2 blocks) */}
-                <motion.div
-                  variants={cardVariants}
-                  whileHover={{ scale: 1.01, borderColor: "rgba(255, 107, 53, 0.3)" }}
-                  className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm px-6 py-4 transition-all duration-300 flex-1 min-h-0 flex flex-col gap-6"
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-stretch">
+              {impactMetrics.map((item: { value: string; label: string; description?: string }, i: number) => {
+                const Icon = impactIcons[i % impactIcons.length];
+                return (
+                <motion.article
+                  key={i}
+                  custom={i}
+                  variants={listItemVariants}
+                  whileHover={{ borderColor: "rgba(255, 107, 53, 0.3)" }}
+                  className="h-full rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-sm p-6 md:p-8 flex flex-col transition-colors duration-300"
                 >
-                  {/* Block 1: client / role / year */}
-                  <div className="flex flex-col gap-4 text-neutral-400 text-[16px] leading-relaxed">
-                    {[
-                      { label: t("projectDetail.client"), value: clientName },
-                      { label: t("projectDetail.myRole"), value: myRole },
-                      { label: t("projectDetail.year"), value: project.year }
-                    ].map((item, i) => (
-                      <div key={i} className="flex flex-col min-w-0">
-                        <div className="text-xs font-mono uppercase tracking-[0.25em] text-neutral-500 mb-1.5">
-                          {item.label}
-                        </div>
-                        <div className="text-neutral-100 leading-snug">
-                          {item.value}
-                        </div>
-                      </div>
-                    ))}
+                  {/* Icon above title */}
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-accent">
+                    <Icon size={18} />
+                  </span>
+
+                  {/* Title: clamp to 1 line */}
+                  <div className="mt-4 text-accent font-display font-bold text-xl md:text-2xl leading-tight line-clamp-1">
+                    {item.label}
+                    {item.value && !item.label.includes(item.value) ? ` ${item.value}` : ""}
                   </div>
-
-                  {/* Divider */}
-                  <div className="h-px w-full bg-white/10" />
-
-                  {/* Block 2: focus */}
-                  <div className="flex flex-col gap-3">
-                    <div className="text-xs font-mono uppercase tracking-[0.25em] text-neutral-500">
-                      {t("projectDetail.focus")}
+                  {item.description && (
+                    <div className="mt-3 text-white/70 leading-relaxed text-base max-w-[60ch] line-clamp-2">
+                      {item.description}
                     </div>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag, i) => (
-                        <motion.span
-                          key={tag}
-                          custom={i}
-                          variants={listItemVariants}
-                          whileHover={{ scale: 1.05, borderColor: "rgba(255, 107, 53, 0.5)", color: "#ff6b35" }}
-                          className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono uppercase tracking-[0.18em] text-neutral-100 transition-all duration-300 whitespace-nowrap"
-                        >
-                          {tag}
-                        </motion.span>
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
-              </motion.div>
-
-              {/* Impact */}
-              <motion.div variants={itemVariants} className="flex flex-col h-full min-h-0">
-                <motion.h3
-                  className="text-2xl text-white font-display font-bold mb-4"
-                  whileHover={{ x: 4, color: "#ff6b35" }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {t("projectDetail.impact")}
-                </motion.h3>
-
-                <div className="flex flex-col gap-4 flex-1 min-h-0">
-                  {impactMetrics.map((item: { value: string; label: string; description?: string }, i: number) => (
-                    <motion.div
-                      key={i}
-                      custom={i}
-                      variants={listItemVariants}
-                      whileHover={{ scale: 1.02, y: -4, borderColor: "rgba(255, 107, 53, 0.3)" }}
-                      className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm px-6 py-4 transition-all duration-300 flex-1 min-h-0"
-                    >
-                      <div className="text-2xl font-display font-bold text-accent mb-1">
-                        {item.value}
-                      </div>
-                      <p className="text-xs font-mono uppercase tracking-[0.25em] text-neutral-500">
-                        {item.label}
-                      </p>
-                      {item.description && (
-                        <p className="mt-3 text-sm text-neutral-400 leading-relaxed">
-                          {item.description}
-                        </p>
-                      )}
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
+                  )}
+                  <div className="mt-auto" />
+                </motion.article>
+                );
+              })}
             </div>
           </motion.div>
         </section>

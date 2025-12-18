@@ -201,19 +201,19 @@
       "result": "The updated application structure reduced cognitive load and simplified decision-making. Users gained faster clarity about their financial state, contacted support less frequently, and interacted more confidently with key app features.",
       "impact": [
         {
-          "value": "+14%",
-          "label": "Increase in on-time payments",
-          "description": "Clear financial states and guided next actions reduced user errors and missed steps in product management."
+          "value": "+22%",
+          "label": "On-time payments +22%",
+          "description": "Clear financial states. Fewer errors and missed actions."
         },
         {
           "value": "−26%",
-          "label": "Decrease in support requests",
-          "description": "Improved clarity around balance, debt, and available actions reduced the need for customer support."
+          "label": "Support requests −26%",
+          "description": "Transparent balances and statuses. Less confusion, fewer questions."
         },
         {
-          "value": "2.4×",
-          "label": "Faster understanding of financial state",
-          "description": "Users navigate the application faster and make decisions without requiring additional explanations."
+          "value": "×2",
+          "label": "Financial clarity ×2",
+          "description": "Key information is visible instantly. Decisions are made faster."
         }
       ],
       "screens": {
@@ -256,18 +256,18 @@
       "impact": [
         {
           "value": "+18%",
-          "label": "Increase in application conversion",
-          "description": "Clear separation between the credit line and consumer loan helped users choose the right scenario faster and proceed to application with greater confidence."
+          "label": "Application conversion +18%",
+          "description": "Separated Credit Line vs Consumer Loan — users pick the right path faster and proceed with confidence."
         },
         {
           "value": "−32%",
-          "label": "Reduction in early-stage drop-offs",
-          "description": "Clear offers and upfront condition calculation reduced the number of users leaving the flow due to uncertainty."
+          "label": "Step-1 drop-offs −32%",
+          "description": "Made terms and calculator visible before the flow — less uncertainty, fewer exits, higher trust."
         },
         {
           "value": "2.1×",
-          "label": "Faster product selection",
-          "description": "Users understood the differences between products faster and made decisions without additional comparison."
+          "label": "Product choice 2.1× faster",
+          "description": "Differences are obvious at a glance — decisions happen without extra comparison loops."
         }
       ],
       "screens": {
@@ -317,19 +317,19 @@
       "result": "The unified self-service platform simplified product management and reduced cognitive load. Users navigate the system faster, experience fewer breaks between scenarios, and complete key actions with greater confidence.",
       "impact": [
         {
-          "value": "+25%",
-          "label": "Increase in self-service usage",
-          "description": "A unified dashboard and consistent scenarios reduced system switching and encouraged users to complete tasks independently."
+          "value": "+23%",
+          "label": "Self-service usage +23%",
+          "description": "A single account and clear statuses reduced context switching — users complete tasks on their own."
         },
         {
-          "value": "−30%",
-          "label": "Reduction in support requests",
-          "description": "Clear visibility of product, application, and card statuses in one interface reduced the need for customer support."
+          "value": "−26%",
+          "label": "Support tickets −26%",
+          "description": "Transparent request and product statuses reduced uncertainty — fewer users contact support."
         },
         {
-          "value": "2.3×",
-          "label": "Faster completion of key actions",
-          "description": "Users locate relevant scenarios faster and complete actions without losing context between products."
+          "value": "2.4×",
+          "label": "Key flows 2.4× faster",
+          "description": "Navigation and actions became predictable — users find what they need and finish flows faster."
         }
       ],
       "screens": {

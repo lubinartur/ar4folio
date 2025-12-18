@@ -202,19 +202,19 @@
       "result": "Uuendatud rakenduse struktuur vähendas kognitiivset koormust ja lihtsustas otsuste tegemist. Kasutajad said kiiremini selguse oma finantsolukorrast, pöördusid harvemini toe poole ning kasutasid rakenduse põhifunktsioone kindlamalt.",
       "impact": [
         {
-          "value": "+14%",
-          "label": "Õigeaegsete maksete kasv",
-          "description": "Selged finantsseisud ja juhitud järgmised sammud vähendasid vigu ja vahelejäänud tegevusi toodete haldamisel."
+          "value": "+22%",
+          "label": "Õigeaegsed maksed +22%",
+          "description": "Selged finantsseisud. Vähem vigu ja unustamisi."
         },
         {
           "value": "−26%",
-          "label": "Toe poole pöördumiste vähenemine",
-          "description": "Parem arusaam saldost, võlgnevustest ja võimalikest tegevustest vähendas vajadust klienditoe järele."
+          "label": "Pöördumised toesse −26%",
+          "description": "Läbipaistev saldo ja staatused. Vähem segadust kasutajatele."
         },
         {
-          "value": "2.4×",
-          "label": "Kiirem arusaam finantsolukorrast",
-          "description": "Kasutajad orienteeruvad rakenduses kiiremini ja teevad otsuseid ilma täiendavate selgitusteta."
+          "value": "2×",
+          "label": "Finantsidest arusaamine 2×",
+          "description": "Oluline info kohe nähtav. Otsused sünnivad kiiremini."
         }
       ],
       "screens": {
@@ -257,18 +257,18 @@
       "impact": [
         {
           "value": "+18%",
-          "label": "Taotluse konversiooni kasv",
-          "description": "Krediidiliini ja tarbimislaenu selge eristamine võimaldas kasutajatel kiiremini valida sobiva stsenaariumi ja liikuda kindlamalt taotlemise juurde."
+          "label": "Taotluse konversioon +18%",
+          "description": "Eristasime Credit Line’i ja Consumer Loan’i — kasutajad valivad tee kiiremini ja liiguvad kindlamalt taotluseni."
         },
         {
           "value": "−32%",
-          "label": "Vähenenud katkestamised esimeses etapis",
-          "description": "Selged pakkumised ja tingimuste kalkuleerimine enne taotluse algust vähendasid ebakindlusest tingitud katkestamisi."
+          "label": "Katkestused 1. sammul −32%",
+          "description": "Tingimused ja kalkulaator enne voogu — vähem ebakindlust, vähem lahkumisi, rohkem usaldust."
         },
         {
           "value": "2.1×",
-          "label": "Kiirem tootevalik",
-          "description": "Kasutajad mõistsid toodete erinevusi kiiremini ja tegid otsuse ilma täiendava võrdluseta."
+          "label": "Toote valik 2.1× kiirem",
+          "description": "Erinevus on kohe arusaadav — otsus sünnib ilma lisavõrdlusteta."
         }
       ],
       "screens": {
@@ -318,19 +318,19 @@
       "result": "Ühtne iseteeninduskeskkond lihtsustas finantstoodete haldamist ja vähendas kognitiivset koormust. Kasutajad orienteeruvad süsteemis kiiremini, eksivad harvemini stsenaariumide vahel ja täidavad olulisi tegevusi kindlamalt.",
       "impact": [
         {
-          "value": "+25%",
-          "label": "Iseteeninduse kasutamise kasv",
-          "description": "Ühtne iseteeninduskeskkond ja järjepidevad stsenaariumid vähendasid vajadust süsteemide vahel liikuda ja soodustasid iseseisvat tegutsemist."
+          "value": "+23%",
+          "label": "Iseteeninduse kasutus +23%",
+          "description": "Ühtne konto ja selged staatused. Vähem liikumist süsteemide vahel."
         },
         {
-          "value": "−30%",
-          "label": "Toe poole pöördumiste vähenemine",
-          "description": "Toodete, taotluste ja kaartide läbipaistvad olekud ühes liideses vähendasid vajadust klienditoe järele."
+          "value": "−26%",
+          "label": "Pöördumised tugiteenusesse −26%",
+          "description": "Taotluste ja toodete seisud on selged. Vähem ebakindlust, vähem pöördumisi."
         },
         {
-          "value": "2.3×",
-          "label": "Kiirem oluliste tegevuste sooritamine",
-          "description": "Kasutajad leiavad vajaliku stsenaariumi kiiremini ja viivad tegevused lõpule ilma konteksti kaotamata."
+          "value": "2.4×",
+          "label": "Põhistsenaariumid 2.4× kiiremini",
+          "description": "Navigeerimine on etteaimatav. Kasutajad lõpetavad toimingud kiiremini."
         }
       ],
       "screens": {

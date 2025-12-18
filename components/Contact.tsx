@@ -35,7 +35,7 @@ export const Contact: React.FC = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-5xl mx-auto text-center mb-16 md:mb-32">
+        <div className="max-w-5xl mx-auto mb-16 md:mb-32 flex flex-col items-center text-center">
           <motion.div
             style={{ y: smoothTitleY, opacity: smoothTitleOpacity }}
             initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
@@ -44,7 +44,7 @@ export const Contact: React.FC = () => {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
             <motion.h2
-              className="w-full text-center text-6xl sm:text-7xl md:text-7xl lg:text-9xl font-display font-bold tracking-tighter mb-10 md:mb-12 leading-[0.9]"
+              className="mx-auto max-w-[34ch] sm:max-w-[36ch] text-center text-6xl sm:text-7xl md:text-7xl lg:text-9xl font-display font-bold tracking-tighter mb-10 md:mb-12 leading-[0.9] text-pretty"
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
@@ -55,7 +55,7 @@ export const Contact: React.FC = () => {
                 if (lines.length === 0) return title;
                 
                 return (
-                  <span className="inline-flex flex-col items-center w-full">
+                  <span className="inline-flex flex-col items-center">
                     {lines.map((line, lineIndex) => {
                       const isLastLine = lineIndex === lines.length - 1;
                       const trimmedLine = line.trim();
@@ -64,8 +64,8 @@ export const Contact: React.FC = () => {
                       const beforeLastWord = words.slice(0, -1).join(' ');
                       
                       return (
-                        <span key={lineIndex} className="block text-center w-full">
-                          <span className="inline-block whitespace-normal md:whitespace-nowrap">
+                        <span key={lineIndex} className="block text-center">
+                          <span className="inline-block whitespace-normal">
                             {isLastLine ? (
                               <>
                                 {beforeLastWord && <span className="text-white">{beforeLastWord} </span>}
@@ -116,7 +116,7 @@ export const Contact: React.FC = () => {
                 boxShadow: "0 20px 40px rgba(255, 107, 53, 0.3)",
               }}
               whileTap={{ scale: 0.98 }}
-              className="w-full flex items-center justify-center gap-4 bg-accent text-black px-10 sm:px-12 py-7 sm:py-6 rounded-full text-lg sm:text-lg font-bold font-display uppercase tracking-wider relative overflow-hidden group"
+              className="inline-flex items-center justify-center gap-4 bg-accent text-black px-8 sm:px-10 py-6 sm:py-6 rounded-full text-lg sm:text-lg font-bold font-display uppercase tracking-wider relative overflow-hidden group"
             >
               {/* Shine effect */}
               <motion.div

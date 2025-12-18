@@ -68,37 +68,39 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({ job, index, t }) => {
       ref={itemRef}
       variants={itemVariants}
       style={{ y: itemY, opacity: itemOpacity }}
-      whileHover={{ x: 8 }}
-      className="relative pl-12 md:pl-16 group cursor-default"
+      className="relative grid grid-cols-[24px_1fr] gap-6 md:gap-8 group cursor-default"
     >
-      {/* Animated Dot with glow effect */}
-      <motion.div
-        className="absolute left-[-2px] md:left-[-5px] top-3 w-[11px] h-[11px] rounded-full bg-[#0a0a0a] border-2 border-accent z-10"
-        whileHover={{
-          scale: 1.5,
-          backgroundColor: "#ff6b35",
-          boxShadow: "0 0 20px rgba(255, 107, 53, 0.6)",
-        }}
-        initial={{ scale: 1 }}
-        animate={{ scale: 1 }}
-        transition={{
-          type: "spring",
-          stiffness: 300,
-          damping: 20,
-        }}
-      >
-        {/* Glow ring */}
-        <motion.div
-          className="absolute inset-0 rounded-full bg-accent opacity-0"
-          whileHover={{ opacity: 0.3, scale: 2 }}
-          transition={{ duration: 0.3 }}
-        />
-      </motion.div>
+      {/* Timeline column (dot). The vertical line stays global. */}
+      <div className="relative flex justify-center pointer-events-none pt-6 md:pt-8">
+        {/* Dot: aligned to first line of company title */}
+        <motion.span
+          className="relative z-10 mt-[0.62em] w-[11px] h-[11px] rounded-full bg-[#0a0a0a] border-2 border-accent pointer-events-auto"
+          whileHover={{
+            scale: 1.5,
+            backgroundColor: "#ff6b35",
+            boxShadow: "0 0 20px rgba(255, 107, 53, 0.6)",
+          }}
+          initial={{ scale: 1 }}
+          animate={{ scale: 1 }}
+          transition={{
+            type: "spring",
+            stiffness: 300,
+            damping: 20,
+          }}
+        >
+          {/* Glow ring */}
+          <motion.span
+            className="absolute inset-0 rounded-full bg-accent opacity-0 pointer-events-none"
+            whileHover={{ opacity: 0.3, scale: 2 }}
+            transition={{ duration: 0.3 }}
+          />
+        </motion.span>
+      </div>
 
       {/* Content Card with hover effect */}
       <motion.div
         className="relative p-6 md:p-8 rounded-2xl bg-white/0 border border-white/0 group-hover:border-white/10 group-hover:bg-white/5 transition-all duration-500"
-        whileHover={{ scale: 1.01 }}
+        whileHover={{ scale: 1.01, x: 8 }}
       >
         <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-2 mb-3">
           <motion.h3
@@ -236,7 +238,7 @@ export const Experience: React.FC = () => {
         {/* Timeline */}
         <div className="relative space-y-16 mt-10">
           {/* Animated Vertical Line */}
-          <div className="absolute left-[3px] top-4 bottom-4 w-[1px] bg-gradient-to-b from-transparent via-white/10 to-transparent opacity-30 md:left-0 overflow-hidden">
+          <div className="absolute left-[12px] top-4 bottom-4 w-[1px] bg-gradient-to-b from-transparent via-white/10 to-transparent opacity-30 overflow-hidden">
             <motion.div
               className="absolute top-0 left-0 w-full bg-gradient-to-b from-accent via-accent to-transparent"
               style={{
