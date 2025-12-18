@@ -108,7 +108,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
     { value: "+XX%", label: t("projectDetail.onTimeRepayments") },
     { value: "-YY%", label: t("projectDetail.supportQuestions") },
     { value: "3x", label: t("projectDetail.fasterToInsight") }
-  ]) as Array<{value: string, label: string}>;
+  ]) as Array<{ value: string; label: string; description?: string }>;
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -313,7 +313,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
                 </motion.h3>
 
                 <div className="flex flex-col gap-4 flex-1 min-h-0">
-                  {impactMetrics.map((item: { value: string; label: string }, i: number) => (
+                  {impactMetrics.map((item: { value: string; label: string; description?: string }, i: number) => (
                     <motion.div
                       key={i}
                       custom={i}
@@ -327,6 +327,11 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
                       <p className="text-xs font-mono uppercase tracking-[0.25em] text-neutral-500">
                         {item.label}
                       </p>
+                      {item.description && (
+                        <p className="mt-3 text-sm text-neutral-400 leading-relaxed">
+                          {item.description}
+                        </p>
+                      )}
                     </motion.div>
                   ))}
                 </div>
