@@ -11,7 +11,6 @@
     "available": "Saadaval",
     "availableForWork": "Saadaval tööks"
   },
-
   "header": {
     "availableLong": "Saadaval tööks",
     "availableShort": "Saadaval",
@@ -19,18 +18,34 @@
     "menu": "Menüü",
     "close": "Sulge"
   },
-
   "menu": {
-    "home": { "name": "Avaleht", "desc": "Alusta siit" },
-    "experience": { "name": "Kogemus", "desc": "Minu teekond" },
-    "services": { "name": "Teenused", "desc": "Millega tegelen" },
-    "portfolio": { "name": "Portfoolio", "desc": "Valitud tööd" },
-    "skills": { "name": "Oskused", "desc": "Pädevused" },
-    "contact": { "name": "Kontakt", "desc": "Võta ühendust" },
+    "home": {
+      "name": "Avaleht",
+      "desc": "Alusta siit"
+    },
+    "experience": {
+      "name": "Kogemus",
+      "desc": "Minu teekond"
+    },
+    "services": {
+      "name": "Teenused",
+      "desc": "Millega tegelen"
+    },
+    "portfolio": {
+      "name": "Portfoolio",
+      "desc": "Valitud tööd"
+    },
+    "skills": {
+      "name": "Oskused",
+      "desc": "Pädevused"
+    },
+    "contact": {
+      "name": "Kontakt",
+      "desc": "Võta ühendust"
+    },
     "downloadCv": "Laadi alla CV",
     "close": "Sulge"
   },
-
   "hero": {
     "name": "Artur Lubin",
     "title": "Senior Product & UX disainer 9+ aasta kogemusega digitaalsete toodete disainis",
@@ -126,7 +141,6 @@
     "langEn": "Inglise keel — professionaalne töökeel.",
     "langEt": "Eesti keel — baas / suhtlustase."
   },
-
   "services": {
     "kicker": "PÕHITEENUSED",
     "sectionTitle": "Teenused",
@@ -163,7 +177,6 @@
       "description": "Visuaalne toote tugi: logod, tüpograafia, brändivarad."
     }
   },
-
   "projects": {
     "sectionKicker": "Valitud tööd",
     "sectionTitle": "Valitud projektid",
@@ -187,9 +200,18 @@
       "solution": "Kujundasin Placet'i mobiilirakenduse täielikult ümber, keskendudes rahulikule struktuurile, läbipaistvusele ja kiirele arusaadavusele. Autentimine ehitati ümber Smart-ID, Mobile-ID ja Face ID abil, et luua usaldus juba esimesest sammust. Avaleht järgib glance-first loogikat, näidates põhiinfot sekunditega. Loodud on mitmeolekuline finantsarhitektuur: töötlemisel, aktiivne, hilinenud ja tühjad olekud. Tehingute loend on tihe, kuid loetav, selge hierarhia ja värvikodeeritud summadega. Kujundatud on täielik füüsilise kaardi teekond: tellimine, saatmine, ooteaeg, aktiveerimine ja kasutamine. Tume ja hele režiim jagavad ühtset premium-fintech visuaalkeelt.",
       "result": "Vähendatud toe koormus, kasvanud õigeaegsed tagasimaksed, prognoositavam kasutajakogemus.",
       "impact": [
-        { "value": "+14%", "label": "Õigeaegsed tagasimaksed" },
-        { "value": "−26%", "label": "Tugipäringud" },
-        { "value": "2.4×", "label": "Kiirem arusaam" }
+        {
+          "value": "+14%",
+          "label": "Õigeaegsed tagasimaksed"
+        },
+        {
+          "value": "−26%",
+          "label": "Tugipäringud"
+        },
+        {
+          "value": "2.4×",
+          "label": "Kiirem arusaam"
+        }
       ],
       "screens": {
         "screen1": {
@@ -229,9 +251,18 @@
       "solution": "Kujundasin kasutajavoo ümber limiidi valiku, summa ja perioodi mõju ning otsustuskonteksti säilitamise ümber igal etapil.",
       "result": "Puhtam kasutajateekond, vähenenud loobumised taotluse protsessi käigus.",
       "impact": [
-        { "value": "+14%", "label": "Õigeaegsed tagasimaksed" },
-        { "value": "−26%", "label": "Toe päringud" },
-        { "value": "2.4×", "label": "Kiirem ülevaate saamine" }
+        {
+          "value": "+14%",
+          "label": "Õigeaegsed tagasimaksed"
+        },
+        {
+          "value": "−26%",
+          "label": "Toe päringud"
+        },
+        {
+          "value": "2.4×",
+          "label": "Kiirem ülevaate saamine"
+        }
       ],
       "screens": {
         "screen1": {
@@ -279,9 +310,18 @@
       "solution": "Ma kavandasin ühtse iseteenindusportaali, mis toimib ühise kontokihina kõigile Placet Groupi brändidele. Sõltumata sisenemise brändist jõuab kasutaja ühtsesse keskkonda ühe sisselogimisega. UX põhineb brändineutraalsel tuumal: ühine töölaud kõigi toodete, saldode, maksete ja lepingutega, säilitades samas brändi visuaalse identiteedi. Navigeerimine ja kasutusvood ühtlustati kõigi toodete vahel.",
       "result": "Lihtsustatud tootestruktuur, kasvanud usaldus ja vähenenud segadus brändide vahel.",
       "impact": [
-        { "value": "+12%", "label": "Õigeaegsed tagasimaksed" },
-        { "value": "−24%", "label": "Toe küsimused" },
-        { "value": "2.2×", "label": "Kiirem ülevaate saamine" }
+        {
+          "value": "+12%",
+          "label": "Õigeaegsed tagasimaksed"
+        },
+        {
+          "value": "−24%",
+          "label": "Toe küsimused"
+        },
+        {
+          "value": "2.2×",
+          "label": "Kiirem ülevaate saamine"
+        }
       ],
       "screens": {
         "screen1": {
@@ -313,8 +353,8 @@
           "description": "Kohaletoimetamise jälgimine + aktiveerimisvoog lihtsa juhendamisega."
         },
         "screen8": {
-          "title": "Sularaha väljavõtmine (Mobile)",
-          "description": "Lihtne sularaha väljavõtmine krediidiliinist pangakontole tagasisidega."
+          "title": "Krediiditaotluse esitamine (Mobile)",
+          "description": "Lühike taotlusvorm krediidikonto avamiseks: taotleja andmed, vajalikud väljad ja taotluse esitamine veebis."
         }
       }
     },
@@ -360,7 +400,6 @@
     "air4Point3": "UX struktureeritud pikaajalise mälu ja otsingu jaoks.",
     "air4Point4": "Integratsioonid tööriistade, dokumentide ja töövoogudega."
   },
-
   "skills": {
     "kicker": "KUIDAS MA TÖÖTAN",
     "sectionTitle": "Staak",
@@ -379,9 +418,8 @@
     "chatgptDescriptor": "Tooteanalüüs, UX-sisu struktuur, töövoogude tugi",
     "midjourneyDescriptor": "Kiire visuaalsete kontseptsioonide uuring tooteideatsiooniks"
   },
-
   "contact": {
-    "heroTitle": "Teeme midagi tõeliselt mõtestatut.",
+    "heroTitle": "Teeme\nmidagi\nmõtestatut.",
     "subtitle": "Toote- ja UX-disain keerukatele toodetele — eriti fintech ja süsteemid reaalsete piirangutega.",
     "cta": "Võta ühendust · LinkedIn",
     "requestQuote": "Saada päring",
@@ -426,7 +464,6 @@
     "email": "Email",
     "footerInfo": "© 2025 Artur Lubin — Product & UX Designer"
   },
-
   "chat": {
     "welcome": "Tere! Olen sinu portfoolio assistent. Võin rääkida finantstehnoloogia kogemusest, projektidest või disainiprotsessist. Kuidas saan aidata?",
     "placeholder": "Esita küsimus...",
@@ -437,7 +474,6 @@
     "q3": "Mis on sinu disainitehnoloogiad?",
     "q4": "Kuidas lähened laenu-UX disainile?"
   },
-
   "assistant": {
     "title": "Assistant",
     "powered": "AI-põhine abiline",
@@ -447,10 +483,9 @@
     "quick3": "Kuidas lähened laenu-UX-ile?",
     "quick4": "Milliseid tööriistu kasutad?"
   },
-
   "languages": {
-  "en": "Inglise",
-  "ru": "Vene",
-  "et": "Eesti"
-}
+    "en": "Inglise",
+    "ru": "Vene",
+    "et": "Eesti"
+  }
 }

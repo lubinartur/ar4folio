@@ -203,9 +203,9 @@ export const PROJECTS: Project[] = [
         image: "/images/placet-selfservice/placet-selfservice-card-delivery-activation-mobile.jpg"
       },
       {
-        title: "Cash-out / withdrawal (Mobile)",
+        title: "Loan application (Mobile)",
         description:
-          "Simple cash-out from credit line to bank account with feedback.",
+          "A short application form to open a credit account: applicant details, required fields, and online submission.",
         image: "/images/placet-selfservice/placet-selfservice-credit-cashout-mobile.jpg"
       }
     ],

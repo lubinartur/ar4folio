@@ -200,7 +200,7 @@ export const Skills: React.FC = () => {
         </motion.div>
 
         {/* Two Column Layout */}
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 lg:gap-12 w-full">
           {/* Left Column: Design Tools */}
           <motion.div
             variants={containerVariants}

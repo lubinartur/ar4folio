@@ -29,13 +29,13 @@ export const Contact: React.FC = () => {
     <footer 
       ref={sectionRef}
       id="contact" 
-      className="relative bg-black pt-40 pb-12 overflow-hidden"
+      className="relative bg-black pt-20 md:pt-40 pb-12 overflow-hidden"
     >
       {/* Background gradient effect */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent pointer-events-none" />
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-5xl mx-auto text-center mb-32">
+        <div className="max-w-5xl mx-auto text-center mb-16 md:mb-32">
           <motion.div
             style={{ y: smoothTitleY, opacity: smoothTitleOpacity }}
             initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}

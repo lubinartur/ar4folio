@@ -199,9 +199,18 @@
       "solution": "I redesigned the Placet app end-to-end with a focus on calm structure, transparency, and instant comprehension. Authentication was rebuilt using Smart-ID, Mobile-ID, and Face ID to establish trust from the first interaction. The dashboard follows a glance-first model, showing balance, next payment, and actions within seconds. A multi-state financial architecture was designed: processing, active, overdue, and empty states. The transaction feed was rebuilt into a dense but readable list with clear hierarchy and color-coded amounts. A full physical card journey was designed: ordered, shipped, expected delivery, activation, and active use. Both dark and light themes share a unified premium fintech visual language.",
       "result": "Reduced support load, increased on-time payments, more predictable user experience.",
       "impact": [
-        { "value": "+14%", "label": "On-time repayments" },
-        { "value": "−26%", "label": "Support requests" },
-        { "value": "2.4×", "label": "Faster time to insight" }
+        {
+          "value": "+14%",
+          "label": "On-time repayments"
+        },
+        {
+          "value": "−26%",
+          "label": "Support requests"
+        },
+        {
+          "value": "2.4×",
+          "label": "Faster time to insight"
+        }
       ],
       "screens": {
         "screen1": {
@@ -241,9 +250,18 @@
       "solution": "I separated the two products through distinct hero screens while keeping a consistent offer language.\nFor the Consumer Loan, I combined key benefits and a 3-step application flow into a single block.\nFor the Credit Line, I highlighted the core mechanics through a limit selection calculator.\nThe journey was further supported with product recommendations and a final trust-building block.",
       "result": "The site structure became clearer: Credit Line as the main entry point and Consumer Loan as a separate user scenario. Offers are readable from the first screen, CTAs are supported by explanatory blocks, and trust is reinforced before moving to application.",
       "impact": [
-        { "value": "+14%", "label": "On-time repayments" },
-        { "value": "−26%", "label": "Support requests" },
-        { "value": "2.4×", "label": "Faster time to insight" }
+        {
+          "value": "+14%",
+          "label": "On-time repayments"
+        },
+        {
+          "value": "−26%",
+          "label": "Support requests"
+        },
+        {
+          "value": "2.4×",
+          "label": "Faster time to insight"
+        }
       ],
       "screens": {
         "screen1": {
@@ -291,9 +309,18 @@
       "solution": "I designed a unified self-service portal acting as a shared account layer across all Placet Group brands. Regardless of entry brand, users access a single environment with one login. The UX is built around a brand-agnostic core: a shared dashboard with all products, balances, payments and agreements, while preserving brand identity. Navigation and action flows were unified across all products.",
       "result": "Simplified product structure, increased trust, and reduced confusion between brands.",
       "impact": [
-        { "value": "+12%", "label": "On-time repayments" },
-        { "value": "−24%", "label": "Support questions" },
-        { "value": "2.2×", "label": "Faster to insight" }
+        {
+          "value": "+12%",
+          "label": "On-time repayments"
+        },
+        {
+          "value": "−24%",
+          "label": "Support questions"
+        },
+        {
+          "value": "2.2×",
+          "label": "Faster to insight"
+        }
       ],
       "screens": {
         "screen1": {
@@ -325,8 +352,8 @@
           "description": "Delivery tracking + activation flow with frictionless guidance."
         },
         "screen8": {
-          "title": "Cash-out / withdrawal (Mobile)",
-          "description": "Simple cash-out from credit line to bank account with feedback."
+          "title": "Loan application (Mobile)",
+          "description": "A short application form to open a credit account: applicant details, required fields, and online submission."
         }
       }
     },
@@ -374,7 +401,7 @@
     "midjourneyDescriptor": "Rapid visual concept exploration for product ideation"
   },
   "contact": {
-    "heroTitle": "Let's work on something meaningful.",
+    "heroTitle": "Let's work on\nsomething\nmeaningful.",
     "subtitle": "Product & UX design for complex products — especially fintech and systems with real constraints.",
     "cta": "Contact me · LinkedIn",
     "requestQuote": "Request a quote",
