@@ -42,7 +42,7 @@ export const Header: React.FC<{
     >
        {/* Left: Status Badge Only (not clickable) */}
        <div className="flex items-center gap-4">
-         <div className="flex items-center gap-2 h-[42px] px-4 bg-white/5 backdrop-blur-md rounded-full border border-white/10">
+         <div className="flex items-center gap-2 h-[42px] px-4 bg-black/40 backdrop-blur-md rounded-full border border-white/10">
            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.9)]" />
            <span className="text-neutral-300 text-xs font-mono uppercase tracking-wider">
              <span className="hidden sm:inline">{t("header.availableLong")}</span>
@@ -59,7 +59,7 @@ export const Header: React.FC<{
             href={CV_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:flex items-center gap-2 h-[42px] px-5 rounded-full bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 text-xs font-mono uppercase tracking-widest text-neutral-300 hover:text-white transition-colors cursor-none"
+            className="hidden md:flex items-center gap-2 h-[42px] px-5 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-md border border-white/10 text-xs font-mono uppercase tracking-widest text-neutral-300 hover:text-white transition-colors cursor-none"
           >
             {t("header.cv")}
           </a>
@@ -67,7 +67,7 @@ export const Header: React.FC<{
           {/* Language Switcher - Icon Based (now also visible on mobile) */}
           <div className="relative flex items-center cursor-none">
             <button
-              className="flex items-center gap-2 h-[42px] px-4 rounded-full bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 text-xs font-mono uppercase tracking-widest text-neutral-300 hover:text-white transition-colors cursor-none"
+              className="flex items-center gap-2 h-[42px] px-4 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-md border border-white/10 text-xs font-mono uppercase tracking-widest text-neutral-300 hover:text-white transition-colors cursor-none"
               onClick={() => setIsLangOpen((prev) => !prev)}
             >
               <Globe className="w-4 h-4" />
@@ -108,7 +108,7 @@ export const Header: React.FC<{
           {/* Menu Button - Fixed Width to prevent jumping */}
           <button
             onClick={onMenuToggle}
-            className="group relative h-[42px] w-[48px] sm:w-[130px] flex items-center justify-center sm:justify-between sm:pl-5 pr-1 bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 rounded-full transition-all cursor-none"
+            className="group relative h-[42px] w-[48px] sm:w-[130px] flex items-center justify-center sm:justify-between sm:pl-5 pr-1 bg-black/40 hover:bg-black/60 backdrop-blur-md border border-white/10 rounded-full transition-all cursor-none"
           >
             {/* Text Label - Absolute positioned for smooth transition */}
             <div className="hidden sm:block relative h-4 w-16 overflow-hidden">
