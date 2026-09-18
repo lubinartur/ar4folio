@@ -1,14 +1,36 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
+const MAX_MESSAGE_LENGTH = 600;
+const RATE_LIMIT = 15; // requests per IP per window
+const RATE_WINDOW_MS = 10 * 60 * 1000;
+const hits = new Map<string, { count: number; resetAt: number }>();
+
+// Best-effort per-instance limiter (serverless instances do not share memory).
+function isRateLimited(ip: string) {
+  const now = Date.now();
+  const entry = hits.get(ip);
+  if (!entry || entry.resetAt < now) {
+    hits.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
+    return false;
+  }
+  entry.count += 1;
+  return entry.count > RATE_LIMIT;
+}
+
 export default async function handler(req: any, res: any) {
   if (req.method !== 'POST') {
     // Для проверки в браузере GET отдаём 405, чтобы видеть, что функция жива
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  const ip = String(req.headers?.['x-forwarded-for'] || 'unknown').split(',')[0].trim();
+  if (isRateLimited(ip)) {
+    return res.status(429).json({ error: 'Too many requests' });
+  }
+
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
-    return res.status(500).json({ error: 'Missing OPENAI_API_KEY on server' });
+    return res.status(500).json({ error: 'Server misconfigured' });
   }
 
     try {
@@ -16,6 +38,9 @@ export default async function handler(req: any, res: any) {
 
     if (!message || typeof message !== 'string') {
       return res.status(400).json({ error: 'No message provided' });
+    }
+    if (message.length > MAX_MESSAGE_LENGTH) {
+      return res.status(400).json({ error: 'Message too long' });
     }
 
     const openAiMessages = [
@@ -54,7 +79,7 @@ export default async function handler(req: any, res: any) {
     if (!openaiResponse.ok) {
       const errorText = await openaiResponse.text();
       console.error('OpenAI error:', errorText);
-      return res.status(500).json({ error: 'OpenAI error', details: errorText });
+      return res.status(502).json({ error: 'Upstream error' });
     }
 
     const data = await openaiResponse.json();

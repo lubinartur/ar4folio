@@ -25,19 +25,26 @@ export const AIChat: React.FC = () => {
   ]);
 
   useEffect(() => {
-    if (isOpen) {
-      // Reset messages to a fresh welcome message on open or language change
-      setMessages([{ role: 'model', text: t("chat.welcome") }]);
+    // Reset to a fresh localized welcome only when the language changes,
+    // so the conversation survives closing and reopening the panel.
+    setMessages([{ role: 'model', text: t("chat.welcome") }]);
+    setSuggestedQuestions([
+      t("chat.q1"),
+      t("chat.q2"),
+      t("chat.q3"),
+      t("chat.q4"),
+    ]);
+  }, [language, t]);
 
-      // Reset suggested questions to localized defaults
-      setSuggestedQuestions([
-        t("chat.q1"),
-        t("chat.q2"),
-        t("chat.q3"),
-        t("chat.q4"),
-      ]);
-    }
-  }, [isOpen, language, t]);
+  // Close on Escape
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [isOpen]);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -129,11 +136,13 @@ export const AIChat: React.FC = () => {
         {isOpen && (
           <motion.div
             ref={panelRef}
+            role="dialog"
+            aria-label="Assistant"
             initial={{ opacity: 0, y: 40, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="fixed bottom-24 right-6 w-[90vw] md:w-[400px] h-[600px] max-h-[80vh] z-50 glass-panel rounded-2xl flex flex-col shadow-2xl overflow-hidden border border-white/10"
+            className="fixed bottom-20 md:bottom-24 right-[5vw] md:right-6 w-[90vw] md:w-[400px] h-[600px] max-h-[80vh] z-50 glass-panel rounded-2xl flex flex-col shadow-2xl overflow-hidden border border-white/10"
           >
             {/* Header */}
             <div className="p-5 border-b border-white/5 bg-[#0A0A0A]/90 backdrop-blur-xl flex justify-between items-center relative z-10">
@@ -207,7 +216,8 @@ export const AIChat: React.FC = () => {
             {/* Input Area */}
             <div className="p-4 bg-[#0A0A0A] border-t border-white/10">
               <div className="flex items-center gap-2 bg-[#141414] rounded-xl px-4 py-3 border border-white/5 focus-within:border-accent/50 transition-colors">
-                <input 
+                <input
+                  maxLength={600} 
                   type="text" 
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
@@ -234,9 +244,11 @@ export const AIChat: React.FC = () => {
       <motion.button
         ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
+        aria-label={isOpen ? 'Close assistant' : 'Open assistant'}
+        aria-expanded={isOpen}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className={`fixed bottom-6 right-6 z-50 p-4 rounded-full shadow-2xl backdrop-blur-md border transition-all duration-300 group ${
+        className={`fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 p-3.5 md:p-4 rounded-full shadow-2xl backdrop-blur-md border transition-all duration-300 group ${
             isOpen 
             ? 'bg-neutral-800 border-neutral-700 text-neutral-400' 
             : 'bg-[#111] border-accent/30 text-accent shadow-[0_0_20px_rgba(255,61,0,0.2)] hover:shadow-[0_0_30px_rgba(255,61,0,0.4)]'

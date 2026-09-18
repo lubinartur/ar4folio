@@ -15,7 +15,7 @@ export const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) 
 
   useEffect(() => {
     // Much faster on mobile devices
-    const duration = isMobile ? 400 : 2000; // 0.4s on mobile, 2s on desktop
+    const duration = isMobile ? 400 : 1400; // 0.4s on mobile, 1.4s on desktop
     const intervalTime = isMobile ? 8 : 20;
     const steps = duration / intervalTime;
     const increment = 100 / steps;
@@ -33,7 +33,7 @@ export const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) 
 
     const completeTimer = setTimeout(() => {
       onComplete();
-    }, duration + (isMobile ? 100 : 800)); // Much shorter wait on mobile
+    }, duration + (isMobile ? 100 : 500)); // Much shorter wait on mobile
 
     return () => {
       clearInterval(timer);
@@ -72,7 +72,7 @@ export const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) 
          <div className="h-12 md:h-16 overflow-hidden relative">
             <motion.div 
                animate={{ y: ["0%", "-33%", "-66%"] }}
-               transition={{ duration: 1.8, times: [0, 0.6, 1], ease: "easeInOut" }}
+               transition={{ duration: 1.4, times: [0, 0.6, 1], ease: "easeInOut" }}
                className="flex flex-col items-center"
             >
                 <span className="text-4xl md:text-6xl font-display font-bold text-neutral-800 h-12 md:h-16 flex items-center justify-center">Design</span>

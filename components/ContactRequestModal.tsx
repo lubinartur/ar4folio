@@ -245,6 +245,9 @@ export const ContactRequestModal: React.FC<ContactRequestModalProps> = ({ isOpen
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Contact request"
               className="relative w-full max-w-[720px] bg-[#0a0a0a] border border-white/10 rounded-3xl shadow-2xl pointer-events-auto overflow-hidden"
             >
               {/* Close button */}

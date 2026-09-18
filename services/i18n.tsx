@@ -23,6 +23,12 @@ const dictionaries: Record<Language, Messages> = {
 
 const STORAGE_KEY = "portfolio-lang";
 
+const META_DESCRIPTION: Record<Language, string> = {
+  en: "Senior Product & UX Designer with 9+ years of experience in fintech: credit products, payments, personal accounts and analytical interfaces.",
+  ru: "Senior Product & UX Designer с опытом более 9 лет в финтехе: кредитные продукты, платежи, личные кабинеты и аналитические интерфейсы.",
+  et: "Senior Product & UX Designer üle 9-aastase kogemusega fintechis: krediiditooted, maksed, isiklikud kontod ja analüütilised liidesed.",
+};
+
 const getStoredLanguage = (): Language => {
   if (typeof window === "undefined") return "en";
   
@@ -57,6 +63,14 @@ export const I18nProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [language]);
 
+  useEffect(() => {
+    document.documentElement.lang = language;
+    const description = META_DESCRIPTION[language];
+    document
+      .querySelectorAll('meta[name="description"], meta[property="og:description"], meta[name="twitter:description"]')
+      .forEach((el) => el.setAttribute("content", description));
+  }, [language]);
+
   const value = useMemo<I18nContextType>(
     () => ({
       language,
@@ -70,7 +84,9 @@ export const I18nProvider = ({ children }: { children: ReactNode }) => {
           return acc[part];
         }, dict);
 
-        return typeof result === "string" ? result : key;
+        if (typeof result === "string") return result;
+        const fallback = key.split(".").reduce<any>((acc, part) => (acc ? acc[part] : undefined), dictionaries.en);
+        return typeof fallback === "string" ? fallback : key;
       },
     }),
     [language]

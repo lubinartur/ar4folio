@@ -28,7 +28,17 @@ type ScrollRestorePayload = {
 };
 
 const App: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  // Show the intro only once per session, and never on deep links or for reduced-motion users.
+  const [isLoading, setIsLoading] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    try {
+      if (sessionStorage.getItem('preloader-seen')) return false;
+    } catch {
+      // ignore
+    }
+    if (window.location.pathname.includes('/cases/')) return false;
+    return !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  });
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const [scrollToProjectsOnClose, setScrollToProjectsOnClose] = useState(false);
@@ -305,7 +315,16 @@ const App: React.FC = () => {
       <CustomCursor />
       
       <AnimatePresence mode='wait'>
-        {isLoading && <Preloader onComplete={() => setIsLoading(false)} />}
+        {isLoading && <Preloader
+            onComplete={() => {
+              try {
+                sessionStorage.setItem('preloader-seen', '1');
+              } catch {
+                // ignore
+              }
+              setIsLoading(false);
+            }}
+          />}
       </AnimatePresence>
 
       {!isLoading && (

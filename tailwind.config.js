@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  // Apply hover: variants only on devices that can actually hover (no sticky hover after a tap)
+  future: { hoverOnlyWhenSupported: true },
   content: ['./index.html', './*.{ts,tsx}', './components/**/*.{ts,tsx}', './services/**/*.{ts,tsx}'],
   theme: {
     extend: {

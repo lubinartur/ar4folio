@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Home, Briefcase, Layers, User, Mail, Cpu } from 'lucide-react';
 import { useI18n } from '../services/i18n';
@@ -11,12 +11,22 @@ export const FullMenu: React.FC<{ isOpen: boolean; onClose: () => void; onNaviga
   const { t } = useI18n();
   const menuItems = [
     { key: 'home', href: '#home', icon: Home },
-    { key: 'experience', href: '#experience', icon: Briefcase },
-    { key: 'services', href: '#services', icon: Cpu },
     { key: 'portfolio', href: '#projects', icon: Layers },
     { key: 'skills', href: '#skills', icon: User },
+    { key: 'experience', href: '#experience', icon: Briefcase },
+    { key: 'services', href: '#services', icon: Cpu },
     { key: 'contact', href: '#contact', icon: Mail },
   ];
+
+  // Close on Escape
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [isOpen, onClose]);
 
   return (
     <AnimatePresence>

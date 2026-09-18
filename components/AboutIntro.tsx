@@ -153,7 +153,7 @@ export const AboutIntro: React.FC = () => {
             </motion.div>
 
             <motion.p
-              className="text-base sm:text-lg text-white/70 mb-10 pl-6 md:pl-10 border-l-4 border-transparent"
+              className="text-base sm:text-lg md:text-xl text-white/70 mb-10 max-w-3xl pl-6 md:pl-10 border-l-4 border-transparent"
               variants={textItem}
             >
               {t("about.shortSpecialization")}
