@@ -323,21 +323,21 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
           className="space-y-16 mb-24"
         >
           <motion.div variants={itemVariants}>
-            <h3 className="text-2xl text-white font-display font-bold mb-4">{t("projectDetail.challenge")}</h3>
-            <div className="text-neutral-400 text-[16px] leading-relaxed space-y-3">
+            <h3 className="text-2xl md:text-3xl text-white font-display font-bold mb-4">{t("projectDetail.challenge")}</h3>
+            <div className="text-neutral-300 text-base md:text-lg leading-relaxed max-w-[68ch] space-y-3">
               <p className="whitespace-pre-line">{t(`projects.${projectKey}.challenge`) || project.fullDescription?.challenge || "Managing consumer finance is inherently stressful. Users seek clarity, predictability, and control, yet most financial apps overwhelm them with numbers, legal language, and fragmented flows. Placet's mobile experience suffered from inconsistent user journeys, unclear financial states, and non-uniform interface logic across loans, credit lines, and card features."}</p>
             </div>
           </motion.div>
 
           <motion.div variants={itemVariants}>
             <motion.h3
-              className="text-2xl text-white font-display font-bold mb-4"
+              className="text-2xl md:text-3xl text-white font-display font-bold mb-4"
               whileHover={{ x: 4, color: "#ff6b35" }}
               transition={{ duration: 0.2 }}
             >
               {t("projectDetail.solution")}
             </motion.h3>
-            <div className="text-neutral-400 text-[16px] leading-relaxed space-y-4">
+            <div className="text-neutral-300 text-base md:text-lg leading-relaxed max-w-[68ch] space-y-4">
               <motion.p variants={itemVariants} className="whitespace-pre-line">
                 {t(`projects.${projectKey}.solution`) || canonicalProject.fullDescription?.solution || "I redesigned the Placet app end-to-end with a focus on calm structure, transparency, and instant comprehension. Authentication was rebuilt using Smart-ID, Mobile-ID, and Face ID to establish trust from the first interaction. The dashboard follows a glance-first model, showing balance, next payment, and actions within seconds. A multi-state financial architecture was designed: processing, active, overdue, and empty states. The transaction feed was rebuilt into a dense but readable list with clear hierarchy and color-coded amounts. A full physical card journey was designed: ordered, shipped, expected delivery, activation, and active use. Both dark and light themes share a unified premium fintech visual language."}
               </motion.p>
@@ -346,13 +346,13 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
 
           <motion.div variants={itemVariants}>
             <motion.h3
-              className="text-2xl text-white font-display font-bold mb-4"
+              className="text-2xl md:text-3xl text-white font-display font-bold mb-4"
               whileHover={{ x: 4, color: "#ff6b35" }}
               transition={{ duration: 0.2 }}
             >
               {t("projectDetail.result")}
             </motion.h3>
-            <div className="text-neutral-400 text-[16px] leading-relaxed space-y-6">
+            <div className="text-neutral-300 text-base md:text-lg leading-relaxed max-w-[68ch] space-y-6">
               <motion.p variants={itemVariants} className="whitespace-pre-line">
                 {t(`projects.${projectKey}.result`) || canonicalProject.fullDescription?.result || "The redesign improved user confidence and reduced ambiguity in daily financial actions. Support requests decreased due to clearer states and predictable flows. Users understood upcoming payments faster and navigated the app with less friction. The structure strengthened trust — the most valuable currency in fintech."}
               </motion.p>

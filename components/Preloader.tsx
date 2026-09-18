@@ -63,7 +63,7 @@ export const Preloader: React.FC<{ onComplete: () => void }> = ({ onComplete }) 
             className="text-right"
         >
              <span className="font-mono text-xs text-neutral-500 uppercase tracking-widest block">Portfolio</span>
-             <span className="font-mono text-xs text-white uppercase tracking-widest block">©2025</span>
+             <span className="font-mono text-xs text-white uppercase tracking-widest block">©{new Date().getFullYear()}</span>
         </motion.div>
       </div>
 

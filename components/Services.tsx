@@ -110,7 +110,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index, t }) => {
           </h3>
 
           {/* Description - max 2 lines */}
-          <p className="text-base md:text-lg lg:text-xl text-neutral-300 leading-relaxed group-hover:text-neutral-200 transition-colors duration-300 max-w-2xl line-clamp-2">
+          <p className="text-base md:text-lg lg:text-xl text-neutral-300 leading-relaxed group-hover:text-neutral-200 transition-colors duration-300 max-w-2xl">
             {t(service.description)}
           </p>
         </div>
@@ -136,7 +136,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service, index, t }) => {
             </h3>
 
             {/* Description - muted color, max 2 lines */}
-            <p className="text-sm md:text-base text-neutral-300 leading-snug group-hover:text-neutral-200 transition-colors duration-300 line-clamp-2">
+            <p className="text-sm md:text-base text-neutral-300 leading-snug group-hover:text-neutral-200 transition-colors duration-300">
               {t(service.description)}
             </p>
           </div>
