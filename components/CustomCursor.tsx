@@ -13,13 +13,14 @@ export const CustomCursor: React.FC = () => {
   const mousePos = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
-    // Only show custom cursor on non-touch devices
-    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    if (isTouchDevice) return;
-
-    setIsVisible(true);
+    // Custom cursor only where the primary input is a real, hovering pointer
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    // Tell the CSS it may hide the system cursor (never hide it without a replacement)
+    document.documentElement.classList.add('custom-cursor');
 
     const updateMousePosition = (e: MouseEvent) => {
+      // Reveal the custom cursor only once the mouse has actually moved (no ghost ring at 0,0)
+      setIsVisible(true);
       mousePos.current = { x: e.clientX, y: e.clientY };
       
       // Throttle updates via requestAnimationFrame
@@ -55,7 +56,13 @@ export const CustomCursor: React.FC = () => {
     window.addEventListener('mousemove', updateMousePosition);
     window.addEventListener('mouseover', handleMouseOver);
 
+    // Hide when the pointer leaves the window
+    const handleLeave = () => setIsVisible(false);
+    document.documentElement.addEventListener('mouseleave', handleLeave);
+
     return () => {
+      document.documentElement.classList.remove('custom-cursor');
+      document.documentElement.removeEventListener('mouseleave', handleLeave);
       window.removeEventListener('mousemove', updateMousePosition);
       window.removeEventListener('mouseover', handleMouseOver);
       if (rafId.current !== null) {

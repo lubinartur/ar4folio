@@ -161,8 +161,8 @@ export const Skills: React.FC = () => {
         {/* Section header */}
         <motion.div
           style={{ y: headerY, opacity: headerOpacity }}
-          initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={{ filter: "blur(10px)" }}
+          whileInView={{ filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="mb-8 md:mb-10 pb-4 md:pb-6 border-b border-white/5"

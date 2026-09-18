@@ -197,8 +197,8 @@ export const Projects: React.FC<ProjectsProps> = ({ onProjectClick }) => {
       <div className="container mx-auto px-6 relative z-10">
         <motion.div 
           style={{ y: smoothHeaderY, opacity: smoothHeaderOpacity }}
-          initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={{ filter: "blur(10px)" }}
+          whileInView={{ filter: "blur(0px)" }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className="mb-8 md:mb-12 lg:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 md:pb-12 border-b border-white/5"

@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { useI18n } from './services/i18n';
 import { Hero } from './components/Hero';
 import { Projects } from './components/Projects';
-import { ProjectDetail } from './components/ProjectDetail';
+const ProjectDetail = lazy(() => import('./components/ProjectDetail').then((m) => ({ default: m.ProjectDetail })));
 import { AboutIntro } from './components/AboutIntro';
 import { Skills } from './components/Skills';
 import { Experience } from './components/Experience';
 import { Services } from './components/Services';
 import { Contact } from './components/Contact';
-import { AIChat } from './components/AIChat';
+const AIChat = lazy(() => import('./components/AIChat').then((m) => ({ default: m.AIChat })));
 import { Preloader } from './components/Preloader';
 import { CustomCursor } from './components/CustomCursor';
 import { Header } from './components/Header';
@@ -344,6 +344,7 @@ const App: React.FC = () => {
 
             <AnimatePresence mode='wait'>
                 {activeProject ? (
+                <Suspense fallback={null}>
                 <ProjectDetail 
                     // IMPORTANT: force remount on case -> related -> case navigation
                     key={`project-detail-${((activeProject as any)?.slug || activeProject.id || getSlugOrIdFromUrl()) ?? 'unknown'}`}
@@ -374,13 +375,14 @@ const App: React.FC = () => {
                       setActiveProject(canonical);
                     }}
                 />
+                </Suspense>
                 ) : (
                 <motion.main 
                     key="main-content"
                     initial={{ opacity: 0 }} 
                     animate={{ opacity: 1 }} 
                     exit={{ opacity: 0 }}
-                    transition={{ duration: isMobile ? 0.3 : 0.8 }}
+                    transition={{ duration: isMobile ? 0.25 : 0.45 }}
                 >
                     <div id="home">
                       <Hero />
@@ -404,7 +406,9 @@ const App: React.FC = () => {
                 )}
             </AnimatePresence>
 
-            <AIChat />
+            <Suspense fallback={null}>
+              <AIChat />
+            </Suspense>
         </>
       )}
     </div>

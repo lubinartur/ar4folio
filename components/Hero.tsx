@@ -276,10 +276,25 @@ export const Hero: React.FC = () => {
   useEffect(() => {
     if (isMobile) return;
 
+    let rafId: number | null = null;
+    let lastEvent: MouseEvent | null = null;
+
+    // Coalesce mousemove events into one measurement per frame
     const handleMouseMove = (e: MouseEvent) => {
+      lastEvent = e;
+      if (rafId !== null) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        if (lastEvent) applyTilt(lastEvent);
+      });
+    };
+
+    const applyTilt = (e: MouseEvent) => {
       if (!nameContainerRef.current) return;
       
       const rect = nameContainerRef.current.getBoundingClientRect();
+      // Hero scrolled out of view: no tilt to compute
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
       
@@ -312,6 +327,7 @@ export const Hero: React.FC = () => {
     
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
+      if (rafId !== null) cancelAnimationFrame(rafId);
     };
   }, [isMobile]);
 

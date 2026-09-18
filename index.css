@@ -76,10 +76,13 @@
         }
       }
     
-/* Hide the system cursor only where the custom cursor is shown */
-@media (hover: hover) and (pointer: fine) {
-  body { cursor: none; }
-}
+/* Hide the system cursor only while the custom cursor is active (class set by CustomCursor) */
+html.custom-cursor body { cursor: none; }
+
+/* Components hard-code `cursor-none`; without the custom cursor fall back to the normal one */
+html:not(.custom-cursor) .cursor-none { cursor: auto !important; }
+html:not(.custom-cursor) a.cursor-none,
+html:not(.custom-cursor) button.cursor-none { cursor: pointer !important; }
 
 /* Respect users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
@@ -98,4 +101,11 @@
 }
 :focus:not(:focus-visible) {
   outline: none;
+}
+
+/* Blur-in reveals: never leave a lingering filter (extra compositing layer) after the animation ends,
+   and skip the costly blur entirely on small screens. */
+[style*="; filter: blur(0px)"], [style^="filter: blur(0px)"] { filter: none !important; }
+@media (max-width: 767px) {
+  [style*="; filter: blur"], [style^="filter: blur"] { filter: none !important; }
 }

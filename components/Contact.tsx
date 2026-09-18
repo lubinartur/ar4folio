@@ -36,8 +36,9 @@ export const Contact: React.FC = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-5xl mx-auto mb-16 md:mb-32 flex flex-col items-center text-center">
+          {/* Outer layer: scroll parallax. Inner layer: one-time reveal (kept separate so they don't fight over y/opacity) */}
+          <motion.div style={{ y: smoothTitleY, opacity: smoothTitleOpacity }}>
           <motion.div
-            style={{ y: smoothTitleY, opacity: smoothTitleOpacity }}
             initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-10%" }}
@@ -83,9 +84,10 @@ export const Contact: React.FC = () => {
               })()}
             </motion.h2>
           </motion.div>
+          </motion.div>
           
+          <motion.div style={{ y: smoothSubtitleY }}>
           <motion.p
-            style={{ y: smoothSubtitleY }}
             initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-10%" }}
@@ -94,10 +96,11 @@ export const Contact: React.FC = () => {
           >
             {t("contact.subtitle")}
           </motion.p>
+          </motion.div>
           
           {/* CTA Button to Open Modal */}
+          <motion.div style={{ y: smoothButtonY }} className="w-full max-w-2xl mx-auto">
           <motion.div
-            style={{ y: smoothButtonY }}
             initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
             whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-10%" }}
@@ -106,7 +109,6 @@ export const Contact: React.FC = () => {
               ease: [0.22, 1, 0.36, 1], 
               delay: 0.2
             }}
-            className="w-full max-w-2xl mx-auto"
           >
             <motion.button
               onClick={() => setIsModalOpen(true)}
@@ -130,6 +132,7 @@ export const Contact: React.FC = () => {
               </span>
               <ArrowRight className="w-6 h-6 sm:w-5 sm:h-5 relative z-10" />
             </motion.button>
+          </motion.div>
           </motion.div>
 
           {/* Alternative: Direct email link */}
