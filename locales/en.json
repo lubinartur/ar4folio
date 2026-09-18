@@ -254,58 +254,60 @@
       "cta": "View case",
       "challenge": "At the product entry point, users struggled to quickly understand the difference between a credit line and a consumer loan, as well as determine which option suited their needs.\nFragmented offers and conditions turned the selection process into guesswork, reducing trust before the application even began.",
       "solution": "I separated the two products at both structural and scenario levels, creating clear entry points for the credit line and consumer loan.\nKey decisions included:\n• dedicated hero sections with clear offers for each product,\n• visual and textual explanation of product differences,\n• a simplified three-step flow for consumer loan applications,\n• using the calculator and limit selection as the primary entry point for the credit line.",
-      "result": "The product structure became clear from the very first screen. Users selected the appropriate scenario faster, better understood the terms, and moved to application with greater confidence.\nTrust increased through clear offers and a logical user journey.",
+      "result": "Separate landing pages for the credit line and the consumer loan, a limit selector, a three-step application path and recommended products, designed for desktop and mobile.",
       "impact": [
         {
-          "value": "+18%",
-          "label": "Applications +18%",
-          "description": "Clear path from the start."
+          "value": "2",
+          "label": "Entry points",
+          "description": "Credit line and consumer loan, each with its own landing."
         },
         {
-          "value": "−32%",
-          "label": "Step-1 drop-offs −32%",
-          "description": "Terms visible upfront."
+          "value": "3",
+          "label": "Steps to apply",
+          "description": "A short, numbered application path."
         },
         {
-          "value": "2.1×",
-          "label": "Product choice 2.1× faster",
-          "description": "Differences are obvious."
+          "value": "2",
+          "label": "Platforms",
+          "description": "Desktop and mobile share one structure."
         }
       ],
       "screens": {
         "screen1": {
-          "title": "Consumer loan landing (Desktop)",
-          "description": "The credit line is presented as the primary product with a focus on flexibility and control. Users immediately see the available limit, key terms, and possible actions.\nLimit selection and condition calculation happen before the application starts, reducing uncertainty and supporting informed decision-making."
+          "title": "Credit line landing (Desktop)",
+          "description": "The credit line offer opens the page: a headline, a visual of the available limit and one primary action. The product is explained before any application begins."
         },
         "screen2": {
-          "title": "Credit limit selection (Desktop)",
-          "description": "The mobile version of the credit line preserves the same logic, optimized for quick decisions. Key information and limit selection remain in focus without interface overload."
+          "title": "Credit line landing (Mobile)",
+          "description": "The same credit line offer on mobile: one message, one visual and one primary button, readable without scrolling."
         },
         "screen3": {
-          "title": "Terms & application steps (Desktop)",
-          "description": "The consumer loan is separated into a dedicated scenario with a clear offer and fixed conditions. Users immediately understand the amount, term, and obligations without comparing multiple products."
+          "title": "Consumer loan landing (Desktop)",
+          "description": "The consumer loan has its own landing with a dedicated offer, kept visually and structurally separate from the credit line."
         },
         "screen4": {
-          "title": "Credit line landing (Desktop)",
-          "description": "The consumer loan application process was reduced to three logical steps. Each step answers a specific user question and lowers the barrier to completing the application."
+          "title": "Terms & application steps (Desktop)",
+          "description": "Loan terms laid out in short blocks, followed by a numbered three-step path to submit an application."
         },
         "screen5": {
-          "title": "Product recommendations (Desktop)",
-          "description": "The mobile consumer loan flow is optimized for sequential input and minimal effort. Users can complete the entire process without backtracking or repeated actions."
+          "title": "Consumer loan landing (Mobile)",
+          "description": "The consumer loan offer on mobile, built with the same structure as desktop so the two products stay easy to tell apart."
         },
         "screen6": {
-          "title": "Why Paskolos (Desktop)",
-          "description": "The calculator is used as a decision-making tool rather than a secondary feature. Users can evaluate conditions and select a suitable limit before starting the application."
+          "title": "Credit limit selection (Desktop)",
+          "description": "A slider to choose the credit limit, with the conditions shown before the application starts."
         },
         "screen7": {
-          "title": "Consumer loan (Mobile)",
-          "description": "Recommended products are introduced as a soft extension of the main scenario. They appear at relevant moments without distracting users from their primary goal."
+          "title": "Product recommendations (Desktop)",
+          "description": "Recommended products (a car, shopping and more) as ideas for using the loan, followed by the reasons to choose Paskolos.lt."
         },
         "screen8": {
-          "title": "Credit line (Mobile)",
-          "description": "The final step — application submission — is integrated into the self-service environment. Users complete the process in a familiar context without feeling a disconnected flow."
+          "title": "Why Paskolos (Desktop)",
+          "description": "The key benefits of Paskolos.lt as a grid of short cards, with partner logos underneath."
         }
-      }
+      },
+      "impactTitle": "Key facts",
+      "resultTitle": "Delivered"
     },
     "placetSelfservice": {
       "title": "Placet Group — Unified Self-Service",
@@ -316,58 +318,60 @@
       "cta": "View case",
       "challenge": "Users managed different financial products — loans, credit line, cards, and documents — through fragmented interfaces and scenarios.\nThe lack of a unified environment increased cognitive load, complicated navigation, and made it harder to understand the overall financial picture.",
       "solution": "I designed a unified self-service platform that brings all user products and actions into a single, coherent interface.\nKey decisions included:\n• a unified overview of all financial products and states,\n• consistent navigation across scenarios,\n• reusable UX patterns for actions and statuses,\n• a scalable structure for future products and features.",
-      "result": "The unified self-service platform simplified product management and reduced cognitive load. Users navigate the system faster, experience fewer breaks between scenarios, and complete key actions with greater confidence.",
+      "result": "A single self-service environment for loans, credit lines and cards: application flows, a credit line dashboard, card management and card delivery, designed for desktop and mobile.",
       "impact": [
         {
-          "value": "+23%",
-          "label": "Self-service usage +23%",
-          "description": "One space, clear statuses."
+          "value": "3",
+          "label": "Products, one account",
+          "description": "Loan, credit line and card in a single interface."
         },
         {
-          "value": "−26%",
-          "label": "Support requests −26%",
-          "description": "Fewer questions, more clarity."
+          "value": "2",
+          "label": "Platforms",
+          "description": "Desktop and mobile follow the same logic."
         },
         {
-          "value": "2.4×",
-          "label": "Key actions 2.4× faster",
-          "description": "Predictable user flows."
+          "value": "1",
+          "label": "Unified structure",
+          "description": "One platform designed to serve several brands."
         }
       ],
       "screens": {
         "screen1": {
           "title": "Consumer loan application (Desktop)",
-          "description": "Application entry for financial products starts from a unified interface. Users select the required scenario without switching between separate systems or platforms."
+          "description": "The consumer loan application sits inside the unified interface and follows the same patterns as every other flow, so each step stays in context."
         },
         "screen2": {
           "title": "Credit line application (Desktop)",
-          "description": "The consumer loan application flow is integrated into the unified dashboard and follows consistent UX patterns. Users understand each step without losing context."
+          "description": "The credit line application is a dedicated flow that keeps the overall interface logic, so terms and actions are evaluated in a familiar environment."
         },
         "screen3": {
           "title": "Credit line dashboard (Desktop)",
-          "description": "The credit line application is designed as a dedicated flow while preserving the overall interface logic. Users evaluate terms and actions in a familiar environment."
+          "description": "The credit line dashboard gives a consolidated overview: statuses, payments and key actions in a single view."
         },
         "screen4": {
           "title": "Credit card (Desktop)",
-          "description": "The credit dashboard provides a consolidated overview of active obligations. Users see statuses, payments, and key actions in a single view."
+          "description": "Credit card management is part of the same self-service flow. Actions, from limits to statuses, follow consistent interaction patterns."
         },
         "screen5": {
           "title": "Credit line (Mobile)",
-          "description": "Card management is integrated into the unified self-service flow. All actions — from limits to statuses — follow consistent interaction patterns."
+          "description": "The mobile credit line is built for quick status checks and actions, without cutting functionality."
         },
         "screen6": {
           "title": "Credit card (Mobile)",
-          "description": "The mobile credit line flow is optimized for quick status checks and actions. Users manage the product without losing functionality."
+          "description": "Mobile card management mirrors the desktop logic for a continuous cross-device experience."
         },
         "screen7": {
           "title": "Card delivery & activation (Mobile)",
-          "description": "Mobile card management mirrors the desktop logic, ensuring a continuous cross-device experience."
+          "description": "Card delivery and activation status are shown as a clear stage, so it is obvious what happens next."
         },
         "screen8": {
-          "title": "Loan application (Mobile)",
-          "description": "Card delivery and activation status are shown in real time. Users clearly understand the current stage without contacting support."
+          "title": "Credit cash-out (Mobile)",
+          "description": "Cashing out from the credit line on mobile, using the same flow and patterns as the rest of the platform."
         }
-      }
+      },
+      "impactTitle": "Key facts",
+      "resultTitle": "Delivered"
     },
     "clickHint": "CLICK TO VIEW CASE STUDY",
     "viewCaseStudy": "View case study",

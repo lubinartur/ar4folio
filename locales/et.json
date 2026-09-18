@@ -255,58 +255,60 @@
       "cta": "Vaata projekti",
       "challenge": "Tootesse sisenedes oli kasutajatel keeruline kiiresti mõista krediidiliini ja tarbimislaenu erinevust ning otsustada, milline lahendus neile sobib.\nKillustatud pakkumised ja tingimused muutsid valiku ebamääraseks ning vähendasid usaldust juba enne taotlemise algust.",
       "solution": "Eraldasin kaks toodet nii struktuuri kui ka stsenaariumide tasandil, luues selged sissepääsud krediidiliinile ja tarbimislaenule.\nPeamised lahendused hõlmasid:\n• eraldi hero-ekraanid selgete pakkumistega iga toote jaoks,\n• visuaalne ja tekstiline selgitus toodete erinevustest,\n• lihtsustatud kolmeastmeline tarbimislaenu taotlemise voog,\n• kalkulaatori ja limiidi valiku kasutamine krediidiliini peamise sisenemispunktina.",
-      "result": "Toote struktuur muutus selgeks juba esimesel ekraanil. Kasutajad valisid sobiva stsenaariumi kiiremini, mõistsid tingimusi paremini ning liikusid taotlemise juurde kindlamalt.\nUsaldus toote vastu kasvas tänu selgetele pakkumistele ja loogilisele kasutajateekonnale.",
+      "result": "Eraldi maandumislehed krediidiliinile ja tarbimislaenule, limiidi valik, kolmeastmeline taotlusteekond ja soovitatud tooted, kujundatud töölauale ja mobiilile.",
       "impact": [
         {
-          "value": "+18%",
-          "label": "Taotluste kasv +18%",
-          "description": "Selge valik algusest."
+          "value": "2",
+          "label": "Sisenemispunkti",
+          "description": "Krediidiliin ja tarbimislaen, kummalgi oma maandumisleht."
         },
         {
-          "value": "−32%",
-          "label": "Katkestused 1. sammul −32%",
-          "description": "Tingimused enne algust."
+          "value": "3",
+          "label": "Sammu taotluseks",
+          "description": "Lühike nummerdatud taotlusteekond."
         },
         {
-          "value": "2.1×",
-          "label": "Toote valik 2.1× kiirem",
-          "description": "Erinevus kohe nähtav."
+          "value": "2",
+          "label": "Platvormi",
+          "description": "Töölaud ja mobiil ühe struktuuriga."
         }
       ],
       "screens": {
         "screen1": {
-          "title": "Tarbelaenu sihtleht (Desktop)",
-          "description": "Krediidiliini esitletakse peamise tootena, keskendudes paindlikkusele ja kontrollile. Kasutaja näeb kohe saadaolevat limiiti, põhitingimusi ja võimalikke tegevusi.\nLimiidi valik ja tingimuste arvutamine toimuvad enne taotluse alustamist, vähendades ebakindlust ja toetades teadlikku otsustamist."
+          "title": "Krediidiliini maandumisleht (töölaud)",
+          "description": "Lehe avab krediidiliini pakkumine: pealkiri, saadaoleva limiidi visuaal ja üks põhitegevus. Toodet selgitatakse enne taotluse algust."
         },
         "screen2": {
-          "title": "Krediidilimiidi valik (Desktop)",
-          "description": "Krediidiliini mobiiliversioon säilitab sama loogika, kuid on kohandatud kiireks otsustamiseks. Oluline teave ja limiidi valik on esiplaanil ilma liidese ülekoormuseta."
+          "title": "Krediidiliini maandumisleht (mobiil)",
+          "description": "Sama krediidiliini pakkumine mobiilis: üks sõnum, üks visuaal ja üks põhinupp, loetav ilma kerimata."
         },
         "screen3": {
-          "title": "Tingimused ja taotluse sammud (Desktop)",
-          "description": "Tarbimislaen on eraldatud eraldi stsenaariumina, millel on selge pakkumine ja fikseeritud tingimused. Kasutaja mõistab kohe summat, perioodi ja kohustusi ilma toodete võrdlemiseta."
+          "title": "Tarbimislaenu maandumisleht (töölaud)",
+          "description": "Tarbimislaenul on oma maandumisleht eraldi pakkumisega, visuaalselt ja struktuurselt krediidiliinist lahus."
         },
         "screen4": {
-          "title": "Krediidiliini sihtleht (Desktop)",
-          "description": "Tarbimislaenu taotlemise protsess on vähendatud kolme loogilise sammuni. Iga samm vastab konkreetsele kasutajaküsimusele ja lihtsustab taotluse lõpetamist."
+          "title": "Tingimused ja taotluse sammud (töölaud)",
+          "description": "Laenutingimused lühikeste plokkidena, seejärel nummerdatud kolmeastmeline tee taotluse esitamiseni."
         },
         "screen5": {
-          "title": "Toote soovitused (Desktop)",
-          "description": "Tarbimislaenu mobiilne kasutajavoog on optimeeritud järjestikuseks täitmiseks ja minimaalseks vaevaks. Kasutaja saab kogu protsessi läbida ilma tagasi liikumiseta."
+          "title": "Tarbimislaenu maandumisleht (mobiil)",
+          "description": "Tarbimislaenu pakkumine mobiilis samal struktuuril kui töölaual, et kaht toodet oleks lihtne eristada."
         },
         "screen6": {
-          "title": "Miks Paskolos (Desktop)",
-          "description": "Kalkulaatorit kasutatakse otsuste tegemise tööriistana, mitte kõrvalfunktsioonina. Kasutaja saab enne taotluse alustamist hinnata tingimusi ja valida sobiva limiidi."
+          "title": "Krediidilimiidi valik (töölaud)",
+          "description": "Liugur limiidi valimiseks, tingimused on nähtavad enne taotluse algust."
         },
         "screen7": {
-          "title": "Tarbelaen (Mobile)",
-          "description": "Soovitatud tooted lisatakse peamise stsenaariumi pehme laiendusena. Need ilmuvad sobival hetkel ega hajuta kasutaja tähelepanu põhiteekonnalt."
+          "title": "Soovitatud tooted (töölaud)",
+          "description": "Soovitatud tooted (auto, ostud jm) ideedena laenu kasutamiseks, allpool põhjused, miks valida Paskolos.lt."
         },
         "screen8": {
-          "title": "Krediidiliin (Mobile)",
-          "description": "Viimane etapp — taotluse esitamine — on integreeritud iseteeninduskeskkonda. Kasutaja lõpetab protsessi tuttavas kontekstis ilma katkestatud kasutajateekonnata."
+          "title": "Miks Paskolos (töölaud)",
+          "description": "Paskolos.lt peamised eelised lühikeste kaartide ruudustikuna, allpool partnerite logod."
         }
-      }
+      },
+      "impactTitle": "Põhifaktid",
+      "resultTitle": "Valminud"
     },
     "placetSelfservice": {
       "title": "Placet Group — Ühtne iseteenindus",
@@ -317,58 +319,60 @@
       "cta": "Vaata projekti",
       "challenge": "Kasutajad haldasid erinevaid finantstooteid — laene, krediidiliini, kaarte ja dokumente — eraldiseisvate liideste ja stsenaariumide kaudu.\nÜhtse keskkonna puudumine suurendas kognitiivset koormust, raskendas navigeerimist ja vähendas ülevaadet finantsolukorrast.",
       "solution": "Kujundasin ühtse iseteeninduskeskkonna, mis koondab kõik kasutaja tooted ja tegevused ühte loogilisse liidesesse.\nPeamised lahendused hõlmasid:\n• ühtset ülevaadet kõigist finantstoodetest ja seisunditest,\n• järjepidevat navigeerimist eri stsenaariumide vahel,\n• korduvkasutatavaid UX-malle tegevuste ja olekute jaoks,\n• skaleeritavat struktuuri tulevaste toodete ja funktsioonide lisamiseks.",
-      "result": "Ühtne iseteeninduskeskkond lihtsustas finantstoodete haldamist ja vähendas kognitiivset koormust. Kasutajad orienteeruvad süsteemis kiiremini, eksivad harvemini stsenaariumide vahel ja täidavad olulisi tegevusi kindlamalt.",
+      "result": "Ühtne iseteenindus laenudele, krediidiliinidele ja kaartidele: taotlusvood, krediidiliini töölaud, kaardihaldus ja kaardi kohaletoimetamine, kujundatud töölauale ja mobiilile.",
       "impact": [
         {
-          "value": "+23%",
-          "label": "Iseteeninduse kasutus +23%",
-          "description": "Üks vaade, selged staatused."
+          "value": "3",
+          "label": "Toodet, üks konto",
+          "description": "Laen, krediidiliin ja kaart ühes liideses."
         },
         {
-          "value": "−26%",
-          "label": "Pöördumised tugiteenusesse −26%",
-          "description": "Vähem küsimusi, rohkem selgust."
+          "value": "2",
+          "label": "Platvormi",
+          "description": "Töölaud ja mobiil järgivad sama loogikat."
         },
         {
-          "value": "2.4×",
-          "label": "Põhitegevused 2.4× kiiremini",
-          "description": "Ettearvatavad kasutusvood."
+          "value": "1",
+          "label": "Ühtne struktuur",
+          "description": "Üks platvorm mitme brändi teenindamiseks."
         }
       ],
       "screens": {
         "screen1": {
           "title": "Tarbimislaenu taotlus (Desktop)",
-          "description": "Finantstoodete taotlemine algab ühest liidesest. Kasutaja valib sobiva stsenaariumi ilma eri süsteemide või veebide vahel liikumata."
+          "description": "Tarbimislaenu taotlus asub ühtses liideses ja järgib samu mustreid mis teised voogud, nii jääb iga samm kontekstis."
         },
         "screen2": {
           "title": "Krediidiliini taotlus (Desktop)",
-          "description": "Tarbimislaenu taotlemise protsess on integreeritud ühtsesse iseteenindusse ja järgib samu UX-malle. Kasutaja säilitab kogu protsessi vältel konteksti."
+          "description": "Krediidiliini taotlus on eraldi voog, mis säilitab liidese üldise loogika, nii hinnatakse tingimusi ja tegevusi tuttavas keskkonnas."
         },
         "screen3": {
           "title": "Krediidiliini töölaud (Desktop)",
-          "description": "Krediidiliini taotlus on eraldi stsenaarium, kuid säilitab üldise liidese loogika. Kasutaja hindab tingimusi ja tegevusi tuttavas keskkonnas."
+          "description": "Krediidiliini töölaud annab koondülevaate: staatused, maksed ja põhitegevused ühel vaatel."
         },
         "screen4": {
           "title": "Krediitkaart (Desktop)",
-          "description": "Krediididashboard pakub terviklikku ülevaadet aktiivsetest kohustustest. Kasutaja näeb olekuid, makseid ja peamisi tegevusi ühes vaates."
+          "description": "Krediitkaardi haldus on osa samast iseteeninduse voost. Tegevused, alates limiitidest kuni staatusteni, järgivad ühtseid mustreid."
         },
         "screen5": {
           "title": "Krediidiliin (Mobile)",
-          "description": "Kaardi haldamine on osa ühtsest iseteenindusvoost. Kõik tegevused — alates limiitidest kuni olekuteni — järgivad samu kasutusmalle."
+          "description": "Mobiilne krediidiliin on mõeldud kiireks staatuse kontrolliks ja tegevusteks, funktsionaalsust kärpimata."
         },
         "screen6": {
           "title": "Krediitkaart (Mobile)",
-          "description": "Krediidiliini mobiilne stsenaarium on optimeeritud kiireks olekute kontrolliks ja tegevusteks. Funktsionaalsus säilib ka mobiilis."
+          "description": "Kaardihaldus mobiilis kordab töölaua loogikat, et kogemus oleks seadmeteüleselt katkematu."
         },
         "screen7": {
           "title": "Kaardi kohaletoimetamine ja aktiveerimine (Mobile)",
-          "description": "Kaardi mobiilne haldamine järgib desktop-versiooni loogikat, tagades järjepideva kasutajakogemuse eri seadmetes."
+          "description": "Kaardi kohaletoimetamise ja aktiveerimise staatus on näidatud selge etapina, seega on selge, mis järgmiseks juhtub."
         },
         "screen8": {
-          "title": "Krediiditaotluse esitamine (Mobile)",
-          "description": "Kaardi kohaletoimetamise ja aktiveerimise staatus kuvatakse reaalajas. Kasutaja teab täpselt, millises etapis protsess on, ilma toe poole pöördumata."
+          "title": "Krediidiliini sularaha väljavõtt (mobiil)",
+          "description": "Sularaha väljavõtt krediidiliinilt mobiilis samas voos ja samade mustritega nagu ülejäänud platvormil."
         }
-      }
+      },
+      "impactTitle": "Põhifaktid",
+      "resultTitle": "Valminud"
     },
     "clickHint": "VAATA CASE STUDY’T",
     "viewCaseStudy": "Vaata projekti",
