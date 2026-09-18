@@ -277,7 +277,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
               whileHover={{ x: 4, color: "#ff6b35" }}
               transition={{ duration: 0.2 }}
             >
-              {t("projectDetail.impact")}
+              {projectData?.impactTitle || t("projectDetail.impact")}
             </motion.h3>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 items-stretch">
@@ -350,7 +350,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
               whileHover={{ x: 4, color: "#ff6b35" }}
               transition={{ duration: 0.2 }}
             >
-              {t("projectDetail.result")}
+              {projectData?.resultTitle || t("projectDetail.result")}
             </motion.h3>
             <div className="text-neutral-300 text-base md:text-lg leading-relaxed max-w-[68ch] space-y-6">
               <motion.p variants={itemVariants} className="whitespace-pre-line">

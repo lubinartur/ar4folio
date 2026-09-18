@@ -191,57 +191,59 @@
     "selfServiceSummary": "Single self-service for multiple brands with accounts, repayments, transactions, and notifications.",
     "placet": {
       "title": "Placet Group — Mobile Application",
-      "role": "Senior Product & UX Designer",
+      "role": "Art Director · Product & UX Design",
       "client": "Placet Group",
-      "description": "Complete mobile app redesign with focus on clarity, control, and trust. Rebuilt user scenario architecture, financial states, and card journey.",
-      "listDescription": "Mobile app redesign focused on clear financial states and next best actions across loans, credit line, and card scenarios.",
+      "description": "A financial app for Placet Group, designed from scratch: a credit line, loans and a physical card in one place, built around clear financial states.",
+      "listDescription": "A financial app built from zero: credit line, loans and a physical card in one calm, readable interface.",
       "cta": "View case",
-      "challenge": "Users of the mobile application experienced high cognitive load when managing financial products. Key states — available balance, debt, limits, and next actions — were scattered across different screens and flows.\nAs a result, users often lacked a clear understanding of their current financial state and hesitated when making decisions.",
-      "solution": "I redesigned the mobile application structure with a focus on transparent financial states and clear next actions.\nKey product decisions included:\n• a unified overview of essential financial indicators,\n• clear separation of products (loans, credit line, cards),\n• prioritization of the next logical action for the user,\n• consistent UX patterns and navigation across scenarios.",
-      "result": "The updated application structure reduced cognitive load and simplified decision-making. Users gained faster clarity about their financial state, contacted support less frequently, and interacted more confidently with key app features.",
+      "challenge": "Placet’s customers found it inconvenient to take out and manage credit. There was no single, clear place to see a credit line, a loan or a card, and to act on them right away.",
+      "solution": "Together with a member of Placet’s management, I led the art direction and designed the app from scratch, including its visual language.\nThe main decisions:\n• Sign-in with Smart-ID, Mobile-ID or Face ID, so access is quick and trusted from the first tap.\n• A dashboard that opens on what matters: available amount, next payment and two primary actions.\n• Every product state is named plainly (in processing, active, overdue) with the next action right below it.\n• The physical card journey is a simple timeline: ordered, shipped, expected, activated.\n• Card controls are one tap away: contactless and online payments, PIN, transaction history.\n• One system in dark and light themes.",
+      "result": "The app has not launched yet, so there are no usage results to report. What is finished is the full design: sign-in, dashboard, product states, card journey and card controls, in dark and light themes.",
       "impact": [
         {
-          "value": "+19%",
-          "label": "On-time payments +19%",
-          "description": "Balance and actions in one place."
+          "value": "0→1",
+          "label": "Built from scratch",
+          "description": "Product structure, interface and visual language designed as one system."
         },
         {
-          "value": "−28%",
-          "label": "User errors −28%",
-          "description": "Clear financial overview."
+          "value": "3",
+          "label": "Ways to sign in",
+          "description": "Smart-ID, Mobile-ID and Face ID."
         },
         {
-          "value": "2×",
-          "label": "Navigation 2× faster",
-          "description": "What you need is immediate."
+          "value": "2",
+          "label": "Themes",
+          "description": "Dark and light, from one design system."
         }
       ],
       "screens": {
         "screen1": {
           "title": "Authentication & Face ID onboarding",
-          "description": "A unified overview screen allows users to instantly understand their current financial state: balance, debt, and active products. The main focus is fast clarity without navigating between multiple sections."
+          "description": "Smart-ID and Mobile-ID sign-in behind a short welcome, followed by an optional Face ID step. Secure, but never more than a couple of taps."
         },
         "screen2": {
           "title": "Dashboard — credit line at a glance",
-          "description": "Loans, credit line, and cards were clearly separated at both structural and navigation levels. This removed scenario overlap and helped users navigate available products more efficiently."
+          "description": "Available amount, a repayment progress bar, the next payment date and amount, and two primary actions. The credit line and loans share one pattern, followed by a readable transaction feed."
         },
         "screen3": {
           "title": "Financial states — processing, active and overdue",
-          "description": "For each product, a clear next best action was defined. The interface guides users toward the most relevant step based on their current state and context."
+          "description": "Each product shows its state in plain words (in processing, active, overdue) with the actions that make sense in that state. Overdue debt is flagged at the top of the card, impossible to miss."
         },
         "screen4": {
           "title": "Card ordering and delivery timeline",
-          "description": "The transaction history was redesigned with a focus on readability and hierarchy. Users can quickly understand what happened, when it occurred, and how it affects their financial state."
+          "description": "Ordering a card and following it home: an offer, then a three-step timeline (ordered, shipped, expected), ending in an activation button once the card arrives."
         },
         "screen5": {
           "title": "Black Card controls and safety tools",
-          "description": "UX patterns were unified across all scenarios. This reduced the learning curve and enabled more confident interaction with the application."
+          "description": "Card controls in one place: contactless and online payment switches, transaction history, temporary suspension, PIN reminder and change. Activation takes a three-digit CVV on a native keypad."
         },
         "screen6": {
           "title": "Visual system — dark & light explorations",
-          "description": "The application structure was designed with scalability in mind. New products and features can be added without breaking existing user flows."
+          "description": "One visual language in dark and light themes: orange as the single accent, the honeycomb texture from the Placet brand, and the same components on every screen."
         }
-      }
+      },
+      "resultTitle": "Status",
+      "impactTitle": "Key facts"
     },
     "paskolos": {
       "title": "Paskolos.lt — Credit Line",

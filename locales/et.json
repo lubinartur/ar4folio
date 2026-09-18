@@ -192,57 +192,59 @@
     "selfServiceSummary": "Ühine iseteeninduskeskkond mitmele brändile – konto, maksed, tehingud ja teavitused ühes liideses.",
     "placet": {
       "title": "Placet Group — Mobiilirakendus",
-      "role": "Senior Product & UX Designer",
+      "role": "Art Director · Product & UX Design",
       "client": "Placet Group",
-      "description": "Mobiilirakenduse täielik ümberdisain, keskendudes selgusele, kontrollile ja usaldusele. Ümberehitatud kasutajastsenaariumite arhitektuur, finantsseisundid ja kaardi teekond.",
-      "listDescription": "Mobiilirakenduse ümberkujundus, keskendudes selgetele finantsseisudele ja järgmistele sammudele laenude, krediidiliini ja kaartide puhul.",
+      "description": "Placet Groupi finantsrakendus, mis on kujundatud nullist: krediidiliin, laenud ja füüsiline kaart ühes kohas, selgete finantsseisunditega.",
+      "listDescription": "Nullist loodud finantsrakendus: krediidiliin, laenud ja füüsiline kaart ühes rahulikus, loetavas liideses.",
       "cta": "Vaata projekti",
-      "challenge": "Mobiilirakenduse kasutajad kogesid finantstoodete haldamisel suurt kognitiivset koormust. Olulised seisundid — saadaval olev saldo, võlg, limiidid ja järgmised sammud — olid jaotatud erinevatele ekraanidele ja voogudele.\nSelle tulemusena puudus kasutajatel selge arusaam oma hetke finantsolukorrast ning otsuste tegemine oli ebakindel.",
-      "solution": "Kujundasin mobiilirakenduse uue struktuuri, keskendudes läbipaistvatele finantsseisudele ja selgetele järgmistele sammudele.\nPeamised tootepõhised otsused hõlmasid:\n• ühtset ülevaadet olulistest finantsnäitajatest,\n• toodete selget eristamist (laenud, krediidiliin, kaardid),\n• kasutaja jaoks loogilise järgmise sammu esiletõstmist,\n• ühtseid UX-mustreid ja navigeerimist eri stsenaariumides.",
-      "result": "Uuendatud rakenduse struktuur vähendas kognitiivset koormust ja lihtsustas otsuste tegemist. Kasutajad said kiiremini selguse oma finantsolukorrast, pöördusid harvemini toe poole ning kasutasid rakenduse põhifunktsioone kindlamalt.",
+      "challenge": "Placeti klientidele oli krediidi võtmine ja haldamine ebamugav. Puudus üks selge koht, kus näha krediidiliini, laenu või kaarti ja kohe tegutseda.",
+      "solution": "Koos Placeti juhtkonna esindajaga juhtisin kunstilist suunda ja kujundasin rakenduse nullist, sealhulgas visuaalse keele.\nPeamised otsused:\n• Sisselogimine Smart-ID, Mobiil-ID või Face ID-ga: kiire ja usaldusväärne juba esimesest puudutusest.\n• Avaleht algab olulisega: saadaolev summa, järgmine makse ja kaks põhitegevust.\n• Iga tootestaatus on nimetatud selgelt (töötlemisel, aktiivne, tähtaja ületanud) ja järgmine samm on kohe all.\n• Füüsilise kaardi teekond on lihtne ajatelg: tellitud, teele pandud, oodatav, aktiveeritud.\n• Kaardi haldus ühe puudutusega: kontaktivabad ja internetimaksed, PIN, tehingute ajalugu.\n• Üks süsteem tumedas ja heledas teemas.",
+      "result": "Rakendus pole veel avalikustatud, seega kasutustulemusi veel ei ole. Valmis on kogu disain: sisselogimine, avaleht, tootestaatused, kaardi teekond ja kaardihaldus, tumedas ja heledas teemas.",
       "impact": [
         {
-          "value": "+19%",
-          "label": "Õigeaegsed maksed +19%",
-          "description": "Bilanss ja tegevused koos."
+          "value": "0→1",
+          "label": "Nullist",
+          "description": "Toote struktuur, liides ja visuaalne keel ühe süsteemina."
         },
         {
-          "value": "−28%",
-          "label": "Kasutusvead −28%",
-          "description": "Selge finantsülevaade."
+          "value": "3",
+          "label": "Sisselogimisviisi",
+          "description": "Smart-ID, Mobiil-ID ja Face ID."
         },
         {
-          "value": "2×",
-          "label": "Navigeerimine 2× kiirem",
-          "description": "Vajalik leitakse kohe."
+          "value": "2",
+          "label": "Teemat",
+          "description": "Tume ja hele, ühest disainisüsteemist."
         }
       ],
       "screens": {
         "screen1": {
           "title": "Autentimine ja Face ID onboarding",
-          "description": "Ühtne ülevaateekraan võimaldab kasutajal kiiresti mõista oma hetke finantsolukorda: saldo, võlgnevused ja aktiivsed tooted. Peamine eesmärk on selgus ilma liigse navigeerimiseta."
+          "description": "Smart-ID ja Mobiil-ID sisselogimine pärast lühikest tervitust ning valikuline Face ID samm. Turvaline, kuid mitte üle paari puudutuse."
         },
         "screen2": {
           "title": "Töölaud — krediidiliin ühe pilguga",
-          "description": "Laenud, krediidiliin ja kaardid eristati selgelt nii struktuuri kui ka navigeerimise tasandil. See kõrvaldas stsenaariumide segunemise ja parandas toodetes orienteerumist."
+          "description": "Saadaolev summa, tagasimakse edenemisriba, järgmise makse kuupäev ja summa ning kaks põhitegevust. Krediidiliin ja laenud järgivad sama mustrit, allpool on loetav tehingute voog."
         },
         "screen3": {
           "title": "Finantsseisundid — töötlemisel, aktiivne ja hilinenud",
-          "description": "Iga toote jaoks määratleti selge järgmine parim tegevus. Liides juhib kasutajat loogilise sammuna vastavalt hetkeolukorrale ja kontekstile."
+          "description": "Iga toode näitab oma staatust selgete sõnadega (töötlemisel, aktiivne, tähtaja ületanud) ja pakub vaid sobivaid tegevusi. Võlgnevus on kaardi ülaosas esile tõstetud, seda ei saa märkamata jätta."
         },
         "screen4": {
           "title": "Kaardi tellimine ja kohaletoimetamise ajakava",
-          "description": "Tehinguajaloo disain uuendati, keskendudes loetavusele ja selgele hierarhiale. Kasutajad saavad kiiresti aru, mis juhtus, millal ja kuidas see nende finantsseisu mõjutab."
+          "description": "Kaardi tellimine ja selle teekond koju: pakkumine, seejärel kolmeastmeline ajatelg (tellitud, teele pandud, oodatav) ning pärast kättesaamist aktiveerimisnupp."
         },
         "screen5": {
           "title": "Black Card juhtimine ja turvainstrumendid",
-          "description": "UX-mustrid ühtlustati kõigi stsenaariumide lõikes. See vähendas õppimiskõverat ja suurendas kasutajate kindlustunnet rakenduse kasutamisel."
+          "description": "Kaardi haldus ühes kohas: kontaktivabade ja internetimaksete lülitid, tehingute ajalugu, ajutine peatamine, PIN-i meeldetuletus ja muutmine. Aktiveerimiseks sisestatakse kolmekohaline CVV süsteemse klaviatuuriga."
         },
         "screen6": {
           "title": "Visuaalne süsteem — tume ja hele versioonid",
-          "description": "Rakenduse struktuur kavandati skaleeritavust silmas pidades. Uusi tooteid ja funktsioone saab lisada olemasolevaid kasutajavooge rikkumata."
+          "description": "Üks visuaalne keel tumedas ja heledas teemas: oranž kui ainus aktsent, Placeti brändi kärgtekstuur ja samad komponendid igal ekraanil."
         }
-      }
+      },
+      "resultTitle": "Staatus",
+      "impactTitle": "Põhifaktid"
     },
     "paskolos": {
       "title": "Paskolos.lt — Krediidiliin",
