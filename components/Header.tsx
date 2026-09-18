@@ -69,6 +69,9 @@ export const Header: React.FC<{
             <button
               className="flex items-center gap-2 h-[42px] px-4 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-md border border-white/10 text-xs font-mono uppercase tracking-widest text-neutral-300 hover:text-white transition-colors cursor-none"
               onClick={() => setIsLangOpen((prev) => !prev)}
+              aria-label="Change language"
+              aria-haspopup="listbox"
+              aria-expanded={isLangOpen}
             >
               <Globe className="w-4 h-4" />
               <span className="md:hidden">{language.toUpperCase()}</span>
@@ -108,6 +111,7 @@ export const Header: React.FC<{
           {/* Menu Button - Fixed Width to prevent jumping */}
           <button
             onClick={onMenuToggle}
+            aria-label="Toggle menu"
             className="group relative h-[42px] w-[48px] sm:w-[130px] flex items-center justify-center sm:justify-between sm:pl-5 pr-1 bg-black/40 hover:bg-black/60 backdrop-blur-md border border-white/10 rounded-full transition-all cursor-none"
           >
             {/* Text Label - Absolute positioned for smooth transition */}

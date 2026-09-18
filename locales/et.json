@@ -79,7 +79,7 @@
     "achievementsTitle": "Edu ja saavutused",
     "achievements": {
       "completedProjects": {
-        "value": "53+",
+        "value": "27+",
         "label": "Lõpetatud projekte"
       },
       "yearsDevelopment": {
@@ -87,7 +87,7 @@
         "label": "Aastat arenduses"
       },
       "clientsWorldwide": {
-        "value": "17",
+        "value": "5",
         "label": "Klienti üle maailma"
       }
     }
@@ -472,7 +472,7 @@
       "submitError": "Saatmine ebaõnnestus. Palun proovi uuesti."
     },
     "email": "Email",
-    "footerInfo": "© 2025 Artur Lubin — Product & UX Designer"
+    "footerInfo": "Artur Lubin — Product & UX Designer"
   },
   "chat": {
     "welcome": "Tere! Olen sinu portfoolio assistent. Võin rääkida finantstehnoloogia kogemusest, projektidest või disainiprotsessist. Kuidas saan aidata?",

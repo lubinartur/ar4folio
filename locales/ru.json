@@ -61,7 +61,7 @@
     "achievementsTitle": "Ключевые показатели",
     "achievements": {
       "completedProjects": {
-        "value": "50+",
+        "value": "27+",
         "label": "реализованных продуктов"
       },
       "yearsDevelopment": {
@@ -69,7 +69,7 @@
         "label": "лет в продуктовом дизайне"
       },
       "clientsWorldwide": {
-        "value": "17",
+        "value": "5",
         "label": "клиентов в финтехе и SaaS"
       }
     }
@@ -483,7 +483,7 @@
       "submitError": "Ошибка отправки. Попробуйте еще раз."
     },
     "email": "Email",
-    "footerInfo": "© 2025 Artur Lubin — Product & UX Designer"
+    "footerInfo": "Artur Lubin — Product & UX Designer"
   },
   "chat": {
     "welcome": "Привет! Я помогу быстро оценить мой опыт: финтех, кейсы, подход, дизайн-системы. Что интересно?",

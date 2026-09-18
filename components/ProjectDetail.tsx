@@ -4,7 +4,7 @@ import { Project } from '../types';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { ArrowLeft, ArrowUpRight, TrendingUp, ShieldCheck, Zap } from 'lucide-react';
 import { useI18n } from '../services/i18n';
-import { PROJECTS } from '../constants';
+import { PROJECTS, SOCIAL_LINKS } from '../constants';
 import { Media, MotionMedia } from './Media';
 import en from '../locales/en.json';
 import ru from '../locales/ru.json';
@@ -554,7 +554,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
             </motion.h3>
             <motion.a
               variants={itemVariants}
-              href="mailto:contact@arturlubin.com"
+              href={`mailto:${SOCIAL_LINKS.email}`}
               whileHover={{ scale: 1.05, color: "#ff6b35" }}
               className="inline-flex items-center gap-2 text-3xl md:text-5xl font-display font-bold text-white hover:text-accent transition-colors group"
             >

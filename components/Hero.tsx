@@ -357,7 +357,7 @@ export const Hero: React.FC = () => {
             {/* Image Container with Fade Mask and light sweep */}
             <div className="relative w-full max-w-2xl h-[50vh] md:h-[85vh] mt-10 md:mt-[-5vh] -translate-y-0 md:-translate-y-6 translate-x-0 md:translate-x-0 md:translate-y-0">
               <img 
-                src="/images/hero-artur.png"
+                src="/images/hero-artur.webp"
                 alt="Artur Lubin"
                 loading="eager"
                 fetchPriority="high"
@@ -631,15 +631,6 @@ export const Hero: React.FC = () => {
             </div>
           </div>
         </div>
-        {/* Global subtle noise texture over hero */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-30 opacity-[0.04] mix-blend-soft-light"
-          style={{
-            backgroundImage: "url('/textures/noise.png')",
-            backgroundSize: "auto",
-          }}
-        />
       </section>
 
     </>

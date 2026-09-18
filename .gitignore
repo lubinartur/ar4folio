@@ -22,3 +22,13 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Python / local env
+.venv*/
+__pycache__/
+*.pyc
+.env
+.env.*
+
+# Sync/duplicate artifacts
+* 2.*

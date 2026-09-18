@@ -3,7 +3,7 @@ import { Project, Job, Service } from './types';
 export const SOCIAL_LINKS = {
   email: "contact@arturlubin.com",
   linkedin: "https://www.linkedin.com/in/artur-lubin-0588a0168/",
-  cv: "/Artur_Lubin_CV.pdf" // Placeholder
+  cv: "/cv/artur-lubin-cv-classic.pdf"
 };
 
 export const PROJECTS: Project[] = [
@@ -20,7 +20,7 @@ export const PROJECTS: Project[] = [
       result: "The redesign improved user confidence and reduced ambiguity in daily financial actions. Support requests decreased due to clearer states and predictable flows. Users understood upcoming payments faster and navigated the app with less friction. The structure strengthened trust — the most valuable currency in fintech."
     },
     tags: ["Fintech", "Application Design"],
-    image: "/images/projects/placet-app-cover.jpg", 
+    image: "/images/projects/placet-app-cover.webp", 
     gallery: [
        "https://picsum.photos/800/600?random=1",
        "https://picsum.photos/800/600?random=2"
@@ -30,37 +30,37 @@ export const PROJECTS: Project[] = [
         title: "Authentication & Face ID onboarding",
         description:
           "The journey starts with a secure but minimal login flow using Smart-ID, Mobile-ID and Face ID. The goal is to remove friction while keeping the visual tone calm and trustworthy.",
-        image: "/images/placet/01-authentication.png"
+        image: "/images/placet/01-authentication.webp"
       },
       {
         title: "Dashboard — credit line at a glance",
         description:
           "A high-level overview of the user’s financial situation: remaining amount, next payment date and upcoming payment. The layout is optimised for quick scanning and daily use.",
-        image: "/images/placet/02-dashboard-creditline.png"
+        image: "/images/placet/02-dashboard-creditline.webp"
       },
       {
         title: "Financial states — processing, active and overdue",
         description:
           "Different UI states explain what is happening with the credit line: application in processing, active credit with transactions, a clean empty state and an overdue state with a clear but non-aggressive warning.",
-        image: "/images/placet/03-states-processing-active-overdue.png"
+        image: "/images/placet/03-states-processing-active-overdue.webp"
       },
       {
         title: "Card ordering and delivery timeline",
         description:
           "A step-based flow for physical card ordering: ordered, shipped and expected delivery. The UI uses a simple progress line and copy that reduces anxiety around where the card is in the journey.",
-        image: "/images/placet/04-card-order-timeline.png"
+        image: "/images/placet/04-card-order-timeline.webp"
       },
       {
         title: "Black Card controls and safety tools",
         description:
           "Once the card is active, users get a control panel for contactless payments, internet transactions, temporary freeze and PIN tools. Each control is designed as a clear, tappable tile with strong hierarchy.",
-        image: "/images/placet/05-card-controls.png"
+        image: "/images/placet/05-card-controls.webp"
       },
       {
         title: "Visual system — dark & light explorations",
         description:
           "Two visual directions: a deep, premium dark mode for fintech and a lighter, airy version for clarity. Both share the same structure and interaction patterns, making the system scalable.",
-        image: "/images/placet/06-visual-system-light-dark.png"
+        image: "/images/placet/06-visual-system-light-dark.webp"
       }
     ],
     featured: true
@@ -81,7 +81,7 @@ export const PROJECTS: Project[] = [
         "Cleaner user journey, reduced drop-offs during the application process."
     },
     tags: ["Fintech", "Lending UX", "UX/UI Design"],
-    image: "/images/projects/paskolos-cover.jpg",
+    image: "/images/projects/paskolos-cover.webp",
     gallery: [
       "https://picsum.photos/800/600?random=3",
       "https://picsum.photos/800/600?random=4"
@@ -91,49 +91,49 @@ export const PROJECTS: Project[] = [
         title: "Credit Line (Desktop)",
         description:
           "Основной entry point — кредитная линия (desktop).",
-        image: "/images/paskolos/paskolos-credit-limit-selection-desktop.jpg"
+        image: "/images/paskolos/paskolos-credit-limit-selection-desktop.webp"
       },
       {
         title: "Credit Line (Mobile)",
         description:
           "Мобильный экран кредитной линии (файл назван неверно).",
-        image: "/images/paskolos/paskolos-consumer-loan-landing-mobile.jpg"
+        image: "/images/paskolos/paskolos-consumer-loan-landing-mobile.webp"
       },
       {
         title: "Consumer Loan (Desktop)",
         description:
           "Вторичный продукт — потребительский кредит (desktop).",
-        image: "/images/paskolos/paskolos-consumer-loan-landing-desktop.jpg"
+        image: "/images/paskolos/paskolos-consumer-loan-landing-desktop.webp"
       },
       {
         title: "Consumer Loan: Benefits + 3-step flow",
         description:
           "Преимущества + 3 шага оформления.",
-        image: "/images/paskolos/paskolos-why-paskolos-desktop.jpg"
+        image: "/images/paskolos/paskolos-why-paskolos-desktop.webp"
       },
       {
         title: "Consumer Loan (Mobile)",
         description:
           "Мобильный экран потребительского кредита (файл назван неверно).",
-        image: "/images/paskolos/paskolos-credit-line-landing-mobile.jpg"
+        image: "/images/paskolos/paskolos-credit-line-landing-mobile.webp"
       },
       {
         title: "Calculator / Credit limit selection",
         description:
           "Интерактивный выбор лимита/суммы и подготовка к CTA.",
-        image: "/images/paskolos/paskolos-credit-line-landing-desktop.jpg"
+        image: "/images/paskolos/paskolos-credit-line-landing-desktop.webp"
       },
       {
         title: "Recommended products",
         description:
           "Поддержка выбора через альтернативные продукты.",
-        image: "/images/paskolos/paskolos-product-recommendations-desktop.jpg"
+        image: "/images/paskolos/paskolos-product-recommendations-desktop.webp"
       },
       {
         title: "Why Paskolos (Bonuses)",
         description:
           "Финальное усиление доверия и причин выбора бренда.",
-        image: "/images/paskolos/paskolos-terms-and-apply-steps-desktop.jpg"
+        image: "/images/paskolos/paskolos-terms-and-apply-steps-desktop.webp"
       }
     ],
     featured: true
@@ -154,7 +154,7 @@ export const PROJECTS: Project[] = [
         "The unified portal reduced duplication of interfaces and simplified support, as the team now maintains one self-service system instead of several. For customers, it removed friction around remembering 'where' they took a loan and which site they need to use. The new structure gives a clearer overview of all products in one place and strengthens the perception of Placet Group as a consistent, reliable financial partner."
     },
     tags: ["Fintech", "Self-Service"],
-    image: "/images/projects/placet-selfservice-cover.jpg",
+    image: "/images/projects/placet-selfservice-cover.webp",
     gallery: [
       "https://picsum.photos/800/600?random=5",
       "https://picsum.photos/800/600?random=6"
@@ -164,49 +164,49 @@ export const PROJECTS: Project[] = [
         title: "Consumer loan application (Desktop)",
         description:
           "Streamlined application form with clear fields and validation.",
-        image: "/images/placet-selfservice/placet-selfservice-consumer-loan-application-desktop.jpg"
+        image: "/images/placet-selfservice/placet-selfservice-consumer-loan-application-desktop.webp"
       },
       {
         title: "Credit line application (Desktop)",
         description:
           "Unified onboarding for credit line with transparent steps.",
-        image: "/images/placet-selfservice/placet-selfservice-credit-line-application-desktop.jpg"
+        image: "/images/placet-selfservice/placet-selfservice-credit-line-application-desktop.webp"
       },
       {
         title: "Credit line dashboard (Desktop)",
         description:
           "Account overview: limits, usage, actions, and statuses in one place.",
-        image: "/images/placet-selfservice/placet-selfservice-credit-line-dashboard-desktop.jpg"
+        image: "/images/placet-selfservice/placet-selfservice-credit-line-dashboard-desktop.webp"
       },
       {
         title: "Credit card (Desktop)",
         description:
           "Card overview + controls designed for clarity and security.",
-        image: "/images/placet-selfservice/placet-selfservice-credit-card-desktop.jpg"
+        image: "/images/placet-selfservice/placet-selfservice-credit-card-desktop.webp"
       },
       {
         title: "Credit line (Mobile)",
         description:
           "Mobile credit line overview optimized for quick decisions.",
-        image: "/images/placet-selfservice/placet-selfservice-credit-line-mobile.jpg"
+        image: "/images/placet-selfservice/placet-selfservice-credit-line-mobile.webp"
       },
       {
         title: "Credit card (Mobile)",
         description:
           "Mobile card management with clear primary actions.",
-        image: "/images/placet-selfservice/placet-selfservice-credit-card-mobile.jpg"
+        image: "/images/placet-selfservice/placet-selfservice-credit-card-mobile.webp"
       },
       {
         title: "Card delivery & activation (Mobile)",
         description:
           "Delivery tracking + activation flow with frictionless guidance.",
-        image: "/images/placet-selfservice/placet-selfservice-card-delivery-activation-mobile.jpg"
+        image: "/images/placet-selfservice/placet-selfservice-card-delivery-activation-mobile.webp"
       },
       {
         title: "Loan application (Mobile)",
         description:
           "A short application form to open a credit account: applicant details, required fields, and online submission.",
-        image: "/images/placet-selfservice/placet-selfservice-credit-cashout-mobile.jpg"
+        image: "/images/placet-selfservice/placet-selfservice-credit-cashout-mobile.webp"
       }
     ],
     featured: true

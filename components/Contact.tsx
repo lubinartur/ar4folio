@@ -166,7 +166,7 @@ export const Contact: React.FC = () => {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
             className="text-neutral-500 text-xs font-mono uppercase tracking-widest text-center md:text-left"
           >
-            <span className="text-white">{t("contact.footerInfo")}</span>
+            <span className="text-white">© {new Date().getFullYear()} {t("contact.footerInfo")}</span>
           </motion.div>
           
           <motion.div

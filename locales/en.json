@@ -78,7 +78,7 @@
     "achievementsTitle": "Success & Achievements",
     "achievements": {
       "completedProjects": {
-        "value": "50+",
+        "value": "27+",
         "label": "Delivered products"
       },
       "yearsDevelopment": {
@@ -86,7 +86,7 @@
         "label": "Years in product design"
       },
       "clientsWorldwide": {
-        "value": "17",
+        "value": "5",
         "label": "Clients across fintech & SaaS"
       }
     }
@@ -418,7 +418,7 @@
     "responseTime": "I usually reply within 1–2 business days",
     "linkedin": "LinkedIn",
     "email": "Email",
-    "footerInfo": "© 2025 Artur Lubin — Product & UX Designer",
+    "footerInfo": "Artur Lubin — Product & UX Designer",
     "formName": "Name",
     "formNamePlaceholder": "Your name",
     "formEmail": "Email",
