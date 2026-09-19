@@ -31,7 +31,7 @@ export const MoreWork: React.FC = () => {
           <p className="text-neutral-400 text-base md:text-lg max-w-2xl">{t('moreWork.subtitle')}</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 md:gap-6 lg:gap-8">
           {MORE_WORK.map((item, i) => {
             const base = `moreWork.items.${item.key}`;
             const inner = (

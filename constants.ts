@@ -303,6 +303,12 @@ Do not invent information not provided here.`;
 // `href` is omitted for projects without a public URL.
 export const MORE_WORK: { key: string; image: string; href?: string; tags: string[] }[] = [
   {
+    key: 'ascape',
+    image: '/images/projects/ascape-cover.webp',
+    href: 'https://www.ascape.ee',
+    tags: ['E-commerce', 'Live'],
+  },
+  {
     key: 'toursearch',
     image: '/images/projects/toursearch-cover.webp',
     tags: ['B2B', 'Web app'],
