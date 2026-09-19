@@ -3,7 +3,8 @@ import { Project, Job, Service } from './types';
 export const SOCIAL_LINKS = {
   email: "contact@arturlubin.com",
   linkedin: "https://www.linkedin.com/in/artur-lubin-0588a0168/",
-  cv: "/cv/artur-lubin-cv-classic.pdf"
+  cv: "/cv/artur-lubin-cv-classic.pdf",
+  linkedinRecommendations: "https://www.linkedin.com/in/artur-lubin-0588a0168/details/recommendations/"
 };
 
 export const PROJECTS: Project[] = [
@@ -321,12 +322,13 @@ export const MORE_WORK: { key: string; image: string; href?: string; tags: strin
 ];
 
 // Recommendations from LinkedIn (quoted verbatim; not translated, to stay authentic).
-export const TESTIMONIALS: { name: string; role: string; quote: string; featured?: boolean }[] = [
+export const TESTIMONIALS: { name: string; role: string; quote: string; featured?: boolean; url?: string }[] = [
   {
     name: 'Ruslan Gogin',
     role: 'Founder, PadelTourn',
+    // Paragraphs separated by a blank line; long quotes collapse after the first paragraph.
     quote:
-      'I take immense pleasure in recommending Mr. Artur Lubin for his outstanding abilities as a UX/UI, Graphic, and Product Designer. Artur was a crucial part of our processes for five years, and his impact was nothing short of transformative.',
+      'I take immense pleasure in recommending Mr. Artur Lubin for his outstanding abilities as a UX/UI, Graphic, and Product Designer. Artur was a crucial part of our processes for five years, and his impact was nothing short of transformative.\n\nArtur’s expertise in UX/UI design is truly second to none. His ability to create intuitive and engaging designs always left us in awe. His designs not only captured the essence of our brand but also significantly improved the user experience on our platforms. His relentless focus on the user, understanding their needs, and translating them into practical design solutions was exceptional.\n\nHis proficiency extends to graphic and product design, where he consistently demonstrated an innate talent for capturing and conveying complex ideas through visual representation. Artur\'s eye for detail, and his artistic touch transformed our product line, helping us to distinguish ourselves in a highly competitive market.\n\nArtur is not only an exceptional designer, but he is also a great team player. He brought a positive attitude to every meeting, and his ability to communicate complex design concepts in an understandable manner helped foster a collaborative environment.\n\nIn summary, Artur’s breadth of design skills, his relentless drive for perfection, and his team-oriented approach make him an asset to any organization. I am confident that he will bring the same level of dedication, creativity, and professionalism to his future endeavors as he did during his time with us.',
     featured: true,
   },
   {

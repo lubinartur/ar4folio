@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Quote, ArrowUpRight } from 'lucide-react';
 import { useI18n } from '../services/i18n';
@@ -20,6 +20,72 @@ const cardVariants = {
   }),
 };
 
+type Item = (typeof TESTIMONIALS)[number];
+
+const TestimonialCard: React.FC<{ item: Item; index: number }> = ({ item, index }) => {
+  const { t } = useI18n();
+  const [expanded, setExpanded] = useState(false);
+  const paragraphs = item.quote.split('\n\n');
+  const collapsible = paragraphs.length > 1;
+  const visible = collapsible && !expanded ? paragraphs.slice(0, 1) : paragraphs;
+
+  return (
+    <motion.figure
+      custom={index}
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-8%' }}
+      className="group break-inside-avoid mb-6 rounded-3xl border border-white/10 bg-white/[0.03] p-6 md:p-8 hover:border-accent/30 transition-colors duration-300"
+    >
+      <Quote className="w-7 h-7 text-accent/80 mb-5" aria-hidden="true" />
+      <blockquote
+        className={`space-y-4 text-neutral-300 leading-relaxed group-hover:text-white transition-colors duration-300 ${
+          item.featured ? 'text-lg md:text-xl' : 'text-base'
+        }`}
+      >
+        {visible.map((para, i) => (
+          <p key={i}>
+            {i === 0 && '“'}
+            {para}
+            {i === visible.length - 1 && '”'}
+          </p>
+        ))}
+      </blockquote>
+      {collapsible && (
+        <button
+          type="button"
+          onClick={() => setExpanded((v) => !v)}
+          aria-expanded={expanded}
+          className="mt-4 text-sm font-bold uppercase tracking-widest text-accent hover:text-white transition-colors cursor-none"
+        >
+          {expanded ? t('testimonials.showLess') : t('testimonials.readMore')}
+        </button>
+      )}
+      <figcaption className="mt-6 flex items-center gap-3">
+        <span
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-accent/25 bg-accent/10 text-accent font-display font-bold text-sm"
+          aria-hidden="true"
+        >
+          {initials(item.name)}
+        </span>
+        <span className="block">
+          <span className="block text-white font-display font-bold">
+            {item.url ? (
+              <a href={item.url} target="_blank" rel="noopener noreferrer" className="hover:text-accent transition-colors cursor-none">
+                {item.name}
+              </a>
+            ) : (
+              item.name
+            )}
+          </span>
+          <span className="block text-sm text-neutral-500">{item.role}</span>
+        </span>
+      </figcaption>
+    </motion.figure>
+  );
+};
+
 // Recommendations from LinkedIn. Quotes stay in their original language on purpose.
 export const Testimonials: React.FC = () => {
   const { t } = useI18n();
@@ -38,7 +104,7 @@ export const Testimonials: React.FC = () => {
             <p className="text-neutral-400 text-base md:text-lg max-w-2xl">{t('testimonials.subtitle')}</p>
           </div>
           <a
-            href={SOCIAL_LINKS.linkedin}
+            href={SOCIAL_LINKS.linkedinRecommendations}
             target="_blank"
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white hover:text-accent transition-colors cursor-none self-start md:self-auto"
@@ -50,36 +116,7 @@ export const Testimonials: React.FC = () => {
 
         <div className="columns-1 md:columns-2 lg:columns-3 gap-6">
           {TESTIMONIALS.map((item, i) => (
-            <motion.figure
-              key={item.name}
-              custom={i}
-              variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-8%' }}
-              className="group break-inside-avoid mb-6 rounded-3xl border border-white/10 bg-white/[0.03] p-6 md:p-8 hover:border-accent/30 transition-colors duration-300"
-            >
-              <Quote className="w-7 h-7 text-accent/80 mb-5" aria-hidden="true" />
-              <blockquote
-                className={`text-neutral-300 leading-relaxed group-hover:text-white transition-colors duration-300 ${
-                  item.featured ? 'text-lg md:text-xl' : 'text-base'
-                }`}
-              >
-                “{item.quote}”
-              </blockquote>
-              <figcaption className="mt-6 flex items-center gap-3">
-                <span
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-accent/25 bg-accent/10 text-accent font-display font-bold text-sm"
-                  aria-hidden="true"
-                >
-                  {initials(item.name)}
-                </span>
-                <span className="block">
-                  <span className="block text-white font-display font-bold">{item.name}</span>
-                  <span className="block text-sm text-neutral-500">{item.role}</span>
-                </span>
-              </figcaption>
-            </motion.figure>
+            <TestimonialCard key={item.name} item={item} index={i} />
           ))}
         </div>
       </div>

@@ -515,6 +515,8 @@
     "kicker": "Recommendations",
     "title": "What people say",
     "subtitle": "Words from clients and colleagues, as written on LinkedIn.",
-    "cta": "See all on LinkedIn"
+    "cta": "See all on LinkedIn",
+    "readMore": "Read full recommendation",
+    "showLess": "Show less"
   }
 }

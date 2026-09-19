@@ -533,6 +533,8 @@
     "kicker": "Soovitused",
     "title": "Mida inimesed ütlevad",
     "subtitle": "Klientide ja kolleegide sõnad LinkedInist, originaalis.",
-    "cta": "Vaata kõiki LinkedInis"
+    "cta": "Vaata kõiki LinkedInis",
+    "readMore": "Loe tervikuna",
+    "showLess": "Näita vähem"
   }
 }
