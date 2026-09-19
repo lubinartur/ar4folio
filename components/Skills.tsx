@@ -48,7 +48,7 @@ const CursorIcon: React.FC<{ className?: string }> = ({ className = "w-16 h-16" 
   <img 
     src="/icons/cursor-color.svg" 
     alt="Cursor AI" 
-    className={className}
+    className={`${className} brightness-0 invert`}
   />
 );
 
@@ -68,16 +68,13 @@ const AIStudioIcon: React.FC<{ className?: string }> = ({ className = "w-16 h-16
   />
 );
 
-// Компонент иконки Midjourney
-const MidjourneyIcon: React.FC<{ className?: string }> = ({ className = "w-16 h-16" }) => (
-  <svg className={className} viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g style={{ fill: "none", stroke: "currentColor", strokeWidth: "18px", strokeLinecap: "round", strokeLinejoin: "round" }}>
-      <path d="m 174,794 c 20,0 50,-42 85,-48 c 20,0 35,42 85,48 c 35,0 50,-42 85,-42 c 35,0 50,42 85,42 c 35,0 50,-42 85,-42 c 35,0 50,42 85,42 c 35,0 50,-42 85,-42 c 35,0 50,42 85,42"/>
-      <path d="M 242.4,752.2 L 219.5,708.4 L 809.5,670.4 C 763.1,712.6 703.5,746.8 643.2,774.8"/>
-      <path d="M 454.4,300.4 C 554.8,331.1 695.2,479.4 743,638.8 C 716.8,628.5 697.2,618 660.4,627.4 C 624.8,497.9 561.1,374.2 454.4,300.4 z"/>
-      <path d="M 267.7,229.5 C 396.3,284.5 572.7,437.6 605.1,641.5 C 456.8,581.7 343.9,613.6 265.3,662.1 C 385.2,509.7 331.4,336.4 267.7,229.5 z"/>
-    </g>
-  </svg>
+// Компонент иконки Claude
+const ClaudeIcon: React.FC<{ className?: string }> = ({ className = "w-16 h-16" }) => (
+  <img
+    src="/icons/claude-color.svg"
+    alt="Claude"
+    className={className}
+  />
 );
 
 // Иконки для инструментов
@@ -88,7 +85,7 @@ const getToolIcon = (name: string): React.ReactNode => {
     "Illustrator": <IllustratorIcon className="w-16 h-16 md:w-20 md:h-20" />,
     "Cursor AI": <CursorIcon className="w-16 h-16 md:w-20 md:h-20" />,
     "ChatGPT": <ChatGPTIcon className="w-16 h-16 md:w-20 md:h-20" />,
-    "Midjourney": <MidjourneyIcon className="w-16 h-16 md:w-20 md:h-20" />,
+    "Claude": <ClaudeIcon className="w-16 h-16 md:w-20 md:h-20" />,
     "AI Studio": <AIStudioIcon className="w-16 h-16 md:w-20 md:h-20" />,
     "Sketch": <span className="text-5xl md:text-6xl">💎</span>,
     "Adobe XD": <span className="text-5xl md:text-6xl">⚫</span>,
@@ -108,7 +105,7 @@ export const Skills: React.FC = () => {
   const aiTools: Skill[] = [
     { name: "ChatGPT", descriptor: t("skills.chatgptDescriptor"), icon: getToolIcon("ChatGPT"), group: 'ai' },
     { name: "Cursor AI", descriptor: t("skills.cursorDescriptor"), icon: getToolIcon("Cursor AI"), group: 'ai' },
-    { name: "Midjourney", descriptor: t("skills.midjourneyDescriptor"), icon: getToolIcon("Midjourney"), group: 'ai' },
+    { name: "Claude", descriptor: t("skills.claudeDescriptor"), icon: getToolIcon("Claude"), group: 'ai' },
   ];
   
   const sectionRef = useRef<HTMLElement>(null);

@@ -425,14 +425,14 @@
     "ux": "UX / Product: Fintech UX, liitumisvood, krediidistsenaariumid, juhtpaneelid.",
     "product": "Süsteemid: Disainisüsteemid, komponendid, tokenid, juhised.",
     "systems": "Tööriistad: Figma, Photoshop, Illustrator, prototüüpimine.",
-    "tools": "AI-workflow: Cursor, ChatGPT, Midjourney — analüüsiks, ideedeks ja protsesside kiirendamiseks.",
+    "tools": "AI-workflow: Cursor, ChatGPT, Claude — analüüsiks, ideedeks ja protsesside kiirendamiseks.",
     "devCollab": "Tihe koostöö arendajate ja osapooltega.",
     "figmaDescriptor": "Tooteliidesed, skaleeritavad süsteemid ja interaktiivsed prototüübid.",
     "photoshopDescriptor": "Visuaalsete materjalide loomine ja pilditöötlus.",
     "illustratorDescriptor": "Süsteemne ikoonograafia ja brändi visuaalne keel.",
     "cursorDescriptor": "Tooteloogika prototüüpimine ja koodipõhine lahenduste uurimine.",
     "chatgptDescriptor": "Tooteanalüüs, UX-sisu struktuur ja töövoogude tugi.",
-    "midjourneyDescriptor": "Visuaalsete kontseptsioonide kiire uurimine tootearenduse ideatsiooniks."
+    "claudeDescriptor": "Põhjalik analüüs, tekstid ja töötavate prototüüpide loomine koodis."
   },
   "contact": {
     "heroTitle": "Teeme midagi\nmõtestatut.",

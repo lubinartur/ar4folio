@@ -407,14 +407,14 @@
     "ux": "UX / Product: Fintech UX, onboarding, credit scenarios, dashboards.",
     "product": "Systems: Design systems, components, tokens, guidelines.",
     "systems": "Tools: Figma, Photoshop, Illustrator, prototyping.",
-    "tools": "AI-workflow: Cursor, ChatGPT, Midjourney — for analysis, ideas, and process acceleration.",
+    "tools": "AI-workflow: Cursor, ChatGPT, Claude — for analysis, ideas, and process acceleration.",
     "devCollab": "Close collaboration with developers and stakeholders.",
     "figmaDescriptor": "Product interfaces, scalable systems, and interactive prototypes.",
     "photoshopDescriptor": "Visual asset production and image refinement.",
     "illustratorDescriptor": "Systematic iconography and brand visual language.",
     "cursorDescriptor": "Product logic prototyping and code-driven exploration.",
     "chatgptDescriptor": "Product analysis, UX content structure, and workflow support.",
-    "midjourneyDescriptor": "Rapid visual concept exploration for product ideation."
+    "claudeDescriptor": "Long-form analysis, writing, and building working prototypes in code."
   },
   "contact": {
     "heroTitle": "Let’s build a product\nthat works.",
