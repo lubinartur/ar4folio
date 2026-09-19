@@ -135,6 +135,12 @@ export const PROJECTS: Project[] = [
         description:
           "Финальное усиление доверия и причин выбора бренда.",
         image: "/images/paskolos/paskolos-terms-and-apply-steps-desktop.webp"
+      },
+      {
+        title: "Business financing landing (Desktop)",
+        description: "Full-page landing for business financing.",
+        image: "/images/paskolos/paskolos-business-financing-desktop.webp",
+        tall: true
       }
     ],
     featured: true

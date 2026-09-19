@@ -16,6 +16,7 @@ export interface Project {
     title: string;
     description: string;
     image: string;
+    tall?: boolean; // full-page capture: shown at its natural width instead of a 16:10 crop
   }>;
   featured: boolean;
   year: string;

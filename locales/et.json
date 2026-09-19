@@ -254,13 +254,13 @@
       "listDescription": "Krediidiliin, tarbimislaen ja ärifinantseerimine: läbipaistvad tingimused ja kindlad otsused.",
       "cta": "Vaata projekti",
       "challenge": "Tootesse sisenedes oli kasutajatel keeruline kiiresti mõista krediidiliini ja tarbimislaenu erinevust ning otsustada, milline lahendus neile sobib.\nKillustatud pakkumised ja tingimused muutsid valiku ebamääraseks ning vähendasid usaldust juba enne taotlemise algust.",
-      "solution": "Eraldasin kaks toodet nii struktuuri kui ka stsenaariumide tasandil, luues selged sissepääsud krediidiliinile ja tarbimislaenule.\nPeamised lahendused hõlmasid:\n• eraldi hero-ekraanid selgete pakkumistega iga toote jaoks,\n• visuaalne ja tekstiline selgitus toodete erinevustest,\n• lihtsustatud kolmeastmeline tarbimislaenu taotlemise voog,\n• kalkulaatori ja limiidi valiku kasutamine krediidiliini peamise sisenemispunktina.",
+      "solution": "Eraldasin kaks toodet nii struktuuri kui ka stsenaariumide tasandil, luues selged sissepääsud krediidiliinile ja tarbimislaenule.\nPeamised lahendused hõlmasid:\n• eraldi hero-ekraanid selgete pakkumistega iga toote jaoks,\n• visuaalne ja tekstiline selgitus toodete erinevustest,\n• lihtsustatud kolmeastmeline tarbimislaenu taotlemise voog,\n• kalkulaatori ja limiidi valiku kasutamine krediidiliini peamise sisenemispunktina,\n• ärifinantseerimise maandumisleht samal struktuuril, kalkulaatoril ja kolmeastmelisel teel.",
       "result": "Eraldi maandumislehed krediidiliinile ja tarbimislaenule, limiidi valik, kolmeastmeline taotlusteekond ja soovitatud tooted, kujundatud töölauale ja mobiilile.",
       "impact": [
         {
-          "value": "2",
+          "value": "3",
           "label": "Sisenemispunkti",
-          "description": "Krediidiliin ja tarbimislaen, kummalgi oma maandumisleht."
+          "description": "Krediidiliin, tarbimislaen ja ärifinantseerimine, kummalgi oma maandumisleht."
         },
         {
           "value": "3",
@@ -305,6 +305,10 @@
         "screen8": {
           "title": "Miks Paskolos (töölaud)",
           "description": "Paskolos.lt peamised eelised lühikeste kaartide ruudustikuna, allpool partnerite logod."
+        },
+        "screen9": {
+          "title": "Ärifinantseerimise maandumisleht (töölaud)",
+          "description": "Kogu lehe pikkune ärifinantseerimise maandumisleht samas süsteemis: kalkulaatoriga avaplokk, neli lühikest eelisekaarti, soovitatud tooted (krediidiliin ja hüpoteeklaen), kasuliku infoga vahekaardid, kolmeastmeline tee ärilaenuni, blogi, KKK ja tagasihelistamise vorm."
         }
       },
       "impactTitle": "Põhifaktid",

@@ -253,13 +253,13 @@
       "listDescription": "Credit line, consumer loan and business financing pages, focused on transparent terms and confident decisions.",
       "cta": "View case",
       "challenge": "At the product entry point, users struggled to quickly understand the difference between a credit line and a consumer loan, as well as determine which option suited their needs.\nFragmented offers and conditions turned the selection process into guesswork, reducing trust before the application even began.",
-      "solution": "I separated the two products at both structural and scenario levels, creating clear entry points for the credit line and consumer loan.\nKey decisions included:\n• dedicated hero sections with clear offers for each product,\n• visual and textual explanation of product differences,\n• a simplified three-step flow for consumer loan applications,\n• using the calculator and limit selection as the primary entry point for the credit line.",
+      "solution": "I separated the two products at both structural and scenario levels, creating clear entry points for the credit line and consumer loan.\nKey decisions included:\n• dedicated hero sections with clear offers for each product,\n• visual and textual explanation of product differences,\n• a simplified three-step flow for consumer loan applications,\n• using the calculator and limit selection as the primary entry point for the credit line,\n• a business financing landing that reuses the same structure, calculator and three-step path.",
       "result": "Separate landing pages for the credit line and the consumer loan, a limit selector, a three-step application path and recommended products, designed for desktop and mobile.",
       "impact": [
         {
-          "value": "2",
+          "value": "3",
           "label": "Entry points",
-          "description": "Credit line and consumer loan, each with its own landing."
+          "description": "Credit line, consumer loan and business financing, each with its own landing."
         },
         {
           "value": "3",
@@ -304,6 +304,10 @@
         "screen8": {
           "title": "Why Paskolos (Desktop)",
           "description": "The key benefits of Paskolos.lt as a grid of short cards, with partner logos underneath."
+        },
+        "screen9": {
+          "title": "Business financing landing (Desktop)",
+          "description": "A full-page landing for business financing on the same system: a hero with a loan calculator, four short benefit cards, recommended products (a credit line and a mortgage loan), tabs with useful information, a three-step path to a business loan, a blog, an FAQ and a callback form."
         }
       },
       "impactTitle": "Key facts",

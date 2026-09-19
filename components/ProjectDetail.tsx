@@ -409,7 +409,17 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack, o
                   whileHover={{ scale: 1.01, borderColor: "rgba(255, 107, 53, 0.3)" }}
                   transition={{ duration: 0.3 }}
                 >
-                  {screen.image ? (
+                  {screen.image && screen.tall ? (
+                    <div className="mx-auto w-full max-w-[520px] overflow-hidden rounded-3xl border border-white/10 bg-[#111]">
+                      <img
+                        src={screen.image}
+                        alt={screen.title}
+                        loading="lazy"
+                        decoding="async"
+                        className="block h-auto w-full"
+                      />
+                    </div>
+                  ) : screen.image ? (
                     <motion.div
                       whileHover={{ scale: 1.015 }}
                       transition={{ duration: 0.45, ease: "easeOut" }}
