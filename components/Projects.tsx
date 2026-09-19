@@ -46,9 +46,10 @@ const ProjectCard: React.FC<{ project: Project; index: number; totalProjects: nu
         offset: ["start end", "end start"]
     });
 
-    // Parallax effect for the image (stronger, but still "expensive" + safe).
-    // Use more scale so edges never reveal (no "empty" frame).
-    const imageY = useTransform(scrollYProgress, [0, 1], ["-18%", "18%"]);
+    // Parallax effect for the image.
+    // Headroom at scale s is (s - 1) / 2 of the image height (10% at 1.2), so the shift
+    // must stay below that or an empty band appears and the artwork looks pushed to one edge.
+    const imageY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
     const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.2, 1.26, 1.2]);
     const textY = useTransform(scrollYProgress, [0, 1], ["30px", "-30px"]);
     
