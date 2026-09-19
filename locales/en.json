@@ -464,7 +464,8 @@
       "projectStageRequired": "Please select a project stage",
       "descriptionRequired": "Please describe your project",
       "submitError": "Failed to submit. Please try again."
-    }
+    },
+    "or": "or"
   },
   "assistant": {
     "title": "Assistant",

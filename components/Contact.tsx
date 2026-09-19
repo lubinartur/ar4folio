@@ -6,7 +6,7 @@ import { useI18n } from '../services/i18n';
 import { ContactRequestModal } from './ContactRequestModal';
 
 export const Contact: React.FC = () => {
-  const { t } = useI18n();
+  const { t, language } = useI18n();
   const sectionRef = useRef<HTMLElement>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -45,7 +45,12 @@ export const Contact: React.FC = () => {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
             <motion.h2
-              className="mx-auto w-full max-w-[34ch] sm:max-w-[36ch] px-4 sm:px-0 text-center text-[clamp(40px,9.5vw,56px)] sm:text-7xl md:text-7xl lg:text-9xl font-display font-bold tracking-tighter mb-10 md:mb-12 leading-[0.9] text-pretty break-words [hyphens:auto] [overflow-wrap:break-word]"
+              className={`mx-auto w-full max-w-[34ch] sm:max-w-[36ch] px-4 sm:px-0 text-center font-display font-bold tracking-tighter mb-10 md:mb-12 leading-[0.9] text-pretty break-words [overflow-wrap:break-word] ${
+                language === 'ru'
+                  ? // Cyrillic runs wider: smaller steps keep "Сделаем продукт," on one line (no syllable hyphenation)
+                    'text-[clamp(28px,8vw,44px)] sm:text-5xl md:text-6xl lg:text-8xl [hyphens:manual]'
+                  : 'text-[clamp(40px,9.5vw,56px)] sm:text-7xl md:text-7xl lg:text-9xl [hyphens:auto]'
+              }`}
               whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.3 }}
             >
@@ -143,7 +148,7 @@ export const Contact: React.FC = () => {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
             className="mt-6 text-center"
           >
-            <p className="text-neutral-500 text-sm mb-3">or</p>
+            <p className="text-neutral-500 text-sm mb-3">{t("contact.or")}</p>
             <motion.a
               href={`mailto:${SOCIAL_LINKS.email}`}
               className="inline-flex items-center gap-2 text-neutral-400 hover:text-accent transition-colors text-sm"

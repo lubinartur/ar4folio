@@ -482,7 +482,8 @@
       "submitError": "Saatmine ebaõnnestus. Palun proovi uuesti."
     },
     "email": "Email",
-    "footerInfo": "Artur Lubin — Product & UX Designer"
+    "footerInfo": "Artur Lubin — Product & UX Designer",
+    "or": "või"
   },
   "chat": {
     "welcome": "Tere! Olen sinu portfoolio assistent. Võin rääkida finantstehnoloogia kogemusest, projektidest või disainiprotsessist. Kuidas saan aidata?",
