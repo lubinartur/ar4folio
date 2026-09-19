@@ -497,22 +497,22 @@
       "toursearch": {
         "title": "TourSearch",
         "role": "Creator, Product & UX Designer",
-        "description": "A B2B search workspace for Baltic travel agencies: one query across several tour operators, with results compared side by side."
+        "description": "B2B workspace for Baltic travel agencies: one search across several tour operators."
       },
       "travelAtelier": {
         "title": "Travel Atelier",
         "role": "Product & UX Designer",
-        "description": "A website for a boutique agency offering individually planned trips, with destinations, how it works and partner sections."
+        "description": "Website for a boutique agency offering individually planned trips."
       },
       "tartupak": {
         "title": "Tartupak",
         "role": "Product & UX Designer",
-        "description": "A website for an Estonian corrugated packaging manufacturer, with a product catalogue and a FEFCO code library in three languages."
+        "description": "Website for an Estonian packaging manufacturer, with a catalogue and FEFCO library."
       },
       "ascape": {
         "title": "A-SCAPE",
         "role": "Product & UX Designer",
-        "description": "An online store for aquariums, terrariums and plants in Estonia, with live payments, product search and customer accounts, in three languages."
+        "description": "Online store for aquariums, terrariums and plants, with live payments and accounts."
       }
     }
   },

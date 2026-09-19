@@ -515,22 +515,22 @@
       "toursearch": {
         "title": "TourSearch",
         "role": "Creator, Product & UX Designer",
-        "description": "B2B otsingukeskkond Balti reisibüroodele: üks päring mitme reisikorraldaja peale ja tulemuste kõrvutamine."
+        "description": "B2B-otsing Balti reisibüroodele: üks päring mitme reisikorraldaja peale."
       },
       "travelAtelier": {
         "title": "Travel Atelier",
         "role": "Product & UX Designer",
-        "description": "Butiikagentuuri veebileht individuaalselt planeeritud reisidele: sihtkohad, kuidas see töötab ja partnerid."
+        "description": "Butiikagentuuri veebileht individuaalselt planeeritud reisidele."
       },
       "tartupak": {
         "title": "Tartupak",
         "role": "Product & UX Designer",
-        "description": "Eesti lainepapipakendite tootja veebileht: tootekataloog ja FEFCO koodide raamatukogu kolmes keeles."
+        "description": "Eesti pakenditootja veebileht: kataloog ja FEFCO koodide raamatukogu."
       },
       "ascape": {
         "title": "A-SCAPE",
         "role": "Product & UX Designer",
-        "description": "Akvaariumide, terraariumide ja taimede e-pood Eestis: töötavad maksed, tootepäring ja kliendikontod, kolmes keeles."
+        "description": "Akvaariumide, terraariumide ja taimede e-pood: töötavad maksed ja kliendikontod."
       }
     }
   },

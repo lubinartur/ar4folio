@@ -64,10 +64,11 @@ export const MoreWork: React.FC = () => {
                 <p className="text-base text-white/60 mb-3 group-hover:text-white transition-colors duration-300">
                   {t(`${base}.role`)}
                 </p>
-                <p className="text-neutral-400 leading-relaxed text-base mb-4 group-hover:text-neutral-300 transition-colors duration-300">
+                <p className="text-neutral-400 leading-relaxed text-base mb-4 line-clamp-3 group-hover:text-neutral-300 transition-colors duration-300">
                   {t(`${base}.description`)}
                 </p>
 
+                <div className="mt-auto pt-1">
                 {item.href ? (
                   <span className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white group-hover:text-accent transition-colors">
                     {t('moreWork.visitSite')}
@@ -79,10 +80,11 @@ export const MoreWork: React.FC = () => {
                     {t('moreWork.inDevelopment')}
                   </span>
                 )}
+                </div>
               </>
             );
 
-            const cls = 'group flex flex-col items-start';
+            const cls = 'group flex flex-col items-start h-full';
             return (
               <motion.article
                 key={item.key}
@@ -91,6 +93,7 @@ export const MoreWork: React.FC = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: '-10%' }}
+                className="h-full"
               >
                 {item.href ? (
                   <a
