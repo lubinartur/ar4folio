@@ -50,7 +50,7 @@
     "name": "Artur Lubin",
     "title": "Senior Product & UX Designer",
     "subtitle": "Designing fintech products and complex interfaces with real-world constraints.",
-    "badgeExperience": "9+ years",
+    "badgeExperience": "10+ years",
     "tagline": "Product & UX Designer",
     "role": "Senior Product & UX Designer",
     "roles": {
@@ -82,17 +82,17 @@
         "label": "Delivered products"
       },
       "yearsDevelopment": {
-        "value": "9+",
+        "value": "10+",
         "label": "Years in product design"
       },
       "clientsWorldwide": {
-        "value": "5",
+        "value": "14",
         "label": "Clients across fintech & SaaS"
       }
     }
   },
   "about": {
-    "heroStatement": "I’m a Senior Product & UX Designer\nwith 9+ years of experience in digital products.",
+    "heroStatement": "I’m a Senior Product & UX Designer\nwith 10+ years of experience in digital products.",
     "shortSpecialization": "I specialise in fintech and high-responsibility systems: credit products, payments, personal accounts, and analytical interfaces.\n\nMy focus is user scenario architecture, product logic, and decision transparency.",
     "experienceTitle": "Experience",
     "experienceDescription": "Professional background and product-focused growth in complex digital systems.",
@@ -132,7 +132,7 @@
     "experienceTitle": "Experience",
     "experienceLead": "A timeline of professional growth and technical evolution.",
     "experienceColumnTitle": "Experience",
-    "experienceSummary": "9+ years in UX/UI, product, and graphic design.",
+    "experienceSummary": "10+ years in UX/UI, product, and graphic design.",
     "coreSkillsTitle": "Core skills",
     "toolsTitle": "Tools",
     "languagesTitle": "Languages",
@@ -485,5 +485,30 @@
     "en": "English",
     "ru": "Russian",
     "et": "Estonian"
+  },
+  "moreWork": {
+    "kicker": "More work",
+    "title": "More selected work",
+    "subtitle": "Recent products and websites beyond fintech.",
+    "visitSite": "Visit site",
+    "inDevelopment": "In development",
+    "opensInNewTab": "opens in a new tab",
+    "items": {
+      "toursearch": {
+        "title": "TourSearch",
+        "role": "Creator, Product & UX Designer",
+        "description": "A B2B search workspace for Baltic travel agencies: one query across several tour operators, with results compared side by side."
+      },
+      "travelAtelier": {
+        "title": "Travel Atelier",
+        "role": "Product & UX Designer",
+        "description": "A website for a boutique agency offering individually planned trips, with destinations, how it works and partner sections."
+      },
+      "tartupak": {
+        "title": "Tartupak",
+        "role": "Product & UX Designer",
+        "description": "A website for an Estonian corrugated packaging manufacturer, with a product catalogue and a FEFCO code library in three languages."
+      }
+    }
   }
 }

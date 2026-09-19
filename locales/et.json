@@ -48,9 +48,9 @@
   },
   "hero": {
     "name": "Artur Lubin",
-    "title": "Senior Product & UX disainer 9+ aasta kogemusega digitaalsete toodete disainis",
+    "title": "Senior Product & UX disainer 10+ aasta kogemusega digitaalsete toodete disainis",
     "subtitle": "Disainin keerukaid finantssüsteeme: krediidiliinid, isiklikud kontod, liitumisvood ja juhtpaneelid. Töötan tootelogika, piirangute ja reaalsete kasutajastsenaariumidega.",
-    "badgeExperience": "9+ aastat",
+    "badgeExperience": "10+ aastat",
     "tagline": "Product & UX Designer",
     "role": "Senior Product & UX Designer",
     "roles": {
@@ -83,17 +83,17 @@
         "label": "Lõpetatud projekte"
       },
       "yearsDevelopment": {
-        "value": "9+",
+        "value": "10+",
         "label": "Aastat arenduses"
       },
       "clientsWorldwide": {
-        "value": "5",
+        "value": "14",
         "label": "Klienti üle maailma"
       }
     }
   },
   "about": {
-    "heroStatement": "Olen Senior Product & UX Designer\n9+ aasta kogemusega digitaalsete toodete disainis.",
+    "heroStatement": "Olen Senior Product & UX Designer\n10+ aasta kogemusega digitaalsete toodete disainis.",
     "shortSpecialization": "Fintech ja kõrge vastutusega süsteemid: laenud, maksetstsenaariumid, isiklikud kontod ja analüütilised liidesed.\n\nKeskendun kasutajastsenaariumite arhitektuurile, tootelogikale ja lahenduste läbipaistvusele.",
     "experienceTitle": "Kogemus",
     "experienceDescription": "Professionaalne teekond ja tootepõhise mõtteviisi areng keerukates digisüsteemides.",
@@ -133,7 +133,7 @@
     "experienceTitle": "Kogemus",
     "experienceLead": "Professionaalse arengu ja tehnilise kasvu ajajoon.",
     "experienceColumnTitle": "Üldine kogemus",
-    "experienceSummary": "Üle 9 aasta UX/UI, toote- ja graafilises disainis.",
+    "experienceSummary": "Üle 10 aasta UX/UI, toote- ja graafilises disainis.",
     "coreSkillsTitle": "Põhioskused",
     "toolsTitle": "Tööriistad",
     "languagesTitle": "Keeled",
@@ -503,5 +503,30 @@
     "en": "Inglise",
     "ru": "Vene",
     "et": "Eesti"
+  },
+  "moreWork": {
+    "kicker": "Veel töid",
+    "title": "Veel valitud töid",
+    "subtitle": "Hiljutised tooted ja veebilehed väljaspool fintechi.",
+    "visitSite": "Ava leht",
+    "inDevelopment": "Arenduses",
+    "opensInNewTab": "avaneb uuel vahekaardil",
+    "items": {
+      "toursearch": {
+        "title": "TourSearch",
+        "role": "Creator, Product & UX Designer",
+        "description": "B2B otsingukeskkond Balti reisibüroodele: üks päring mitme reisikorraldaja peale ja tulemuste kõrvutamine."
+      },
+      "travelAtelier": {
+        "title": "Travel Atelier",
+        "role": "Product & UX Designer",
+        "description": "Butiikagentuuri veebileht individuaalselt planeeritud reisidele: sihtkohad, kuidas see töötab ja partnerid."
+      },
+      "tartupak": {
+        "title": "Tartupak",
+        "role": "Product & UX Designer",
+        "description": "Eesti lainepapipakendite tootja veebileht: tootekataloog ja FEFCO koodide raamatukogu kolmes keeles."
+      }
+    }
   }
 }

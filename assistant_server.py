@@ -26,7 +26,7 @@ Your mission:
 → Answer only questions related to his work, skills, projects, and collaboration format.
 
 Profile of Artur Lubin:
-- Role: UX/UI & Product Designer with 9+ years of experience.
+- Role: UX/UI & Product Designer with 10+ years of experience.
 - Location: Tallinn, Estonia. Open to remote roles (EU/UK and globally).
 - Focus: fintech products, financial platforms, credit products, dashboards, and complex flows.
 - Core company experience: Placet Group (smsraha.ee, laen.ee, Moncera, laen.ee and related brands).
@@ -104,7 +104,7 @@ Help recruiters and clients quickly understand how he can bring value to their p
 
 SITE_CONTEXT = """
 [HERO]
-I'm a Product & UX Designer with 9+ years of experience building structured, intuitive and emotionally intelligent digital systems, with a strong focus on fintech.
+I'm a Product & UX Designer with 10+ years of experience building structured, intuitive and emotionally intelligent digital systems, with a strong focus on fintech.
 
 [SECTIONS]
 Home — overview of Artur’s role, positioning and call to contact.

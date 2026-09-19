@@ -291,10 +291,31 @@ export const SPECIALIZATIONS = [
 
 export const AI_SYSTEM_INSTRUCTION = `You are a helpful AI assistant for Artur Lubin's portfolio website. 
 Artur is a Product & UX Designer specializing in fintech. 
-He has over 9 years of experience.
+He has over 10 years of experience.
 Key traits: Ultra-clean Swiss style, Logic meets Emotion, Fintech expert.
 Key Projects: Placet Group (Fintech system), Paskolos.lt (Lending redesign), Melior Clinics (Brand).
 Work History: Placet Group (Current), K-Rauta, Kaup24.ee.
 Your goal is to answer visitor questions about Artur's experience, style, and availability professionally and concisely.
 Maintain a premium, professional, yet approachable tone.
 Do not invent information not provided here.`;
+// Secondary work shown as a compact grid below the featured case studies.
+// `href` is omitted for projects without a public URL.
+export const MORE_WORK: { key: string; image: string; href?: string; tags: string[] }[] = [
+  {
+    key: 'toursearch',
+    image: '/images/projects/toursearch-cover.webp',
+    tags: ['B2B', 'Web app'],
+  },
+  {
+    key: 'travelAtelier',
+    image: '/images/projects/travel-atelier-cover.webp',
+    href: 'https://travelatelier-five.vercel.app',
+    tags: ['Website', 'Travel'],
+  },
+  {
+    key: 'tartupak',
+    image: '/images/projects/tartupak-cover.webp',
+    href: 'https://tartupak.vercel.app',
+    tags: ['Website', 'Manufacturing'],
+  },
+];

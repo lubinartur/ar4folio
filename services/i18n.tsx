@@ -24,9 +24,9 @@ const dictionaries: Record<Language, Messages> = {
 const STORAGE_KEY = "portfolio-lang";
 
 const META_DESCRIPTION: Record<Language, string> = {
-  en: "Senior Product & UX Designer with 9+ years of experience in fintech: credit products, payments, personal accounts and analytical interfaces.",
-  ru: "Senior Product & UX Designer с опытом более 9 лет в финтехе: кредитные продукты, платежи, личные кабинеты и аналитические интерфейсы.",
-  et: "Senior Product & UX Designer üle 9-aastase kogemusega fintechis: krediiditooted, maksed, isiklikud kontod ja analüütilised liidesed.",
+  en: "Senior Product & UX Designer with 10+ years of experience in fintech: credit products, payments, personal accounts and analytical interfaces.",
+  ru: "Senior Product & UX Designer с опытом более 10 лет в финтехе: кредитные продукты, платежи, личные кабинеты и аналитические интерфейсы.",
+  et: "Senior Product & UX Designer üle 10-aastase kogemusega fintechis: krediiditooted, maksed, isiklikud kontod ja analüütilised liidesed.",
 };
 
 const getStoredLanguage = (): Language => {

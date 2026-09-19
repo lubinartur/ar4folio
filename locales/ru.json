@@ -50,7 +50,7 @@
     "name": "Артур Лубин",
     "title": "Senior Product & UX Designer",
     "subtitle": "Проектирую финтех-продукты и сложные интерфейсы с реальными ограничениями.",
-    "badgeExperience": "9+ лет",
+    "badgeExperience": "10+ лет",
     "tagline": "Product & UX Designer",
     "location": "Таллин, Эстония",
     "role": "Senior Product & UX Designer",
@@ -82,17 +82,17 @@
         "label": "реализованных продуктов"
       },
       "yearsDevelopment": {
-        "value": "9+",
+        "value": "10+",
         "label": "лет в продуктовом дизайне"
       },
       "clientsWorldwide": {
-        "value": "5",
+        "value": "14",
         "label": "клиентов в финтехе и SaaS"
       }
     }
   },
   "about": {
-    "heroStatement": "Я — Senior Product & UX Designer\nс 9+ годами опыта в цифровых продуктах.",
+    "heroStatement": "Я — Senior Product & UX Designer\nс 10+ годами опыта в цифровых продуктах.",
     "shortSpecialization": "Специализируюсь на финтехе и системах с высокой ответственностью: кредиты, платёжные сценарии, личные кабинеты, аналитические интерфейсы.\n\nФокус — архитектура пользовательских сценариев, продуктовая логика и прозрачность решений.",
     "experienceTitle": "Опыт",
     "experienceDescription": "Профессиональный путь и развитие продуктового подхода в сложных цифровых системах.",
@@ -132,7 +132,7 @@
     "experienceTitle": "Опыт",
     "experienceLead": "Хронология профессионального роста и развития компетенций.",
     "experienceColumnTitle": "Общий опыт",
-    "experienceSummary": "Более 9 лет в UX/UI, продуктовом и графическом дизайне.",
+    "experienceSummary": "Более 10 лет в UX/UI, продуктовом и графическом дизайне.",
     "coreSkillsTitle": "Ключевые навыки",
     "toolsTitle": "Инструменты",
     "languagesTitle": "Языки",
@@ -524,5 +524,30 @@
     "en": "Английский",
     "ru": "Русский",
     "et": "Эстонский"
+  },
+  "moreWork": {
+    "kicker": "Ещё работы",
+    "title": "Ещё избранные работы",
+    "subtitle": "Недавние продукты и сайты за пределами финтеха.",
+    "visitSite": "Открыть сайт",
+    "inDevelopment": "В разработке",
+    "opensInNewTab": "откроется в новой вкладке",
+    "items": {
+      "toursearch": {
+        "title": "TourSearch",
+        "role": "Creator, Product & UX Designer",
+        "description": "B2B-рабочее место для поиска туров для туристических агентств Балтии: один запрос сразу по нескольким туроператорам и сравнение результатов рядом."
+      },
+      "travelAtelier": {
+        "title": "Travel Atelier",
+        "role": "Product & UX Designer",
+        "description": "Сайт бутикового агентства индивидуальных путешествий: направления, как это работает и партнёры."
+      },
+      "tartupak": {
+        "title": "Tartupak",
+        "role": "Product & UX Designer",
+        "description": "Сайт эстонского производителя гофрированной упаковки: каталог продукции и библиотека кодов FEFCO на трёх языках."
+      }
+    }
   }
 }
