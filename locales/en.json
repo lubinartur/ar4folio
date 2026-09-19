@@ -510,5 +510,11 @@
         "description": "A website for an Estonian corrugated packaging manufacturer, with a product catalogue and a FEFCO code library in three languages."
       }
     }
+  },
+  "testimonials": {
+    "kicker": "Recommendations",
+    "title": "What people say",
+    "subtitle": "Words from clients and colleagues, as written on LinkedIn.",
+    "cta": "See all on LinkedIn"
   }
 }

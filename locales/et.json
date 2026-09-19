@@ -528,5 +528,11 @@
         "description": "Eesti lainepapipakendite tootja veebileht: tootekataloog ja FEFCO koodide raamatukogu kolmes keeles."
       }
     }
+  },
+  "testimonials": {
+    "kicker": "Soovitused",
+    "title": "Mida inimesed ütlevad",
+    "subtitle": "Klientide ja kolleegide sõnad LinkedInist, originaalis.",
+    "cta": "Vaata kõiki LinkedInis"
   }
 }

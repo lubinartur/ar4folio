@@ -319,3 +319,36 @@ export const MORE_WORK: { key: string; image: string; href?: string; tags: strin
     tags: ['Website', 'Manufacturing'],
   },
 ];
+
+// Recommendations from LinkedIn (quoted verbatim; not translated, to stay authentic).
+export const TESTIMONIALS: { name: string; role: string; quote: string; featured?: boolean }[] = [
+  {
+    name: 'Ruslan Gogin',
+    role: 'Founder, PadelTourn',
+    quote:
+      'I take immense pleasure in recommending Mr. Artur Lubin for his outstanding abilities as a UX/UI, Graphic, and Product Designer. Artur was a crucial part of our processes for five years, and his impact was nothing short of transformative.',
+    featured: true,
+  },
+  {
+    name: 'Vitali Zahharov',
+    role: 'Product Designer',
+    quote:
+      'We worked with him on several big projects and I found him a top-notch professional. He is great communicator, his attention to the details it’s just a whole new level to me, he has also a great visual eyes, and he feels the trends, he knows how to create a great product and bring value to any company.',
+  },
+  {
+    name: 'Aleksandr Kents',
+    role: 'CEO, Melior Clinics · Co-Founder, Synmea',
+    quote: 'Professional of design. Good work, creative thinking. Was working together for many years.',
+  },
+  {
+    name: 'Maris Kivi',
+    role: 'Business Development & Marketing Leadership',
+    quote: 'Artur is easy to work with, takes responsibilities and works out the best solutions in any situation given.',
+  },
+  {
+    name: 'Dimitri Nasennik',
+    role: 'Digital Marketing',
+    quote:
+      'I can recommend Artur, as professional UI/UX designer. We worked together for different project and his vision always was unique. I like the style of his work and his attitude.',
+  },
+];

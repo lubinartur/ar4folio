@@ -3,6 +3,7 @@ import { useI18n } from './services/i18n';
 import { Hero } from './components/Hero';
 import { Projects } from './components/Projects';
 import { MoreWork } from './components/MoreWork';
+import { Testimonials } from './components/Testimonials';
 const ProjectDetail = lazy(() => import('./components/ProjectDetail').then((m) => ({ default: m.ProjectDetail })));
 import { AboutIntro } from './components/AboutIntro';
 import { Skills } from './components/Skills';
@@ -403,6 +404,7 @@ const App: React.FC = () => {
                     <Skills />
                     <Experience />
                     <Services />
+                    <Testimonials />
                     <Contact />
                 </motion.main>
                 )}
